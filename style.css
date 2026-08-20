@@ -1,12 +1,12 @@
 /* =========================================================
    SIDDHARTH.DEV
    PREMIUM DEVELOPER PORTFOLIO
-   PART 2 — style.css
+   STYLE SYSTEM
 ========================================================= */
 
 
 /* =========================================================
-   01. ROOT / DESIGN SYSTEM
+   01. ROOT
 ========================================================= */
 
 :root {
@@ -17,71 +17,70 @@
     --bg-soft:
         #080b10;
 
-    --surface:
-        #0a0e13;
+    --panel:
+        rgba(12, 16, 22, 0.82);
 
-    --surface-2:
-        #0d1218;
-
-    --surface-3:
-        #111820;
+    --panel-solid:
+        #0c1016;
 
     --border:
-        rgba(255,255,255,.075);
+        rgba(255, 255, 255, 0.09);
 
-    --border-strong:
-        rgba(255,255,255,.13);
+    --border-green:
+        rgba(0, 255, 156, 0.28);
+
+    --text:
+        #f2f6f5;
+
+    --muted:
+        #8d98a5;
+
+    --muted-2:
+        #65707d;
 
     --green:
         #00ff9c;
 
     --green-soft:
-        #5affbd;
+        rgba(0, 255, 156, 0.12);
 
-    --cyan:
-        #00d9ff;
+    --blue:
+        #62a8ff;
 
     --purple:
-        #a78bfa;
+        #b98cff;
+
+    --pink:
+        #ff6fae;
 
     --yellow:
-        #f5d76e;
+        #ffd166;
 
     --red:
-        #ff5f56;
+        #ff5f57;
 
     --orange:
-        #ffbd2e;
+        #ffb86b;
 
-    --text:
-        #f1f5f9;
+    --max-width:
+        1240px;
 
-    --text-soft:
-        #b4beca;
-
-    --text-dim:
-        #697583;
-
-    --text-dark:
-        #3e4854;
-
-    --danger:
-        #ff5f56;
-
-    --warning:
-        #ffbd2e;
-
-    --shadow:
-        0 25px 80px rgba(0,0,0,.35);
-
-    --shadow-green:
-        0 20px 70px rgba(0,255,156,.07);
+    --header-height:
+        76px;
 
     --radius:
         18px;
 
+    --mono:
+        "JetBrains Mono",
+        monospace;
+
+    --sans:
+        "Inter",
+        sans-serif;
+
     --transition:
-        .3s cubic-bezier(.2,.8,.2,1);
+        260ms cubic-bezier(.2,.7,.2,1);
 
 }
 
@@ -91,37 +90,18 @@
 ========================================================= */
 
 * {
-
-    margin:
-        0;
-
-    padding:
-        0;
-
-    box-sizing:
-        border-box;
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
 html {
-
-    scroll-behavior:
-        smooth;
-
-    scroll-padding-top:
-        90px;
-
+    scroll-behavior: smooth;
 }
 
 
 body {
-
-    min-height:
-        100vh;
-
-    overflow-x:
-        hidden;
 
     background:
         var(--bg);
@@ -130,216 +110,76 @@ body {
         var(--text);
 
     font-family:
-        "Space Grotesk",
-        sans-serif;
+        var(--sans);
 
-    -webkit-font-smoothing:
-        antialiased;
+    overflow-x:
+        hidden;
+
+    line-height:
+        1.6;
 
 }
 
 
-body::selection {
-
-    background:
-        rgba(0,255,156,.25);
-
-    color:
-        #fff;
-
+body.page-ready {
+    overflow-x: hidden;
 }
 
 
 a {
-
-    color:
-        inherit;
-
-    text-decoration:
-        none;
-
+    color: inherit;
+    text-decoration: none;
 }
 
 
 button,
-a {
-
-    -webkit-tap-highlight-color:
-        transparent;
-
+input {
+    font: inherit;
 }
 
 
 button {
-
-    font-family:
-        inherit;
-
+    border: 0;
 }
 
 
 img {
-
-    max-width:
-        100%;
-
-    display:
-        block;
-
+    max-width: 100%;
+    display: block;
 }
 
 
-ul {
-
-    list-style:
-        none;
-
-}
-
-
-/* =========================================================
-   03. GLOBAL SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar {
-
-    width:
-        7px;
-
-}
-
-
-::-webkit-scrollbar-track {
+::selection {
 
     background:
-        #05070a;
-
-}
-
-
-::-webkit-scrollbar-thumb {
-
-    background:
-        #1d2833;
-
-    border-radius:
-        99px;
-
-}
-
-
-::-webkit-scrollbar-thumb:hover {
-
-    background:
-        #2b3947;
-
-}
-
-
-/* =========================================================
-   04. PAGE LOADER
-========================================================= */
-
-.page-loader {
-
-    position:
-        fixed;
-
-    inset:
-        0;
-
-    z-index:
-        99999;
-
-    display:
-        grid;
-
-    place-items:
-        center;
-
-    background:
-        #040608;
-
-    transition:
-        opacity .6s ease,
-        visibility .6s ease;
-
-}
-
-
-.page-loader.loaded {
-
-    opacity:
-        0;
-
-    visibility:
-        hidden;
-
-}
-
-
-.loader-terminal {
-
-    width:
-        min(430px, 86%);
-
-    padding:
-        26px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        13px;
-
-    background:
-        #080b0f;
-
-    box-shadow:
-        var(--shadow);
-
-    font:
-        11px/2
-        "Fira Code",
-        monospace;
-
-}
-
-
-.loader-line {
-
-    color:
-        var(--text-soft);
-
-}
-
-
-.loader-line + .loader-line {
-
-    margin-top:
-        5px;
-
-}
-
-
-.terminal-green {
-
-    color:
         var(--green);
 
-}
-
-
-.terminal-success {
-
     color:
-        var(--green);
+        #00140c;
 
 }
 
 
 /* =========================================================
-   05. BACKGROUND SYSTEM
+   03. GLOBAL CONTAINER
+========================================================= */
+
+.container {
+
+    width:
+        min(
+            calc(100% - 40px),
+            var(--max-width)
+        );
+
+    margin:
+        0 auto;
+
+}
+
+
+/* =========================================================
+   04. BACKGROUND
 ========================================================= */
 
 .background-grid {
@@ -359,18 +199,18 @@ ul {
     background-image:
 
         linear-gradient(
-            rgba(255,255,255,.025) 1px,
+            rgba(255,255,255,.028) 1px,
             transparent 1px
         ),
 
         linear-gradient(
             90deg,
-            rgba(255,255,255,.025) 1px,
+            rgba(255,255,255,.028) 1px,
             transparent 1px
         );
 
     background-size:
-        55px 55px;
+        50px 50px;
 
     mask-image:
         linear-gradient(
@@ -382,65 +222,248 @@ ul {
 }
 
 
-.background-glow {
+.background-grid::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0,255,156,.07),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 35%,
+            rgba(98,168,255,.05),
+            transparent 28%
+        );
+
+}
+
+
+.noise-layer {
 
     position:
         fixed;
 
-    width:
-        480px;
-
-    height:
-        480px;
-
-    border-radius:
-        50%;
+    inset:
+        0;
 
     pointer-events:
         none;
 
     z-index:
-        -4;
-
-    filter:
-        blur(100px);
+        100;
 
     opacity:
-        .09;
+        .025;
 
-}
-
-
-.glow-one {
-
-    top:
-        -200px;
-
-    left:
-        -180px;
-
-    background:
-        var(--green);
-
-}
-
-
-.glow-two {
-
-    right:
-        -220px;
-
-    top:
-        45%;
-
-    background:
-        var(--cyan);
+    background-image:
+        url(
+            "data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E"
+        );
 
 }
 
 
 /* =========================================================
-   06. HEADER
+   05. LOADER
+========================================================= */
+
+.page-loader {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        9999;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    background:
+        #030507;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+
+}
+
+
+.page-loader.loaded {
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+}
+
+
+.loader-terminal {
+
+    width:
+        min(520px, 88vw);
+
+    border:
+        1px solid var(--border-green);
+
+    background:
+        #080b0e;
+
+    box-shadow:
+        0 0 80px rgba(0,255,156,.08);
+
+}
+
+
+.loader-top {
+
+    height:
+        38px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    padding:
+        0 14px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.loader-top span {
+
+    width:
+        9px;
+
+    height:
+        9px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--muted-2);
+
+}
+
+
+.loader-top span:nth-child(1) {
+    background: var(--red);
+}
+
+.loader-top span:nth-child(2) {
+    background: var(--yellow);
+}
+
+.loader-top span:nth-child(3) {
+    background: var(--green);
+}
+
+
+.loader-content {
+
+    padding:
+        28px;
+
+    font:
+        13px/2 var(--mono);
+
+}
+
+
+.loader-line {
+    color: #b8c2cc;
+}
+
+
+.green {
+    color:
+        var(--green);
+}
+
+
+.cursor-blink {
+
+    animation:
+        blink .8s steps(1) infinite;
+
+}
+
+
+@keyframes blink {
+
+    50% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   06. CURSOR
+========================================================= */
+
+.cursor-dot {
+
+    position:
+        fixed;
+
+    width:
+        5px;
+
+    height:
+        5px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 14px var(--green);
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index:
+        10000;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* =========================================================
+   07. HEADER
 ========================================================= */
 
 .site-header {
@@ -457,14 +480,19 @@ ul {
     width:
         100%;
 
-    z-index:
-        1000;
+    height:
+        var(--header-height);
 
-    padding:
-        14px 0;
+    z-index:
+        500;
+
+    border-bottom:
+        1px solid transparent;
 
     transition:
-        var(--transition);
+        background var(--transition),
+        border-color var(--transition),
+        backdrop-filter var(--transition);
 
 }
 
@@ -472,27 +500,21 @@ ul {
 .site-header.scrolled {
 
     background:
-        rgba(5,7,10,.78);
+        rgba(5,7,10,.76);
+
+    border-color:
+        var(--border);
 
     backdrop-filter:
-        blur(18px);
-
-    border-bottom:
-        1px solid var(--border);
+        blur(20px);
 
 }
 
 
-.navbar {
-
-    width:
-        min(1250px, 92%);
+.nav-container {
 
     height:
-        60px;
-
-    margin:
-        auto;
+        100%;
 
     display:
         flex;
@@ -504,34 +526,17 @@ ul {
         space-between;
 
     gap:
-        25px;
-
-    padding:
-        0 16px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        15px;
-
-    background:
-        rgba(8,11,15,.7);
-
-    backdrop-filter:
-        blur(18px);
+        30px;
 
 }
 
 
-/* =========================================================
-   07. BRAND
-========================================================= */
+/* BRAND */
 
 .brand {
 
     display:
-        flex;
+        inline-flex;
 
     align-items:
         center;
@@ -539,86 +544,34 @@ ul {
     gap:
         10px;
 
-    flex-shrink:
-        0;
+    font:
+        700 15px var(--mono);
+
+    letter-spacing:
+        -.5px;
 
 }
 
 
 .brand-symbol {
 
-    width:
-        35px;
-
-    height:
-        35px;
-
-    display:
-        grid;
-
-    place-items:
-        center;
-
-    border:
-        1px solid rgba(0,255,156,.25);
-
-    border-radius:
-        9px;
-
     color:
         var(--green);
 
-    background:
-        rgba(0,255,156,.035);
-
     font:
-        11px
-        "Fira Code",
-        monospace;
-
-    box-shadow:
-        inset 0 0 18px
-        rgba(0,255,156,.025);
-
-}
-
-
-.brand-text {
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        2px;
-
-}
-
-
-.brand-name {
-
-    color:
-        #f4f7fa;
-
-    font:
-        600 13px
-        "Fira Code",
-        monospace;
+        700 18px var(--mono);
 
 }
 
 
 .brand-name span {
-
-    color:
-        var(--green);
-
+    color: var(--green);
 }
 
 
-.brand-status {
+/* NAV */
+
+.desktop-nav {
 
     display:
         flex;
@@ -628,59 +581,6 @@ ul {
 
     gap:
         5px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        .6px;
-
-}
-
-
-.status-dot {
-
-    width:
-        5px;
-
-    height:
-        5px;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--green);
-
-    box-shadow:
-        0 0 9px
-        rgba(0,255,156,.8);
-
-}
-
-
-/* =========================================================
-   08. DESKTOP NAV
-========================================================= */
-
-.nav-links {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        4px;
 
 }
 
@@ -691,37 +591,33 @@ ul {
         relative;
 
     padding:
-        9px 10px;
+        8px 12px;
 
     color:
-        var(--text-dim);
+        var(--muted);
 
     font:
-        9px
-        "Fira Code",
-        monospace;
+        500 11px var(--mono);
 
     transition:
-        var(--transition);
+        color var(--transition);
 
 }
 
 
-.nav-link::before {
-
-    content:
-        "> ";
+.nav-link span {
 
     color:
-        transparent;
+        var(--muted-2);
 
-    transition:
-        var(--transition);
+    margin-right:
+        5px;
 
 }
 
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.active-nav {
 
     color:
         var(--text);
@@ -729,27 +625,38 @@ ul {
 }
 
 
-.nav-link.active-nav {
+.nav-link.active-nav::after {
 
-    color:
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        12px;
+
+    right:
+        12px;
+
+    bottom:
+        0;
+
+    height:
+        1px;
+
+    background:
         var(--green);
+
+    box-shadow:
+        0 0 10px var(--green);
 
 }
 
 
-.nav-link.active-nav::before {
+/* STATUS */
 
-    color:
-        var(--green);
-
-}
-
-
-/* =========================================================
-   09. NAV ACTION
-========================================================= */
-
-.nav-action {
+.header-status {
 
     display:
         flex;
@@ -760,58 +667,49 @@ ul {
     gap:
         8px;
 
-    padding:
-        9px 12px;
-
-    border:
-        1px solid
-        rgba(0,255,156,.18);
-
-    border-radius:
-        9px;
+    font:
+        10px var(--mono);
 
     color:
+        var(--muted);
+
+}
+
+
+.status-dot {
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    border-radius:
+        50%;
+
+    background:
         var(--green);
 
-    background:
-        rgba(0,255,156,.025);
+    box-shadow:
+        0 0 10px var(--green);
 
-    font:
-        9px
-        "Fira Code",
-        monospace;
-
-    transition:
-        var(--transition);
+    animation:
+        statusPulse 2s infinite;
 
 }
 
 
-.nav-action:hover {
+@keyframes statusPulse {
 
-    border-color:
-        rgba(0,255,156,.38);
-
-    background:
-        rgba(0,255,156,.055);
-
-    transform:
-        translateY(-2px);
+    50% {
+        opacity: .35;
+        transform: scale(.8);
+    }
 
 }
 
 
-.nav-action i {
-
-    font-size:
-        8px;
-
-}
-
-
-/* =========================================================
-   10. MOBILE NAV
-========================================================= */
+/* MOBILE */
 
 .mobile-menu-button {
 
@@ -819,25 +717,22 @@ ul {
         none;
 
     width:
-        38px;
+        42px;
 
     height:
-        38px;
+        42px;
 
     border:
         1px solid var(--border);
 
-    border-radius:
-        9px;
-
     background:
-        transparent;
+        var(--panel);
 
     color:
-        var(--text-soft);
+        var(--text);
 
-    cursor:
-        pointer;
+    border-radius:
+        10px;
 
 }
 
@@ -851,27 +746,16 @@ ul {
 
 
 /* =========================================================
-   11. COMMON SECTION
+   08. SECTION
 ========================================================= */
 
 .section {
 
-    width:
-        min(1200px, 92%);
-
-    margin:
-        auto;
+    position:
+        relative;
 
     padding:
-        105px 0;
-
-}
-
-
-.section-compact {
-
-    padding-top:
-        70px;
+        125px 0;
 
 }
 
@@ -882,56 +766,27 @@ ul {
         flex;
 
     align-items:
-        flex-end;
-
-    justify-content:
-        space-between;
+        flex-start;
 
     gap:
-        40px;
+        25px;
 
     margin-bottom:
-        45px;
+        70px;
 
 }
 
 
-.section-number {
+.section-index {
 
-    margin-bottom:
-        10px;
+    min-width:
+        48px;
 
-    color:
-        var(--green);
+    padding-top:
+        7px;
 
     font:
-        9px
-        "Fira Code",
-        monospace;
-
-    letter-spacing:
-        1px;
-
-}
-
-
-.section-title {
-
-    font:
-        600 clamp(38px,5vw,58px)
-        "Space Grotesk",
-        sans-serif;
-
-    line-height:
-        .95;
-
-    letter-spacing:
-        -2.5px;
-
-}
-
-
-.section-title span {
+        600 12px var(--mono);
 
     color:
         var(--green);
@@ -939,24 +794,53 @@ ul {
 }
 
 
-.section-description {
+.section-kicker {
+
+    display:
+        block;
+
+    margin-bottom:
+        12px;
+
+    color:
+        var(--muted-2);
+
+    font:
+        600 11px var(--mono);
+
+    letter-spacing:
+        1.5px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.section-heading h2 {
 
     max-width:
-        430px;
-
-    color:
-        var(--text-dim);
+        700px;
 
     font:
-        11px/1.8
-        "Fira Code",
-        monospace;
+        700 clamp(32px, 5vw, 58px)/1.05 var(--sans);
+
+    letter-spacing:
+        -2px;
+
+}
+
+
+.section-heading h2 span {
+
+    color:
+        var(--green);
 
 }
 
 
 /* =========================================================
-   12. HERO
+   09. HERO
 ========================================================= */
 
 .hero {
@@ -964,25 +848,22 @@ ul {
     min-height:
         100vh;
 
-    padding-top:
-        160px;
+    min-height:
+        100svh;
 
-    padding-bottom:
-        50px;
+    padding-top:
+        150px;
 
     display:
         flex;
 
-    flex-direction:
-        column;
-
-    justify-content:
+    align-items:
         center;
 
 }
 
 
-.hero-container {
+.hero-grid {
 
     display:
         grid;
@@ -990,49 +871,16 @@ ul {
     grid-template-columns:
         1fr 1fr;
 
-    align-items:
-        center;
-
     gap:
-        70px;
-
-}
-
-
-.hero-content {
-
-    min-width:
-        0;
-
-}
-
-
-.hero-terminal-label {
-
-    display:
-        flex;
+        80px;
 
     align-items:
         center;
 
-    gap:
-        7px;
-
-    margin-bottom:
-        17px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        10px
-        "Fira Code",
-        monospace;
-
 }
 
 
-.hero-status {
+.terminal-label {
 
     display:
         inline-flex;
@@ -1044,224 +892,47 @@ ul {
         8px;
 
     margin-bottom:
-        19px;
-
-    padding:
-        6px 9px;
-
-    border:
-        1px solid rgba(0,255,156,.12);
-
-    border-radius:
-        999px;
+        25px;
 
     color:
-        var(--green);
-
-    background:
-        rgba(0,255,156,.025);
+        var(--muted);
 
     font:
-        8px
-        "Fira Code",
-        monospace;
+        12px var(--mono);
+
+}
+
+
+.eyebrow {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    margin-bottom:
+        22px;
+
+    color:
+        var(--muted);
+
+    font:
+        11px var(--mono);
 
     text-transform:
         uppercase;
 
     letter-spacing:
-        .6px;
+        1px;
 
 }
 
 
-.hero-title {
-
-    max-width:
-        700px;
-
-    font:
-        600 clamp(55px,7vw,92px)
-        "Space Grotesk",
-        sans-serif;
-
-    line-height:
-        .9;
-
-    letter-spacing:
-        -5px;
-
-}
-
-
-.hero-title-small {
-
-    display:
-        block;
-
-    margin-bottom:
-        9px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        400 clamp(17px,2vw,23px)
-        "Fira Code",
-        monospace;
-
-    letter-spacing:
-        -1px;
-
-}
-
-
-.hero-title-highlight {
-
-    display:
-        block;
-
-    color:
-        #f2f6f9;
-
-}
-
-
-.hero-title-highlight span {
-
-    color:
-        var(--green);
-
-}
-
-
-.hero-role {
-
-    margin-top:
-        22px;
-
-    color:
-        var(--text-soft);
-
-    font:
-        12px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.code-bracket {
-
-    color:
-        var(--green);
-
-}
-
-
-.role-divider {
-
-    margin:
-        0 5px;
-
-    color:
-        var(--text-dark);
-
-}
-
-
-.hero-description {
-
-    max-width:
-        610px;
-
-    margin-top:
-        22px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        12px/1.9
-        "Fira Code",
-        monospace;
-
-}
-
-
-/* =========================================================
-   13. HERO TERMINAL
-========================================================= */
-
-.hero-terminal {
-
-    width:
-        min(100%, 550px);
-
-    margin-top:
-        28px;
-
-    overflow:
-        hidden;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        13px;
-
-    background:
-        rgba(7,10,14,.88);
-
-    box-shadow:
-        var(--shadow-green);
-
-}
-
-
-.terminal-header {
-
-    height:
-        39px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    padding:
-        0 12px;
-
-    border-bottom:
-        1px solid var(--border);
-
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.terminal-dots {
-
-    display:
-        flex;
-
-    gap:
-        6px;
-
-}
-
-
-.terminal-dots span {
+.pulse-dot {
 
     width:
         7px;
@@ -1272,82 +943,77 @@ ul {
     border-radius:
         50%;
 
-}
-
-
-.terminal-dots span:nth-child(1) {
-
-    background:
-        var(--red);
-
-}
-
-
-.terminal-dots span:nth-child(2) {
-
-    background:
-        var(--orange);
-
-}
-
-
-.terminal-dots span:nth-child(3) {
-
     background:
         var(--green);
 
+    box-shadow:
+        0 0 15px var(--green);
+
 }
 
 
-.terminal-body {
+.hero h1 {
 
-    padding:
-        17px;
+    max-width:
+        780px;
 
     font:
-        10px/1.9
-        "Fira Code",
-        monospace;
+        800 clamp(48px, 7vw, 90px)/.98 var(--sans);
+
+    letter-spacing:
+        -5px;
 
 }
 
 
-.terminal-row {
+.gradient-text {
 
     display:
-        flex;
+        inline;
 
-    flex-wrap:
-        wrap;
+    background:
+        linear-gradient(
+            120deg,
+            var(--green),
+            #8dffd2 45%,
+            #6da9ff
+        );
 
-    gap:
-        8px;
+    -webkit-background-clip:
+        text;
 
-}
-
-
-.terminal-command {
-
-    color:
-        var(--cyan);
-
-}
-
-
-.terminal-output {
-
-    padding:
-        0 0 8px 16px;
+    background-clip:
+        text;
 
     color:
-        var(--text-soft);
+        transparent;
 
 }
 
 
-/* =========================================================
-   14. HERO ACTIONS
-========================================================= */
+.hero-description {
+
+    max-width:
+        620px;
+
+    margin-top:
+        30px;
+
+    color:
+        var(--muted);
+
+    font:
+        400 15px/1.9 var(--sans);
+
+}
+
+
+.hero-description strong {
+    color: var(--text);
+}
+
+
+/* ACTIONS */
 
 .hero-actions {
 
@@ -1358,15 +1024,18 @@ ul {
         wrap;
 
     gap:
-        10px;
+        12px;
 
     margin-top:
-        27px;
+        35px;
 
 }
 
 
 .btn {
+
+    min-height:
+        48px;
 
     display:
         inline-flex;
@@ -1378,521 +1047,103 @@ ul {
         center;
 
     gap:
-        9px;
-
-    min-height:
-        43px;
+        10px;
 
     padding:
-        0 17px;
-
-    border:
-        1px solid var(--border);
+        0 19px;
 
     border-radius:
-        9px;
+        10px;
 
     font:
-        9px
-        "Fira Code",
-        monospace;
-
-    cursor:
-        pointer;
+        600 11px var(--mono);
 
     transition:
-        var(--transition);
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition);
+
+}
+
+
+.btn:hover {
+
+    transform:
+        translateY(-3px);
 
 }
 
 
 .btn-primary {
 
-    color:
-        #00150c;
-
-    border-color:
-        var(--green);
-
     background:
         var(--green);
 
-    font-weight:
-        600;
+    color:
+        #00130b;
+
+    box-shadow:
+        0 10px 30px rgba(0,255,156,.12);
 
 }
 
 
 .btn-primary:hover {
 
-    transform:
-        translateY(-3px);
-
-    box-shadow:
-        0 12px 30px
-        rgba(0,255,156,.15);
+    background:
+        #43ffb8;
 
 }
 
 
 .btn-secondary {
 
-    color:
-        var(--text-soft);
+    border:
+        1px solid var(--border);
 
     background:
-        rgba(255,255,255,.02);
+        rgba(255,255,255,.025);
+
+    color:
+        var(--text);
 
 }
 
 
 .btn-secondary:hover {
 
-    color:
-        var(--green);
-
     border-color:
-        rgba(0,255,156,.25);
-
-    transform:
-        translateY(-3px);
+        var(--border-green);
 
 }
 
 
-/* =========================================================
-   15. HERO CODE WINDOW
-========================================================= */
+/* META */
 
-.hero-visual {
-
-    position:
-        relative;
-
-    min-width:
-        0;
-
-}
-
-
-.code-window {
-
-    position:
-        relative;
-
-    overflow:
-        hidden;
-
-    border:
-        1px solid var(--border-strong);
-
-    border-radius:
-        18px;
-
-    background:
-        #080b0f;
-
-    box-shadow:
-        0 35px 100px rgba(0,0,0,.4);
-
-    transform:
-        perspective(1000px)
-        rotateY(-3deg)
-        rotateX(2deg);
-
-    transition:
-        transform .6s ease;
-
-}
-
-
-.code-window:hover {
-
-    transform:
-        perspective(1000px)
-        rotateY(0)
-        rotateX(0)
-        translateY(-5px);
-
-}
-
-
-.code-window-header {
-
-    height:
-        47px;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr auto 1fr;
-
-    align-items:
-        center;
-
-    padding:
-        0 15px;
-
-    border-bottom:
-        1px solid var(--border);
-
-}
-
-
-.code-window-dots {
+.hero-meta {
 
     display:
         flex;
+
+    flex-wrap:
+        wrap;
 
     gap:
-        6px;
-
-}
-
-
-.code-window-dots span {
-
-    width:
-        8px;
-
-    height:
-        8px;
-
-    border-radius:
-        50%;
-
-}
-
-
-.code-window-dots span:nth-child(1) {
-
-    background:
-        var(--red);
-
-}
-
-
-.code-window-dots span:nth-child(2) {
-
-    background:
-        var(--orange);
-
-}
-
-
-.code-window-dots span:nth-child(3) {
-
-    background:
-        var(--green);
-
-}
-
-
-.code-window-file {
-
-    color:
-        var(--text-dim);
-
-    font:
-        9px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.code-window-icons {
-
-    display:
-        flex;
-
-    justify-content:
-        flex-end;
-
-    color:
-        var(--text-dark);
-
-    font-size:
-        10px;
-
-}
-
-
-.code-editor {
-
-    min-height:
-        405px;
-
-    padding:
-        25px 20px;
-
-    overflow:
-        hidden;
-
-    font:
-        10px/2.15
-        "Fira Code",
-        monospace;
-
-}
-
-
-.code-line {
-
-    display:
-        flex;
-
-    min-height:
-        21px;
-
-    white-space:
-        pre;
-
-}
-
-
-.line-number {
-
-    width:
         30px;
 
-    flex-shrink:
-        0;
+    margin-top:
+        55px;
 
-    color:
-        #313b46;
-
-    user-select:
-        none;
-
-}
-
-
-.code-indent {
-
-    color:
-        transparent;
-
-}
-
-
-.code-purple {
-
-    color:
-        var(--purple);
-
-}
-
-
-.code-cyan {
-
-    color:
-        var(--cyan);
-
-}
-
-
-.code-yellow {
-
-    color:
-        var(--yellow);
-
-}
-
-
-.code-white {
-
-    color:
-        #dce3ea;
-
-}
-
-
-.code-window-footer {
-
-    height:
-        35px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
+    padding-top:
         20px;
 
-    padding:
-        0 14px;
-
     border-top:
         1px solid var(--border);
 
-    color:
-        var(--text-dark);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
 }
 
 
-.code-window-footer span:first-child {
-
-    color:
-        var(--green);
-
-}
-
-
-/* =========================================================
-   16. FLOATING TAGS
-========================================================= */
-
-.floating-tag {
-
-    position:
-        absolute;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        7px;
-
-    padding:
-        8px 11px;
-
-    border:
-        1px solid var(--border-strong);
-
-    border-radius:
-        9px;
-
-    background:
-        rgba(8,11,15,.82);
-
-    backdrop-filter:
-        blur(12px);
-
-    color:
-        var(--text-soft);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.25);
-
-}
-
-
-.floating-tag i {
-
-    color:
-        var(--green);
-
-}
-
-
-.tag-ai {
-
-    top:
-        9%;
-
-    right:
-        -5%;
-
-    animation:
-        floatTag 4s ease-in-out infinite;
-
-}
-
-
-.tag-flutter {
-
-    left:
-        -7%;
-
-    bottom:
-        18%;
-
-    animation:
-        floatTag 5s ease-in-out infinite reverse;
-
-}
-
-
-.tag-code {
-
-    right:
-        8%;
-
-    bottom:
-        -5%;
-
-    animation:
-        floatTag 4.5s ease-in-out infinite;
-
-}
-
-
-@keyframes floatTag {
-
-    0%,
-    100% {
-
-        transform:
-            translateY(0);
-
-    }
-
-    50% {
-
-        transform:
-            translateY(-10px);
-
-    }
-
-}
-
-
-/* =========================================================
-   17. HERO STATS
-========================================================= */
-
-.hero-stats {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    margin-top:
-        65px;
-
-    border-top:
-        1px solid var(--border);
-
-    border-bottom:
-        1px solid var(--border);
-
-}
-
-
-.hero-stat {
-
-    min-height:
-        85px;
+.hero-meta > div {
 
     display:
         flex;
@@ -1900,83 +1151,45 @@ ul {
     flex-direction:
         column;
 
-    justify-content:
-        center;
-
-    padding:
-        0 20px;
-
-    border-right:
-        1px solid var(--border);
+    gap:
+        4px;
 
 }
 
 
-.hero-stat:last-child {
-
-    border-right:
-        0;
-
-}
-
-
-.stat-value {
+.meta-label {
 
     color:
-        var(--text);
+        var(--muted-2);
 
     font:
-        600 18px
-        "Space Grotesk",
-        sans-serif;
-
-}
-
-
-.stat-label {
-
-    margin-top:
-        3px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-    text-transform:
-        uppercase;
+        9px var(--mono);
 
     letter-spacing:
-        .7px;
+        1px;
+
+}
+
+
+.meta-value {
+
+    color:
+        var(--muted);
+
+    font:
+        11px var(--mono);
 
 }
 
 
 /* =========================================================
-   18. ABOUT
+   10. TERMINAL
 ========================================================= */
 
-.about-grid {
+.terminal-window {
 
-    display:
-        grid;
-
-    grid-template-columns:
-        .75fr 1.25fr;
-
-    gap:
-        45px;
-
-    align-items:
-        start;
-
-}
-
-
-.about-profile {
+    position:
+        relative;
 
     overflow:
         hidden;
@@ -1985,15 +1198,58 @@ ul {
         1px solid var(--border);
 
     border-radius:
-        15px;
+        16px;
 
     background:
-        rgba(255,255,255,.012);
+        rgba(8,11,15,.9);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.35);
 
 }
 
 
-.profile-terminal-header {
+.terminal-window::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(0,255,156,.07),
+            transparent 35%
+        );
+
+    pointer-events:
+        none;
+
+}
+
+
+.code-window {
+
+    transform:
+        perspective(1000px)
+        rotateY(-3deg)
+        rotateX(2deg);
+
+    transition:
+        transform .5s ease;
+
+}
+
+
+.terminal-bar {
+
+    position:
+        relative;
 
     height:
         42px;
@@ -2008,45 +1264,251 @@ ul {
         space-between;
 
     padding:
-        0 13px;
+        0 14px;
 
     border-bottom:
         1px solid var(--border);
 
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
+    background:
+        rgba(255,255,255,.025);
 
 }
 
 
-.profile-terminal-header .terminal-dots {
+.terminal-controls {
 
     display:
         flex;
 
-}
-
-
-.profile-body {
-
-    padding:
-        28px;
+    gap:
+        7px;
 
 }
 
 
-.profile-avatar {
+.terminal-controls span {
 
     width:
-        76px;
+        9px;
 
     height:
-        76px;
+        9px;
+
+    border-radius:
+        50%;
+
+}
+
+
+.red {
+    background: var(--red);
+}
+
+
+.yellow {
+    color: var(--yellow);
+}
+
+
+.terminal-controls .yellow {
+    background: var(--yellow);
+}
+
+
+.green-dot {
+    background: var(--green);
+}
+
+
+.terminal-title {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    color:
+        var(--muted-2);
+
+    font:
+        10px var(--mono);
+
+}
+
+
+.terminal-action {
+
+    color:
+        var(--muted-2);
+
+}
+
+
+.code-body {
+
+    padding:
+        25px 20px;
+
+    font:
+        12px/2 var(--mono);
+
+}
+
+
+.line {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        35px auto;
+
+    min-height:
+        24px;
+
+}
+
+
+.line-number {
+
+    color:
+        #303843;
+
+    user-select:
+        none;
+
+}
+
+
+.indent {
+
+    padding-left:
+        22px;
+
+}
+
+
+.double {
+
+    padding-left:
+        44px;
+
+}
+
+
+.purple {
+    color: var(--purple);
+}
+
+
+.blue {
+    color: var(--blue);
+}
+
+
+.pink {
+    color: var(--pink);
+}
+
+
+.string {
+    color: var(--green);
+}
+
+
+.white {
+    color: #dce4e9;
+}
+
+
+.line .yellow {
+    color: var(--yellow);
+}
+
+
+.terminal-prompt {
+
+    margin-top:
+        22px;
+
+    padding-top:
+        15px;
+
+    border-top:
+        1px solid var(--border);
+
+    color:
+        var(--muted);
+
+}
+
+
+.terminal-prompt .blue {
+    color:
+        var(--blue);
+}
+
+
+/* FLOATING CARD */
+
+.floating-system-card {
+
+    position:
+        absolute;
+
+    right:
+        -30px;
+
+    bottom:
+        -35px;
+
+    width:
+        235px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        38px 1fr;
+
+    gap:
+        5px 12px;
+
+    padding:
+        14px;
+
+    border:
+        1px solid var(--border-green);
+
+    border-radius:
+        13px;
+
+    background:
+        rgba(8,12,14,.92);
+
+    backdrop-filter:
+        blur(15px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.4);
+
+}
+
+
+.system-icon {
+
+    grid-row:
+        span 2;
+
+    width:
+        38px;
+
+    height:
+        38px;
 
     display:
         grid;
@@ -2054,65 +1516,93 @@ ul {
     place-items:
         center;
 
-    margin-bottom:
-        18px;
-
     border:
-        1px solid
-        rgba(0,255,156,.25);
+        1px solid var(--border-green);
 
     border-radius:
-        18px;
+        9px;
+
+    color:
+        var(--green);
+
+}
+
+
+.floating-system-card span {
+
+    color:
+        var(--muted-2);
+
+    font:
+        8px var(--mono);
+
+}
+
+
+.floating-system-card strong {
+
+    font:
+        600 10px var(--mono);
+
+    color:
+        var(--green);
+
+}
+
+
+.system-bars {
+
+    grid-column:
+        2;
+
+    display:
+        flex;
+
+    gap:
+        3px;
+
+}
+
+
+.system-bars i {
+
+    width:
+        16px;
+
+    height:
+        3px;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(0,255,156,.1),
-            rgba(0,217,255,.04)
-        );
-
-    color:
         var(--green);
 
-    font:
-        600 21px
-        "Fira Code",
-        monospace;
-
-    box-shadow:
-        inset 0 0 30px
-        rgba(0,255,156,.025);
+    opacity:
+        .35;
 
 }
 
 
-.profile-name {
-
-    font:
-        600 22px
-        "Space Grotesk",
-        sans-serif;
-
+.system-bars i:nth-child(-n+4) {
+    opacity: 1;
 }
 
 
-.profile-role {
+/* =========================================================
+   11. SCROLL INDICATOR
+========================================================= */
 
-    margin-top:
-        5px;
+.scroll-indicator {
 
-    color:
-        var(--green);
+    position:
+        absolute;
 
-    font:
-        9px
-        "Fira Code",
-        monospace;
+    left:
+        50%;
 
-}
+    bottom:
+        28px;
 
-
-.profile-location {
+    transform:
+        translateX(-50%);
 
     display:
         flex;
@@ -2121,23 +1611,98 @@ ul {
         center;
 
     gap:
-        6px;
-
-    margin-top:
-        15px;
+        12px;
 
     color:
-        var(--text-dim);
+        var(--muted-2);
 
     font:
-        9px
-        "Fira Code",
-        monospace;
+        9px var(--mono);
+
+    letter-spacing:
+        1px;
 
 }
 
 
-.profile-location i {
+.scroll-indicator i {
+
+    color:
+        var(--green);
+
+    animation:
+        scrollBounce 1.5s infinite;
+
+}
+
+
+@keyframes scrollBounce {
+
+    50% {
+        transform: translateY(5px);
+    }
+
+}
+
+
+/* =========================================================
+   12. ABOUT
+========================================================= */
+
+.about-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.2fr .8fr;
+
+    gap:
+        80px;
+
+}
+
+
+.about-main {
+
+    max-width:
+        700px;
+
+}
+
+
+.about-main p {
+
+    margin-bottom:
+        20px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        15px;
+
+    line-height:
+        1.9;
+
+}
+
+
+.about-main .large-text {
+
+    color:
+        var(--text);
+
+    font:
+        500 clamp(22px,3vw,32px)/1.45 var(--sans);
+
+    letter-spacing:
+        -.8px;
+
+}
+
+
+.highlight {
 
     color:
         var(--green);
@@ -2145,21 +1710,218 @@ ul {
 }
 
 
-.profile-divider {
+.about-main strong {
+    color: var(--text);
+}
 
-    height:
-        1px;
 
-    margin:
-        25px 0 16px;
+.signature {
 
-    background:
-        var(--border);
+    margin-top:
+        45px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
 
 }
 
 
-.profile-info-row {
+.signature span {
+
+    color:
+        var(--text);
+
+    font:
+        600 22px var(--mono);
+
+}
+
+
+.signature small {
+
+    color:
+        var(--muted-2);
+
+    font:
+        10px var(--mono);
+
+}
+
+
+.about-side {
+
+    display:
+        grid;
+
+    gap:
+        15px;
+
+}
+
+
+.info-card {
+
+    position:
+        relative;
+
+    padding:
+        25px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    background:
+        rgba(255,255,255,.018);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+
+}
+
+
+.info-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        var(--border-green);
+
+}
+
+
+.info-number {
+
+    position:
+        absolute;
+
+    top:
+        18px;
+
+    right:
+        20px;
+
+    color:
+        var(--muted-2);
+
+    font:
+        10px var(--mono);
+
+}
+
+
+.info-card > i {
+
+    color:
+        var(--green);
+
+    font-size:
+        22px;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.info-card h3 {
+
+    margin-bottom:
+        8px;
+
+    font:
+        600 16px var(--sans);
+
+}
+
+
+.info-card p {
+
+    color:
+        var(--muted);
+
+    font:
+        12px/1.7 var(--sans);
+
+}
+
+
+/* =========================================================
+   13. STACK
+========================================================= */
+
+.stack-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.5fr .8fr;
+
+    gap:
+        25px;
+
+}
+
+
+.skills-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        14px;
+
+}
+
+
+.skill-card {
+
+    padding:
+        22px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    background:
+        rgba(255,255,255,.015);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition);
+
+}
+
+
+.skill-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        var(--border-green);
+
+    background:
+        rgba(0,255,156,.025);
+
+}
+
+
+.skill-top {
 
     display:
         flex;
@@ -2170,246 +1932,801 @@ ul {
     justify-content:
         space-between;
 
-    gap:
-        15px;
+    margin-bottom:
+        17px;
 
-    padding:
-        9px 0;
+}
 
-    border-bottom:
-        1px solid rgba(255,255,255,.035);
+
+.skill-top > span:last-child {
 
     color:
-        var(--text-dim);
+        var(--muted-2);
 
     font:
-        9px
-        "Fira Code",
-        monospace;
+        10px var(--mono);
 
 }
 
 
-.profile-info-row:last-child {
+.skill-icon {
 
-    border-bottom:
-        0;
+    width:
+        36px;
+
+    height:
+        36px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    font-size:
+        18px;
 
 }
 
 
-.profile-info-row strong {
+.html {
+    color: #ff7043;
+}
+
+
+.css {
+    color: #4aa8ff;
+}
+
+
+.js {
+    color: #ffd54a;
+}
+
+
+.flutter {
+    color: #61c6ff;
+}
+
+
+.firebase {
+    color: #ffb300;
+}
+
+
+.git {
+    color: #ff7043;
+}
+
+
+.skill-card h3 {
+
+    font:
+        600 15px var(--sans);
+
+    margin-bottom:
+        7px;
+
+}
+
+
+.skill-card p {
+
+    min-height:
+        40px;
 
     color:
-        var(--text-soft);
+        var(--muted);
 
-    font-weight:
-        500;
+    font:
+        11px/1.6 var(--sans);
 
 }
 
 
-/* =========================================================
-   19. ABOUT CONTENT
-========================================================= */
+.skill-bar {
 
-.about-code-heading {
+    height:
+        3px;
+
+    margin-top:
+        18px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    overflow:
+        hidden;
+
+}
+
+
+.skill-bar span {
+
+    display:
+        block;
+
+    height:
+        100%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 10px rgba(0,255,156,.4);
+
+}
+
+
+/* TERMINAL */
+
+.stack-terminal {
+
+    min-height:
+        100%;
+
+}
+
+
+.terminal-content {
+
+    height:
+        100%;
+
+    min-height:
+        390px;
 
     display:
         flex;
 
-    gap:
-        7px;
+    flex-direction:
+        column;
 
-    color:
-        var(--text-dim);
+    justify-content:
+        space-between;
+
+    padding:
+        20px;
 
     font:
-        9px
-        "Fira Code",
-        monospace;
+        11px/1.9 var(--mono);
+
+    color:
+        var(--muted);
 
 }
 
 
-.about-content h3 {
+.terminal-output {
 
-    max-width:
-        620px;
+    overflow:
+        auto;
+
+}
+
+
+.terminal-response {
+
+    color:
+        var(--muted-2);
 
     margin:
-        14px 0 18px;
-
-    font:
-        500 clamp(28px,4vw,43px)
-        "Space Grotesk",
-        sans-serif;
-
-    line-height:
-        1.05;
-
-    letter-spacing:
-        -1.8px;
+        4px 0;
 
 }
 
 
-.about-content p {
+.terminal-input-row {
 
-    max-width:
-        690px;
+    display:
+        flex;
 
-    margin-top:
-        13px;
+    align-items:
+        center;
 
-    color:
-        var(--text-dim);
+    gap:
+        9px;
 
-    font:
-        11px/1.9
-        "Fira Code",
-        monospace;
+    padding-top:
+        15px;
+
+    border-top:
+        1px solid var(--border);
 
 }
 
 
-.about-content p strong {
+.terminal-input-row input {
+
+    width:
+        100%;
+
+    border:
+        0;
+
+    outline:
+        0;
+
+    background:
+        transparent;
 
     color:
-        var(--text-soft);
+        var(--text);
 
-    font-weight:
-        500;
+    font:
+        11px var(--mono);
+
+}
+
+
+.terminal-input-row input::placeholder {
+
+    color:
+        var(--muted-2);
 
 }
 
 
 /* =========================================================
-   20. PRINCIPLES
+   14. PROJECTS
 ========================================================= */
 
-.about-principles {
+.featured-project {
+
+    position:
+        relative;
 
     display:
         grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        45px 1fr .8fr;
 
     gap:
-        9px;
-
-    margin-top:
         30px;
 
-}
-
-
-.principle-card {
-
-    position:
-        relative;
-
     min-height:
-        160px;
+        430px;
 
     padding:
-        20px;
-
-    overflow:
-        hidden;
+        40px;
 
     border:
         1px solid var(--border);
 
     border-radius:
-        12px;
+        20px;
+
+    overflow:
+        hidden;
 
     background:
-        rgba(255,255,255,.012);
-
-    transition:
-        var(--transition);
-
-}
-
-
-.principle-card:hover {
-
-    transform:
-        translateY(-5px);
-
-    border-color:
-        rgba(0,255,156,.2);
+        linear-gradient(
+            130deg,
+            rgba(0,255,156,.025),
+            rgba(255,255,255,.01)
+        );
 
 }
 
 
-.principle-number {
+.featured-project::before {
+
+    content:
+        "";
 
     position:
         absolute;
 
-    top:
-        12px;
+    width:
+        500px;
+
+    height:
+        500px;
 
     right:
-        14px;
+        -200px;
 
-    color:
-        #26313b;
+    top:
+        -250px;
 
-    font:
-        8px
-        "Fira Code",
-        monospace;
+    border-radius:
+        50%;
+
+    background:
+        rgba(0,255,156,.04);
+
+    filter:
+        blur(10px);
 
 }
 
 
-.principle-card i {
+.project-number {
+
+    color:
+        var(--green);
+
+    font:
+        12px var(--mono);
+
+}
+
+
+.project-label {
+
+    margin-bottom:
+        18px;
+
+    color:
+        var(--muted-2);
+
+    font:
+        9px var(--mono);
+
+    letter-spacing:
+        2px;
+
+}
+
+
+.project-content h3 {
+
+    font:
+        800 clamp(40px,6vw,70px)/1 var(--sans);
+
+    letter-spacing:
+        -3px;
+
+}
+
+
+.project-content h3 span {
+    color: var(--green);
+}
+
+
+.project-description {
+
+    max-width:
+        570px;
+
+    margin-top:
+        25px;
+
+    color:
+        var(--muted);
+
+    font:
+        14px/1.8 var(--sans);
+
+}
+
+
+.project-tags {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px;
+
+    margin-top:
+        25px;
+
+}
+
+
+.project-tags span,
+.mini-tags span {
+
+    padding:
+        6px 9px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        6px;
+
+    color:
+        var(--muted);
+
+    background:
+        rgba(255,255,255,.02);
+
+    font:
+        9px var(--mono);
+
+}
+
+
+.project-actions {
+
+    margin-top:
+        35px;
+
+}
+
+
+.project-link {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    color:
+        var(--green);
+
+    font:
+        11px var(--mono);
+
+}
+
+
+.project-link i {
+
+    transition:
+        transform var(--transition);
+
+}
+
+
+.project-link:hover i {
+
+    transform:
+        translate(3px,-3px);
+
+}
+
+
+/* PROJECT VISUAL */
+
+.project-visual {
+
+    position:
+        relative;
+
+    min-height:
+        320px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+}
+
+
+.project-orbit {
+
+    position:
+        relative;
+
+    width:
+        220px;
+
+    height:
+        220px;
+
+}
+
+
+.orbit-ring {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    border:
+        1px solid rgba(0,255,156,.2);
+
+    border-radius:
+        50%;
+
+}
+
+
+.ring-one {
+
+    transform:
+        rotateX(65deg)
+        rotateY(20deg);
+
+    animation:
+        orbitRotate 8s linear infinite;
+
+}
+
+
+.ring-two {
+
+    inset:
+        25px;
+
+    transform:
+        rotateY(70deg)
+        rotateX(20deg);
+
+    animation:
+        orbitRotateReverse 6s linear infinite;
+
+}
+
+
+@keyframes orbitRotate {
+
+    to {
+        transform:
+            rotateX(65deg)
+            rotateY(380deg);
+    }
+
+}
+
+
+@keyframes orbitRotateReverse {
+
+    to {
+        transform:
+            rotateY(-290deg)
+            rotateX(20deg);
+    }
+
+}
+
+
+.project-core {
+
+    position:
+        absolute;
+
+    inset:
+        65px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        7px;
+
+    border:
+        1px solid var(--border-green);
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,255,156,.16),
+            rgba(0,255,156,.02) 65%
+        );
+
+    box-shadow:
+        0 0 70px rgba(0,255,156,.1);
+
+}
+
+
+.project-core i {
 
     color:
         var(--green);
 
     font-size:
-        15px;
+        28px;
 
 }
 
 
-.principle-card h4 {
-
-    margin-top:
-        17px;
+.project-core span {
 
     font:
-        600 15px
-        "Space Grotesk",
-        sans-serif;
+        700 9px var(--mono);
+
+    color:
+        var(--green);
 
 }
 
 
-.principle-card p {
+.floating-tech {
 
-    margin-top:
+    position:
+        absolute;
+
+    padding:
+        8px 11px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
         7px;
 
-    font-size:
-        8px;
+    background:
+        rgba(7,10,13,.85);
 
-    line-height:
-        1.7;
+    color:
+        var(--muted);
+
+    font:
+        9px var(--mono);
+
+}
+
+
+.tech-one {
+    top: 15%;
+    right: 4%;
+}
+
+
+.tech-two {
+    bottom: 18%;
+    left: 3%;
+}
+
+
+.tech-three {
+    bottom: 7%;
+    right: 12%;
+}
+
+
+/* MINI PROJECTS */
+
+.mini-project-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        14px;
+
+    margin-top:
+        14px;
+
+}
+
+
+.mini-project {
+
+    padding:
+        25px;
+
+    min-height:
+        245px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    background:
+        rgba(255,255,255,.012);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+
+}
+
+
+.mini-project:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        var(--border-green);
+
+}
+
+
+.mini-project-top {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        30px;
+
+    color:
+        var(--muted-2);
+
+    font:
+        10px var(--mono);
+
+}
+
+
+.mini-project-top i {
+
+    color:
+        var(--green);
+
+}
+
+
+.mini-project h3 {
+
+    margin-bottom:
+        10px;
+
+    font:
+        600 17px var(--sans);
+
+}
+
+
+.mini-project p {
+
+    color:
+        var(--muted);
+
+    font:
+        11px/1.7 var(--sans);
+
+}
+
+
+.mini-tags {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        5px;
+
+    margin-top:
+        20px;
 
 }
 
 
 /* =========================================================
-   21. EDUCATION
+   15. EDUCATION
 ========================================================= */
 
-.education-timeline {
+.timeline {
 
     position:
         relative;
@@ -2423,7 +2740,7 @@ ul {
 }
 
 
-.education-timeline::before {
+.timeline::before {
 
     content:
         "";
@@ -2431,14 +2748,14 @@ ul {
     position:
         absolute;
 
+    left:
+        25px;
+
     top:
-        0;
+        20px;
 
     bottom:
-        0;
-
-    left:
-        9px;
+        20px;
 
     width:
         1px;
@@ -2447,13 +2764,14 @@ ul {
         linear-gradient(
             to bottom,
             var(--green),
-            rgba(0,255,156,.05)
+            var(--border),
+            transparent
         );
 
 }
 
 
-.education-item {
+.timeline-item {
 
     position:
         relative;
@@ -2462,26 +2780,18 @@ ul {
         grid;
 
     grid-template-columns:
-        20px 1fr;
+        52px 1fr;
 
     gap:
         25px;
 
-    padding-bottom:
-        28px;
+    margin-bottom:
+        20px;
 
 }
 
 
-.education-item:last-child {
-
-    padding-bottom:
-        0;
-
-}
-
-
-.education-marker {
+.timeline-marker {
 
     position:
         relative;
@@ -2490,10 +2800,10 @@ ul {
         2;
 
     width:
-        19px;
+        52px;
 
     height:
-        19px;
+        52px;
 
     display:
         grid;
@@ -2502,79 +2812,61 @@ ul {
         center;
 
     border:
-        1px solid
-        rgba(0,255,156,.4);
+        1px solid var(--border);
 
     border-radius:
         50%;
 
     background:
-        var(--bg);
+        var(--panel-solid);
+
+    color:
+        var(--muted-2);
+
+    font:
+        10px var(--mono);
 
 }
 
 
-.education-marker span {
+.timeline-item.active .timeline-marker {
 
-    width:
-        5px;
+    border-color:
+        var(--green);
 
-    height:
-        5px;
-
-    border-radius:
-        50%;
-
-    background:
+    color:
         var(--green);
 
     box-shadow:
-        0 0 10px
-        var(--green);
+        0 0 25px rgba(0,255,156,.08);
 
 }
 
 
-.education-card {
+.timeline-card {
 
     padding:
-        24px;
+        25px;
 
     border:
         1px solid var(--border);
 
     border-radius:
-        14px;
+        13px;
 
     background:
         rgba(255,255,255,.012);
 
-    transition:
-        var(--transition);
-
 }
 
 
-.education-card:hover {
-
-    border-color:
-        rgba(0,255,156,.2);
-
-    transform:
-        translateX(4px);
-
-}
-
-
-.education-year {
+.timeline-date {
 
     color:
         var(--green);
 
     font:
-        8px
-        "Fira Code",
-        monospace;
+        9px var(--mono);
 
     letter-spacing:
         1px;
@@ -2582,416 +2874,235 @@ ul {
 }
 
 
-.education-card h3 {
+.timeline-card h3 {
 
-    margin-top:
-        9px;
+    margin:
+        7px 0;
 
     font:
-        600 20px
-        "Space Grotesk",
-        sans-serif;
+        600 18px var(--sans);
 
 }
 
 
-.education-institute {
-
-    margin-top:
-        4px;
+.timeline-card p {
 
     color:
-        var(--cyan);
+        var(--muted);
 
     font:
-        9px
-        "Fira Code",
-        monospace;
+        12px/1.7 var(--sans);
 
 }
 
 
-.education-card p {
+.future-card {
 
-    max-width:
-        700px;
-
-    margin-top:
-        13px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        10px/1.8
-        "Fira Code",
-        monospace;
-
-}
-
-
-.education-tags {
-
-    display:
-        flex;
-
-    flex-wrap:
-        wrap;
-
-    gap:
-        6px;
-
-    margin-top:
-        16px;
-
-}
-
-
-.education-tags span {
-
-    padding:
-        5px 8px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        6px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
+    border-style:
+        dashed;
 
 }
 
 
 /* =========================================================
-   22. SKILLS
+   16. PHILOSOPHY
 ========================================================= */
 
-.skills-grid {
+.philosophy-box {
 
     display:
         grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        .8fr 1.2fr;
 
     gap:
-        12px;
+        70px;
+
+    align-items:
+        center;
+
+    padding:
+        60px;
+
+    border:
+        1px solid var(--border-green);
+
+    border-radius:
+        20px;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(0,255,156,.06),
+            transparent 30%
+        );
 
 }
 
 
-.skill-category {
+.philosophy-code {
+
+    font:
+        700 clamp(18px,3vw,30px)/1.7 var(--mono);
+
+}
+
+
+.indent-code {
+
+    padding-left:
+        30px;
+
+}
+
+
+.philosophy-text h2 {
+
+    max-width:
+        650px;
+
+    font:
+        700 clamp(32px,4vw,52px)/1.1 var(--sans);
+
+    letter-spacing:
+        -2px;
+
+}
+
+
+.philosophy-text h2 span {
+    color: var(--green);
+}
+
+
+.philosophy-text p {
+
+    max-width:
+        550px;
+
+    margin-top:
+        20px;
+
+    color:
+        var(--muted);
+
+    font:
+        14px/1.8 var(--sans);
+
+}
+
+
+/* =========================================================
+   17. CONTACT
+========================================================= */
+
+.contact-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        20px;
+
+}
+
+
+.contact-terminal {
+
+    min-height:
+        400px;
+
+}
+
+
+.contact-terminal-body {
 
     padding:
-        25px;
+        28px;
+
+    color:
+        var(--muted);
+
+    font:
+        11px/2 var(--mono);
+
+}
+
+
+.contact-command {
+
+    padding:
+        15px;
+
+    border-left:
+        2px solid var(--green);
+
+    background:
+        rgba(0,255,156,.03);
+
+}
+
+
+.contact-info {
+
+    display:
+        grid;
+
+    gap:
+        10px;
+
+}
+
+
+.contact-card {
+
+    padding:
+        23px;
 
     border:
         1px solid var(--border);
 
     border-radius:
-        14px;
+        12px;
 
     background:
         rgba(255,255,255,.012);
 
     transition:
-        var(--transition);
+        border-color var(--transition),
+        transform var(--transition);
 
 }
 
 
-.skill-category:hover {
+.contact-card:hover {
 
     border-color:
-        rgba(0,255,156,.18);
+        var(--border-green);
 
-    background:
-        rgba(0,255,156,.012);
+    transform:
+        translateX(5px);
 
 }
 
 
-.skill-category-header {
+.contact-label {
 
     display:
-        flex;
+        block;
 
-    align-items:
-        center;
-
-    gap:
-        13px;
-
-    padding-bottom:
-        18px;
-
-    border-bottom:
-        1px solid var(--border);
-
-}
-
-
-.skill-category-icon {
-
-    width:
-        38px;
-
-    height:
-        38px;
-
-    display:
-        grid;
-
-    place-items:
-        center;
-
-    border:
-        1px solid rgba(0,255,156,.14);
-
-    border-radius:
-        9px;
+    margin-bottom:
+        8px;
 
     color:
-        var(--green);
-
-    background:
-        rgba(0,255,156,.025);
-
-}
-
-
-.skill-category-header span {
-
-    color:
-        var(--text-dark);
+        var(--muted-2);
 
     font:
-        8px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.skill-category-header h3 {
-
-    margin-top:
-        2px;
-
-    font:
-        600 16px
-        "Space Grotesk",
-        sans-serif;
-
-}
-
-
-.skill-list {
-
-    margin-top:
-        5px;
-
-}
-
-
-.skill-item {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    gap:
-        20px;
-
-    padding:
-        12px 0;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.035);
-
-    color:
-        var(--text-soft);
-
-    font:
-        9px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.skill-item:last-child {
-
-    border-bottom:
-        0;
-
-}
-
-
-.skill-level {
-
-    color:
-        var(--green);
-
-    font-size:
-        7px;
-
-    text-transform:
-        uppercase;
-
-}
-
-
-/* =========================================================
-   23. TECH MARQUEE
-========================================================= */
-
-.tech-marquee {
-
-    margin-top:
-        40px;
-
-    overflow:
-        hidden;
-
-    border-top:
-        1px solid var(--border);
-
-    border-bottom:
-        1px solid var(--border);
-
-}
-
-
-.tech-marquee-track {
-
-    width:
-        max-content;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        18px;
-
-    min-height:
-        52px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        9px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.tech-marquee-track i {
-
-    color:
-        var(--green);
-
-    font-size:
-        4px;
-
-}
-
-
-/* =========================================================
-   24. PLACEHOLDER
-========================================================= */
-
-.part-placeholder {
-
-    min-height:
-        240px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        22px;
-
-    padding:
-        35px;
-
-    border:
-        1px dashed
-        rgba(255,255,255,.1);
-
-    border-radius:
-        17px;
-
-    background:
-        rgba(255,255,255,.01);
-
-}
-
-
-.part-placeholder-icon {
-
-    width:
-        55px;
-
-    height:
-        55px;
-
-    flex-shrink:
-        0;
-
-    display:
-        grid;
-
-    place-items:
-        center;
-
-    border:
-        1px solid rgba(0,255,156,.18);
-
-    border-radius:
-        13px;
-
-    color:
-        var(--green);
-
-    background:
-        rgba(0,255,156,.025);
-
-}
-
-
-.part-placeholder-label {
-
-    color:
-        var(--green);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
+        9px var(--mono);
 
     letter-spacing:
         1px;
@@ -2999,57 +3110,7 @@ ul {
 }
 
 
-.part-placeholder h3 {
-
-    margin-top:
-        7px;
-
-    font:
-        600 23px
-        "Space Grotesk",
-        sans-serif;
-
-}
-
-
-.part-placeholder p {
-
-    max-width:
-        580px;
-
-    margin-top:
-        8px;
-
-    color:
-        var(--text-dim);
-
-    font:
-        9px/1.7
-        "Fira Code",
-        monospace;
-
-}
-
-
-/* =========================================================
-   25. FOOTER
-========================================================= */
-
-.site-footer {
-
-    width:
-        min(1200px,92%);
-
-    margin:
-        auto;
-
-    padding:
-        35px 0 45px;
-
-}
-
-
-.footer-top {
+.contact-value {
 
     display:
         flex;
@@ -3061,13 +3122,47 @@ ul {
         space-between;
 
     gap:
-        20px;
+        15px;
 
-    padding-bottom:
-        25px;
+    color:
+        var(--text);
 
-    border-bottom:
+    font:
+        12px var(--mono);
+
+}
+
+
+.contact-value:hover {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   18. FOOTER
+========================================================= */
+
+.site-footer {
+
+    padding:
+        30px 0;
+
+    border-top:
         1px solid var(--border);
+
+}
+
+
+.footer-inner {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    align-items:
+        center;
 
 }
 
@@ -3081,180 +3176,46 @@ ul {
         center;
 
     gap:
-        11px;
+        8px;
+
+    font:
+        600 12px var(--mono);
 
 }
 
 
-.footer-logo {
+.footer-inner p {
 
-    width:
-        35px;
-
-    height:
-        35px;
-
-    display:
-        grid;
-
-    place-items:
+    text-align:
         center;
 
-    border:
-        1px solid
-        rgba(0,255,156,.22);
-
-    border-radius:
-        9px;
-
     color:
-        var(--green);
+        var(--muted-2);
 
     font:
-        11px
-        "Fira Code",
-        monospace;
+        9px var(--mono);
 
 }
 
 
-.footer-name {
-
-    font:
-        12px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.footer-name span {
+.footer-inner strong {
 
     color:
-        var(--green);
+        var(--muted);
 
 }
 
-
-.footer-tagline {
-
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.footer-links {
-
-    display:
-        flex;
-
-    flex-wrap:
-        wrap;
-
-    justify-content:
-        flex-end;
-
-    gap:
-        17px;
-
-}
-
-
-.footer-links a {
-
-    color:
-        var(--text-dim);
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-    transition:
-        var(--transition);
-
-}
-
-
-.footer-links a:hover {
-
-    color:
-        var(--green);
-
-}
-
-
-.footer-bottom {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    gap:
-        20px;
-
-    padding-top:
-        22px;
-
-}
-
-
-.footer-copy,
-.footer-code {
-
-    color:
-        #46515d;
-
-    font:
-        8px
-        "Fira Code",
-        monospace;
-
-}
-
-
-.footer-code span {
-
-    color:
-        var(--green);
-
-}
-
-
-/* =========================================================
-   26. BACK TO TOP
-========================================================= */
 
 .back-top {
 
-    position:
-        fixed;
-
-    right:
-        22px;
-
-    bottom:
-        22px;
-
-    z-index:
-        900;
+    justify-self:
+        end;
 
     width:
-        42px;
+        38px;
 
     height:
-        42px;
+        38px;
 
     display:
         grid;
@@ -3266,237 +3227,66 @@ ul {
         1px solid var(--border);
 
     border-radius:
-        10px;
-
-    background:
-        rgba(7,10,14,.85);
-
-    backdrop-filter:
-        blur(12px);
+        9px;
 
     color:
-        var(--text-soft);
-
-    cursor:
-        pointer;
-
-    opacity:
-        0;
-
-    visibility:
-        hidden;
-
-    transform:
-        translateY(15px);
+        var(--muted);
 
     transition:
-        var(--transition);
-
-}
-
-
-.back-top.show {
-
-    opacity:
-        1;
-
-    visibility:
-        visible;
-
-    transform:
-        translateY(0);
+        all var(--transition);
 
 }
 
 
 .back-top:hover {
 
-    color:
-        var(--green);
-
     border-color:
-        rgba(0,255,156,.25);
-
-    transform:
-        translateY(-4px);
-
-}
-
-
-/* =========================================================
-   27. CURSOR
-========================================================= */
-
-.cursor-dot {
-
-    position:
-        fixed;
-
-    width:
-        5px;
-
-    height:
-        5px;
-
-    z-index:
-        10000;
-
-    pointer-events:
-        none;
-
-    border-radius:
-        50%;
-
-    background:
         var(--green);
-
-    box-shadow:
-        0 0 15px
-        rgba(0,255,156,.5);
-
-    transform:
-        translate(-50%,-50%);
-
-    opacity:
-        .75;
-
-}
-
-
-/* =========================================================
-   28. SELECTION
-========================================================= */
-
-::selection {
 
     color:
-        #00150c;
-
-    background:
         var(--green);
 
-}
-
-
-/* =========================================================
-   29. FOCUS ACCESSIBILITY
-========================================================= */
-
-a:focus-visible,
-button:focus-visible {
-
-    outline:
-        1px solid var(--green);
-
-    outline-offset:
-        4px;
+    transform:
+        translateY(-3px);
 
 }
 
 
 /* =========================================================
-   30. RESPONSIVE — 1100px
+   19. RESPONSIVE — TABLET
 ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1050px) {
 
-
-    .navbar {
-
-        width:
-            min(94%, 1000px);
-
-    }
-
-
-    .hero-container {
-
-        gap:
-            45px;
-
-    }
-
-
-    .hero-title {
-
-        font-size:
-            clamp(52px,7vw,78px);
-
-    }
-
-
-    .tag-ai {
-
-        right:
-            -2%;
-
-    }
-
-
-    .tag-flutter {
-
-        left:
-            -3%;
-
-    }
-
-}
-
-
-/* =========================================================
-   31. RESPONSIVE — 900px
-========================================================= */
-
-@media (max-width: 900px) {
-
-
-    .nav-links,
-    .nav-action {
-
-        display:
-            none;
-
+    .desktop-nav {
+        display: none;
     }
 
 
     .mobile-menu-button {
+        display: grid;
+        place-items: center;
+    }
 
-        display:
-            grid;
 
-        place-items:
-            center;
-
+    .header-status {
+        margin-left: auto;
     }
 
 
     .mobile-nav {
 
-        width:
-            min(92%, 600px);
+        position:
+            absolute;
 
-        margin:
-            9px auto 0;
+        top:
+            var(--header-height);
 
-        padding:
-            8px;
+        left:
+            20px;
 
-        border:
-            1px solid var(--border);
-
-        border-radius:
-            13px;
-
-        background:
-            rgba(7,10,14,.94);
-
-        backdrop-filter:
-            blur(18px);
-
-    }
-
-
-    .mobile-nav.open {
+        right:
+            20px;
 
         display:
             flex;
@@ -3504,51 +3294,120 @@ button:focus-visible {
         flex-direction:
             column;
 
+        padding:
+            10px;
+
+        border:
+            1px solid var(--border);
+
+        border-radius:
+            14px;
+
+        background:
+            rgba(8,11,15,.96);
+
+        backdrop-filter:
+            blur(20px);
+
+        opacity:
+            0;
+
+        visibility:
+            hidden;
+
+        transform:
+            translateY(-10px);
+
+        transition:
+            all var(--transition);
+
+    }
+
+
+    .mobile-nav.open {
+
+        opacity:
+            1;
+
+        visibility:
+            visible;
+
+        transform:
+            translateY(0);
+
     }
 
 
     .mobile-nav a {
 
         padding:
-            13px;
+            14px;
 
         border-radius:
             8px;
 
         color:
-            var(--text-soft);
+            var(--muted);
 
         font:
-            9px
-            "Fira Code",
-            monospace;
+            11px var(--mono);
 
     }
 
 
     .mobile-nav a:hover {
 
+        background:
+            var(--green-soft);
+
         color:
             var(--green);
-
-        background:
-            rgba(0,255,156,.035);
 
     }
 
 
-    .hero-container {
+    .hero-grid {
 
         grid-template-columns:
             1fr;
 
+        gap:
+            60px;
+
     }
 
 
-    .hero {
+    .hero-content {
+        text-align: center;
+    }
 
-        padding-top:
-            130px;
+
+    .eyebrow,
+    .terminal-label {
+
+        justify-content:
+            center;
+
+    }
+
+
+    .hero h1,
+    .hero-description {
+
+        margin-left:
+            auto;
+
+        margin-right:
+            auto;
+
+    }
+
+
+    .hero-actions,
+    .hero-meta {
+
+        justify-content:
+            center;
 
     }
 
@@ -3556,7 +3415,7 @@ button:focus-visible {
     .hero-visual {
 
         max-width:
-            720px;
+            700px;
 
         width:
             100%;
@@ -3567,7 +3426,8 @@ button:focus-visible {
     }
 
 
-    .about-grid {
+    .about-grid,
+    .stack-layout {
 
         grid-template-columns:
             1fr;
@@ -3575,205 +3435,15 @@ button:focus-visible {
     }
 
 
-    .about-profile {
-
-        max-width:
-            650px;
-
-    }
-
-
-    .section-heading {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-
-    }
-
-
-    .section-description {
-
-        max-width:
-            650px;
-
-    }
-
-}
-
-
-/* =========================================================
-   32. RESPONSIVE — 700px
-========================================================= */
-
-@media (max-width: 700px) {
-
-
-    .section {
-
-        width:
-            90%;
-
-        padding:
-            78px 0;
-
-    }
-
-
-    .hero {
-
-        min-height:
-            auto;
-
-        padding-top:
-            125px;
-
-        padding-bottom:
-            40px;
-
-    }
-
-
-    .hero-title {
-
-        font-size:
-            clamp(48px,15vw,70px);
-
-        letter-spacing:
-            -4px;
-
-    }
-
-
-    .hero-role {
-
-        font-size:
-            10px;
-
-        line-height:
-            1.8;
-
-    }
-
-
-    .hero-description {
-
-        font-size:
-            10px;
-
-    }
-
-
-    .hero-terminal {
-
-        margin-top:
-            22px;
-
-    }
-
-
-    .hero-actions {
-
-        width:
-            100%;
-
-    }
-
-
-    .btn {
-
-        flex:
-            1;
-
-        min-width:
-            145px;
-
-    }
-
-
-    .hero-stats {
+    .featured-project {
 
         grid-template-columns:
-            repeat(2,1fr);
-
-        margin-top:
-            45px;
+            40px 1fr;
 
     }
 
 
-    .hero-stat {
-
-        min-height:
-            72px;
-
-        border-bottom:
-            1px solid var(--border);
-
-    }
-
-
-    .hero-stat:nth-child(2) {
-
-        border-right:
-            0;
-
-    }
-
-
-    .hero-stat:nth-child(3),
-    .hero-stat:nth-child(4) {
-
-        border-bottom:
-            0;
-
-    }
-
-
-    .code-window {
-
-        transform:
-            none;
-
-    }
-
-
-    .code-window:hover {
-
-        transform:
-            translateY(-3px);
-
-    }
-
-
-    .code-editor {
-
-        min-height:
-            350px;
-
-        padding:
-            20px 12px;
-
-        font-size:
-            8px;
-
-        overflow-x:
-            auto;
-
-    }
-
-
-    .line-number {
-
-        width:
-            25px;
-
-    }
-
-
-    .floating-tag {
+    .project-visual {
 
         display:
             none;
@@ -3781,10 +3451,176 @@ button:focus-visible {
     }
 
 
-    .about-principles {
+    .contact-grid {
 
         grid-template-columns:
             1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+   20. RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    :root {
+        --header-height: 68px;
+    }
+
+
+    .container {
+
+        width:
+            min(
+                calc(100% - 28px),
+                var(--max-width)
+            );
+
+    }
+
+
+    .section {
+
+        padding:
+            90px 0;
+
+    }
+
+
+    .hero {
+
+        padding-top:
+            125px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            clamp(42px, 14vw, 65px);
+
+        letter-spacing:
+            -3px;
+
+    }
+
+
+    .hero-description {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .hero-meta {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            18px;
+
+    }
+
+
+    .header-status {
+
+        display:
+            none;
+
+    }
+
+
+    .section-heading {
+
+        gap:
+            15px;
+
+        margin-bottom:
+            45px;
+
+    }
+
+
+    .section-index {
+
+        min-width:
+            35px;
+
+    }
+
+
+    .section-heading h2 {
+
+        font-size:
+            35px;
+
+        letter-spacing:
+            -1.5px;
+
+    }
+
+
+    .code-body {
+
+        padding:
+            18px 10px;
+
+        font-size:
+            9px;
+
+        overflow-x:
+            auto;
+
+    }
+
+
+    .line {
+
+        grid-template-columns:
+            25px auto;
+
+    }
+
+
+    .floating-system-card {
+
+        position:
+            relative;
+
+        right:
+            auto;
+
+        bottom:
+            auto;
+
+        margin:
+            12px 0 0 auto;
+
+    }
+
+
+    .about-grid {
+
+        gap:
+            40px;
+
+    }
+
+
+    .about-main .large-text {
+
+        font-size:
+            23px;
 
     }
 
@@ -3797,65 +3633,136 @@ button:focus-visible {
     }
 
 
-    .skill-category {
+    .featured-project {
+
+        grid-template-columns:
+            1fr;
 
         padding:
-            20px;
+            25px;
 
     }
 
 
-    .education-item {
+    .project-number {
 
-        gap:
-            16px;
-
-    }
-
-
-    .education-card {
-
-        padding:
-            20px;
+        display:
+            none;
 
     }
 
 
-    .education-card h3 {
+    .project-content h3 {
 
         font-size:
-            17px;
+            48px;
 
     }
 
 
-    .part-placeholder {
+    .mini-project-grid {
 
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
+        grid-template-columns:
+            1fr;
 
     }
 
 
-    .footer-top,
-    .footer-bottom {
+    .timeline::before {
 
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
+        left:
+            21px;
 
     }
 
 
-    .footer-links {
+    .timeline-item {
 
-        justify-content:
-            flex-start;
+        grid-template-columns:
+            43px 1fr;
+
+        gap:
+            15px;
+
+    }
+
+
+    .timeline-marker {
+
+        width:
+            43px;
+
+        height:
+            43px;
+
+    }
+
+
+    .timeline-card {
+
+        padding:
+            18px;
+
+    }
+
+
+    .philosophy-box {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            35px;
+
+        padding:
+            30px;
+
+    }
+
+
+    .philosophy-code {
+
+        font-size:
+            19px;
+
+    }
+
+
+    .contact-terminal {
+
+        min-height:
+            350px;
+
+    }
+
+
+    .footer-inner {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            18px;
+
+        text-align:
+            center;
+
+    }
+
+
+    .footer-brand,
+    .back-top {
+
+        justify-self:
+            center;
+
+    }
+
+
+    .footer-inner p {
+
+        order:
+            3;
 
     }
 
@@ -3871,201 +3778,13 @@ button:focus-visible {
 
 
 /* =========================================================
-   33. RESPONSIVE — 480px
-========================================================= */
-
-@media (max-width: 480px) {
-
-
-    .navbar {
-
-        height:
-            55px;
-
-        padding:
-            0 10px;
-
-    }
-
-
-    .brand-name {
-
-        font-size:
-            11px;
-
-    }
-
-
-    .brand-status {
-
-        font-size:
-            7px;
-
-    }
-
-
-    .brand-symbol {
-
-        width:
-            32px;
-
-        height:
-            32px;
-
-    }
-
-
-    .hero-title {
-
-        font-size:
-            46px;
-
-        letter-spacing:
-            -3px;
-
-    }
-
-
-    .hero-title-small {
-
-        font-size:
-            15px;
-
-    }
-
-
-    .hero-actions {
-
-        flex-direction:
-            column;
-
-    }
-
-
-    .btn {
-
-        width:
-            100%;
-
-    }
-
-
-    .terminal-body {
-
-        padding:
-            13px;
-
-        font-size:
-            8px;
-
-    }
-
-
-    .hero-stats {
-
-        grid-template-columns:
-            1fr 1fr;
-
-    }
-
-
-    .stat-value {
-
-        font-size:
-            16px;
-
-    }
-
-
-    .stat-label {
-
-        font-size:
-            7px;
-
-    }
-
-
-    .section-title {
-
-        font-size:
-            39px;
-
-    }
-
-
-    .profile-body {
-
-        padding:
-            22px;
-
-    }
-
-
-    .profile-name {
-
-        font-size:
-            20px;
-
-    }
-
-
-    .education-timeline::before {
-
-        left:
-            8px;
-
-    }
-
-
-    .education-item {
-
-        grid-template-columns:
-            18px 1fr;
-
-    }
-
-
-    .education-marker {
-
-        width:
-            17px;
-
-        height:
-            17px;
-
-    }
-
-
-    .part-placeholder {
-
-        padding:
-            25px;
-
-    }
-
-
-    .footer-links {
-
-        gap:
-            11px;
-
-    }
-
-
-}
-
-
-/* =========================================================
-   34. REDUCED MOTION
+   21. REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
     html {
-
-        scroll-behavior:
-            auto;
-
+        scroll-behavior: auto;
     }
 
 
@@ -4081,6 +3800,9 @@ button:focus-visible {
 
         transition-duration:
             .01ms !important;
+
+        scroll-behavior:
+            auto !important;
 
     }
 
