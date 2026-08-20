@@ -1,93 +1,57 @@
 /* =========================================================
-   SIDDHARTH.DEV
-   PREMIUM DEVELOPER PORTFOLIO
-   PART 3 — script.js
+   SIDDHARTH DEVELOPER PORTFOLIO
+   MAIN JAVASCRIPT
 ========================================================= */
-
-"use strict";
 
 
 /* =========================================================
-   01. GLOBAL HELPERS
-========================================================= */
-
-const $ = (selector, parent = document) =>
-    parent.querySelector(selector);
-
-const $$ = (selector, parent = document) =>
-    [...parent.querySelectorAll(selector)];
-
-
-/* =========================================================
-   02. DOM READY
+   DOM READY
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    initializeLoader();
+    initPreloader();
 
-    initializeHeader();
+    initNavbar();
 
-    initializeMobileMenu();
+    initMobileMenu();
 
-    initializeSmoothNavigation();
+    initScrollReveal();
 
-    initializeActiveNavigation();
+    initBackToTop();
 
-    initializeBackToTop();
+    initActiveNavigation();
 
-    initializeCursor();
+    initCustomCursor();
 
-    initializeRevealAnimations();
+    initSmoothLinks();
 
-    initializeCodeTyping();
+    initTerminalInteraction();
 
-    initializeTerminalTyping();
-
-    initializeHeroParallax();
-
-    initializeContactActions();
-
-    initializeCurrentYear();
-
-    initializeExternalLinks();
+    initProjectHover();
 
 });
 
 
 /* =========================================================
-   03. PAGE LOADER
+   PRELOADER
 ========================================================= */
 
-function initializeLoader() {
+function initPreloader() {
 
-    const loader = $(".page-loader");
+    const preloader =
+        document.getElementById("preloader");
 
-    if (!loader) {
-        return;
-    }
+    if (!preloader) return;
 
-    const minimumDisplayTime = 900;
-
-    const startTime = performance.now();
 
     window.addEventListener("load", () => {
 
-        const elapsed = performance.now() - startTime;
-
-        const remainingTime =
-            Math.max(
-                0,
-                minimumDisplayTime - elapsed
-            );
-
         setTimeout(() => {
 
-            loader.classList.add("loaded");
+            preloader.classList.add("loaded");
 
-            document.body.classList.add("page-ready");
-
-        }, remainingTime);
+        }, 1200);
 
     });
 
@@ -95,36 +59,37 @@ function initializeLoader() {
 
 
 /* =========================================================
-   04. HEADER SCROLL EFFECT
+   NAVBAR
 ========================================================= */
 
-function initializeHeader() {
+function initNavbar() {
 
-    const header = $(".site-header");
+    const navbar =
+        document.getElementById("navbar");
 
-    if (!header) {
-        return;
-    }
+    if (!navbar) return;
 
-    const updateHeader = () => {
 
-        if (window.scrollY > 30) {
+    function updateNavbar() {
 
-            header.classList.add("scrolled");
+        if (window.scrollY > 40) {
+
+            navbar.classList.add("scrolled");
 
         } else {
 
-            header.classList.remove("scrolled");
+            navbar.classList.remove("scrolled");
 
         }
 
-    };
+    }
 
-    updateHeader();
+
+    updateNavbar();
 
     window.addEventListener(
         "scroll",
-        updateHeader,
+        updateNavbar,
         { passive: true }
     );
 
@@ -132,308 +97,48 @@ function initializeHeader() {
 
 
 /* =========================================================
-   05. MOBILE MENU
+   MOBILE MENU
 ========================================================= */
 
-function initializeMobileMenu() {
+function initMobileMenu() {
 
-    const menuButton = $(".mobile-menu-button");
-    const mobileNav = $(".mobile-nav");
+    const button =
+        document.getElementById("mobileMenuBtn");
 
-    if (!menuButton || !mobileNav) {
-        return;
-    }
+    const menu =
+        document.getElementById("navMenu");
 
-    menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-    menuButton.addEventListener("click", () => {
-
-        const isOpen =
-            mobileNav.classList.toggle("open");
-
-        menuButton.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
-
-        const icon = $("i", menuButton);
-
-        if (icon) {
-
-            icon.className = isOpen
-                ? "fa-solid fa-xmark"
-                : "fa-solid fa-bars";
-
-        }
-
-    });
-
-
-    /* Close menu after navigation */
-
-    $$("a", mobileNav).forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            mobileNav.classList.remove("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            const icon = $("i", menuButton);
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-bars";
-
-            }
-
-        });
-
-    });
-
-
-    /* Close on outside click */
-
-    document.addEventListener("click", event => {
-
-        if (
-            !mobileNav.contains(event.target) &&
-            !menuButton.contains(event.target)
-        ) {
-
-            mobileNav.classList.remove("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            const icon = $("i", menuButton);
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-bars";
-
-            }
-
-        }
-
-    });
-
-
-    /* Close when desktop size returns */
-
-    window.addEventListener("resize", () => {
-
-        if (window.innerWidth > 900) {
-
-            mobileNav.classList.remove("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            const icon = $("i", menuButton);
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-bars";
-
-            }
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   06. SMOOTH NAVIGATION
-========================================================= */
-
-function initializeSmoothNavigation() {
-
-    $$('a[href^="#"]').forEach(link => {
-
-        link.addEventListener("click", event => {
-
-            const targetId =
-                link.getAttribute("href");
-
-            if (
-                !targetId ||
-                targetId === "#"
-            ) {
-                return;
-            }
-
-            const target =
-                document.querySelector(targetId);
-
-            if (!target) {
-                return;
-            }
-
-            event.preventDefault();
-
-            const header =
-                $(".site-header");
-
-            const headerHeight =
-                header
-                    ? header.offsetHeight + 15
-                    : 15;
-
-            const targetPosition =
-                target.getBoundingClientRect().top +
-                window.scrollY -
-                headerHeight;
-
-            window.scrollTo({
-
-                top: targetPosition,
-
-                behavior: "smooth"
-
-            });
-
-        });
-
-    });
-
-}
-
-
-/* =========================================================
-   07. ACTIVE NAVIGATION
-========================================================= */
-
-function initializeActiveNavigation() {
-
-    const navLinks =
-        $$(".nav-link");
-
-    if (!navLinks.length) {
-        return;
-    }
-
-    const sections =
-        navLinks
-            .map(link => {
-
-                const href =
-                    link.getAttribute("href");
-
-                if (!href || !href.startsWith("#")) {
-                    return null;
-                }
-
-                return document.querySelector(href);
-
-            })
-            .filter(Boolean);
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
-                    const id =
-                        `#${entry.target.id}`;
-
-                    navLinks.forEach(link => {
-
-                        const active =
-                            link.getAttribute("href") === id;
-
-                        link.classList.toggle(
-                            "active-nav",
-                            active
-                        );
-
-                    });
-
-                });
-
-            },
-            {
-                rootMargin:
-                    "-35% 0px -55% 0px",
-
-                threshold:
-                    0
-            }
-        );
-
-
-    sections.forEach(section => {
-
-        observer.observe(section);
-
-    });
-
-}
-
-
-/* =========================================================
-   08. BACK TO TOP
-========================================================= */
-
-function initializeBackToTop() {
-
-    const button = $(".back-top");
-
-    if (!button) {
-        return;
-    }
-
-    const update = () => {
-
-        if (window.scrollY > 500) {
-
-            button.classList.add("show");
-
-        } else {
-
-            button.classList.remove("show");
-
-        }
-
-    };
-
-    update();
-
-    window.addEventListener(
-        "scroll",
-        update,
-        { passive: true }
-    );
+    if (!button || !menu) return;
 
 
     button.addEventListener("click", () => {
 
-        window.scrollTo({
+        button.classList.toggle("active");
 
-            top: 0,
+        menu.classList.toggle("open");
 
-            behavior: "smooth"
+        document.body.classList.toggle(
+            "menu-open"
+        );
+
+    });
+
+
+    const links =
+        menu.querySelectorAll(".nav-link");
+
+
+    links.forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            button.classList.remove("active");
+
+            menu.classList.remove("open");
+
+            document.body.classList.remove(
+                "menu-open"
+            );
 
         });
 
@@ -443,137 +148,15 @@ function initializeBackToTop() {
 
 
 /* =========================================================
-   09. CUSTOM CURSOR
+   SCROLL REVEAL
 ========================================================= */
 
-function initializeCursor() {
+function initScrollReveal() {
 
-    const cursor = $(".cursor-dot");
+    const elements =
+        document.querySelectorAll(".reveal");
 
-    if (!cursor) {
-        return;
-    }
-
-    const supportsFinePointer =
-        window.matchMedia(
-            "(pointer: fine)"
-        ).matches;
-
-    if (!supportsFinePointer) {
-
-        cursor.style.display = "none";
-
-        return;
-
-    }
-
-
-    let mouseX = -100;
-    let mouseY = -100;
-
-    let currentX = -100;
-    let currentY = -100;
-
-
-    document.addEventListener(
-        "mousemove",
-        event => {
-
-            mouseX = event.clientX;
-            mouseY = event.clientY;
-
-        },
-        { passive: true }
-    );
-
-
-    const animate = () => {
-
-        currentX +=
-            (mouseX - currentX) * 0.22;
-
-        currentY +=
-            (mouseY - currentY) * 0.22;
-
-        cursor.style.left =
-            `${currentX}px`;
-
-        cursor.style.top =
-            `${currentY}px`;
-
-        requestAnimationFrame(animate);
-
-    };
-
-    animate();
-
-
-    const interactiveElements =
-        $$("a, button, .skill-category, .principle-card, .education-card, .code-window");
-
-
-    interactiveElements.forEach(element => {
-
-        element.addEventListener(
-            "mouseenter",
-            () => {
-
-                cursor.style.width = "8px";
-                cursor.style.height = "8px";
-
-            }
-        );
-
-
-        element.addEventListener(
-            "mouseleave",
-            () => {
-
-                cursor.style.width = "5px";
-                cursor.style.height = "5px";
-
-            }
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   10. SCROLL REVEAL
-========================================================= */
-
-function initializeRevealAnimations() {
-
-    const elements = $$(
-
-        ".section-heading, " +
-        ".about-profile, " +
-        ".about-content, " +
-        ".principle-card, " +
-        ".education-item, " +
-        ".skill-category, " +
-        ".part-placeholder"
-
-    );
-
-    if (!elements.length) {
-        return;
-    }
-
-
-    elements.forEach(element => {
-
-        element.style.opacity = "0";
-
-        element.style.transform =
-            "translateY(25px)";
-
-        element.style.transition =
-            "opacity .7s ease, transform .7s ease";
-
-    });
+    if (!elements.length) return;
 
 
     const observer =
@@ -582,24 +165,26 @@ function initializeRevealAnimations() {
 
                 entries.forEach(entry => {
 
-                    if (!entry.isIntersecting) {
-                        return;
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
                     }
-
-                    entry.target.style.opacity = "1";
-
-                    entry.target.style.transform =
-                        "translateY(0)";
-
-                    observer.unobserve(
-                        entry.target
-                    );
 
                 });
 
             },
             {
-                threshold: 0.12
+                threshold: 0.12,
+                rootMargin: "0px 0px -50px 0px"
             }
         );
 
@@ -614,26 +199,73 @@ function initializeRevealAnimations() {
 
 
 /* =========================================================
-   11. CODE WINDOW TYPING
+   BACK TO TOP
 ========================================================= */
 
-function initializeCodeTyping() {
+function initBackToTop() {
 
-    const element =
-        $(".js-code-output");
+    const button =
+        document.getElementById("backToTop");
 
-    if (!element) {
+    if (!button) return;
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (window.scrollY > 600) {
+
+                button.classList.add("show");
+
+            } else {
+
+                button.classList.remove("show");
+
+            }
+
+        },
+        { passive: true }
+    );
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+function initActiveNavigation() {
+
+    const sections =
+        document.querySelectorAll(
+            "main section[id]"
+        );
+
+    const navLinks =
+        document.querySelectorAll(
+            ".nav-link"
+        );
+
+    if (
+        !sections.length ||
+        !navLinks.length
+    ) {
         return;
     }
-
-    const originalText =
-        element.textContent.trim();
-
-    if (!originalText) {
-        return;
-    }
-
-    let hasStarted = false;
 
 
     const observer =
@@ -643,19 +275,37 @@ function initializeCodeTyping() {
                 entries.forEach(entry => {
 
                     if (
-                        entry.isIntersecting &&
-                        !hasStarted
+                        entry.isIntersecting
                     ) {
 
-                        hasStarted = true;
+                        const id =
+                            entry.target.id;
 
-                        typeText(
-                            element,
-                            originalText,
-                            10
-                        );
 
-                        observer.disconnect();
+                        navLinks.forEach(link => {
+
+                            link.classList.remove(
+                                "active"
+                            );
+
+
+                            const href =
+                                link.getAttribute(
+                                    "href"
+                                );
+
+
+                            if (
+                                href === `#${id}`
+                            ) {
+
+                                link.classList.add(
+                                    "active"
+                                );
+
+                            }
+
+                        });
 
                     }
 
@@ -663,48 +313,424 @@ function initializeCodeTyping() {
 
             },
             {
-                threshold: 0.2
+                threshold: 0.25,
+                rootMargin:
+                    "-20% 0px -60% 0px"
             }
         );
 
 
-    observer.observe(element);
+    sections.forEach(section => {
+
+        observer.observe(section);
+
+    });
 
 }
 
 
 /* =========================================================
-   12. GENERIC TYPEWRITER
+   CUSTOM CURSOR
 ========================================================= */
 
-function typeText(
-    element,
-    text,
-    speed = 25
-) {
+function initCustomCursor() {
 
-    element.textContent = "";
+    const dot =
+        document.querySelector(
+            ".cursor-dot"
+        );
 
-    let index = 0;
+    const outline =
+        document.querySelector(
+            ".cursor-outline"
+        );
 
 
-    const type = () => {
+    if (!dot || !outline) return;
 
-        if (index >= text.length) {
-            return;
+
+    const isTouchDevice =
+        window.matchMedia(
+            "(pointer: coarse)"
+        ).matches;
+
+
+    if (isTouchDevice) {
+
+        dot.style.display = "none";
+        outline.style.display = "none";
+
+        return;
+
+    }
+
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let outlineX = 0;
+    let outlineY = 0;
+
+
+    document.addEventListener(
+        "mousemove",
+        event => {
+
+            mouseX = event.clientX;
+
+            mouseY = event.clientY;
+
+
+            dot.style.left =
+                `${mouseX}px`;
+
+            dot.style.top =
+                `${mouseY}px`;
+
+        }
+    );
+
+
+    function animateCursor() {
+
+        outlineX +=
+            (mouseX - outlineX) * 0.15;
+
+        outlineY +=
+            (mouseY - outlineY) * 0.15;
+
+
+        outline.style.left =
+            `${outlineX}px`;
+
+        outline.style.top =
+            `${outlineY}px`;
+
+
+        requestAnimationFrame(
+            animateCursor
+        );
+
+    }
+
+
+    animateCursor();
+
+
+    const interactiveElements =
+        document.querySelectorAll(
+            "a, button, .skill-card, .project-card"
+        );
+
+
+    interactiveElements.forEach(element => {
+
+        element.addEventListener(
+            "mouseenter",
+            () => {
+
+                outline.classList.add(
+                    "hover"
+                );
+
+            }
+        );
+
+
+        element.addEventListener(
+            "mouseleave",
+            () => {
+
+                outline.classList.remove(
+                    "hover"
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   SMOOTH INTERNAL LINKS
+========================================================= */
+
+function initSmoothLinks() {
+
+    const links =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
+
+
+    links.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            event => {
+
+                const targetId =
+                    link.getAttribute(
+                        "href"
+                    );
+
+
+                if (
+                    !targetId ||
+                    targetId === "#"
+                ) {
+                    return;
+                }
+
+
+                const target =
+                    document.querySelector(
+                        targetId
+                    );
+
+
+                if (!target) return;
+
+
+                event.preventDefault();
+
+
+                const navbar =
+                    document.getElementById(
+                        "navbar"
+                    );
+
+
+                const navbarHeight =
+                    navbar
+                        ? navbar.offsetHeight
+                        : 0;
+
+
+                const targetPosition =
+                    target.getBoundingClientRect()
+                        .top
+                    +
+                    window.scrollY
+                    -
+                    navbarHeight
+                    -
+                    10;
+
+
+                window.scrollTo({
+
+                    top: targetPosition,
+
+                    behavior: "smooth"
+
+                });
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   TERMINAL INTERACTION
+========================================================= */
+
+function initTerminalInteraction() {
+
+    const terminal =
+        document.querySelector(
+            ".terminal-window"
+        );
+
+    if (!terminal) return;
+
+
+    terminal.addEventListener(
+        "mouseenter",
+        () => {
+
+            terminal.style.borderColor =
+                "rgba(124,255,107,0.25)";
+
+        }
+    );
+
+
+    terminal.addEventListener(
+        "mouseleave",
+        () => {
+
+            terminal.style.borderColor =
+                "rgba(255,255,255,0.09)";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PROJECT HOVER
+========================================================= */
+
+function initProjectHover() {
+
+    const cards =
+        document.querySelectorAll(
+            ".project-card"
+        );
+
+
+    cards.forEach(card => {
+
+        card.addEventListener(
+            "mousemove",
+            event => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+
+                const rotateX =
+                    ((y / rect.height) - 0.5) * -4;
+
+
+                const rotateY =
+                    ((x / rect.width) - 0.5) * 4;
+
+
+                card.style.transform =
+                    `translateY(-8px)
+                     perspective(700px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)`;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+                card.style.transform = "";
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   TERMINAL TYPING EFFECT
+========================================================= */
+
+function terminalTypingEffect() {
+
+    const element =
+        document.querySelector(
+            ".typing-small"
+        );
+
+    if (!element) return;
+
+
+    const commands = [
+        "whoami",
+        "code",
+        "build",
+        "create",
+        "learn"
+    ];
+
+
+    let commandIndex = 0;
+
+    let characterIndex = 0;
+
+    let deleting = false;
+
+
+    function type() {
+
+        const currentCommand =
+            commands[commandIndex];
+
+
+        if (!deleting) {
+
+            element.textContent =
+                currentCommand.substring(
+                    0,
+                    characterIndex + 1
+                );
+
+            characterIndex++;
+
+
+            if (
+                characterIndex ===
+                currentCommand.length
+            ) {
+
+                deleting = true;
+
+                setTimeout(
+                    type,
+                    1200
+                );
+
+                return;
+
+            }
+
+        } else {
+
+            element.textContent =
+                currentCommand.substring(
+                    0,
+                    characterIndex - 1
+                );
+
+            characterIndex--;
+
+
+            if (characterIndex === 0) {
+
+                deleting = false;
+
+                commandIndex =
+                    (commandIndex + 1)
+                    % commands.length;
+
+            }
+
         }
 
-        element.textContent +=
-            text[index];
-
-        index++;
 
         setTimeout(
             type,
-            speed
+            deleting ? 50 : 100
         );
 
-    };
+    }
 
 
     type();
@@ -713,474 +739,70 @@ function typeText(
 
 
 /* =========================================================
-   13. TERMINAL TYPING EFFECT
+   START TERMINAL TYPING
 ========================================================= */
 
-function initializeTerminalTyping() {
-
-    const terminal =
-        $(".terminal-command[data-command]");
-
-    if (!terminal) {
-        return;
-    }
-
-    const command =
-        terminal.dataset.command;
-
-    if (!command) {
-        return;
-    }
-
-    const prefix =
-        terminal.dataset.prefix || "$ ";
-
-    let index = 0;
-
-    terminal.textContent =
-        prefix;
+terminalTypingEffect();
 
 
-    const typeCommand = () => {
+/* =========================================================
+   PARALLAX HERO TERMINAL
+========================================================= */
 
-        if (index >= command.length) {
+window.addEventListener(
+    "scroll",
+    () => {
+
+        const terminal =
+            document.querySelector(
+                ".hero-terminal-wrap"
+            );
+
+
+        if (!terminal) return;
+
+
+        if (window.innerWidth <= 850) {
             return;
         }
 
-        terminal.textContent +=
-            command[index];
 
-        index++;
-
-        setTimeout(
-            typeCommand,
-            55
-        );
-
-    };
+        const scroll =
+            window.scrollY;
 
 
-    setTimeout(
-        typeCommand,
-        700
-    );
+        if (scroll < 900) {
 
-}
-
-
-/* =========================================================
-   14. HERO PARALLAX
-========================================================= */
-
-function initializeHeroParallax() {
-
-    const visual =
-        $(".hero-visual");
-
-    if (!visual) {
-        return;
-    }
-
-
-    const supportsFinePointer =
-        window.matchMedia(
-            "(pointer: fine)"
-        ).matches;
-
-    if (!supportsFinePointer) {
-        return;
-    }
-
-
-    visual.addEventListener(
-        "mousemove",
-        event => {
-
-            const rect =
-                visual.getBoundingClientRect();
-
-            const x =
-                (event.clientX - rect.left) /
-                rect.width;
-
-            const y =
-                (event.clientY - rect.top) /
-                rect.height;
-
-
-            const rotateY =
-                (x - 0.5) * 5;
-
-            const rotateX =
-                (0.5 - y) * 5;
-
-
-            const windowElement =
-                $(".code-window", visual);
-
-            if (!windowElement) {
-                return;
-            }
-
-
-            windowElement.style.transform =
-                `perspective(1000px)
-                 rotateY(${rotateY}deg)
-                 rotateX(${rotateX}deg)
-                 translateY(-2px)`;
+            terminal.style.transform =
+                `translateY(${scroll * 0.06}px)`;
 
         }
-    );
 
-
-    visual.addEventListener(
-        "mouseleave",
-        () => {
-
-            const windowElement =
-                $(".code-window", visual);
-
-            if (!windowElement) {
-                return;
-            }
-
-            windowElement.style.transform =
-                `perspective(1000px)
-                 rotateY(-3deg)
-                 rotateX(2deg)`;
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   15. CONTACT ACTIONS
-========================================================= */
-
-function initializeContactActions() {
-
-    /*
-       Email / phone / social buttons are handled
-       automatically through their HTML href values.
-
-       This section only adds a small developer-style
-       feedback when an email link is clicked.
-    */
-
-
-    const emailLinks =
-        $$('a[href^="mailto:"]');
-
-
-    emailLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                showToast(
-                    "Opening email client..."
-                );
-
-            }
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   16. TOAST SYSTEM
-========================================================= */
-
-function showToast(message) {
-
-    let toast =
-        $(".dev-toast");
-
-
-    if (!toast) {
-
-        toast =
-            document.createElement("div");
-
-        toast.className =
-            "dev-toast";
-
-        Object.assign(
-            toast.style,
-            {
-
-                position: "fixed",
-
-                left: "50%",
-
-                bottom: "30px",
-
-                zIndex: "9999",
-
-                padding: "10px 15px",
-
-                border:
-                    "1px solid rgba(0,255,156,.2)",
-
-                borderRadius: "8px",
-
-                background:
-                    "rgba(7,10,14,.95)",
-
-                color:
-                    "#00ff9c",
-
-                font:
-                    '9px "Fira Code", monospace',
-
-                boxShadow:
-                    "0 15px 40px rgba(0,0,0,.3)",
-
-                transform:
-                    "translate(-50%, 20px)",
-
-                opacity: "0",
-
-                transition:
-                    "all .3s ease",
-
-                pointerEvents:
-                    "none"
-
-            }
-        );
-
-        document.body.appendChild(toast);
-
-    }
-
-
-    toast.textContent =
-        `> ${message}`;
-
-
-    requestAnimationFrame(() => {
-
-        toast.style.opacity = "1";
-
-        toast.style.transform =
-            "translate(-50%, 0)";
-
-    });
-
-
-    clearTimeout(
-        toast._timeout
-    );
-
-
-    toast._timeout =
-        setTimeout(() => {
-
-            toast.style.opacity = "0";
-
-            toast.style.transform =
-                "translate(-50%, 20px)";
-
-        }, 2200);
-
-}
-
-
-/* =========================================================
-   17. CURRENT YEAR
-========================================================= */
-
-function initializeCurrentYear() {
-
-    const yearElements =
-        $$("[data-current-year]");
-
-    if (!yearElements.length) {
-        return;
-    }
-
-    const year =
-        new Date().getFullYear();
-
-    yearElements.forEach(element => {
-
-        element.textContent =
-            year;
-
-    });
-
-}
-
-
-/* =========================================================
-   18. EXTERNAL LINKS
-========================================================= */
-
-function initializeExternalLinks() {
-
-    $$('a[href^="http"]').forEach(link => {
-
-        const currentHost =
-            window.location.hostname;
-
-        try {
-
-            const url =
-                new URL(link.href);
-
-            if (
-                url.hostname &&
-                url.hostname !== currentHost
-            ) {
-
-                link.target = "_blank";
-
-                link.rel =
-                    "noopener noreferrer";
-
-            }
-
-        } catch {
-            /* Invalid URL — leave unchanged. */
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   19. IMAGE ERROR HANDLER
-========================================================= */
-
-function initializeImageFallbacks() {
-
-    $$("img").forEach(image => {
-
-        image.addEventListener(
-            "error",
-            () => {
-
-                image.style.display =
-                    "none";
-
-            },
-            {
-                once: true
-            }
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   20. KEYBOARD SHORTCUTS
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        /*
-           ESC
-           Close mobile menu.
-        */
-
-        if (event.key === "Escape") {
-
-            const mobileNav =
-                $(".mobile-nav");
-
-            const menuButton =
-                $(".mobile-menu-button");
-
-            if (mobileNav) {
-
-                mobileNav.classList.remove(
-                    "open"
-                );
-
-            }
-
-            if (menuButton) {
-
-                menuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                const icon =
-                    $("i", menuButton);
-
-                if (icon) {
-
-                    icon.className =
-                        "fa-solid fa-bars";
-
-                }
-
-            }
-
-        }
-
-    }
+    },
+    { passive: true }
 );
 
 
 /* =========================================================
-   21. RESIZE SAFETY
-========================================================= */
-
-let resizeTimer;
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        clearTimeout(resizeTimer);
-
-        resizeTimer =
-            setTimeout(() => {
-
-                /*
-                   Prevent accidental horizontal overflow
-                   after responsive breakpoint changes.
-                */
-
-                document.documentElement
-                    .style.overflowX = "hidden";
-
-            }, 150);
-
-    }
-);
-
-
-/* =========================================================
-   22. PAGE VISIBILITY
+   PAGE VISIBILITY
 ========================================================= */
 
 document.addEventListener(
     "visibilitychange",
     () => {
 
-        if (document.hidden) {
+        if (
+            document.visibilityState ===
+            "hidden"
+        ) {
 
-            document.body.dataset.pageState =
-                "background";
+            document.title =
+                "Come back • Siddharth";
 
         } else {
 
-            document.body.dataset.pageState =
-                "active";
+            document.title =
+                "Siddharth — Developer Portfolio";
 
         }
 
@@ -1189,53 +811,33 @@ document.addEventListener(
 
 
 /* =========================================================
-   23. CONSOLE BRANDING
+   CONSOLE BRANDING
 ========================================================= */
 
 console.log(
-    "%cSIDDHARTH.DEV",
-    "color:#00ff9c;font-size:24px;font-weight:700;"
+    "%c<Siddharth />",
+    `
+        color:#7cff6b;
+        font-size:24px;
+        font-weight:bold;
+        font-family:monospace;
+    `
 );
 
 console.log(
-    "%c> Portfolio system initialized.",
-    "color:#b4beca;font-family:monospace;font-size:12px;"
+    "%cWelcome to Siddharth's portfolio.",
+    `
+        color:#aab4c2;
+        font-size:13px;
+        font-family:monospace;
+    `
 );
 
 console.log(
-    "%c> Developer: Siddharth Mishra",
-    "color:#00d9ff;font-family:monospace;font-size:12px;"
+    "%cBuild. Learn. Improve.",
+    `
+        color:#7cff6b;
+        font-size:12px;
+        font-family:monospace;
+    `
 );
-
-console.log(
-    "%c> Status: ONLINE",
-    "color:#00ff9c;font-family:monospace;font-size:12px;"
-);
-
-
-/* =========================================================
-   24. INITIALIZE OPTIONAL IMAGE FALLBACKS
-========================================================= */
-
-initializeImageFallbacks();
-
-
-/* =========================================================
-   25. FINAL SYSTEM MESSAGE
-========================================================= */
-
-window.SiddharthPortfolio = {
-
-    version:
-        "1.0.0",
-
-    developer:
-        "Siddharth Mishra",
-
-    status:
-        "online",
-
-    initialized:
-        true
-
-};
