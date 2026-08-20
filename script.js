@@ -1,57 +1,93 @@
 /* =========================================================
-   SIDDHARTH DEVELOPER PORTFOLIO
-   MAIN JAVASCRIPT
+   SIDDHARTH.DEV
+   PREMIUM DEVELOPER PORTFOLIO
+   PART 3 — script.js
 ========================================================= */
+
+"use strict";
 
 
 /* =========================================================
-   DOM READY
+   01. GLOBAL HELPERS
+========================================================= */
+
+const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
+const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
+
+
+/* =========================================================
+   02. DOM READY
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    initPreloader();
+    initializeLoader();
 
-    initNavbar();
+    initializeHeader();
 
-    initMobileMenu();
+    initializeMobileMenu();
 
-    initScrollReveal();
+    initializeSmoothNavigation();
 
-    initBackToTop();
+    initializeActiveNavigation();
 
-    initActiveNavigation();
+    initializeBackToTop();
 
-    initCustomCursor();
+    initializeCursor();
 
-    initSmoothLinks();
+    initializeRevealAnimations();
 
-    initTerminalInteraction();
+    initializeCodeTyping();
 
-    initProjectHover();
+    initializeTerminalTyping();
+
+    initializeHeroParallax();
+
+    initializeContactActions();
+
+    initializeCurrentYear();
+
+    initializeExternalLinks();
 
 });
 
 
 /* =========================================================
-   PRELOADER
+   03. PAGE LOADER
 ========================================================= */
 
-function initPreloader() {
+function initializeLoader() {
 
-    const preloader =
-        document.getElementById("preloader");
+    const loader = $(".page-loader");
 
-    if (!preloader) return;
+    if (!loader) {
+        return;
+    }
 
+    const minimumDisplayTime = 900;
+
+    const startTime = performance.now();
 
     window.addEventListener("load", () => {
 
+        const elapsed = performance.now() - startTime;
+
+        const remainingTime =
+            Math.max(
+                0,
+                minimumDisplayTime - elapsed
+            );
+
         setTimeout(() => {
 
-            preloader.classList.add("loaded");
+            loader.classList.add("loaded");
 
-        }, 1200);
+            document.body.classList.add("page-ready");
+
+        }, remainingTime);
 
     });
 
@@ -59,37 +95,36 @@ function initPreloader() {
 
 
 /* =========================================================
-   NAVBAR
+   04. HEADER SCROLL EFFECT
 ========================================================= */
 
-function initNavbar() {
+function initializeHeader() {
 
-    const navbar =
-        document.getElementById("navbar");
+    const header = $(".site-header");
 
-    if (!navbar) return;
+    if (!header) {
+        return;
+    }
 
+    const updateHeader = () => {
 
-    function updateNavbar() {
+        if (window.scrollY > 30) {
 
-        if (window.scrollY > 40) {
-
-            navbar.classList.add("scrolled");
+            header.classList.add("scrolled");
 
         } else {
 
-            navbar.classList.remove("scrolled");
+            header.classList.remove("scrolled");
 
         }
 
-    }
+    };
 
-
-    updateNavbar();
+    updateHeader();
 
     window.addEventListener(
         "scroll",
-        updateNavbar,
+        updateHeader,
         { passive: true }
     );
 
@@ -97,48 +132,181 @@ function initNavbar() {
 
 
 /* =========================================================
-   MOBILE MENU
+   05. MOBILE MENU
 ========================================================= */
 
-function initMobileMenu() {
+function initializeMobileMenu() {
 
-    const button =
-        document.getElementById("mobileMenuBtn");
+    const menuButton = $(".mobile-menu-button");
+    const mobileNav = $(".mobile-nav");
 
-    const menu =
-        document.getElementById("navMenu");
+    if (!menuButton || !mobileNav) {
+        return;
+    }
 
-    if (!button || !menu) return;
+    menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
 
+    menuButton.addEventListener("click", () => {
 
-    button.addEventListener("click", () => {
+        const isOpen =
+            mobileNav.classList.toggle("open");
 
-        button.classList.toggle("active");
-
-        menu.classList.toggle("open");
-
-        document.body.classList.toggle(
-            "menu-open"
+        menuButton.setAttribute(
+            "aria-expanded",
+            String(isOpen)
         );
+
+        const icon = $("i", menuButton);
+
+        if (icon) {
+
+            icon.className = isOpen
+                ? "fa-solid fa-xmark"
+                : "fa-solid fa-bars";
+
+        }
 
     });
 
 
-    const links =
-        menu.querySelectorAll(".nav-link");
+    /* Close menu after navigation */
 
-
-    links.forEach(link => {
+    $$("a", mobileNav).forEach(link => {
 
         link.addEventListener("click", () => {
 
-            button.classList.remove("active");
+            mobileNav.classList.remove("open");
 
-            menu.classList.remove("open");
-
-            document.body.classList.remove(
-                "menu-open"
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
             );
+
+            const icon = $("i", menuButton);
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-bars";
+
+            }
+
+        });
+
+    });
+
+
+    /* Close on outside click */
+
+    document.addEventListener("click", event => {
+
+        if (
+            !mobileNav.contains(event.target) &&
+            !menuButton.contains(event.target)
+        ) {
+
+            mobileNav.classList.remove("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            const icon = $("i", menuButton);
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-bars";
+
+            }
+
+        }
+
+    });
+
+
+    /* Close when desktop size returns */
+
+    window.addEventListener("resize", () => {
+
+        if (window.innerWidth > 900) {
+
+            mobileNav.classList.remove("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            const icon = $("i", menuButton);
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-bars";
+
+            }
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   06. SMOOTH NAVIGATION
+========================================================= */
+
+function initializeSmoothNavigation() {
+
+    $$('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", event => {
+
+            const targetId =
+                link.getAttribute("href");
+
+            if (
+                !targetId ||
+                targetId === "#"
+            ) {
+                return;
+            }
+
+            const target =
+                document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const header =
+                $(".site-header");
+
+            const headerHeight =
+                header
+                    ? header.offsetHeight + 15
+                    : 15;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                headerHeight;
+
+            window.scrollTo({
+
+                top: targetPosition,
+
+                behavior: "smooth"
+
+            });
 
         });
 
@@ -148,125 +316,34 @@ function initMobileMenu() {
 
 
 /* =========================================================
-   SCROLL REVEAL
+   07. ACTIVE NAVIGATION
 ========================================================= */
 
-function initScrollReveal() {
-
-    const elements =
-        document.querySelectorAll(".reveal");
-
-    if (!elements.length) return;
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.12,
-                rootMargin: "0px 0px -50px 0px"
-            }
-        );
-
-
-    elements.forEach(element => {
-
-        observer.observe(element);
-
-    });
-
-}
-
-
-/* =========================================================
-   BACK TO TOP
-========================================================= */
-
-function initBackToTop() {
-
-    const button =
-        document.getElementById("backToTop");
-
-    if (!button) return;
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            if (window.scrollY > 600) {
-
-                button.classList.add("show");
-
-            } else {
-
-                button.classList.remove("show");
-
-            }
-
-        },
-        { passive: true }
-    );
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ACTIVE NAVIGATION
-========================================================= */
-
-function initActiveNavigation() {
-
-    const sections =
-        document.querySelectorAll(
-            "main section[id]"
-        );
+function initializeActiveNavigation() {
 
     const navLinks =
-        document.querySelectorAll(
-            ".nav-link"
-        );
+        $$(".nav-link");
 
-    if (
-        !sections.length ||
-        !navLinks.length
-    ) {
+    if (!navLinks.length) {
         return;
     }
 
+    const sections =
+        navLinks
+            .map(link => {
+
+                const href =
+                    link.getAttribute("href");
+
+                if (!href || !href.startsWith("#")) {
+                    return null;
+                }
+
+                return document.querySelector(href);
+
+            })
+            .filter(Boolean);
+
 
     const observer =
         new IntersectionObserver(
@@ -274,48 +351,34 @@ function initActiveNavigation() {
 
                 entries.forEach(entry => {
 
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        const id =
-                            entry.target.id;
-
-
-                        navLinks.forEach(link => {
-
-                            link.classList.remove(
-                                "active"
-                            );
-
-
-                            const href =
-                                link.getAttribute(
-                                    "href"
-                                );
-
-
-                            if (
-                                href === `#${id}`
-                            ) {
-
-                                link.classList.add(
-                                    "active"
-                                );
-
-                            }
-
-                        });
-
+                    if (!entry.isIntersecting) {
+                        return;
                     }
+
+                    const id =
+                        `#${entry.target.id}`;
+
+                    navLinks.forEach(link => {
+
+                        const active =
+                            link.getAttribute("href") === id;
+
+                        link.classList.toggle(
+                            "active-nav",
+                            active
+                        );
+
+                    });
 
                 });
 
             },
             {
-                threshold: 0.25,
                 rootMargin:
-                    "-20% 0px -60% 0px"
+                    "-35% 0px -55% 0px",
+
+                threshold:
+                    0
             }
         );
 
@@ -330,46 +393,86 @@ function initActiveNavigation() {
 
 
 /* =========================================================
-   CUSTOM CURSOR
+   08. BACK TO TOP
 ========================================================= */
 
-function initCustomCursor() {
+function initializeBackToTop() {
 
-    const dot =
-        document.querySelector(
-            ".cursor-dot"
-        );
+    const button = $(".back-top");
 
-    const outline =
-        document.querySelector(
-            ".cursor-outline"
-        );
+    if (!button) {
+        return;
+    }
+
+    const update = () => {
+
+        if (window.scrollY > 500) {
+
+            button.classList.add("show");
+
+        } else {
+
+            button.classList.remove("show");
+
+        }
+
+    };
+
+    update();
+
+    window.addEventListener(
+        "scroll",
+        update,
+        { passive: true }
+    );
 
 
-    if (!dot || !outline) return;
+    button.addEventListener("click", () => {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+}
 
 
-    const isTouchDevice =
+/* =========================================================
+   09. CUSTOM CURSOR
+========================================================= */
+
+function initializeCursor() {
+
+    const cursor = $(".cursor-dot");
+
+    if (!cursor) {
+        return;
+    }
+
+    const supportsFinePointer =
         window.matchMedia(
-            "(pointer: coarse)"
+            "(pointer: fine)"
         ).matches;
 
+    if (!supportsFinePointer) {
 
-    if (isTouchDevice) {
-
-        dot.style.display = "none";
-        outline.style.display = "none";
+        cursor.style.display = "none";
 
         return;
 
     }
 
 
-    let mouseX = 0;
-    let mouseY = 0;
+    let mouseX = -100;
+    let mouseY = -100;
 
-    let outlineX = 0;
-    let outlineY = 0;
+    let currentX = -100;
+    let currentY = -100;
 
 
     document.addEventListener(
@@ -377,50 +480,36 @@ function initCustomCursor() {
         event => {
 
             mouseX = event.clientX;
-
             mouseY = event.clientY;
 
-
-            dot.style.left =
-                `${mouseX}px`;
-
-            dot.style.top =
-                `${mouseY}px`;
-
-        }
+        },
+        { passive: true }
     );
 
 
-    function animateCursor() {
+    const animate = () => {
 
-        outlineX +=
-            (mouseX - outlineX) * 0.15;
+        currentX +=
+            (mouseX - currentX) * 0.22;
 
-        outlineY +=
-            (mouseY - outlineY) * 0.15;
+        currentY +=
+            (mouseY - currentY) * 0.22;
 
+        cursor.style.left =
+            `${currentX}px`;
 
-        outline.style.left =
-            `${outlineX}px`;
+        cursor.style.top =
+            `${currentY}px`;
 
-        outline.style.top =
-            `${outlineY}px`;
+        requestAnimationFrame(animate);
 
+    };
 
-        requestAnimationFrame(
-            animateCursor
-        );
-
-    }
-
-
-    animateCursor();
+    animate();
 
 
     const interactiveElements =
-        document.querySelectorAll(
-            "a, button, .skill-card, .project-card"
-        );
+        $$("a, button, .skill-category, .principle-card, .education-card, .code-window");
 
 
     interactiveElements.forEach(element => {
@@ -429,9 +518,8 @@ function initCustomCursor() {
             "mouseenter",
             () => {
 
-                outline.classList.add(
-                    "hover"
-                );
+                cursor.style.width = "8px";
+                cursor.style.height = "8px";
 
             }
         );
@@ -441,9 +529,8 @@ function initCustomCursor() {
             "mouseleave",
             () => {
 
-                outline.classList.remove(
-                    "hover"
-                );
+                cursor.style.width = "5px";
+                cursor.style.height = "5px";
 
             }
         );
@@ -454,82 +541,72 @@ function initCustomCursor() {
 
 
 /* =========================================================
-   SMOOTH INTERNAL LINKS
+   10. SCROLL REVEAL
 ========================================================= */
 
-function initSmoothLinks() {
+function initializeRevealAnimations() {
 
-    const links =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
+    const elements = $$(
+
+        ".section-heading, " +
+        ".about-profile, " +
+        ".about-content, " +
+        ".principle-card, " +
+        ".education-item, " +
+        ".skill-category, " +
+        ".part-placeholder"
+
+    );
+
+    if (!elements.length) {
+        return;
+    }
 
 
-    links.forEach(link => {
+    elements.forEach(element => {
 
-        link.addEventListener(
-            "click",
-            event => {
+        element.style.opacity = "0";
 
-                const targetId =
-                    link.getAttribute(
-                        "href"
+        element.style.transform =
+            "translateY(25px)";
+
+        element.style.transition =
+            "opacity .7s ease, transform .7s ease";
+
+    });
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    entry.target.style.opacity = "1";
+
+                    entry.target.style.transform =
+                        "translateY(0)";
+
+                    observer.unobserve(
+                        entry.target
                     );
-
-
-                if (
-                    !targetId ||
-                    targetId === "#"
-                ) {
-                    return;
-                }
-
-
-                const target =
-                    document.querySelector(
-                        targetId
-                    );
-
-
-                if (!target) return;
-
-
-                event.preventDefault();
-
-
-                const navbar =
-                    document.getElementById(
-                        "navbar"
-                    );
-
-
-                const navbarHeight =
-                    navbar
-                        ? navbar.offsetHeight
-                        : 0;
-
-
-                const targetPosition =
-                    target.getBoundingClientRect()
-                        .top
-                    +
-                    window.scrollY
-                    -
-                    navbarHeight
-                    -
-                    10;
-
-
-                window.scrollTo({
-
-                    top: targetPosition,
-
-                    behavior: "smooth"
 
                 });
 
+            },
+            {
+                threshold: 0.12
             }
         );
+
+
+    elements.forEach(element => {
+
+        observer.observe(element);
 
     });
 
@@ -537,200 +614,97 @@ function initSmoothLinks() {
 
 
 /* =========================================================
-   TERMINAL INTERACTION
+   11. CODE WINDOW TYPING
 ========================================================= */
 
-function initTerminalInteraction() {
-
-    const terminal =
-        document.querySelector(
-            ".terminal-window"
-        );
-
-    if (!terminal) return;
-
-
-    terminal.addEventListener(
-        "mouseenter",
-        () => {
-
-            terminal.style.borderColor =
-                "rgba(124,255,107,0.25)";
-
-        }
-    );
-
-
-    terminal.addEventListener(
-        "mouseleave",
-        () => {
-
-            terminal.style.borderColor =
-                "rgba(255,255,255,0.09)";
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PROJECT HOVER
-========================================================= */
-
-function initProjectHover() {
-
-    const cards =
-        document.querySelectorAll(
-            ".project-card"
-        );
-
-
-    cards.forEach(card => {
-
-        card.addEventListener(
-            "mousemove",
-            event => {
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left;
-
-
-                const y =
-                    event.clientY -
-                    rect.top;
-
-
-                const rotateX =
-                    ((y / rect.height) - 0.5) * -4;
-
-
-                const rotateY =
-                    ((x / rect.width) - 0.5) * 4;
-
-
-                card.style.transform =
-                    `translateY(-8px)
-                     perspective(700px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)`;
-
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            () => {
-
-                card.style.transform = "";
-
-            }
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   TERMINAL TYPING EFFECT
-========================================================= */
-
-function terminalTypingEffect() {
+function initializeCodeTyping() {
 
     const element =
-        document.querySelector(
-            ".typing-small"
+        $(".js-code-output");
+
+    if (!element) {
+        return;
+    }
+
+    const originalText =
+        element.textContent.trim();
+
+    if (!originalText) {
+        return;
+    }
+
+    let hasStarted = false;
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (
+                        entry.isIntersecting &&
+                        !hasStarted
+                    ) {
+
+                        hasStarted = true;
+
+                        typeText(
+                            element,
+                            originalText,
+                            10
+                        );
+
+                        observer.disconnect();
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.2
+            }
         );
 
-    if (!element) return;
+
+    observer.observe(element);
+
+}
 
 
-    const commands = [
-        "whoami",
-        "code",
-        "build",
-        "create",
-        "learn"
-    ];
+/* =========================================================
+   12. GENERIC TYPEWRITER
+========================================================= */
+
+function typeText(
+    element,
+    text,
+    speed = 25
+) {
+
+    element.textContent = "";
+
+    let index = 0;
 
 
-    let commandIndex = 0;
+    const type = () => {
 
-    let characterIndex = 0;
-
-    let deleting = false;
-
-
-    function type() {
-
-        const currentCommand =
-            commands[commandIndex];
-
-
-        if (!deleting) {
-
-            element.textContent =
-                currentCommand.substring(
-                    0,
-                    characterIndex + 1
-                );
-
-            characterIndex++;
-
-
-            if (
-                characterIndex ===
-                currentCommand.length
-            ) {
-
-                deleting = true;
-
-                setTimeout(
-                    type,
-                    1200
-                );
-
-                return;
-
-            }
-
-        } else {
-
-            element.textContent =
-                currentCommand.substring(
-                    0,
-                    characterIndex - 1
-                );
-
-            characterIndex--;
-
-
-            if (characterIndex === 0) {
-
-                deleting = false;
-
-                commandIndex =
-                    (commandIndex + 1)
-                    % commands.length;
-
-            }
-
+        if (index >= text.length) {
+            return;
         }
 
+        element.textContent +=
+            text[index];
+
+        index++;
 
         setTimeout(
             type,
-            deleting ? 50 : 100
+            speed
         );
 
-    }
+    };
 
 
     type();
@@ -739,70 +713,421 @@ function terminalTypingEffect() {
 
 
 /* =========================================================
-   START TERMINAL TYPING
+   13. TERMINAL TYPING EFFECT
 ========================================================= */
 
-terminalTypingEffect();
+function initializeTerminalTyping() {
+
+    const terminal =
+        $(".terminal-command[data-command]");
+
+    if (!terminal) {
+        return;
+    }
+
+    const command =
+        terminal.dataset.command;
+
+    if (!command) {
+        return;
+    }
+
+    const prefix =
+        terminal.dataset.prefix || "$ ";
+
+    let index = 0;
+
+    terminal.textContent =
+        prefix;
 
 
-/* =========================================================
-   PARALLAX HERO TERMINAL
-========================================================= */
+    const typeCommand = () => {
 
-window.addEventListener(
-    "scroll",
-    () => {
-
-        const terminal =
-            document.querySelector(
-                ".hero-terminal-wrap"
-            );
-
-
-        if (!terminal) return;
-
-
-        if (window.innerWidth <= 850) {
+        if (index >= command.length) {
             return;
         }
 
+        terminal.textContent +=
+            command[index];
 
-        const scroll =
-            window.scrollY;
+        index++;
+
+        setTimeout(
+            typeCommand,
+            55
+        );
+
+    };
 
 
-        if (scroll < 900) {
+    setTimeout(
+        typeCommand,
+        700
+    );
 
-            terminal.style.transform =
-                `translateY(${scroll * 0.06}px)`;
-
-        }
-
-    },
-    { passive: true }
-);
+}
 
 
 /* =========================================================
-   PAGE VISIBILITY
+   14. HERO PARALLAX
+========================================================= */
+
+function initializeHeroParallax() {
+
+    const visual =
+        $(".hero-visual");
+
+    if (!visual) {
+        return;
+    }
+
+
+    const supportsFinePointer =
+        window.matchMedia(
+            "(pointer: fine)"
+        ).matches;
+
+    if (!supportsFinePointer) {
+        return;
+    }
+
+
+    visual.addEventListener(
+        "mousemove",
+        event => {
+
+            const rect =
+                visual.getBoundingClientRect();
+
+            const x =
+                (event.clientX - rect.left) /
+                rect.width;
+
+            const y =
+                (event.clientY - rect.top) /
+                rect.height;
+
+
+            const rotateY =
+                (x - 0.5) * 5;
+
+            const rotateX =
+                (0.5 - y) * 5;
+
+
+            const windowElement =
+                $(".code-window", visual);
+
+            if (!windowElement) {
+                return;
+            }
+
+
+            windowElement.style.transform =
+                `perspective(1000px)
+                 rotateY(${rotateY}deg)
+                 rotateX(${rotateX}deg)
+                 translateY(-2px)`;
+
+        }
+    );
+
+
+    visual.addEventListener(
+        "mouseleave",
+        () => {
+
+            const windowElement =
+                $(".code-window", visual);
+
+            if (!windowElement) {
+                return;
+            }
+
+            windowElement.style.transform =
+                `perspective(1000px)
+                 rotateY(-3deg)
+                 rotateX(2deg)`;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   15. CONTACT ACTIONS
+========================================================= */
+
+function initializeContactActions() {
+
+    /*
+       Email / phone / social buttons are handled
+       automatically through their HTML href values.
+
+       This section only adds a small developer-style
+       feedback when an email link is clicked.
+    */
+
+
+    const emailLinks =
+        $$('a[href^="mailto:"]');
+
+
+    emailLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                showToast(
+                    "Opening email client..."
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   16. TOAST SYSTEM
+========================================================= */
+
+function showToast(message) {
+
+    let toast =
+        $(".dev-toast");
+
+
+    if (!toast) {
+
+        toast =
+            document.createElement("div");
+
+        toast.className =
+            "dev-toast";
+
+        Object.assign(
+            toast.style,
+            {
+
+                position: "fixed",
+
+                left: "50%",
+
+                bottom: "30px",
+
+                zIndex: "9999",
+
+                padding: "10px 15px",
+
+                border:
+                    "1px solid rgba(0,255,156,.2)",
+
+                borderRadius: "8px",
+
+                background:
+                    "rgba(7,10,14,.95)",
+
+                color:
+                    "#00ff9c",
+
+                font:
+                    '9px "Fira Code", monospace',
+
+                boxShadow:
+                    "0 15px 40px rgba(0,0,0,.3)",
+
+                transform:
+                    "translate(-50%, 20px)",
+
+                opacity: "0",
+
+                transition:
+                    "all .3s ease",
+
+                pointerEvents:
+                    "none"
+
+            }
+        );
+
+        document.body.appendChild(toast);
+
+    }
+
+
+    toast.textContent =
+        `> ${message}`;
+
+
+    requestAnimationFrame(() => {
+
+        toast.style.opacity = "1";
+
+        toast.style.transform =
+            "translate(-50%, 0)";
+
+    });
+
+
+    clearTimeout(
+        toast._timeout
+    );
+
+
+    toast._timeout =
+        setTimeout(() => {
+
+            toast.style.opacity = "0";
+
+            toast.style.transform =
+                "translate(-50%, 20px)";
+
+        }, 2200);
+
+}
+
+
+/* =========================================================
+   17. CURRENT YEAR
+========================================================= */
+
+function initializeCurrentYear() {
+
+    const yearElements =
+        $$("[data-current-year]");
+
+    if (!yearElements.length) {
+        return;
+    }
+
+    const year =
+        new Date().getFullYear();
+
+    yearElements.forEach(element => {
+
+        element.textContent =
+            year;
+
+    });
+
+}
+
+
+/* =========================================================
+   18. EXTERNAL LINKS
+========================================================= */
+
+function initializeExternalLinks() {
+
+    $$('a[href^="http"]').forEach(link => {
+
+        const currentHost =
+            window.location.hostname;
+
+        try {
+
+            const url =
+                new URL(link.href);
+
+            if (
+                url.hostname &&
+                url.hostname !== currentHost
+            ) {
+
+                link.target = "_blank";
+
+                link.rel =
+                    "noopener noreferrer";
+
+            }
+
+        } catch {
+            /* Invalid URL — leave unchanged. */
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   19. IMAGE ERROR HANDLER
+========================================================= */
+
+function initializeImageFallbacks() {
+
+    $$("img").forEach(image => {
+
+        image.addEventListener(
+            "error",
+            () => {
+
+                image.style.display =
+                    "none";
+
+            },
+            {
+                once: true
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   20. KEYBOARD SHORTCUTS
 ========================================================= */
 
 document.addEventListener(
-    "visibilitychange",
-    () => {
+    "keydown",
+    event => {
 
-        if (
-            document.visibilityState ===
-            "hidden"
-        ) {
+        /*
+           ESC
+           Close mobile menu.
+        */
 
-            document.title =
-                "Come back • Siddharth";
+        if (event.key === "Escape") {
 
-        } else {
+            const mobileNav =
+                $(".mobile-nav");
 
-            document.title =
-                "Siddharth — Developer Portfolio";
+            const menuButton =
+                $(".mobile-menu-button");
+
+            if (mobileNav) {
+
+                mobileNav.classList.remove(
+                    "open"
+                );
+
+            }
+
+            if (menuButton) {
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                const icon =
+                    $("i", menuButton);
+
+                if (icon) {
+
+                    icon.className =
+                        "fa-solid fa-bars";
+
+                }
+
+            }
 
         }
 
@@ -811,33 +1136,106 @@ document.addEventListener(
 
 
 /* =========================================================
-   CONSOLE BRANDING
+   21. RESIZE SAFETY
+========================================================= */
+
+let resizeTimer;
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        clearTimeout(resizeTimer);
+
+        resizeTimer =
+            setTimeout(() => {
+
+                /*
+                   Prevent accidental horizontal overflow
+                   after responsive breakpoint changes.
+                */
+
+                document.documentElement
+                    .style.overflowX = "hidden";
+
+            }, 150);
+
+    }
+);
+
+
+/* =========================================================
+   22. PAGE VISIBILITY
+========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (document.hidden) {
+
+            document.body.dataset.pageState =
+                "background";
+
+        } else {
+
+            document.body.dataset.pageState =
+                "active";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   23. CONSOLE BRANDING
 ========================================================= */
 
 console.log(
-    "%c<Siddharth />",
-    `
-        color:#7cff6b;
-        font-size:24px;
-        font-weight:bold;
-        font-family:monospace;
-    `
+    "%cSIDDHARTH.DEV",
+    "color:#00ff9c;font-size:24px;font-weight:700;"
 );
 
 console.log(
-    "%cWelcome to Siddharth's portfolio.",
-    `
-        color:#aab4c2;
-        font-size:13px;
-        font-family:monospace;
-    `
+    "%c> Portfolio system initialized.",
+    "color:#b4beca;font-family:monospace;font-size:12px;"
 );
 
 console.log(
-    "%cBuild. Learn. Improve.",
-    `
-        color:#7cff6b;
-        font-size:12px;
-        font-family:monospace;
-    `
+    "%c> Developer: Siddharth Mishra",
+    "color:#00d9ff;font-family:monospace;font-size:12px;"
 );
+
+console.log(
+    "%c> Status: ONLINE",
+    "color:#00ff9c;font-family:monospace;font-size:12px;"
+);
+
+
+/* =========================================================
+   24. INITIALIZE OPTIONAL IMAGE FALLBACKS
+========================================================= */
+
+initializeImageFallbacks();
+
+
+/* =========================================================
+   25. FINAL SYSTEM MESSAGE
+========================================================= */
+
+window.SiddharthPortfolio = {
+
+    version:
+        "1.0.0",
+
+    developer:
+        "Siddharth Mishra",
+
+    status:
+        "online",
+
+    initialized:
+        true
+
+};

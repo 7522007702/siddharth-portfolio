@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+    <!-- =====================================================
+         BASIC DOCUMENT CONFIGURATION
+    ====================================================== -->
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,8 +15,13 @@
     >
 
     <meta
+        name="theme-color"
+        content="#070a0e"
+    >
+
+    <meta
         name="description"
-        content="Siddharth Mishra — Developer, Programmer & Creator. Explore projects, skills, education and Univichar AI."
+        content="Siddharth Mishra — Developer, Builder and AI enthusiast. Personal developer portfolio."
     >
 
     <meta
@@ -18,162 +29,294 @@
         content="Siddharth Mishra"
     >
 
-    <title>Siddharth — Developer Portfolio</title>
+    <meta
+        name="keywords"
+        content="Siddharth Mishra, Developer, Portfolio, Flutter, AI, Gemini, Firebase, Web Developer, Programmer"
+    >
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- =====================================================
+         PAGE TITLE
+    ====================================================== -->
+
+    <title>
+        Siddharth Mishra — Developer
+    </title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <!-- Icons -->
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="style.css">
+
+    <!-- =====================================================
+         MAIN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- =========================================
-         PRELOADER
-    ========================================== -->
 
-    <div class="preloader" id="preloader">
+    <!-- =====================================================
+         PAGE LOADER
+    ====================================================== -->
 
-        <div class="loader-content">
+    <div
+        class="page-loader"
+        id="pageLoader"
+    >
 
-            <div class="loader-logo">
-                <span>&lt;</span>
-                <strong>SM</strong>
-                <span>/&gt;</span>
-            </div>
+        <div class="loader-terminal">
 
             <div class="loader-line">
-                <div class="loader-progress"></div>
+
+                <span class="terminal-green">
+                    siddharth@dev:~$
+                </span>
+
+                <span>
+                    initializing portfolio
+                </span>
+
             </div>
 
-            <p>
-                <span>initializing</span>
-                <span class="loader-dots">...</span>
-            </p>
+
+            <div class="loader-line">
+
+                <span class="terminal-green">
+                    &gt;
+                </span>
+
+                loading developer profile...
+
+            </div>
+
+
+            <div class="loader-line terminal-success">
+
+                ✓ system ready
+
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- =========================================
-         CUSTOM CURSOR
-    ========================================== -->
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <!-- =====================================================
+         BACKGROUND SYSTEM
+    ====================================================== -->
 
+    <div class="background-grid"></div>
 
-    <!-- =========================================
-         BACKGROUND
-    ========================================== -->
+    <div class="background-glow glow-one"></div>
 
-    <div class="background-system">
-
-        <div class="grid-background"></div>
-
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
-        <div class="glow glow-three"></div>
-
-    </div>
+    <div class="background-glow glow-two"></div>
 
 
-    <!-- =========================================
+
+    <!-- =====================================================
          NAVIGATION
-    ========================================== -->
+    ====================================================== -->
 
-    <header class="navbar" id="navbar">
+    <header
+        class="site-header"
+        id="siteHeader"
+    >
 
-        <div class="nav-container">
+        <nav class="navbar">
 
-            <a href="#home" class="brand">
 
-                <span class="brand-bracket">&lt;</span>
+            <!-- BRAND -->
 
-                <span class="brand-name">SM</span>
+            <a
+                href="#home"
+                class="brand"
+            >
 
-                <span class="brand-bracket">/&gt;</span>
+                <div class="brand-symbol">
+
+                    &lt;/&gt;
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <span class="brand-name">
+                        siddharth<span>.dev</span>
+                    </span>
+
+                    <span class="brand-status">
+
+                        <span class="status-dot"></span>
+
+                        online
+
+                    </span>
+
+                </div>
 
             </a>
 
 
-            <nav class="nav-menu" id="navMenu">
 
-                <a href="#home" class="nav-link active">
-                    <span>01.</span> Home
+            <!-- DESKTOP NAVIGATION -->
+
+            <div class="nav-links">
+
+                <a
+                    href="#home"
+                    class="nav-link active-nav"
+                >
+                    _home
                 </a>
 
-                <a href="#about" class="nav-link">
-                    <span>02.</span> About
+                <a
+                    href="#about"
+                    class="nav-link"
+                >
+                    _about
                 </a>
 
-                <a href="#skills" class="nav-link">
-                    <span>03.</span> Skills
+                <a
+                    href="#skills"
+                    class="nav-link"
+                >
+                    _skills
                 </a>
 
-                <a href="#projects" class="nav-link">
-                    <span>04.</span> Projects
+                <a
+                    href="#projects"
+                    class="nav-link"
+                >
+                    _projects
                 </a>
 
-                <a href="#journey" class="nav-link">
-                    <span>05.</span> Journey
+                <a
+                    href="#contact"
+                    class="nav-link"
+                >
+                    _contact
                 </a>
 
-                <a href="#contact" class="nav-link">
-                    <span>06.</span> Contact
-                </a>
+            </div>
 
-            </nav>
 
+
+            <!-- NAVIGATION ACTION -->
 
             <a
                 href="#contact"
-                class="nav-cta"
+                class="nav-action"
             >
-                <i class="fa-solid fa-terminal"></i>
-                Let's Talk
+
+                <span>
+                    let's_build()
+                </span>
+
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
             </a>
 
 
+
+            <!-- MOBILE MENU -->
+
             <button
-                class="mobile-menu-btn"
-                id="mobileMenuBtn"
-                aria-label="Open menu"
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                aria-label="Open navigation"
+                type="button"
             >
-                <span></span>
-                <span></span>
-                <span></span>
+
+                <i class="fa-solid fa-bars"></i>
+
             </button>
+
+
+        </nav>
+
+
+
+        <!-- MOBILE NAVIGATION -->
+
+        <div
+            class="mobile-nav"
+            id="mobileNav"
+        >
+
+            <a href="#home">
+                _home
+            </a>
+
+            <a href="#about">
+                _about
+            </a>
+
+            <a href="#skills">
+                _skills
+            </a>
+
+            <a href="#projects">
+                _projects
+            </a>
+
+            <a href="#contact">
+                _contact
+            </a>
 
         </div>
 
     </header>
 
 
-    <!-- =========================================
-         MAIN
-    ========================================== -->
 
-    <main>
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main id="mainContent">
 
 
-        <!-- =====================================
-             HERO
-        ====================================== -->
+
+        <!-- =================================================
+             HERO / HOME
+        ================================================== -->
 
         <section
             class="hero section"
@@ -183,207 +326,569 @@
             <div class="hero-container">
 
 
-                <!-- LEFT -->
+                <!-- LEFT SIDE -->
 
                 <div class="hero-content">
 
-                    <div class="terminal-label">
 
-                        <span class="terminal-dot"></span>
+                    <div class="hero-terminal-label">
 
-                        <span>
-                            siddharth@developer:~$
+                        <span class="terminal-green">
+                            &gt;
                         </span>
 
-                        <span class="typing-small">
-                            whoami
-                        </span>
+                        developer.init()
 
                     </div>
 
 
-                    <p class="hero-kicker">
-                        <span>//</span>
-                        HELLO, WORLD!
-                    </p>
+                    <div class="hero-status">
+
+                        <span class="status-dot"></span>
+
+                        available_for_building
+
+                    </div>
 
 
                     <h1 class="hero-title">
 
-                        I'm
-
-                        <span class="hero-name">
-                            Siddharth
+                        <span class="hero-title-small">
+                            Hello, I'm
                         </span>
 
-                        <br>
+                        Siddharth
 
-                        <span class="hero-role">
-                            Developer<span class="blink">_</span>
+                        <span class="hero-title-highlight">
+                            Mishra<span>.</span>
                         </span>
 
                     </h1>
 
 
+                    <div class="hero-role">
+
+                        <span class="code-bracket">
+                            &lt;
+                        </span>
+
+                        Developer
+                        <span class="role-divider">
+                            /
+                        </span>
+                        Builder
+                        <span class="role-divider">
+                            /
+                        </span>
+                        AI Enthusiast
+
+                        <span class="code-bracket">
+                            /&gt;
+                        </span>
+
+                    </div>
+
+
                     <p class="hero-description">
 
-                        I turn ideas into
-                        <strong>digital experiences</strong>
-                        by combining programming,
-                        creativity and problem-solving.
+                        I learn by building, experiment with
+                        technology and turn ideas into practical
+                        digital products.
 
                     </p>
 
 
+                    <!-- HERO TERMINAL -->
+
+                    <div class="hero-terminal">
+
+
+                        <div class="terminal-header">
+
+                            <div class="terminal-dots">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+                            <span class="terminal-title">
+                                siddharth@developer
+                            </span>
+
+                            <i
+                                class="fa-solid fa-terminal"
+                            ></i>
+
+                        </div>
+
+
+                        <div class="terminal-body">
+
+
+                            <div class="terminal-row">
+
+                                <span class="terminal-green">
+                                    siddharth@dev:~$
+                                </span>
+
+                                <span class="terminal-command">
+                                    whoami
+                                </span>
+
+                            </div>
+
+
+                            <div class="terminal-output">
+
+                                Siddharth Mishra
+
+                            </div>
+
+
+                            <div class="terminal-row">
+
+                                <span class="terminal-green">
+                                    siddharth@dev:~$
+                                </span>
+
+                                <span class="terminal-command">
+                                    current_focus
+                                </span>
+
+                            </div>
+
+
+                            <div class="terminal-output">
+
+                                AI • Software • Web • Learning
+
+                            </div>
+
+
+                            <div class="terminal-row">
+
+                                <span class="terminal-green">
+                                    siddharth@dev:~$
+                                </span>
+
+                                <span class="terminal-command">
+                                    mission
+                                </span>
+
+                            </div>
+
+
+                            <div class="terminal-output terminal-success">
+
+                                Learn → Build → Solve
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- HERO BUTTONS -->
+
                     <div class="hero-actions">
+
 
                         <a
                             href="#projects"
                             class="btn btn-primary"
                         >
-                            <span>View My Work</span>
-                            <i class="fa-solid fa-arrow-right"></i>
+
+                            <i class="fa-solid fa-code"></i>
+
+                            view_projects
+
                         </a>
+
 
                         <a
                             href="#contact"
                             class="btn btn-secondary"
                         >
+
                             <i class="fa-regular fa-paper-plane"></i>
-                            <span>Contact Me</span>
+
+                            let's_build()
+
                         </a>
 
                     </div>
 
-
-                    <div class="hero-socials">
-
-                        <span class="social-label">
-                            connect();
-                        </span>
-
-                        <a
-                            href="https://github.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="GitHub"
-                        >
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-
-                        <a
-                            href="https://www.linkedin.com/in/siddharthmishra8/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="LinkedIn"
-                        >
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </a>
-
-                        <a
-                            href="https://www.instagram.com/siddharthmishr.a/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Instagram"
-                        >
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-
-                    </div>
 
                 </div>
 
 
-                <!-- RIGHT : CODE TERMINAL -->
 
-                <div class="hero-terminal-wrap">
+                <!-- RIGHT SIDE -->
 
-                    <div class="terminal-window">
+                <div class="hero-visual">
 
-                        <div class="terminal-header">
 
-                            <div class="terminal-controls">
+                    <div class="code-window">
 
-                                <span class="control red"></span>
-                                <span class="control yellow"></span>
-                                <span class="control green"></span>
 
-                            </div>
+                        <!-- WINDOW TOP -->
 
-                            <div class="terminal-title">
-                                siddharth.js
-                            </div>
+                        <div class="code-window-header">
 
-                            <div class="terminal-status">
+                            <div class="code-window-dots">
+
                                 <span></span>
-                                online
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+
+                            <div class="code-window-file">
+
+                                developer.dart
+
+                            </div>
+
+
+                            <div class="code-window-icons">
+
+                                <i class="fa-solid fa-code"></i>
+
                             </div>
 
                         </div>
 
+
+
+                        <!-- CODE -->
 
                         <div class="code-editor">
 
-                            <div class="line-numbers">
 
-                                <span>01</span>
-                                <span>02</span>
-                                <span>03</span>
-                                <span>04</span>
-                                <span>05</span>
-                                <span>06</span>
-                                <span>07</span>
-                                <span>08</span>
-                                <span>09</span>
-                                <span>10</span>
-                                <span>11</span>
-                                <span>12</span>
-                                <span>13</span>
-                                <span>14</span>
-                                <span>15</span>
-                                <span>16</span>
-                                <span>17</span>
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    01
+                                </span>
+
+                                <span class="code-purple">
+                                    class
+                                </span>
+
+                                <span class="code-white">
+                                    Developer
+                                </span>
+
+                                <span class="code-white">
+                                    {
+                                </span>
 
                             </div>
 
 
-                            <pre class="code-content"><code><span class="keyword">const</span> <span class="variable">developer</span> = {
-    <span class="property">name</span>: <span class="string">"Siddharth"</span>,
-    <span class="property">role</span>: <span class="string">"Developer"</span>,
-    <span class="property">location</span>: <span class="string">"Lucknow, India"</span>,
+                            <div class="code-line">
 
-    <span class="property">skills</span>: [
-        <span class="string">"Programming"</span>,
-        <span class="string">"Web Development"</span>,
-        <span class="string">"Flutter"</span>,
-        <span class="string">"AI / ML"</span>
-    ],
+                                <span class="line-number">
+                                    02
+                                </span>
 
-    <span class="property">project</span>: <span class="string">"Univichar AI"</span>,
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;
+                                </span>
 
-    <span class="property">mindset</span>: <span class="string">"Build. Learn. Improve."</span>,
+                                <span class="code-purple">
+                                    final
+                                </span>
 
-    <span class="property">available</span>: <span class="boolean">true</span>
-};
+                                <span class="code-cyan">
+                                    String
+                                </span>
 
-<span class="function">developer</span>.<span class="method">buildFuture</span>();</code></pre>
+                                <span class="code-white">
+                                    name
+                                </span>
+
+                                <span class="code-white">
+                                    =
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    03
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Siddharth Mishra"
+                                </span>
+
+                                <span class="code-white">
+                                    ;
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    04
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-purple">
+                                    final
+                                </span>
+
+                                <span class="code-cyan">
+                                    String
+                                </span>
+
+                                <span class="code-white">
+                                    location
+                                </span>
+
+                                <span class="code-white">
+                                    =
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    05
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Lucknow, India"
+                                </span>
+
+                                <span class="code-white">
+                                    ;
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    06
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-purple">
+                                    final
+                                </span>
+
+                                <span class="code-cyan">
+                                    List
+                                </span>
+
+                                <span class="code-white">
+                                    focus
+                                </span>
+
+                                <span class="code-white">
+                                    =
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    07
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-white">
+                                    [
+                                </span>
+
+                                <span class="code-yellow">
+                                    "AI"
+                                </span>
+
+                                <span class="code-white">
+                                    ,
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Flutter"
+                                </span>
+
+                                <span class="code-white">
+                                    ,
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    08
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Web"
+                                </span>
+
+                                <span class="code-white">
+                                    ,
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Firebase"
+                                </span>
+
+                                <span class="code-white">
+                                    ,
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    09
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Problem Solving"
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    10
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-white">
+                                    ];
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    11
+                                </span>
+
+                                <span class="code-indent">
+                                    &nbsp;&nbsp;
+                                </span>
+
+                                <span class="code-purple">
+                                    String
+                                </span>
+
+                                <span class="code-white">
+                                    mindset()
+                                </span>
+
+                                <span class="code-white">
+                                    =>
+                                </span>
+
+                                <span class="code-yellow">
+                                    "Build";
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-line">
+
+                                <span class="line-number">
+                                    12
+                                </span>
+
+                                <span class="code-white">
+                                    }
+                                </span>
+
+                            </div>
+
 
                         </div>
 
 
-                        <div class="terminal-footer">
+
+                        <!-- WINDOW FOOTER -->
+
+                        <div class="code-window-footer">
 
                             <span>
-                                <i class="fa-solid fa-code"></i>
-                                JavaScript
+
+                                <i
+                                    class="fa-solid fa-code"
+                                ></i>
+
+                                Dart
+
                             </span>
 
+
                             <span>
+
+                                Ln 12
+
+                            </span>
+
+
+                            <span>
+
                                 UTF-8
-                            </span>
 
-                            <span>
-                                Ln 17, Col 1
                             </span>
 
                         </div>
@@ -391,236 +896,381 @@
                     </div>
 
 
-                    <div class="floating-badge badge-one">
+                    <!-- FLOATING TAGS -->
 
-                        <i class="fa-solid fa-bolt"></i>
+                    <div
+                        class="floating-tag tag-ai"
+                    >
 
-                        <div>
-                            <small>STATUS</small>
-                            <strong>BUILDING</strong>
-                        </div>
+                        <i class="fa-solid fa-brain"></i>
+
+                        AI
+
+                    </div>
+
+
+                    <div
+                        class="floating-tag tag-flutter"
+                    >
+
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        Flutter
 
                     </div>
 
 
-                    <div class="floating-badge badge-two">
+                    <div
+                        class="floating-tag tag-code"
+                    >
 
-                        <i class="fa-solid fa-code-branch"></i>
+                        <i class="fa-solid fa-terminal"></i>
 
-                        <div>
-                            <small>VERSION</small>
-                            <strong>v2026</strong>
-                        </div>
+                        Code
 
                     </div>
+
 
                 </div>
 
             </div>
 
 
-            <div class="scroll-indicator">
+            <!-- HERO BOTTOM STATS -->
 
-                <span>SCROLL TO EXPLORE</span>
+            <div class="hero-stats">
 
-                <div class="scroll-line">
-                    <span></span>
+
+                <div class="hero-stat">
+
+                    <span class="stat-value">
+                        01
+                    </span>
+
+                    <span class="stat-label">
+                        flagship project
+                    </span>
+
+                </div>
+
+
+                <div class="hero-stat">
+
+                    <span class="stat-value">
+                        AI
+                    </span>
+
+                    <span class="stat-label">
+                        current direction
+                    </span>
+
+                </div>
+
+
+                <div class="hero-stat">
+
+                    <span class="stat-value">
+                        BBA
+                    </span>
+
+                    <span class="stat-label">
+                        current education
+                    </span>
+
+                </div>
+
+
+                <div class="hero-stat">
+
+                    <span class="stat-value">
+                        ∞
+                    </span>
+
+                    <span class="stat-label">
+                        curiosity
+                    </span>
+
                 </div>
 
             </div>
+
 
         </section>
 
 
-        <!-- =====================================
+
+        <!-- =================================================
              ABOUT
-        ====================================== -->
+        ================================================== -->
 
         <section
-            class="about section"
+            class="section"
             id="about"
         >
 
-            <div class="section-container">
+
+            <div class="section-heading">
 
 
-                <div class="section-heading reveal">
+                <div>
 
-                    <span class="section-number">
-                        02
-                    </span>
+                    <div class="section-number">
+                        // 01 — about_me
+                    </div>
 
-                    <div>
+                    <h2 class="section-title">
+                        About<span>.</span>
+                    </h2>
 
-                        <p class="section-kicker">
-                            // ABOUT_ME
-                        </p>
+                </div>
 
-                        <h2>
-                            The person behind
-                            <span>&lt;code/&gt;</span>
-                        </h2>
+
+                <p class="section-description">
+
+                    A developer in progress —
+                    learning technology by actually
+                    building with it.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="about-grid">
+
+
+                <!-- PROFILE -->
+
+                <div class="about-profile">
+
+
+                    <div class="profile-terminal-header">
+
+                        <div class="terminal-dots">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <span>
+                            siddharth_profile.json
+                        </span>
+
+                    </div>
+
+
+                    <div class="profile-body">
+
+
+                        <div class="profile-avatar">
+
+                            SM
+
+                        </div>
+
+
+                        <div class="profile-name">
+
+                            Siddharth Mishra
+
+                        </div>
+
+
+                        <div class="profile-role">
+
+                            Developer / Builder
+
+                        </div>
+
+
+                        <div class="profile-location">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Lucknow, India
+
+                        </div>
+
+
+                        <div class="profile-divider"></div>
+
+
+                        <div class="profile-info-row">
+
+                            <span>
+                                education
+                            </span>
+
+                            <strong>
+                                BBA
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-info-row">
+
+                            <span>
+                                background
+                            </span>
+
+                            <strong>
+                                PCB
+                            </strong>
+
+                        </div>
+
+
+                        <div class="profile-info-row">
+
+                            <span>
+                                certification
+                            </span>
+
+                            <strong>
+                                O Level
+                            </strong>
+
+                        </div>
+
 
                     </div>
 
                 </div>
 
 
-                <div class="about-grid">
+
+                <!-- ABOUT CONTENT -->
+
+                <div class="about-content">
 
 
-                    <div class="about-visual reveal">
+                    <div class="about-code-heading">
 
-                        <div class="profile-card">
+                        <span class="terminal-green">
+                            const
+                        </span>
 
-                            <div class="profile-card-top">
+                        <span>
+                            introduction
+                        </span>
 
-                                <span>
-                                    siddharth.profile
-                                </span>
-
-                                <i class="fa-solid fa-ellipsis"></i>
-
-                            </div>
-
-
-                            <div class="profile-avatar">
-
-                                <div class="avatar-ring">
-
-                                    <div class="avatar-inner">
-                                        SM
-                                    </div>
-
-                                </div>
-
-                                <div class="online-indicator"></div>
-
-                            </div>
-
-
-                            <h3>
-                                Siddharth Mishra
-                            </h3>
-
-                            <p>
-                                Programmer & Developer
-                            </p>
-
-
-                            <div class="profile-location">
-
-                                <i class="fa-solid fa-location-dot"></i>
-
-                                Lucknow, India
-
-                            </div>
-
-
-                            <div class="profile-tags">
-
-                                <span>Developer</span>
-                                <span>Creator</span>
-                                <span>Learner</span>
-
-                            </div>
-
-
-                            <div class="profile-code">
-
-                                <span class="code-comment">
-                                    // current mission
-                                </span>
-
-                                <br>
-
-                                <span class="keyword">
-                                    build
-                                </span>
-
-                                (<span class="string">
-                                    "something meaningful"
-                                </span>);
-
-                            </div>
-
-                        </div>
+                        <span class="terminal-green">
+                            =
+                        </span>
 
                     </div>
 
 
-                    <div class="about-content reveal">
+                    <h3>
 
-                        <p class="lead-text">
+                        Learning technology
+                        by building with it.
 
-                            I'm <strong>Siddharth Mishra</strong>,
-                            a learner, programmer and aspiring
-                            developer from Lucknow, India.
-
-                        </p>
+                    </h3>
 
 
-                        <p>
+                    <p>
 
-                            My journey is focused on understanding
-                            how technology works and turning that
-                            knowledge into practical digital products.
+                        I'm Siddharth Mishra, a student and
+                        developer interested in software,
+                        artificial intelligence and digital
+                        product development.
 
-                        </p>
-
-
-                        <p>
-
-                            I enjoy experimenting with web development,
-                            application development, programming,
-                            artificial intelligence and modern UI/UX.
-
-                        </p>
+                    </p>
 
 
-                        <p>
+                    <p>
 
-                            Instead of simply learning technologies,
-                            my goal is to <strong>build real solutions</strong>
-                            that solve meaningful problems.
+                        My approach is simple:
 
-                        </p>
+                        <strong>
+                            learn something,
+                            build something,
+                            understand the problem,
+                            and improve the solution.
+                        </strong>
 
-
-                        <div class="about-highlights">
-
-                            <div class="highlight">
-
-                                <span class="highlight-icon">
-                                    <i class="fa-solid fa-brain"></i>
-                                </span>
-
-                                <div>
-                                    <strong>Problem Solver</strong>
-                                    <small>
-                                        Think → Build → Improve
-                                    </small>
-                                </div>
-
-                            </div>
+                    </p>
 
 
-                            <div class="highlight">
+                    <p>
 
-                                <span class="highlight-icon">
-                                    <i class="fa-solid fa-rocket"></i>
-                                </span>
+                        Currently, I'm pursuing BBA at
+                        Ambalika Institute of Management
+                        and Technology while continuously
+                        developing my technical skills.
 
-                                <div>
-                                    <strong>Always Learning</strong>
-                                    <small>
-                                        Technology never stops
-                                    </small>
-                                </div>
+                    </p>
 
-                            </div>
+
+                    <div class="about-principles">
+
+
+                        <div class="principle-card">
+
+                            <span class="principle-number">
+                                01
+                            </span>
+
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                            <h4>
+                                Learn
+                            </h4>
+
+                            <p>
+                                Understand the technology
+                                before depending on it.
+                            </p>
 
                         </div>
+
+
+                        <div class="principle-card">
+
+                            <span class="principle-number">
+                                02
+                            </span>
+
+                            <i class="fa-solid fa-code"></i>
+
+                            <h4>
+                                Build
+                            </h4>
+
+                            <p>
+                                Convert knowledge into
+                                practical projects.
+                            </p>
+
+                        </div>
+
+
+                        <div class="principle-card">
+
+                            <span class="principle-number">
+                                03
+                            </span>
+
+                            <i class="fa-solid fa-puzzle-piece"></i>
+
+                            <h4>
+                                Solve
+                            </h4>
+
+                            <p>
+                                Focus on useful solutions,
+                                not just code.
+                            </p>
+
+                        </div>
+
 
                     </div>
 
@@ -628,1086 +1278,946 @@
 
             </div>
 
+
         </section>
 
 
-        <!-- =====================================
-             SKILLS
-        ====================================== -->
+
+        <!-- =================================================
+             EDUCATION
+        ================================================== -->
 
         <section
-            class="skills section"
-            id="skills"
+            class="section section-compact"
+            id="education"
         >
 
-            <div class="section-container">
 
-                <div class="section-heading reveal">
+            <div class="section-heading">
 
-                    <span class="section-number">
-                        03
-                    </span>
 
-                    <div>
+                <div>
 
-                        <p class="section-kicker">
-                            // TECH_STACK
+                    <div class="section-number">
+                        // 02 — education
+                    </div>
+
+                    <h2 class="section-title">
+                        Education<span>.</span>
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="education-timeline">
+
+
+                <!-- CURRENT -->
+
+                <div class="education-item">
+
+
+                    <div class="education-marker">
+
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="education-card">
+
+
+                        <div class="education-year">
+                            CURRENT
+                        </div>
+
+
+                        <h3>
+                            Bachelor of Business Administration
+                        </h3>
+
+
+                        <div class="education-institute">
+
+                            Ambalika Institute of Management
+                            and Technology
+
+                        </div>
+
+
+                        <p>
+
+                            Currently pursuing BBA while
+                            developing technical,
+                            programming and AI-related skills.
+
                         </p>
 
-                        <h2>
-                            Tools I use to
-                            <span>build</span>
-                        </h2>
+
+                        <div class="education-tags">
+
+                            <span>
+                                BBA
+                            </span>
+
+                            <span>
+                                Management
+                            </span>
+
+                            <span>
+                                Technology
+                            </span>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="skills-grid">
+
+                <!-- O LEVEL -->
+
+                <div class="education-item">
 
 
-                    <div class="skill-card reveal">
+                    <div class="education-marker">
 
-                        <div class="skill-card-header">
+                        <span></span>
 
-                            <div class="skill-icon html-icon">
-                                <i class="fa-brands fa-html5"></i>
-                            </div>
+                    </div>
+
+
+                    <div class="education-card">
+
+
+                        <div class="education-year">
+                            CERTIFICATION
+                        </div>
+
+
+                        <h3>
+                            O Level
+                        </h3>
+
+
+                        <div class="education-institute">
+
+                            Computer Education
+
+                        </div>
+
+
+                        <p>
+
+                            Foundation in computer
+                            applications and information
+                            technology.
+
+                        </p>
+
+
+                        <div class="education-tags">
+
+                            <span>
+                                Computer
+                            </span>
+
+                            <span>
+                                IT
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 12TH -->
+
+                <div class="education-item">
+
+
+                    <div class="education-marker">
+
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="education-card">
+
+
+                        <div class="education-year">
+                            12th
+                        </div>
+
+
+                        <h3>
+                            Senior Secondary
+                        </h3>
+
+
+                        <div class="education-institute">
+
+                            Uttar Pradesh Board
+
+                        </div>
+
+
+                        <p>
+
+                            Science background with
+                            Physics, Chemistry and Biology.
+
+                        </p>
+
+
+                        <div class="education-tags">
+
+                            <span>
+                                PCB
+                            </span>
+
+                            <span>
+                                UP Board
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SKILLS
+        ================================================== -->
+
+        <section
+            class="section"
+            id="skills"
+        >
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <div class="section-number">
+                        // 03 — technical_stack
+                    </div>
+
+                    <h2 class="section-title">
+                        Skills<span>.</span>
+                    </h2>
+
+                </div>
+
+
+                <p class="section-description">
+
+                    Technologies I'm learning,
+                    experimenting with and using
+                    to build projects.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="skills-grid">
+
+
+                <!-- FRONTEND -->
+
+                <div class="skill-category">
+
+
+                    <div class="skill-category-header">
+
+                        <div class="skill-category-icon">
+
+                            <i class="fa-solid fa-code"></i>
+
+                        </div>
+
+
+                        <div>
 
                             <span>
                                 01
                             </span>
 
-                        </div>
-
-                        <h3>
-                            Frontend Development
-                        </h3>
-
-                        <p>
-                            Building responsive and interactive
-                            interfaces with modern web technologies.
-                        </p>
-
-                        <div class="skill-list">
-
-                            <span>HTML5</span>
-                            <span>CSS3</span>
-                            <span>JavaScript</span>
-                            <span>Responsive UI</span>
+                            <h3>
+                                Web
+                            </h3>
 
                         </div>
 
                     </div>
 
 
-                    <div class="skill-card reveal">
+                    <div class="skill-list">
 
-                        <div class="skill-card-header">
 
-                            <div class="skill-icon js-icon">
-                                <i class="fa-brands fa-js"></i>
-                            </div>
+                        <div class="skill-item">
+
+                            <span>
+                                HTML
+                            </span>
+
+                            <span class="skill-level">
+                                core
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                CSS
+                            </span>
+
+                            <span class="skill-level">
+                                core
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                JavaScript
+                            </span>
+
+                            <span class="skill-level">
+                                learning
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- APP -->
+
+                <div class="skill-category">
+
+
+                    <div class="skill-category-header">
+
+                        <div class="skill-category-icon">
+
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        </div>
+
+
+                        <div>
 
                             <span>
                                 02
                             </span>
 
-                        </div>
-
-                        <h3>
-                            Programming
-                        </h3>
-
-                        <p>
-                            Developing logical systems and learning
-                            modern programming concepts.
-                        </p>
-
-                        <div class="skill-list">
-
-                            <span>JavaScript</span>
-                            <span>Dart</span>
-                            <span>Programming Logic</span>
-                            <span>Git</span>
+                            <h3>
+                                App Development
+                            </h3>
 
                         </div>
 
                     </div>
 
 
-                    <div class="skill-card reveal">
+                    <div class="skill-list">
 
-                        <div class="skill-card-header">
 
-                            <div class="skill-icon flutter-icon">
-                                <i class="fa-solid fa-mobile-screen-button"></i>
-                            </div>
+                        <div class="skill-item">
+
+                            <span>
+                                Flutter
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                Dart
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                Firebase
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- AI -->
+
+                <div class="skill-category">
+
+
+                    <div class="skill-category-header">
+
+                        <div class="skill-category-icon">
+
+                            <i class="fa-solid fa-brain"></i>
+
+                        </div>
+
+
+                        <div>
 
                             <span>
                                 03
                             </span>
 
-                        </div>
-
-                        <h3>
-                            App Development
-                        </h3>
-
-                        <p>
-                            Exploring cross-platform application
-                            development using Flutter and Dart.
-                        </p>
-
-                        <div class="skill-list">
-
-                            <span>Flutter</span>
-                            <span>Dart</span>
-                            <span>Firebase</span>
-                            <span>UI/UX</span>
+                            <h3>
+                                AI
+                            </h3>
 
                         </div>
 
                     </div>
 
 
-                    <div class="skill-card reveal">
+                    <div class="skill-list">
 
-                        <div class="skill-card-header">
 
-                            <div class="skill-icon ai-icon">
-                                <i class="fa-solid fa-microchip"></i>
-                            </div>
+                        <div class="skill-item">
+
+                            <span>
+                                Generative AI
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                Gemini
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                AI Integration
+                            </span>
+
+                            <span class="skill-level">
+                                building
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOOLS -->
+
+                <div class="skill-category">
+
+
+                    <div class="skill-category-header">
+
+                        <div class="skill-category-icon">
+
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                        </div>
+
+
+                        <div>
 
                             <span>
                                 04
                             </span>
 
-                        </div>
-
-                        <h3>
-                            AI & Technology
-                        </h3>
-
-                        <p>
-                            Exploring generative AI and integrating
-                            intelligent systems into applications.
-                        </p>
-
-                        <div class="skill-list">
-
-                            <span>Generative AI</span>
-                            <span>Gemini API</span>
-                            <span>AI Integration</span>
-                            <span>Automation</span>
+                            <h3>
+                                Tools
+                            </h3>
 
                         </div>
+
+                    </div>
+
+
+                    <div class="skill-list">
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                Git
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                GitHub
+                            </span>
+
+                            <span class="skill-level">
+                                active
+                            </span>
+
+                        </div>
+
+
+                        <div class="skill-item">
+
+                            <span>
+                                VS Code
+                            </span>
+
+                            <span class="skill-level">
+                                daily
+                            </span>
+
+                        </div>
+
 
                     </div>
 
                 </div>
 
 
-                <div class="tech-marquee">
 
-                    <div class="marquee-track">
+            </div>
 
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JAVASCRIPT</span>
-                        <span>FLUTTER</span>
-                        <span>DART</span>
-                        <span>FIREBASE</span>
-                        <span>GIT</span>
-                        <span>AI</span>
-                        <span>GEMINI</span>
 
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JAVASCRIPT</span>
-                        <span>FLUTTER</span>
-                        <span>DART</span>
-                        <span>FIREBASE</span>
-                        <span>GIT</span>
-                        <span>AI</span>
-                        <span>GEMINI</span>
 
-                    </div>
+            <!-- TECH MARQUEE -->
+
+            <div class="tech-marquee">
+
+
+                <div class="tech-marquee-track">
+
+
+                    <span>
+                        HTML
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        CSS
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        JavaScript
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        Flutter
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        Dart
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        Firebase
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        Gemini AI
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        Git
+                    </span>
+
+                    <i class="fa-solid fa-circle"></i>
+
+                    <span>
+                        GitHub
+                    </span>
+
 
                 </div>
 
             </div>
 
+
         </section>
 
 
-        <!-- =====================================
+
+        <!-- =================================================
              PROJECTS
-        ====================================== -->
+             
+             NOTE:
+             Detailed project system will be inserted
+             in Part 2.
+        ================================================== -->
 
         <section
-            class="projects section"
+            class="section"
             id="projects"
         >
 
-            <div class="section-container">
 
-                <div class="section-heading reveal">
+            <div class="section-heading">
 
-                    <span class="section-number">
-                        04
-                    </span>
 
-                    <div>
+                <div>
 
-                        <p class="section-kicker">
-                            // PROJECTS
-                        </p>
-
-                        <h2>
-                            Things I've
-                            <span>built</span>
-                        </h2>
-
+                    <div class="section-number">
+                        // 04 — selected_work
                     </div>
+
+                    <h2 class="section-title">
+                        Projects<span>.</span>
+                    </h2>
 
                 </div>
 
 
-                <!-- FEATURED PROJECT -->
+                <p class="section-description">
 
-                <article class="featured-project reveal">
+                    Selected work, experiments and
+                    products built while learning.
 
-                    <div class="project-glow"></div>
+                </p>
 
 
-                    <div class="project-content">
+            </div>
 
-                        <div class="project-label">
 
-                            <span>
-                                FEATURED PROJECT
-                            </span>
 
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <!-- PROJECT PLACEHOLDER -->
 
-                        </div>
+            <div class="part-placeholder">
 
+                <div class="part-placeholder-icon">
 
-                        <h3>
-                            Univichar <span>AI</span>
-                        </h3>
+                    <i class="fa-solid fa-code"></i>
 
+                </div>
 
-                        <p class="project-description">
 
-                            An AI-powered educational platform designed
-                            to make learning more interactive, accessible
-                            and intelligent.
+                <div>
 
-                        </p>
+                    <span class="part-placeholder-label">
+                        PROJECT_SYSTEM
+                    </span>
 
 
-                        <div class="project-features">
+                    <h3>
+                        Featured Projects
+                    </h3>
 
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                AI Teacher
-                            </div>
 
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                AI Chat
-                            </div>
+                    <p>
 
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                Notes & Quiz
-                            </div>
+                        This area will be replaced by the
+                        complete developer-style project
+                        system in Part 2.
 
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                Voice Interaction
-                            </div>
-
-                        </div>
-
-
-                        <div class="project-tech">
-
-                            <span>Flutter</span>
-                            <span>Dart</span>
-                            <span>Firebase</span>
-                            <span>Gemini AI</span>
-
-                        </div>
-
-
-                        <div class="project-links">
-
-                            <a
-                                href="#"
-                                class="project-link"
-                            >
-                                <i class="fa-brands fa-github"></i>
-                                Source
-                            </a>
-
-                            <a
-                                href="#"
-                                class="project-link primary-link"
-                            >
-                                Explore Project
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="project-visual">
-
-                        <div class="univichar-screen">
-
-                            <div class="screen-top">
-
-                                <div class="mini-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-
-                                <span>
-                                    univichar_ai
-                                </span>
-
-                            </div>
-
-
-                            <div class="ai-interface">
-
-                                <div class="ai-sidebar">
-
-                                    <div class="ai-logo">
-                                        U
-                                    </div>
-
-                                    <div class="side-item active">
-                                        <i class="fa-solid fa-house"></i>
-                                    </div>
-
-                                    <div class="side-item">
-                                        <i class="fa-solid fa-message"></i>
-                                    </div>
-
-                                    <div class="side-item">
-                                        <i class="fa-solid fa-note-sticky"></i>
-                                    </div>
-
-                                    <div class="side-item">
-                                        <i class="fa-solid fa-circle-question"></i>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="ai-main">
-
-                                    <div class="ai-greeting">
-
-                                        <small>
-                                            AI TEACHER
-                                        </small>
-
-                                        <h4>
-                                            Learn something
-                                            <span>new.</span>
-                                        </h4>
-
-                                    </div>
-
-
-                                    <div class="ai-message">
-
-                                        <div class="ai-avatar">
-                                            U
-                                        </div>
-
-                                        <div class="message-lines">
-
-                                            <span></span>
-                                            <span></span>
-                                            <span class="short"></span>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="ai-input">
-
-                                        <span>
-                                            Ask anything...
-                                        </span>
-
-                                        <i class="fa-solid fa-paper-plane"></i>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- OTHER PROJECTS -->
-
-                <div class="project-grid">
-
-
-                    <article class="project-card reveal">
-
-                        <div class="project-card-top">
-
-                            <i class="fa-regular fa-folder-open"></i>
-
-                            <div>
-
-                                <a href="#" aria-label="Project link">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-
-                            </div>
-
-                        </div>
-
-
-                        <p class="project-type">
-                            WEB DEVELOPMENT
-                        </p>
-
-                        <h3>
-                            Developer Portfolio
-                        </h3>
-
-                        <p>
-                            A creative developer portfolio built
-                            around code, interaction and modern
-                            visual design.
-                        </p>
-
-
-                        <div class="card-tech">
-                            HTML
-                            · CSS
-                            · JavaScript
-                        </div>
-
-                    </article>
-
-
-                    <article class="project-card reveal">
-
-                        <div class="project-card-top">
-
-                            <i class="fa-regular fa-folder-open"></i>
-
-                            <div>
-
-                                <a href="#" aria-label="Project link">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-
-                            </div>
-
-                        </div>
-
-
-                        <p class="project-type">
-                            APPLICATION
-                        </p>
-
-                        <h3>
-                            AI Learning System
-                        </h3>
-
-                        <p>
-                            Exploring how artificial intelligence
-                            can be combined with education and
-                            personalized learning.
-                        </p>
-
-
-                        <div class="card-tech">
-                            Flutter
-                            · Firebase
-                            · Gemini
-                        </div>
-
-                    </article>
-
-
-                    <article class="project-card reveal">
-
-                        <div class="project-card-top">
-
-                            <i class="fa-regular fa-folder-open"></i>
-
-                            <div>
-
-                                <a href="#" aria-label="Project link">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-
-                            </div>
-
-                        </div>
-
-
-                        <p class="project-type">
-                            EXPERIMENT
-                        </p>
-
-                        <h3>
-                            Creative Interfaces
-                        </h3>
-
-                        <p>
-                            Experiments with animations, interfaces,
-                            interactions and futuristic web experiences.
-                        </p>
-
-
-                        <div class="card-tech">
-                            UI/UX
-                            · JavaScript
-                            · CSS
-                        </div>
-
-                    </article>
+                    </p>
 
                 </div>
 
             </div>
 
-        </section>
-
-
-        <!-- =====================================
-             JOURNEY / EDUCATION
-        ====================================== -->
-
-        <section
-            class="journey section"
-            id="journey"
-        >
-
-            <div class="section-container">
-
-                <div class="section-heading reveal">
-
-                    <span class="section-number">
-                        05
-                    </span>
-
-                    <div>
-
-                        <p class="section-kicker">
-                            // JOURNEY
-                        </p>
-
-                        <h2>
-                            Learning never
-                            <span>stops.</span>
-                        </h2>
-
-                    </div>
-
-                </div>
-
-
-                <div class="timeline">
-
-
-                    <div class="timeline-item reveal">
-
-                        <div class="timeline-marker">
-                            <span></span>
-                        </div>
-
-                        <div class="timeline-content">
-
-                            <span class="timeline-date">
-                                EDUCATION
-                            </span>
-
-                            <h3>
-                                Bachelor of Business Administration
-                            </h3>
-
-                            <h4>
-                                Ambalika Institute of Management & Technology
-                            </h4>
-
-                            <p>
-                                Currently pursuing BBA while exploring
-                                programming, technology, entrepreneurship
-                                and digital product development.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="timeline-item reveal">
-
-                        <div class="timeline-marker">
-                            <span></span>
-                        </div>
-
-                        <div class="timeline-content">
-
-                            <span class="timeline-date">
-                                FOUNDATION
-                            </span>
-
-                            <h3>
-                                O Level
-                            </h3>
-
-                            <h4>
-                                Computer & Information Technology
-                            </h4>
-
-                            <p>
-                                Built an early foundation in computer
-                                concepts, information technology and
-                                digital systems.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="timeline-item reveal">
-
-                        <div class="timeline-marker">
-                            <span></span>
-                        </div>
-
-                        <div class="timeline-content">
-
-                            <span class="timeline-date">
-                                SCHOOL
-                            </span>
-
-                            <h3>
-                                Class XII — PCB
-                            </h3>
-
-                            <h4>
-                                UP Board
-                            </h4>
-
-                            <p>
-                                Completed higher secondary education
-                                with Physics, Chemistry and Biology.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="timeline-item current reveal">
-
-                        <div class="timeline-marker">
-                            <span></span>
-                        </div>
-
-                        <div class="timeline-content">
-
-                            <span class="timeline-date">
-                                NOW
-                            </span>
-
-                            <h3>
-                                Building & Learning
-                            </h3>
-
-                            <h4>
-                                Programming • AI • Development
-                            </h4>
-
-                            <p>
-                                Continuously learning new technologies
-                                and turning ideas into real projects,
-                                including Univichar AI.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="learning-terminal reveal">
-
-                    <div class="learning-header">
-
-                        <span class="terminal-dot"></span>
-
-                        <span>
-                            siddharth-learning.log
-                        </span>
-
-                    </div>
-
-
-                    <div class="learning-body">
-
-                        <p>
-                            <span class="code-comment">
-                                // current status
-                            </span>
-                        </p>
-
-                        <p>
-                            <span class="keyword">
-                                while
-                            </span>
-                            (<span class="boolean">true</span>) {
-                        </p>
-
-                        <p class="indent">
-                            <span class="function">
-                                learn
-                            </span>();
-
-                            <span class="operator">
-                                &&
-                            </span>
-
-                            <span class="function">
-                                build
-                            </span>();
-
-                            <span class="operator">
-                                &&
-                            </span>
-
-                            <span class="function">
-                                improve
-                            </span>();
-                        </p>
-
-                        <p>
-                            }
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
 
         </section>
 
 
-        <!-- =====================================
+
+        <!-- =================================================
              CONTACT
-        ====================================== -->
+             
+             NOTE:
+             Final contact system will be inserted
+             in Part 3.
+        ================================================== -->
 
         <section
-            class="contact section"
+            class="section"
             id="contact"
         >
 
-            <div class="section-container">
+
+            <div class="section-heading">
 
 
-                <div class="contact-box reveal">
+                <div>
 
-                    <div class="contact-decoration decoration-one"></div>
-                    <div class="contact-decoration decoration-two"></div>
-
-
-                    <div class="contact-content">
-
-                        <p class="section-kicker">
-                            // GET_IN_TOUCH
-                        </p>
-
-                        <h2>
-                            Have an idea?
-                            <br>
-                            <span>Let's build it.</span>
-                        </h2>
-
-                        <p>
-
-                            Whether it's a project, collaboration,
-                            idea or simply a conversation about
-                            technology — my inbox is open.
-
-                        </p>
-
-
-                        <a
-                            href="mailto:siddharth@example.com"
-                            class="btn btn-primary contact-btn"
-                        >
-                            Start a Conversation
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
+                    <div class="section-number">
+                        // 05 — connection
                     </div>
 
-
-                    <div class="contact-terminal">
-
-                        <div class="contact-terminal-header">
-
-                            <span class="terminal-dot"></span>
-                            contact.sh
-
-                        </div>
-
-
-                        <div class="contact-terminal-body">
-
-                            <p>
-                                <span class="terminal-green">
-                                    siddharth
-                                </span>@portfolio:~$
-                            </p>
-
-                            <p>
-                                ./connect.sh
-                            </p>
-
-                            <br>
-
-                            <p>
-                                Name:
-                                <span class="terminal-value">
-                                    Siddharth Mishra
-                                </span>
-                            </p>
-
-                            <p>
-                                City:
-                                <span class="terminal-value">
-                                    Lucknow, India
-                                </span>
-                            </p>
-
-                            <p>
-                                Status:
-                                <span class="terminal-green">
-                                    Available
-                                </span>
-                            </p>
-
-                            <br>
-
-                            <p>
-                                <span class="terminal-green">
-                                    >
-                                </span>
-                                Ready to build something?
-                                <span class="cursor-block">█</span>
-                            </p>
-
-                        </div>
-
-                    </div>
+                    <h2 class="section-title">
+                        Contact<span>.</span>
+                    </h2>
 
                 </div>
 
 
-                <!-- CONTACT INFORMATION -->
+                <p class="section-description">
 
-                <div class="contact-info-grid reveal">
+                    Have an idea?
+                    Let's build something meaningful.
 
+                </p>
 
-                    <a
-                        href="tel:+917522007890"
-                        class="contact-info-card"
-                    >
-
-                        <div class="contact-info-icon">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-
-                        <div>
-                            <small>PHONE</small>
-                            <strong>+91 75220 07890</strong>
-                        </div>
-
-                    </a>
-
-
-                    <a
-                        href="https://www.linkedin.com/in/siddharthmishra8/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="contact-info-card"
-                    >
-
-                        <div class="contact-info-icon">
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </div>
-
-                        <div>
-                            <small>LINKEDIN</small>
-                            <strong>@siddharthmishra8</strong>
-                        </div>
-
-                    </a>
-
-
-                    <a
-                        href="https://www.instagram.com/siddharthmishr.a/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="contact-info-card"
-                    >
-
-                        <div class="contact-info-icon">
-                            <i class="fa-brands fa-instagram"></i>
-                        </div>
-
-                        <div>
-                            <small>INSTAGRAM</small>
-                            <strong>@siddharthmishr.a</strong>
-                        </div>
-
-                    </a>
-
-
-                    <a
-                        href="https://github.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="contact-info-card"
-                    >
-
-                        <div class="contact-info-icon">
-                            <i class="fa-brands fa-github"></i>
-                        </div>
-
-                        <div>
-                            <small>GITHUB</small>
-                            <strong>View repositories</strong>
-                        </div>
-
-                    </a>
-
-                </div>
 
             </div>
 
+
+
+            <div class="part-placeholder">
+
+
+                <div class="part-placeholder-icon">
+
+                    <i class="fa-regular fa-paper-plane"></i>
+
+                </div>
+
+
+                <div>
+
+                    <span class="part-placeholder-label">
+                        CONTACT_SYSTEM
+                    </span>
+
+
+                    <h3>
+                        Let's Build Something
+                    </h3>
+
+
+                    <p>
+
+                        The complete contact terminal,
+                        social links and developer
+                        communication interface will be
+                        inserted in Part 3.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
         </section>
+
+
 
     </main>
 
 
-    <!-- =========================================
+
+    <!-- =====================================================
          FOOTER
-    ========================================== -->
+         
+         Final footer will be completed in Part 3.
+    ====================================================== -->
 
-    <footer class="footer">
+    <footer class="site-footer">
 
-        <div class="footer-container">
 
-            <div class="footer-brand">
+        <div class="footer-top">
 
-                <a href="#home" class="brand">
 
-                    <span class="brand-bracket">&lt;</span>
+            <a
+                href="#home"
+                class="footer-brand"
+            >
 
-                    <span class="brand-name">SM</span>
+                <div class="footer-logo">
+                    &lt;/&gt;
+                </div>
 
-                    <span class="brand-bracket">/&gt;</span>
 
+                <div>
+
+                    <div class="footer-name">
+                        siddharth<span>.dev</span>
+                    </div>
+
+                    <div class="footer-tagline">
+                        learn • build • solve
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <div class="footer-links">
+
+                <a href="#home">
+                    home
                 </a>
 
-                <p>
-                    Building ideas into digital experiences.
-                </p>
+                <a href="#about">
+                    about
+                </a>
+
+                <a href="#skills">
+                    skills
+                </a>
+
+                <a href="#projects">
+                    projects
+                </a>
+
+                <a href="#contact">
+                    contact
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+
+            <div class="footer-copy">
+
+                © 2026 Siddharth Mishra.
+                Built with curiosity & code.
 
             </div>
 
 
             <div class="footer-code">
 
-                <span class="code-comment">
-                    // made with
+                <span>
+                    &lt;
                 </span>
 
-                <span class="footer-tech">
-                    HTML
-                </span>
+                designed_by_siddharth
 
-                <span>+</span>
-
-                <span class="footer-tech">
-                    CSS
-                </span>
-
-                <span>+</span>
-
-                <span class="footer-tech">
-                    JS
+                <span>
+                    /&gt;
                 </span>
 
             </div>
 
-
-            <div class="footer-bottom">
-
-                <span>
-                    © 2026 Siddharth Mishra
-                </span>
-
-                <span>
-                    Designed & Built with
-                    <i class="fa-solid fa-heart"></i>
-                </span>
-
-            </div>
 
         </div>
+
 
     </footer>
 
 
-    <!-- =========================================
+
+    <!-- =====================================================
          BACK TO TOP
-    ========================================== -->
+    ====================================================== -->
 
     <button
-        class="back-to-top"
-        id="backToTop"
+        class="back-top"
+        id="backTop"
         aria-label="Back to top"
+        type="button"
     >
+
         <i class="fa-solid fa-arrow-up"></i>
+
     </button>
 
 
-    <!-- Main JavaScript -->
+
+    <!-- =====================================================
+         MAIN JAVASCRIPT
+    ====================================================== -->
+
     <script src="script.js"></script>
 
+
 </body>
+
 </html>
