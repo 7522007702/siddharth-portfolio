@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Power BI Dashboard | Siddharth Mishra</title>
+
+    <link
+        rel="icon"
+        href="../assets/favicon.svg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="background-system">
+
+    <div class="grid-background"></div>
+
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+
+</div>
+
+
+<header class="site-header scrolled">
+
+    <div class="container nav-container">
+
+        <a
+            href="../index.html"
+            class="brand"
+        >
+
+            <span class="brand-bracket">&lt;</span>
+            <span class="brand-name">SIDDHARTH</span>
+            <span class="brand-dot">.</span>
+            <span class="brand-dev">DEV</span>
+            <span class="brand-bracket">/&gt;</span>
+
+        </a>
+
+
+        <a
+            href="../index.html#projects"
+            class="header-cta"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Projects
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section
+    class="section"
+    style="padding-top:180px"
+>
+
+    <div class="container">
+
+        <p class="eyebrow">
+            <span>CASE STUDY 02</span>
+            BUSINESS INTELLIGENCE
+        </p>
+
+
+        <h1
+            style="
+                margin-top:20px;
+                font-family:var(--font-display);
+                font-size:clamp(3rem,8vw,7rem);
+                line-height:.9;
+                letter-spacing:-.06em;
+            "
+        >
+
+            Power BI
+            <span class="gradient-text">
+                Dashboard.
+            </span>
+
+        </h1>
+
+
+        <p
+            style="
+                max-width:750px;
+                margin-top:30px;
+                color:var(--text-soft);
+                line-height:1.9;
+            "
+        >
+
+            An interactive business intelligence dashboard concept
+            focused on KPI visibility, visual storytelling,
+            trends and data-driven decision making.
+
+        </p>
+
+
+        <div
+            class="powerbi-preview"
+            style="
+                margin-top:60px;
+                height:500px;
+                border:1px solid var(--line);
+                border-radius:20px;
+            "
+        >
+
+            <div class="powerbi-header">
+                POWER BI • BUSINESS INTELLIGENCE
+            </div>
+
+
+            <div class="powerbi-body">
+
+                <div class="pie-chart"></div>
+
+
+                <div class="power-bars">
+
+                    <span style="height:35%"></span>
+                    <span style="height:65%"></span>
+                    <span style="height:48%"></span>
+                    <span style="height:82%"></span>
+                    <span style="height:58%"></span>
+                    <span style="height:92%"></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="services-grid"
+            style="margin-top:50px"
+        >
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-database"></i>
+
+                <h3>Data Model</h3>
+
+                <p>
+                    Designed a logical structure for connecting
+                    and analyzing business data.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-calculator"></i>
+
+                <h3>DAX</h3>
+
+                <p>
+                    KPI-oriented calculation concepts for
+                    business performance analysis.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <h3>Visualization</h3>
+
+                <p>
+                    Charts and visual elements designed to
+                    communicate trends clearly.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-gauge-high"></i>
+
+                <h3>KPI Dashboard</h3>
+
+                <p>
+                    Focused overview of important business
+                    performance indicators.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="code-showcase"
+            style="margin-top:50px"
+        >
+
+            <div class="code-showcase-header">
+
+                <div class="terminal-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                measure.dax
+
+            </div>
+
+
+            <div class="code-showcase-body">
+
+<pre><code>Total Revenue =
+<span class="code-blue">SUM</span>(
+    Sales[Revenue]
+)
+
+Average Order Value =
+<span class="code-blue">DIVIDE</span>(
+    [Total Revenue],
+    <span class="code-blue">COUNT</span>(Sales[OrderID])
+)</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-bottom">
+
+            <span>
+                ©
+                <span id="year"></span>
+                Siddharth Mishra
+            </span>
+
+            <a href="../index.html">
+                Back to Portfolio
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+</script>
+
+</body>
+</html>

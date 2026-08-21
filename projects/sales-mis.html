@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sales MIS Analytics | Siddharth Mishra</title>
+
+    <link
+        rel="icon"
+        href="../assets/favicon.svg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="background-system">
+
+    <div class="grid-background"></div>
+
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+
+</div>
+
+
+<header class="site-header scrolled">
+
+    <div class="container nav-container">
+
+        <a
+            href="../index.html"
+            class="brand"
+        >
+
+            <span class="brand-bracket">&lt;</span>
+            <span class="brand-name">SIDDHARTH</span>
+            <span class="brand-dot">.</span>
+            <span class="brand-dev">DEV</span>
+            <span class="brand-bracket">/&gt;</span>
+
+        </a>
+
+
+        <a
+            href="../index.html#projects"
+            class="header-cta"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Projects
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<section
+    class="section"
+    style="padding-top:180px"
+>
+
+    <div class="container">
+
+        <p class="eyebrow">
+            <span>CASE STUDY 01</span>
+            SALES • ANALYTICS
+        </p>
+
+
+        <h1
+            style="
+                margin-top:20px;
+                font-family:var(--font-display);
+                font-size:clamp(3rem,8vw,7rem);
+                line-height:.9;
+                letter-spacing:-.06em;
+            "
+        >
+
+            Sales MIS
+            <span class="gradient-text">
+                Analytics.
+            </span>
+
+        </h1>
+
+
+        <p
+            style="
+                max-width:750px;
+                margin-top:30px;
+                color:var(--text-soft);
+                line-height:1.9;
+            "
+        >
+
+            A structured analytical project designed to convert
+            sales data into understandable KPIs, trends,
+            performance views and decision-support insights.
+
+        </p>
+
+
+        <div
+            class="project-preview dashboard-preview"
+            style="
+                margin-top:60px;
+                height:500px;
+                border:1px solid var(--line);
+                border-radius:20px;
+            "
+        >
+
+            <div class="dashboard-top">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="dashboard-layout">
+
+                <div class="dashboard-side">
+
+                    <i class="fa-solid fa-chart-line"></i>
+                    <i class="fa-solid fa-table"></i>
+                    <i class="fa-solid fa-users"></i>
+                    <i class="fa-solid fa-filter"></i>
+
+                </div>
+
+
+                <div class="dashboard-main">
+
+                    <div class="dash-cards">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="dash-chart">
+
+                        <i class="bar b1"></i>
+                        <i class="bar b2"></i>
+                        <i class="bar b3"></i>
+                        <i class="bar b4"></i>
+                        <i class="bar b5"></i>
+                        <i class="bar b6"></i>
+                        <i class="bar b7"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="services-grid"
+            style="margin-top:50px"
+        >
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-database"></i>
+
+                <h3>Data Preparation</h3>
+
+                <p>
+                    Structured raw sales information for
+                    consistent analysis.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-filter"></i>
+
+                <h3>Data Analysis</h3>
+
+                <p>
+                    Applied filtering, grouping, aggregation
+                    and comparative analysis.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <h3>KPI Tracking</h3>
+
+                <p>
+                    Focused on revenue, performance,
+                    trends and business metrics.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <i class="fa-solid fa-lightbulb"></i>
+
+                <h3>Insights</h3>
+
+                <p>
+                    Converted analytical findings into
+                    useful decision-support information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="code-showcase"
+            style="margin-top:50px"
+        >
+
+            <div class="code-showcase-header">
+
+                <div class="terminal-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                sales-analysis.sql
+
+            </div>
+
+
+            <div class="code-showcase-body">
+
+<pre><code><span class="code-purple">SELECT</span>
+    region,
+    product,
+    <span class="code-blue">SUM</span>(revenue) <span class="code-purple">AS</span> total_revenue,
+    <span class="code-blue">COUNT</span>(order_id) <span class="code-purple">AS</span> orders
+<span class="code-purple">FROM</span> sales
+<span class="code-purple">GROUP BY</span>
+    region,
+    product
+<span class="code-purple">ORDER BY</span>
+    total_revenue <span class="code-purple">DESC</span>;</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-bottom">
+
+            <span>
+                ©
+                <span id="year"></span>
+                Siddharth Mishra
+            </span>
+
+            <a href="../index.html">
+                Back to Portfolio
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
