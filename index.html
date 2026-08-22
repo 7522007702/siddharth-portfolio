@@ -1,33 +1,39 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Siddharth Mishra | Developer Portfolio</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="Siddharth Mishra — Developer, Technology Learner and Digital Builder from Lucknow."
+        content="Siddharth Mishra — Developer, Programmer, Technology Learner and Digital Builder."
     >
 
     <meta
         name="keywords"
-        content="Siddharth Mishra, Developer, Portfolio, Web Developer, Programmer, SQL, Power BI, Python, JavaScript"
+        content="Siddharth Mishra, developer, programmer, portfolio, JavaScript, Python, Flutter, Dart, Firebase, AI, Gemini, GitHub"
     >
 
     <meta name="author" content="Siddharth Mishra">
+    <meta name="theme-color" content="#05070d">
 
-    <meta name="theme-color" content="#07111f">
+    <title>Siddharth.dev — Developer Portfolio</title>
 
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link
+        rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2305070d'/%3E%3Ctext x='50' y='66' font-size='58' text-anchor='middle' fill='%2300ff9d' font-family='Arial'%3ES%3C/text%3E%3C/svg%3E"
+    >
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
@@ -36,33 +42,41 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <!-- =========================================================
-     PAGE LOADER
+     PRELOADER
 ========================================================= -->
 
-<div class="page-loader" id="pageLoader">
+<div id="preloader" class="preloader">
+
     <div class="loader-terminal">
+
         <div class="loader-line">
-            <span>root@siddharth:~$</span>
-            <strong> initializing_portfolio</strong>
+            <span class="loader-green">$</span>
+            initializing
+        </div>
+
+        <div class="loader-line">
+            loading portfolio<span class="dots">...</span>
         </div>
 
         <div class="loader-progress">
-            <span></span>
+            <span id="loaderBar"></span>
         </div>
 
-        <p id="loaderText">Loading digital workspace...</p>
+        <div id="loaderPercent">0%</div>
+
     </div>
+
 </div>
 
 
 <!-- =========================================================
-     CURSOR
+     CUSTOM CURSOR
 ========================================================= -->
 
 <div class="cursor-dot"></div>
@@ -73,84 +87,90 @@
      BACKGROUND
 ========================================================= -->
 
-<div class="background-system">
-
-    <div class="grid-background"></div>
-
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-    <div class="orb orb-three"></div>
-
-    <div class="noise"></div>
-
-</div>
+<div class="background-grid"></div>
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
 
 
 <!-- =========================================================
      HEADER
 ========================================================= -->
 
-<header class="site-header" id="siteHeader">
+<header class="header" id="header">
 
     <div class="container nav-container">
 
-        <a href="#home" class="brand">
+        <a href="#home" class="logo">
 
-            <span class="brand-bracket">&lt;</span>
+            <span class="logo-symbol">&lt;/&gt;</span>
 
-            <span class="brand-name">SIDDHARTH</span>
-
-            <span class="brand-dot">.</span>
-
-            <span class="brand-dev">DEV</span>
-
-            <span class="brand-bracket">/&gt;</span>
+            <span>
+                SIDDHARTH<span class="logo-dot">.</span>DEV
+            </span>
 
         </a>
 
 
-        <nav class="desktop-nav">
+        <nav class="nav" id="nav">
 
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#experience" class="nav-link">Journey</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#certificates" class="nav-link">Certificates</a>
-            <a href="#resume" class="nav-link">Resume</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#home" class="nav-link active">
+                Home
+            </a>
+
+            <a href="#about" class="nav-link">
+                About
+            </a>
+
+            <a href="#skills" class="nav-link">
+                Skills
+            </a>
+
+            <a href="#projects" class="nav-link">
+                Projects
+            </a>
+
+            <a href="#experience" class="nav-link">
+                Journey
+            </a>
+
+            <a href="#certificates" class="nav-link">
+                Certificates
+            </a>
+
+            <a href="#resume" class="nav-link">
+                Resume
+            </a>
+
+            <a href="#contact" class="nav-link">
+                Contact
+            </a>
 
         </nav>
 
 
-        <div class="header-actions">
+        <div class="nav-actions">
 
             <button
-                class="icon-btn"
-                id="commandButton"
-                aria-label="Open command palette"
-                title="Command Palette"
-            >
-                <i class="fa-solid fa-terminal"></i>
-            </button>
-
-            <button
-                class="icon-btn"
-                id="themeButton"
+                class="icon-button"
+                id="themeToggle"
                 aria-label="Toggle theme"
-                title="Toggle theme"
             >
-                <i class="fa-solid fa-moon"></i>
+                <i class="fa-solid fa-sun"></i>
             </button>
 
-            <a href="#contact" class="header-cta">
-                <span>Let's Talk</span>
+
+            <a href="#contact" class="nav-cta">
+
+                Let's Talk
+
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
             </a>
 
+
             <button
-                class="mobile-menu-btn"
-                id="mobileMenuButton"
+                class="mobile-menu"
+                id="mobileMenu"
                 aria-label="Open menu"
             >
                 <span></span>
@@ -162,37 +182,128 @@
 
     </div>
 
-    <div class="mobile-nav" id="mobileNav">
-
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Journey</a>
-        <a href="#projects">Projects</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#resume">Resume</a>
-        <a href="#contact">Contact</a>
-
-    </div>
-
 </header>
 
 
 <!-- =========================================================
-     SCROLL PROGRESS
+     COMMAND PALETTE
 ========================================================= -->
 
-<div class="scroll-progress">
-    <span id="scrollProgress"></span>
+<div class="command-overlay" id="commandOverlay">
+
+    <div class="command-box">
+
+        <div class="command-header">
+
+            <span>
+                <i class="fa-solid fa-terminal"></i>
+                Command Palette
+            </span>
+
+            <button id="closeCommand">
+                ESC
+            </button>
+
+        </div>
+
+
+        <div class="command-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="commandInput"
+                placeholder="Search sections, projects, actions..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="command-results" id="commandResults">
+
+            <button data-command="home">
+                <span>
+                    <i class="fa-solid fa-house"></i>
+                    Home
+                </span>
+                <kbd>⌘ 1</kbd>
+            </button>
+
+            <button data-command="about">
+                <span>
+                    <i class="fa-solid fa-user"></i>
+                    About
+                </span>
+                <kbd>⌘ 2</kbd>
+            </button>
+
+            <button data-command="skills">
+                <span>
+                    <i class="fa-solid fa-code"></i>
+                    Skills
+                </span>
+                <kbd>⌘ 3</kbd>
+            </button>
+
+            <button data-command="projects">
+                <span>
+                    <i class="fa-solid fa-rocket"></i>
+                    Projects
+                </span>
+                <kbd>⌘ 4</kbd>
+            </button>
+
+            <button data-command="resume">
+                <span>
+                    <i class="fa-solid fa-file-lines"></i>
+                    Resume
+                </span>
+                <kbd>⌘ 5</kbd>
+            </button>
+
+            <button data-command="contact">
+                <span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Contact
+                </span>
+                <kbd>⌘ 6</kbd>
+            </button>
+
+        </div>
+
+
+        <div class="command-footer">
+
+            <span>
+                <kbd>↑</kbd>
+                <kbd>↓</kbd>
+                navigate
+            </span>
+
+            <span>
+                <kbd>Enter</kbd>
+                open
+            </span>
+
+            <span>
+                <kbd>Esc</kbd>
+                close
+            </span>
+
+        </div>
+
+    </div>
+
 </div>
-
-
-<main>
 
 
 <!-- =========================================================
      HERO
 ========================================================= -->
+
+<main>
 
 <section class="hero section" id="home">
 
@@ -200,24 +311,27 @@
 
         <div class="hero-content reveal">
 
-            <div class="status-pill">
+            <div class="availability">
 
                 <span class="status-dot"></span>
 
-                <span>Available for opportunities</span>
+                Available for opportunities
 
             </div>
 
 
             <p class="eyebrow">
-                <span>01</span>
-                DEVELOPER • BUILDER • LEARNER
+
+                <span class="line"></span>
+
+                HELLO, WORLD
+
             </p>
 
 
             <h1>
 
-                Hi, I'm
+                I'm
 
                 <span class="gradient-text">
                     Siddharth
@@ -225,88 +339,93 @@
 
                 <br>
 
-                <span class="hero-outline">
-                    Mishra.
+                <span class="outline-text">
+                    a Developer.
                 </span>
 
             </h1>
 
 
-            <div class="typing-wrapper">
-
-                <span>I build</span>
-
-                <span
-                    class="typing-text"
-                    id="typingText"
-                ></span>
-
-                <span class="typing-cursor">|</span>
-
-            </div>
-
-
             <p class="hero-description">
 
-                A technology-focused developer who enjoys turning
-                ideas into useful digital products, intelligent systems,
-                dashboards and modern web experiences.
+                I build digital experiences, applications and
+                technology projects with a passion for programming,
+                problem solving and continuous learning.
 
             </p>
 
 
-            <div class="hero-actions">
+            <div class="hero-buttons">
 
-                <a href="#projects" class="btn btn-primary">
-
-                    <span>Explore My Work</span>
-
+                <a
+                    href="#projects"
+                    class="btn btn-primary"
+                >
+                    Explore My Work
                     <i class="fa-solid fa-arrow-right"></i>
-
                 </a>
 
 
-                <a href="#contact" class="btn btn-secondary">
-
-                    <i class="fa-regular fa-paper-plane"></i>
-
-                    <span>Contact Me</span>
-
+                <a
+                    href="#resume"
+                    class="btn btn-secondary"
+                >
+                    View Resume
+                    <i class="fa-solid fa-file-lines"></i>
                 </a>
 
             </div>
 
 
-            <div class="hero-meta">
+            <div class="hero-socials">
 
-                <div>
-                    <span class="meta-value counter" data-target="15">0</span>
-                    <span class="meta-plus">+</span>
-                    <small>Technologies</small>
-                </div>
+                <a
+                    href="https://github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                >
+                    <i class="fa-brands fa-github"></i>
+                </a>
 
-                <div>
-                    <span class="meta-value counter" data-target="10">0</span>
-                    <span class="meta-plus">+</span>
-                    <small>Projects</small>
-                </div>
 
-                <div>
-                    <span class="meta-value counter" data-target="4">0</span>
-                    <span class="meta-plus">+</span>
-                    <small>Core Domains</small>
-                </div>
+                <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                >
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+
+                <a
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                >
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+
+                <a
+                    href="mailto:your-email@example.com"
+                    aria-label="Email"
+                >
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
 
             </div>
 
         </div>
 
 
-        <!-- HERO CODE TERMINAL -->
+        <!-- Developer Terminal -->
 
-        <div class="hero-visual reveal reveal-delay">
+        <div class="hero-terminal-wrap reveal delay-1">
 
-            <div class="terminal-window hero-terminal">
+            <div class="terminal-window">
 
                 <div class="terminal-topbar">
 
@@ -316,71 +435,111 @@
                         <span></span>
                     </div>
 
-                    <div class="terminal-title">
-                        siddharth.dev
-                    </div>
+                    <span class="terminal-title">
+                        siddharth@developer:~
+                    </span>
 
-                    <div class="terminal-actions">
-                        <span>—</span>
-                        <span>□</span>
-                        <span>×</span>
-                    </div>
+                    <span class="terminal-status">
+                        <i class="fa-solid fa-wifi"></i>
+                    </span>
 
                 </div>
 
 
                 <div class="terminal-body">
 
-<pre><code><span class="code-purple">const</span> <span class="code-blue">developer</span> = {
-    name: <span class="code-green">"Siddharth Mishra"</span>,
-    location: <span class="code-green">"Lucknow, India"</span>,
+                    <div class="terminal-command">
 
-    role: <span class="code-green">"Developer & Digital Builder"</span>,
+                        <span class="terminal-green">
+                            siddharth@dev
+                        </span>
 
-    skills: [
-        <span class="code-green">"HTML"</span>,
-        <span class="code-green">"CSS"</span>,
-        <span class="code-green">"JavaScript"</span>,
-        <span class="code-green">"Python"</span>,
-        <span class="code-green">"SQL"</span>,
-        <span class="code-green">"Power BI"</span>
-    ],
+                        <span>:</span>
 
-    mindset: <span class="code-green">"Build. Learn. Improve."</span>,
+                        <span class="terminal-blue">
+                            ~
+                        </span>
 
-    create() {
-        <span class="code-purple">return</span> <span class="code-green">"Something meaningful."</span>;
-    }
-};
+                        <span>$</span>
 
-<span class="code-purple">export default</span> developer;</code></pre>
+                        <span>
+                            whoami
+                        </span>
+
+                    </div>
+
+
+                    <div class="terminal-output">
+                        Siddharth Mishra
+                    </div>
+
+
+                    <div class="terminal-command">
+
+                        <span class="terminal-green">
+                            siddharth@dev
+                        </span>
+
+                        <span>:</span>
+
+                        <span class="terminal-blue">
+                            ~
+                        </span>
+
+                        <span>$</span>
+
+                        <span>
+                            cat profile.json
+                        </span>
+
+                    </div>
+
+
+                    <pre class="code-output"><span class="code-purple">{</span>
+  <span class="code-blue">"name"</span><span>:</span> <span class="code-green">"Siddharth Mishra"</span><span>,</span>
+  <span class="code-blue">"role"</span><span>:</span> <span class="code-green">"Developer"</span><span>,</span>
+  <span class="code-blue">"focus"</span><span>:</span> <span class="code-green">"Web, App & AI"</span><span>,</span>
+  <span class="code-blue">"stack"</span><span>:</span> <span class="code-green">"Flutter, Dart, JS, Python"</span><span>,</span>
+  <span class="code-blue">"mindset"</span><span>:</span> <span class="code-green">"Build & Learn"</span><span>,</span>
+  <span class="code-blue">"status"</span><span>:</span> <span class="code-green">"online"</span>
+<span class="code-purple">}</span></pre>
+
+
+                    <div class="terminal-command typing-line">
+
+                        <span class="terminal-green">
+                            siddharth@dev
+                        </span>
+
+                        <span>:</span>
+
+                        <span class="terminal-blue">
+                            ~
+                        </span>
+
+                        <span>$</span>
+
+                        <span id="terminalTyping"></span>
+
+                        <span class="terminal-cursor"></span>
+
+                    </div>
 
                 </div>
 
             </div>
 
 
-            <div class="floating-card card-top">
-
-                <i class="fa-solid fa-code"></i>
-
-                <div>
-                    <strong>Clean Code</strong>
-                    <small>Built with purpose</small>
-                </div>
-
+            <div class="floating-tech tech-html">
+                <i class="fa-brands fa-html5"></i>
             </div>
 
+            <div class="floating-tech tech-js">
+                <i class="fa-brands fa-js"></i>
+            </div>
 
-            <div class="floating-card card-bottom">
-
-                <i class="fa-solid fa-bolt"></i>
-
-                <div>
-                    <strong>Always Learning</strong>
-                    <small>Technology never stops</small>
-                </div>
-
+            <div class="floating-tech tech-python">
+                <i class="fa-brands fa-python"></i>
             </div>
 
         </div>
@@ -390,9 +549,113 @@
 
     <div class="scroll-indicator">
 
-        <span>SCROLL TO EXPLORE</span>
+        <span>
+            SCROLL TO EXPLORE
+        </span>
 
-        <i class="fa-solid fa-arrow-down"></i>
+        <div class="scroll-line"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<section class="stats-section">
+
+    <div class="container stats-grid">
+
+        <div class="stat-card reveal">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+
+            <div>
+
+                <strong data-count="10">
+                    0
+                </strong>
+
+                <span>+</span>
+
+                <p>
+                    Technologies
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card reveal delay-1">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <div>
+
+                <strong data-count="15">
+                    0
+                </strong>
+
+                <span>+</span>
+
+                <p>
+                    Projects & Experiments
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card reveal delay-2">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+
+            <div>
+
+                <strong data-count="100">
+                    0
+                </strong>
+
+                <span>+</span>
+
+                <p>
+                    Learning Hours
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card reveal delay-3">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <div>
+
+                <strong>
+                    ∞
+                </strong>
+
+                <p>
+                    Curiosity
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -403,24 +666,38 @@
      ABOUT
 ========================================================= -->
 
-<section class="section about-section" id="about">
+<section
+    class="section about-section"
+    id="about"
+>
 
     <div class="container">
 
         <div class="section-heading reveal">
 
             <p class="eyebrow">
-                <span>02</span>
+
+                <span class="line"></span>
+
                 ABOUT ME
+
             </p>
 
+
             <h2>
+
                 More than a
-                <span class="gradient-text">developer.</span>
+
+                <span class="gradient-text">
+                    developer.
+                </span>
+
             </h2>
 
+
             <p>
-                Curiosity drives the code. Problem-solving drives the product.
+                A technology enthusiast who enjoys turning ideas
+                into working digital experiences.
             </p>
 
         </div>
@@ -428,140 +705,117 @@
 
         <div class="about-grid">
 
-            <div class="profile-panel reveal">
+            <div class="about-card main-about reveal">
 
-                <div class="profile-image-wrap">
-
-                    <img
-                        src="assets/profile.png"
-                        alt="Siddharth Mishra"
-                        class="profile-image"
-                        onerror="this.src='https://via.placeholder.com/600x700?text=Siddharth+Mishra'"
-                    >
-
-                    <div class="profile-scan"></div>
-
+                <div class="about-number">
+                    01
                 </div>
 
 
-                <div class="profile-info">
+                <h3>
 
-                    <h3>Siddharth Mishra</h3>
+                    I build with
 
-                    <p>
-                        Developer • Technology Learner • Digital Builder
-                    </p>
+                    <span>
+                        purpose.
+                    </span>
 
-                    <div class="profile-location">
-                        <i class="fa-solid fa-location-dot"></i>
-                        Lucknow, Uttar Pradesh, India
-                    </div>
+                </h3>
+
+
+                <p>
+
+                    I'm Siddharth Mishra, a developer and technology
+                    learner interested in programming, application
+                    development, web technologies, AI integration
+                    and digital products.
+
+                </p>
+
+
+                <p>
+
+                    My approach is simple: understand the problem,
+                    learn the technology, build the solution and keep
+                    improving it.
+
+                </p>
+
+
+                <div class="about-signature">
+
+                    <span>
+                        — Siddharth Mishra
+                    </span>
 
                 </div>
 
             </div>
 
 
-            <div class="about-content reveal reveal-delay">
+            <div class="about-side">
 
-                <div class="terminal-mini">
+                <div class="mini-card reveal delay-1">
 
-                    <div class="terminal-mini-header">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <strong>about-me.js</strong>
+                    <div class="mini-card-icon">
+                        <i class="fa-solid fa-brain"></i>
                     </div>
 
-                    <div class="terminal-mini-body">
+                    <div>
+
+                        <h4>
+                            Problem Solver
+                        </h4>
 
                         <p>
-                            <span class="code-purple">class</span>
-                            <span class="code-blue">Siddharth</span>
-                            {
+                            Breaking complex problems into
+                            understandable solutions.
                         </p>
-
-                        <p class="indent">
-                            <span class="code-purple">constructor</span>() {
-                        </p>
-
-                        <p class="double-indent">
-                            passion =
-                            <span class="code-green">
-                                "Technology"
-                            </span>;
-                        </p>
-
-                        <p class="double-indent">
-                            focus =
-                            <span class="code-green">
-                                "Problem Solving"
-                            </span>;
-                        </p>
-
-                        <p class="double-indent">
-                            philosophy =
-                            <span class="code-green">
-                                "Keep Building"
-                            </span>;
-                        </p>
-
-                        <p class="indent">}</p>
-
-                        <p>}</p>
 
                     </div>
 
                 </div>
 
 
-                <div class="about-text">
+                <div class="mini-card reveal delay-2">
 
-                    <p>
-                        I am passionate about technology and enjoy
-                        understanding how digital products work from
-                        the interface to the logic behind them.
-                    </p>
+                    <div class="mini-card-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
 
-                    <p>
-                        My interests span web development, programming,
-                        databases, analytics, dashboards and emerging
-                        technologies.
-                    </p>
+                    <div>
 
-                    <p>
-                        I believe a strong developer is not someone who
-                        knows everything, but someone who keeps learning,
-                        experimenting and improving.
-                    </p>
+                        <h4>
+                            Continuous Learner
+                        </h4>
+
+                        <p>
+                            Exploring new tools, languages and
+                            technologies every day.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <div class="about-highlights">
+                <div class="mini-card reveal delay-3">
 
-                    <div class="highlight-item">
-                        <i class="fa-solid fa-layer-group"></i>
-                        <div>
-                            <strong>Full-Stack Thinking</strong>
-                            <span>UI → Logic → Data</span>
-                        </div>
+                    <div class="mini-card-icon">
+                        <i class="fa-solid fa-rocket"></i>
                     </div>
 
-                    <div class="highlight-item">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <div>
-                            <strong>Data Driven</strong>
-                            <span>SQL → Analysis → Insights</span>
-                        </div>
-                    </div>
+                    <div>
 
-                    <div class="highlight-item">
-                        <i class="fa-solid fa-brain"></i>
-                        <div>
-                            <strong>Continuous Learning</strong>
-                            <span>Always exploring</span>
-                        </div>
+                        <h4>
+                            Digital Builder
+                        </h4>
+
+                        <p>
+                            Turning concepts into real applications
+                            and useful digital products.
+                        </p>
+
                     </div>
 
                 </div>
@@ -579,266 +833,349 @@
      SKILLS
 ========================================================= -->
 
-<section class="section skills-section" id="skills">
+<section
+    class="section skills-section"
+    id="skills"
+>
 
     <div class="container">
 
-        <div class="section-heading reveal">
+        <div class="section-heading centered reveal">
 
             <p class="eyebrow">
-                <span>03</span>
-                TECH STACK
+
+                <span class="line"></span>
+
+                TECHNOLOGY STACK
+
+                <span class="line"></span>
+
             </p>
+
 
             <h2>
-                Tools I use to
-                <span class="gradient-text">build.</span>
+
+                My
+
+                <span class="gradient-text">
+                    toolbox.
+                </span>
+
             </h2>
 
+
             <p>
-                A growing toolkit built through practice, experimentation and projects.
+                Technologies I use to learn, experiment, build and
+                solve problems.
             </p>
-
-        </div>
-
-
-        <div class="skills-filter reveal">
-
-            <button class="skill-filter active" data-filter="all">
-                All
-            </button>
-
-            <button class="skill-filter" data-filter="frontend">
-                Frontend
-            </button>
-
-            <button class="skill-filter" data-filter="programming">
-                Programming
-            </button>
-
-            <button class="skill-filter" data-filter="data">
-                Data
-            </button>
-
-            <button class="skill-filter" data-filter="tools">
-                Tools
-            </button>
 
         </div>
 
 
         <div class="skills-grid">
 
-            <div class="skill-card reveal" data-category="frontend">
+            <!-- HTML -->
 
-                <div class="skill-icon html">
-                    <i class="fa-brands fa-html5"></i>
+            <div class="skill-card reveal">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo html-logo">
+                        <i class="fa-brands fa-html5"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        01
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>HTML5</h3>
-                    <p>Semantic Web Structure</p>
+                <h3>
+                    HTML5
+                </h3>
+
+                <p>
+                    Semantic and accessible web structure.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 92%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 92%"></span>
+                <div class="skill-meta">
+                    <span>Frontend</span>
+                    <strong>92%</strong>
                 </div>
-
-                <strong>92%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="frontend">
+            <!-- CSS -->
 
-                <div class="skill-icon css">
-                    <i class="fa-brands fa-css3-alt"></i>
+            <div class="skill-card reveal delay-1">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo css-logo">
+                        <i class="fa-brands fa-css3-alt"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        02
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>CSS3</h3>
-                    <p>Responsive UI & Design</p>
+                <h3>
+                    CSS3
+                </h3>
+
+                <p>
+                    Modern responsive and animated interfaces.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 88%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 90%"></span>
+                <div class="skill-meta">
+                    <span>Frontend</span>
+                    <strong>88%</strong>
                 </div>
-
-                <strong>90%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="frontend">
+            <!-- JavaScript -->
 
-                <div class="skill-icon js">
-                    <i class="fa-brands fa-js"></i>
+            <div class="skill-card reveal delay-2">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo js-logo">
+                        <i class="fa-brands fa-js"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        03
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>JavaScript</h3>
-                    <p>Interactive Web Logic</p>
+                <h3>
+                    JavaScript
+                </h3>
+
+                <p>
+                    Interactive applications and dynamic logic.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 86%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 84%"></span>
+                <div class="skill-meta">
+                    <span>Programming</span>
+                    <strong>86%</strong>
                 </div>
-
-                <strong>84%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="programming">
+            <!-- Python -->
 
-                <div class="skill-icon python">
-                    <i class="fa-brands fa-python"></i>
+            <div class="skill-card reveal delay-3">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo python-logo">
+                        <i class="fa-brands fa-python"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        04
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>Python</h3>
-                    <p>Programming & Automation</p>
+                <h3>
+                    Python
+                </h3>
+
+                <p>
+                    Programming, automation and experimentation.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 78%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 80%"></span>
+                <div class="skill-meta">
+                    <span>Programming</span>
+                    <strong>78%</strong>
                 </div>
-
-                <strong>80%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="data">
+            <!-- Dart -->
 
-                <div class="skill-icon sql">
-                    <i class="fa-solid fa-database"></i>
+            <div class="skill-card reveal">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo dart-logo">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        05
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>SQL</h3>
-                    <p>Database & Data Analysis</p>
+                <h3>
+                    Dart
+                </h3>
+
+                <p>
+                    Application development with Flutter.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 76%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 86%"></span>
+                <div class="skill-meta">
+                    <span>Mobile</span>
+                    <strong>76%</strong>
                 </div>
-
-                <strong>86%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="data">
+            <!-- Flutter -->
 
-                <div class="skill-icon powerbi">
-                    <i class="fa-solid fa-chart-column"></i>
+            <div class="skill-card reveal delay-1">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo flutter-logo">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        06
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>Power BI</h3>
-                    <p>Business Intelligence</p>
+                <h3>
+                    Flutter
+                </h3>
+
+                <p>
+                    Cross-platform application development.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 74%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 78%"></span>
+                <div class="skill-meta">
+                    <span>Framework</span>
+                    <strong>74%</strong>
                 </div>
-
-                <strong>78%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="tools">
+            <!-- Firebase -->
 
-                <div class="skill-icon git">
-                    <i class="fa-brands fa-git-alt"></i>
+            <div class="skill-card reveal delay-2">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo firebase-logo">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        07
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>Git</h3>
-                    <p>Version Control</p>
+                <h3>
+                    Firebase
+                </h3>
+
+                <p>
+                    Authentication, databases and backend services.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 72%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 82%"></span>
+                <div class="skill-meta">
+                    <span>Backend</span>
+                    <strong>72%</strong>
                 </div>
-
-                <strong>82%</strong>
 
             </div>
 
 
-            <div class="skill-card reveal" data-category="tools">
+            <!-- Git -->
 
-                <div class="skill-icon github">
-                    <i class="fa-brands fa-github"></i>
+            <div class="skill-card reveal delay-3">
+
+                <div class="skill-card-top">
+
+                    <div class="skill-logo git-logo">
+                        <i class="fa-brands fa-git-alt"></i>
+                    </div>
+
+                    <span class="skill-number">
+                        08
+                    </span>
+
                 </div>
 
-                <div>
-                    <h3>GitHub</h3>
-                    <p>Code & Project Hosting</p>
+                <h3>
+                    Git & GitHub
+                </h3>
+
+                <p>
+                    Version control and project collaboration.
+                </p>
+
+                <div class="skill-bar">
+                    <span style="--progress: 82%"></span>
                 </div>
 
-                <div class="skill-level">
-                    <span style="width: 84%"></span>
+                <div class="skill-meta">
+                    <span>Tools</span>
+                    <strong>82%</strong>
                 </div>
-
-                <strong>84%</strong>
-
-            </div>
-
-
-            <div class="skill-card reveal" data-category="programming">
-
-                <div class="skill-icon">
-                    <i class="fa-solid fa-code"></i>
-                </div>
-
-                <div>
-                    <h3>Problem Solving</h3>
-                    <p>Logic & Algorithms</p>
-                </div>
-
-                <div class="skill-level">
-                    <span style="width: 88%"></span>
-                </div>
-
-                <strong>88%</strong>
 
             </div>
 
         </div>
 
 
-        <div class="tech-marquee">
+        <div class="tech-cloud reveal">
 
-            <div class="marquee-track">
-
-                <span>HTML5</span>
-                <i>•</i>
-                <span>CSS3</span>
-                <i>•</i>
-                <span>JavaScript</span>
-                <i>•</i>
-                <span>Python</span>
-                <i>•</i>
-                <span>SQL</span>
-                <i>•</i>
-                <span>Power BI</span>
-                <i>•</i>
-                <span>Git</span>
-                <i>•</i>
-                <span>GitHub</span>
-                <i>•</i>
-                <span>Firebase</span>
-                <i>•</i>
-                <span>Flutter</span>
-                <i>•</i>
-                <span>AI</span>
-                <i>•</i>
-
-            </div>
+            <span>REST API</span>
+            <span>JSON</span>
+            <span>SQL</span>
+            <span>Firebase Auth</span>
+            <span>Firestore</span>
+            <span>Responsive Design</span>
+            <span>GitHub Pages</span>
+            <span>VS Code</span>
+            <span>UI/UX</span>
+            <span>AI Integration</span>
 
         </div>
 
@@ -848,155 +1185,90 @@
 
 
 <!-- =========================================================
-     JOURNEY
+     CODE PHILOSOPHY
 ========================================================= -->
 
-<section class="section journey-section" id="experience">
+<section class="section code-section">
 
     <div class="container">
 
-        <div class="section-heading reveal">
+        <div class="code-editor reveal">
 
-            <p class="eyebrow">
-                <span>04</span>
-                JOURNEY
-            </p>
+            <div class="editor-header">
 
-            <h2>
-                Learning,
-                <span class="gradient-text">building</span>,
-                evolving.
-            </h2>
+                <div class="editor-tabs">
 
-            <p>
-                A timeline of growth, experimentation and technical exploration.
-            </p>
+                    <div class="editor-tab active">
+                        <i class="fa-brands fa-js"></i>
+                        philosophy.js
+                    </div>
 
-        </div>
+                    <div class="editor-tab">
+                        <i class="fa-solid fa-code"></i>
+                        developer.json
+                    </div>
 
-
-        <div class="timeline">
-
-            <div class="timeline-item reveal">
-
-                <div class="timeline-marker">
-                    <span></span>
                 </div>
 
-                <div class="timeline-content">
-
-                    <div class="timeline-date">
-                        FOUNDATION
-                    </div>
-
-                    <h3>Started Exploring Technology</h3>
-
-                    <p>
-                        Began understanding computers, programming concepts,
-                        digital tools and the fundamentals of software.
-                    </p>
-
-                    <div class="timeline-tags">
-                        <span>Computer Fundamentals</span>
-                        <span>Logic</span>
-                        <span>Programming</span>
-                    </div>
-
+                <div class="editor-actions">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
 
             </div>
 
 
-            <div class="timeline-item reveal">
+            <div class="editor-content">
 
-                <div class="timeline-marker">
-                    <span></span>
+                <div class="line-numbers">
+                    01<br>
+                    02<br>
+                    03<br>
+                    04<br>
+                    05<br>
+                    06<br>
+                    07<br>
+                    08<br>
+                    09<br>
+                    10<br>
+                    11<br>
+                    12
                 </div>
 
-                <div class="timeline-content">
 
-                    <div class="timeline-date">
-                        DEVELOPMENT
-                    </div>
+                <pre class="editor-code"><span class="purple">const</span> <span class="blue">developer</span> = {
+    <span class="green">name</span>: <span class="orange">"Siddharth Mishra"</span>,
+    <span class="green">role</span>: <span class="orange">"Developer"</span>,
+    <span class="green">focus</span>: <span class="orange">"Web, App & AI"</span>,
+    <span class="green">mindset</span>: <span class="orange">"Build. Learn. Improve."</span>,
 
-                    <h3>Web Development & Programming</h3>
+    <span class="purple">build</span>(<span class="blue">idea</span>) {
+        <span class="purple">const</span> <span class="blue">solution</span> = learn(idea);
+        <span class="purple">return</span> create(solution);
+    },
 
-                    <p>
-                        Started creating websites and applications while
-                        developing a deeper understanding of HTML, CSS,
-                        JavaScript and programming logic.
-                    </p>
-
-                    <div class="timeline-tags">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                    </div>
-
-                </div>
+    <span class="purple">neverStopLearning</span>: <span class="purple">true</span>
+};</pre>
 
             </div>
 
 
-            <div class="timeline-item reveal">
+            <div class="editor-footer">
 
-                <div class="timeline-marker">
-                    <span></span>
-                </div>
+                <span>
+                    <i class="fa-solid fa-code-branch"></i>
+                    main
+                </span>
 
-                <div class="timeline-content">
+                <span>
+                    <i class="fa-solid fa-circle-check"></i>
+                    Ready
+                </span>
 
-                    <div class="timeline-date">
-                        DATA
-                    </div>
-
-                    <h3>Data & Business Intelligence</h3>
-
-                    <p>
-                        Expanded into databases, SQL, data analysis and
-                        dashboard development with a focus on turning data
-                        into useful information.
-                    </p>
-
-                    <div class="timeline-tags">
-                        <span>SQL</span>
-                        <span>Power BI</span>
-                        <span>Analytics</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="timeline-item reveal">
-
-                <div class="timeline-marker">
-                    <span></span>
-                </div>
-
-                <div class="timeline-content">
-
-                    <div class="timeline-date">
-                        NOW
-                    </div>
-
-                    <h3>Building Real Digital Products</h3>
-
-                    <p>
-                        Combining programming, design, data and AI-related
-                        technologies to build increasingly complete digital
-                        products and experiments.
-                    </p>
-
-                    <div class="timeline-tags">
-                        <span>AI</span>
-                        <span>Web</span>
-                        <span>Apps</span>
-                        <span>Cloud</span>
-                    </div>
-
-                </div>
+                <span>
+                    UTF-8
+                </span>
 
             </div>
 
@@ -1011,45 +1283,78 @@
      PROJECTS
 ========================================================= -->
 
-<section class="section projects-section" id="projects">
+<section
+    class="section projects-section"
+    id="projects"
+>
 
     <div class="container">
 
         <div class="section-heading reveal">
 
             <p class="eyebrow">
-                <span>05</span>
+
+                <span class="line"></span>
+
                 SELECTED WORK
+
             </p>
 
+
             <h2>
-                Projects that
-                <span class="gradient-text">speak.</span>
+
+                Things I've
+
+                <span class="gradient-text">
+                    built.
+                </span>
+
             </h2>
 
+
             <p>
-                Practical work built around programming, analytics and digital experiences.
+                Projects, experiments and digital products that
+                represent my learning journey.
             </p>
 
         </div>
 
 
-        <div class="project-filter reveal">
+        <div class="project-filters reveal">
 
-            <button class="project-filter-btn active" data-filter="all">
+            <button
+                class="filter-btn active"
+                data-filter="all"
+            >
                 All
             </button>
 
-            <button class="project-filter-btn" data-filter="analytics">
-                Analytics
-            </button>
-
-            <button class="project-filter-btn" data-filter="data">
-                Data
-            </button>
-
-            <button class="project-filter-btn" data-filter="web">
+            <button
+                class="filter-btn"
+                data-filter="web"
+            >
                 Web
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="app"
+            >
+                App
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="ai"
+            >
+                AI
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="other"
+            >
+                Other
             </button>
 
         </div>
@@ -1057,144 +1362,81 @@
 
         <div class="projects-grid">
 
+            <!-- PROJECT 1 -->
 
             <article
                 class="project-card featured reveal"
-                data-category="analytics"
+                data-category="app"
             >
 
-                <div class="project-number">
-                    01
-                </div>
+                <div class="project-visual project-ai">
 
-                <div class="project-preview dashboard-preview">
+                    <div class="project-grid-pattern"></div>
 
-                    <div class="dashboard-top">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div class="project-icon-large">
+                        <i class="fa-solid fa-brain"></i>
                     </div>
 
-                    <div class="dashboard-layout">
+                    <div class="project-orbit orbit-one"></div>
+                    <div class="project-orbit orbit-two"></div>
 
-                        <div class="dashboard-side">
-                            <i class="fa-solid fa-chart-line"></i>
-                            <i class="fa-solid fa-table"></i>
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-
-                        <div class="dashboard-main">
-
-                            <div class="dash-cards">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-
-                            <div class="dash-chart">
-                                <i class="bar b1"></i>
-                                <i class="bar b2"></i>
-                                <i class="bar b3"></i>
-                                <i class="bar b4"></i>
-                                <i class="bar b5"></i>
-                                <i class="bar b6"></i>
-                                <i class="bar b7"></i>
-                            </div>
-
-                        </div>
-
-                    </div>
+                    <span class="project-label">
+                        AI / EDUCATION
+                    </span>
 
                 </div>
 
 
                 <div class="project-content">
 
-                    <div class="project-type">
-                        SALES • ANALYTICS
-                    </div>
+                    <div class="project-top">
 
-                    <h3>Sales MIS Analytics</h3>
+                        <span class="project-index">
+                            01
+                        </span>
 
-                    <p>
-                        A structured sales analysis solution focused on
-                        KPIs, trends, performance tracking and decision-ready insights.
-                    </p>
+                        <div class="project-links">
 
-                    <div class="project-tech">
-                        <span>Excel</span>
-                        <span>SQL</span>
-                        <span>Power BI</span>
-                    </div>
+                            <a
+                                href="#"
+                                aria-label="Live project"
+                            >
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
 
-                    <a
-                        href="projects/sales-mis.html"
-                        class="project-link"
-                    >
-                        View Case Study
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                            <a
+                                href="#"
+                                aria-label="Source code"
+                            >
+                                <i class="fa-brands fa-github"></i>
+                            </a>
 
-                </div>
-
-            </article>
-
-
-            <article
-                class="project-card reveal"
-                data-category="analytics"
-            >
-
-                <div class="project-number">
-                    02
-                </div>
-
-                <div class="project-preview powerbi-preview">
-
-                    <div class="powerbi-header">
-                        POWER BI
-                    </div>
-
-                    <div class="powerbi-body">
-
-                        <div class="pie-chart"></div>
-
-                        <div class="power-bars">
-                            <span style="height:35%"></span>
-                            <span style="height:65%"></span>
-                            <span style="height:48%"></span>
-                            <span style="height:82%"></span>
-                            <span style="height:58%"></span>
                         </div>
 
                     </div>
 
-                </div>
 
+                    <h3>
+                        Univichar AI
+                    </h3>
 
-                <div class="project-content">
-
-                    <div class="project-type">
-                        BUSINESS INTELLIGENCE
-                    </div>
-
-                    <h3>Power BI Dashboard</h3>
 
                     <p>
-                        Interactive dashboard concept designed to transform
-                        raw business data into visual insights.
+                        An AI-powered education platform designed to
+                        provide interactive learning, AI conversations,
+                        notes, quizzes and educational assistance.
                     </p>
 
+
                     <div class="project-tech">
-                        <span>Power BI</span>
-                        <span>DAX</span>
-                        <span>Data Modeling</span>
+                        <span>Flutter</span>
+                        <span>Dart</span>
+                        <span>Firebase</span>
+                        <span>Gemini AI</span>
                     </div>
 
-                    <a
-                        href="projects/powerbi-dashboard.html"
-                        class="project-link"
-                    >
+
+                    <a href="#" class="project-more">
                         View Project
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
@@ -1204,54 +1446,88 @@
             </article>
 
 
+            <!-- PROJECT 2 -->
+
             <article
-                class="project-card reveal"
-                data-category="data"
+                class="project-card reveal delay-1"
+                data-category="web"
             >
 
-                <div class="project-number">
-                    03
-                </div>
+                <div class="project-visual project-web">
 
-                <div class="project-preview sql-preview">
+                    <div class="browser-window">
 
-<pre><code>SELECT
-    customer,
-    SUM(revenue)
-        AS total_revenue
-FROM sales
-WHERE year = 2026
-GROUP BY customer
-ORDER BY total_revenue
-DESC;</code></pre>
+                        <div class="browser-bar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="browser-content">
+
+                            <div class="fake-heading"></div>
+
+                            <div class="fake-line"></div>
+                            <div class="fake-line short"></div>
+
+                            <div class="fake-cards">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
                 <div class="project-content">
 
-                    <div class="project-type">
-                        DATABASE • SQL
+                    <div class="project-top">
+
+                        <span class="project-index">
+                            02
+                        </span>
+
+                        <div class="project-links">
+
+                            <a href="#">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+
+                        </div>
+
                     </div>
 
-                    <h3>SQL Data Analysis</h3>
+
+                    <h3>
+                        Developer Portfolio
+                    </h3>
+
 
                     <p>
-                        Query-driven data analysis using aggregation,
-                        filtering, joins and ranking logic.
+                        A futuristic, responsive developer portfolio
+                        with animations, interactive components and
+                        programmer-focused visual identity.
                     </p>
 
+
                     <div class="project-tech">
-                        <span>SQL</span>
-                        <span>Queries</span>
-                        <span>Analytics</span>
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>GitHub Pages</span>
                     </div>
 
-                    <a
-                        href="projects/sql-analysis.html"
-                        class="project-link"
-                    >
-                        View Analysis
+
+                    <a href="#" class="project-more">
+                        View Project
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
 
@@ -1260,29 +1536,110 @@ DESC;</code></pre>
             </article>
 
 
+            <!-- PROJECT 3 -->
+
             <article
-                class="project-card reveal"
-                data-category="web"
+                class="project-card reveal delay-2"
+                data-category="ai"
             >
 
-                <div class="project-number">
-                    04
-                </div>
+                <div class="project-visual project-code">
 
-                <div class="project-preview web-preview">
+                    <div class="ai-pulse">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
 
-                    <div class="browser-bar">
+                    <div class="ai-lines">
+                        <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
 
-                    <div class="browser-code">
+                </div>
 
-                        <span>&lt;section</span>
-                        <span>class="future"&gt;</span>
-                        <span>buildSomething();</span>
-                        <span>&lt;/section&gt;</span>
+
+                <div class="project-content">
+
+                    <div class="project-top">
+
+                        <span class="project-index">
+                            03
+                        </span>
+
+                        <div class="project-links">
+
+                            <a href="#">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        AI Experiments
+                    </h3>
+
+
+                    <p>
+                        A collection of experiments exploring AI APIs,
+                        conversational interfaces, prompt engineering
+                        and intelligent application experiences.
+                    </p>
+
+
+                    <div class="project-tech">
+                        <span>AI</span>
+                        <span>API</span>
+                        <span>JavaScript</span>
+                        <span>JSON</span>
+                    </div>
+
+
+                    <a href="#" class="project-more">
+                        Explore
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 4 -->
+
+            <article
+                class="project-card reveal"
+                data-category="app"
+            >
+
+                <div class="project-visual project-mobile">
+
+                    <div class="phone-mockup">
+
+                        <div class="phone-notch"></div>
+
+                        <div class="phone-screen">
+
+                            <div class="phone-header">
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <div class="phone-avatar"></div>
+
+                            <div class="phone-text"></div>
+                            <div class="phone-text short"></div>
+
+                            <div class="phone-button"></div>
+
+                        </div>
 
                     </div>
 
@@ -1291,16 +1648,200 @@ DESC;</code></pre>
 
                 <div class="project-content">
 
-                    <div class="project-type">
-                        WEB DEVELOPMENT
+                    <div class="project-top">
+
+                        <span class="project-index">
+                            04
+                        </span>
+
+                        <div class="project-links">
+
+                            <a href="#">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+
+                        </div>
+
                     </div>
 
-                    <h3>Modern Web Experiences</h3>
+
+                    <h3>
+                        Mobile App Experiments
+                    </h3>
+
 
                     <p>
-                        Responsive, animated and user-focused web interfaces
-                        built with modern frontend fundamentals.
+                        Cross-platform application concepts built while
+                        exploring Flutter, Dart, Firebase and modern
+                        mobile UX patterns.
                     </p>
+
+
+                    <div class="project-tech">
+                        <span>Flutter</span>
+                        <span>Dart</span>
+                        <span>Firebase</span>
+                    </div>
+
+
+                    <a href="#" class="project-more">
+                        Explore
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 5 -->
+
+            <article
+                class="project-card reveal delay-1"
+                data-category="other"
+            >
+
+                <div class="project-visual project-terminal">
+
+                    <div class="mini-terminal">
+
+                        <div>
+                            <span class="green">$</span>
+                            python main.py
+                        </div>
+
+                        <div class="terminal-success">
+                            ✓ Program executed successfully
+                        </div>
+
+                        <div>
+                            <span class="green">$</span>
+                            _
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-content">
+
+                    <div class="project-top">
+
+                        <span class="project-index">
+                            05
+                        </span>
+
+                        <div class="project-links">
+
+                            <a href="#">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        Programming Experiments
+                    </h3>
+
+
+                    <p>
+                        Small programming projects created to understand
+                        algorithms, logic, automation and software
+                        development concepts.
+                    </p>
+
+
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Logic</span>
+                        <span>Algorithms</span>
+                    </div>
+
+
+                    <a href="#" class="project-more">
+                        View Work
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 6 -->
+
+            <article
+                class="project-card reveal delay-2"
+                data-category="web"
+            >
+
+                <div class="project-visual project-dashboard">
+
+                    <div class="dashboard-mockup">
+
+                        <div class="dash-sidebar"></div>
+
+                        <div class="dash-main">
+
+                            <div class="dash-top"></div>
+
+                            <div class="dash-stats">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <div class="dash-chart"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-content">
+
+                    <div class="project-top">
+
+                        <span class="project-index">
+                            06
+                        </span>
+
+                        <div class="project-links">
+
+                            <a href="#">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+
+                            <a href="#">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        Dashboard UI
+                    </h3>
+
+
+                    <p>
+                        A responsive dashboard concept focused on clean
+                        data presentation, reusable components and
+                        responsive layouts.
+                    </p>
+
 
                     <div class="project-tech">
                         <span>HTML</span>
@@ -1308,14 +1849,229 @@ DESC;</code></pre>
                         <span>JavaScript</span>
                     </div>
 
-                    <a href="#contact" class="project-link">
-                        Discuss a Project
+
+                    <a href="#" class="project-more">
+                        Explore
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
 
                 </div>
 
             </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JOURNEY
+========================================================= -->
+
+<section
+    class="section journey-section"
+    id="experience"
+>
+
+    <div class="container">
+
+        <div class="section-heading centered reveal">
+
+            <p class="eyebrow">
+
+                <span class="line"></span>
+
+                MY JOURNEY
+
+                <span class="line"></span>
+
+            </p>
+
+
+            <h2>
+
+                Learn.
+
+                <span class="gradient-text">
+                    Build.
+                </span>
+
+                Repeat.
+
+            </h2>
+
+
+            <p>
+                A journey driven by curiosity and technology.
+            </p>
+
+        </div>
+
+
+        <div class="timeline">
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-card">
+
+                    <span class="timeline-date">
+                        PHASE 01
+                    </span>
+
+                    <h3>
+                        Discovering Technology
+                    </h3>
+
+                    <p>
+                        Started exploring computers, software,
+                        programming concepts and the world of
+                        technology.
+                    </p>
+
+                    <div class="timeline-tags">
+                        <span>Computer</span>
+                        <span>Programming</span>
+                        <span>Technology</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal delay-1">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-card">
+
+                    <span class="timeline-date">
+                        PHASE 02
+                    </span>
+
+                    <h3>
+                        Web Development
+                    </h3>
+
+                    <p>
+                        Started building websites and understanding
+                        HTML, CSS, JavaScript and responsive design.
+                    </p>
+
+                    <div class="timeline-tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal delay-2">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-card">
+
+                    <span class="timeline-date">
+                        PHASE 03
+                    </span>
+
+                    <h3>
+                        Application Development
+                    </h3>
+
+                    <p>
+                        Expanded into programming languages and
+                        cross-platform application development.
+                    </p>
+
+                    <div class="timeline-tags">
+                        <span>Python</span>
+                        <span>Dart</span>
+                        <span>Flutter</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal delay-3">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-card">
+
+                    <span class="timeline-date">
+                        NOW
+                    </span>
+
+                    <h3>
+                        Building with AI & Cloud
+                    </h3>
+
+                    <p>
+                        Exploring AI-powered applications, Firebase,
+                        APIs and building complete digital products.
+                    </p>
+
+                    <div class="timeline-tags">
+                        <span>AI</span>
+                        <span>Firebase</span>
+                        <span>APIs</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal delay-1">
+
+                <div class="timeline-marker future">
+                    <span></span>
+                </div>
+
+                <div class="timeline-card future-card">
+
+                    <span class="timeline-date">
+                        NEXT
+                    </span>
+
+                    <h3>
+                        What's Next?
+                    </h3>
+
+                    <p>
+                        Keep learning, build bigger products and
+                        explore technologies that can solve real-world
+                        problems.
+                    </p>
+
+                    <div class="timeline-tags">
+                        <span>Explore</span>
+                        <span>Build</span>
+                        <span>Scale</span>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -1328,112 +2084,110 @@ DESC;</code></pre>
      CERTIFICATES
 ========================================================= -->
 
-<section class="section certificates-section" id="certificates">
+<section
+    class="section certificates-section"
+    id="certificates"
+>
 
     <div class="container">
 
         <div class="section-heading reveal">
 
             <p class="eyebrow">
-                <span>06</span>
+
+                <span class="line"></span>
+
                 CERTIFICATIONS
+
             </p>
 
+
             <h2>
+
                 Proof of
-                <span class="gradient-text">learning.</span>
+
+                <span class="gradient-text">
+                    learning.
+                </span>
+
             </h2>
 
+
             <p>
-                Add your real certificates directly to the portfolio.
+                Certificates, credentials and achievements can be
+                showcased here.
             </p>
 
         </div>
 
 
-        <div class="certificate-toolbar reveal">
+        <div class="certificate-manager reveal">
 
-            <label class="upload-certificate-btn">
+            <div class="upload-panel">
 
-                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <div class="upload-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
 
-                <span>Add Certificate</span>
+
+                <h3>
+                    Add Certificate
+                </h3>
+
+
+                <p>
+                    Add your certificate images to build your
+                    personal certification gallery.
+                </p>
+
+
+                <label
+                    for="certificateInput"
+                    class="upload-btn"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    Add Certificate
+                </label>
+
 
                 <input
                     type="file"
                     id="certificateInput"
                     accept="image/*"
+                    multiple
                     hidden
                 >
 
-            </label>
+            </div>
 
-            <button
-                class="btn btn-secondary"
-                id="clearCertificates"
-                type="button"
+
+            <div
+                class="certificate-gallery"
+                id="certificateGallery"
             >
-                <i class="fa-solid fa-trash"></i>
-                Clear Added
-            </button>
 
-        </div>
+                <div class="certificate-card placeholder-card">
+
+                    <div class="certificate-placeholder">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
 
 
-        <div class="certificates-grid" id="certificatesGrid">
+                    <div class="certificate-info">
 
-            <article class="certificate-card reveal">
+                        <h4>
+                            Your Certificate
+                        </h4>
 
-                <div class="certificate-image-placeholder">
+                        <p>
+                            Upload an image to showcase it here.
+                        </p>
 
-                    <i class="fa-solid fa-certificate"></i>
-
-                    <span>Your Certificate</span>
-
-                </div>
-
-                <div class="certificate-content">
-
-                    <span class="certificate-type">
-                        CERTIFICATE
-                    </span>
-
-                    <h3>Add Your Achievement</h3>
-
-                    <p>
-                        Upload certificate images using the button above.
-                    </p>
+                    </div>
 
                 </div>
 
-            </article>
-
-
-            <article class="certificate-card reveal">
-
-                <div class="certificate-image-placeholder">
-
-                    <i class="fa-solid fa-award"></i>
-
-                    <span>Achievement</span>
-
-                </div>
-
-                <div class="certificate-content">
-
-                    <span class="certificate-type">
-                        ACHIEVEMENT
-                    </span>
-
-                    <h3>Keep Learning</h3>
-
-                    <p>
-                        Your professional journey belongs here.
-                    </p>
-
-                </div>
-
-            </article>
+            </div>
 
         </div>
 
@@ -1443,309 +2197,154 @@ DESC;</code></pre>
 
 
 <!-- =========================================================
-     RESUME BUILDER
+     PROFESSIONAL RESUME
 ========================================================= -->
 
-<section class="section resume-section" id="resume">
+<section
+    class="section resume-section"
+    id="resume"
+>
 
     <div class="container">
 
         <div class="section-heading reveal">
 
             <p class="eyebrow">
-                <span>07</span>
-                RESUME STUDIO
+
+                <span class="line"></span>
+
+                PROFESSIONAL PROFILE
+
             </p>
 
+
             <h2>
-                Build your
-                <span class="gradient-text">resume.</span>
+
+                My
+
+                <span class="gradient-text">
+                    resume.
+                </span>
+
             </h2>
 
+
             <p>
-                Fill your details, choose a template and print/download your resume.
+                A concise overview of my technical profile,
+                development journey, projects and capabilities.
             </p>
 
         </div>
 
 
-        <div class="resume-studio">
+        <!-- =================================================
+             RESUME ACTION CARD
+        ================================================== -->
 
-            <div class="resume-form-panel reveal">
+        <div class="resume-card reveal">
 
-                <div class="studio-heading">
+            <div class="resume-content">
 
-                    <span class="studio-icon">
-                        <i class="fa-solid fa-file-pen"></i>
+                <p class="eyebrow">
+
+                    <span class="line"></span>
+
+                    RESUME / CV
+
+                </p>
+
+
+                <h2>
+
+                    Want the
+
+                    <span class="gradient-text">
+                        full story?
                     </span>
 
-                    <div>
-                        <h3>Resume Editor</h3>
-                        <p>Your data stays in this browser.</p>
-                    </div>
+                </h2>
+
+
+                <p>
+
+                    View, print or download my professional
+                    developer resume.
+
+                </p>
+
+
+                <div class="resume-buttons">
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="downloadResume"
+                    >
+                        <i class="fa-solid fa-download"></i>
+                        Download Resume
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="printResume"
+                    >
+                        <i class="fa-solid fa-print"></i>
+                        Print Resume
+                    </button>
 
                 </div>
-
-
-                <form id="resumeForm">
-
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input
-                            type="text"
-                            id="resumeName"
-                            value="Siddharth Mishra"
-                        >
-                    </div>
-
-
-                    <div class="form-row">
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input
-                                type="email"
-                                id="resumeEmail"
-                                placeholder="your@email.com"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input
-                                type="text"
-                                id="resumePhone"
-                                placeholder="+91 XXXXX XXXXX"
-                            >
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-row">
-
-                        <div class="form-group">
-                            <label>Location</label>
-                            <input
-                                type="text"
-                                id="resumeLocation"
-                                value="Lucknow, Uttar Pradesh, India"
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label>Role</label>
-                            <input
-                                type="text"
-                                id="resumeRole"
-                                value="Developer"
-                            >
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Professional Summary</label>
-                        <textarea id="resumeSummary" rows="5">Technology-focused developer passionate about programming, web development, data analytics and building useful digital products.</textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Skills</label>
-                        <input
-                            type="text"
-                            id="resumeSkills"
-                            value="HTML, CSS, JavaScript, Python, SQL, Power BI, Git, GitHub"
-                        >
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Education</label>
-                        <textarea
-                            id="resumeEducation"
-                            rows="3"
-                            placeholder="Degree / School / University / Year"
-                        ></textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Experience / Projects</label>
-                        <textarea
-                            id="resumeExperience"
-                            rows="5"
-                        >Developed analytical dashboards, SQL analysis projects and responsive web experiences.</textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Certificates</label>
-                        <textarea
-                            id="resumeCertificates"
-                            rows="3"
-                            placeholder="Certificate 1&#10;Certificate 2"
-                        ></textarea>
-                    </div>
-
-
-                    <div class="form-actions">
-
-                        <button
-                            type="button"
-                            class="btn btn-primary"
-                            id="updateResume"
-                        >
-                            <i class="fa-solid fa-rotate"></i>
-                            Update Preview
-                        </button>
-
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            id="downloadResume"
-                        >
-                            <i class="fa-solid fa-print"></i>
-                            Print / Save PDF
-                        </button>
-
-                    </div>
-
-                </form>
 
             </div>
 
 
-            <div class="resume-preview-panel reveal reveal-delay">
+            <div class="resume-visual">
 
-                <div class="template-selector">
+                <div class="resume-document">
 
-                    <span>Template</span>
-
-                    <button
-                        class="template-btn active"
-                        data-template="classic"
-                    >
-                        01
-                    </button>
-
-                    <button
-                        class="template-btn"
-                        data-template="modern"
-                    >
-                        02
-                    </button>
-
-                    <button
-                        class="template-btn"
-                        data-template="minimal"
-                    >
-                        03
-                    </button>
-
-                    <button
-                        class="template-btn"
-                        data-template="terminal"
-                    >
-                        04
-                    </button>
-
-                </div>
+                    <div class="resume-document-top">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
 
 
-                <div
-                    class="resume-paper template-classic"
-                    id="resumePaper"
-                >
+                    <div class="resume-profile">
 
-                    <div class="resume-paper-header">
+                        <div class="resume-avatar">
+                            S
+                        </div>
+
 
                         <div>
 
-                            <h1 id="previewName">
+                            <strong>
                                 Siddharth Mishra
-                            </h1>
+                            </strong>
 
-                            <h2 id="previewRole">
-                                Developer
-                            </h2>
-
-                        </div>
-
-                        <div class="resume-contact">
-
-                            <span id="previewEmail">
-                                your@email.com
-                            </span>
-
-                            <span id="previewPhone">
-                                +91 XXXXX XXXXX
-                            </span>
-
-                            <span id="previewLocation">
-                                Lucknow, India
-                            </span>
+                            <small>
+                                Developer • Programmer
+                            </small>
 
                         </div>
 
                     </div>
 
 
-                    <div class="resume-paper-section">
+                    <div class="resume-lines">
 
-                        <h3>Profile</h3>
-
-                        <p id="previewSummary">
-                            Technology-focused developer passionate about
-                            programming, web development, data analytics
-                            and building useful digital products.
-                        </p>
+                        <span></span>
+                        <span></span>
+                        <span class="short"></span>
 
                     </div>
 
 
-                    <div class="resume-paper-section">
+                    <div class="resume-columns">
 
-                        <h3>Skills</h3>
-
-                        <div
-                            class="resume-skills-list"
-                            id="previewSkills"
-                        ></div>
-
-                    </div>
-
-
-                    <div class="resume-paper-section">
-
-                        <h3>Education</h3>
-
-                        <p id="previewEducation">
-                            Add your education details.
-                        </p>
-
-                    </div>
-
-
-                    <div class="resume-paper-section">
-
-                        <h3>Experience & Projects</h3>
-
-                        <p id="previewExperience">
-                            Add your experience and projects.
-                        </p>
-
-                    </div>
-
-
-                    <div class="resume-paper-section">
-
-                        <h3>Certificates</h3>
-
-                        <p id="previewCertificates">
-                            Add certificates.
-                        </p>
+                        <span></span>
+                        <span></span>
 
                     </div>
 
@@ -1755,178 +2354,450 @@ DESC;</code></pre>
 
         </div>
 
-    </div>
 
-</section>
+        <!-- =================================================
+             ACTUAL RESUME DOCUMENT
+        ================================================== -->
 
+        <div
+            class="resume-print-area"
+            id="resumeDocument"
+        >
 
-<!-- =========================================================
-     SERVICES
-========================================================= -->
+            <div class="resume-sheet">
 
-<section class="section services-section">
+                <!-- RESUME HEADER -->
 
-    <div class="container">
+                <header class="resume-header">
 
-        <div class="section-heading reveal">
+                    <div>
 
-            <p class="eyebrow">
-                <span>08</span>
-                WHAT I CAN BUILD
-            </p>
+                        <h1>
+                            Siddharth Mishra
+                        </h1>
 
-            <h2>
-                From idea to
-                <span class="gradient-text">interface.</span>
-            </h2>
+                        <h2>
+                            Developer • Programmer • Technology Learner
+                        </h2>
 
-        </div>
+                        <p>
+                            Web Development • Application Development
+                            • AI Integration • Digital Products
+                        </p>
 
-
-        <div class="services-grid">
-
-            <div class="service-card reveal">
-
-                <span class="service-number">01</span>
-
-                <i class="fa-solid fa-laptop-code"></i>
-
-                <h3>Web Development</h3>
-
-                <p>
-                    Responsive and modern websites with clean architecture,
-                    animations and interactive experiences.
-                </p>
-
-                <div class="service-tags">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JS</span>
-                </div>
-
-            </div>
+                    </div>
 
 
-            <div class="service-card reveal">
+                    <div class="resume-contact">
 
-                <span class="service-number">02</span>
+                        <span>
+                            <i class="fa-solid fa-envelope"></i>
+                            your-email@example.com
+                        </span>
 
-                <i class="fa-solid fa-database"></i>
+                        <span>
+                            <i class="fa-brands fa-github"></i>
+                            github.com/yourusername
+                        </span>
 
-                <h3>Data & SQL</h3>
+                        <span>
+                            <i class="fa-brands fa-linkedin"></i>
+                            linkedin.com/in/yourusername
+                        </span>
 
-                <p>
-                    Structured data analysis, SQL queries, reporting,
-                    transformations and business insights.
-                </p>
+                    </div>
 
-                <div class="service-tags">
-                    <span>SQL</span>
-                    <span>Data</span>
-                    <span>Reports</span>
-                </div>
-
-            </div>
-
-
-            <div class="service-card reveal">
-
-                <span class="service-number">03</span>
-
-                <i class="fa-solid fa-chart-pie"></i>
-
-                <h3>Dashboards</h3>
-
-                <p>
-                    Interactive dashboards that make complex information
-                    easier to understand and act upon.
-                </p>
-
-                <div class="service-tags">
-                    <span>Power BI</span>
-                    <span>DAX</span>
-                    <span>KPI</span>
-                </div>
-
-            </div>
+                </header>
 
 
-            <div class="service-card reveal">
+                <!-- SUMMARY -->
 
-                <span class="service-number">04</span>
+                <section class="resume-block">
 
-                <i class="fa-solid fa-microchip"></i>
-
-                <h3>Digital Experiments</h3>
-
-                <p>
-                    Exploring AI, applications, automation and emerging
-                    technologies through practical projects.
-                </p>
-
-                <div class="service-tags">
-                    <span>AI</span>
-                    <span>Apps</span>
-                    <span>Automation</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+                    <h3>
+                        <i class="fa-solid fa-user"></i>
+                        Professional Summary
+                    </h3>
 
 
-<!-- =========================================================
-     CODE SHOWCASE
-========================================================= -->
+                    <p>
 
-<section class="section code-section">
+                        Developer and technology learner with a strong
+                        interest in programming, web development,
+                        cross-platform application development,
+                        cloud services and AI-powered applications.
 
-    <div class="container">
+                        I enjoy transforming ideas into practical
+                        digital products while continuously improving
+                        my technical knowledge and problem-solving
+                        abilities.
 
-        <div class="code-showcase reveal">
+                    </p>
 
-            <div class="code-showcase-header">
-
-                <div class="terminal-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <span>
-                    philosophy.py
-                </span>
-
-                <button id="copyCode">
-                    <i class="fa-regular fa-copy"></i>
-                    Copy
-                </button>
-
-            </div>
+                </section>
 
 
-            <div class="code-showcase-body">
+                <!-- SKILLS -->
 
-<pre id="philosophyCode"><code><span class="code-purple">def</span> <span class="code-blue">build_future</span>(idea):
+                <section class="resume-block">
 
-    <span class="code-comment"># Start with curiosity</span>
-    curiosity = <span class="code-green">True</span>
+                    <h3>
+                        <i class="fa-solid fa-code"></i>
+                        Technical Skills
+                    </h3>
 
-    <span class="code-comment"># Turn ideas into experiments</span>
-    experiment = <span class="code-green">"build"</span>
 
-    <span class="code-comment"># Learn from every iteration</span>
-    learning = <span class="code-green">"continuous"</span>
+                    <div class="resume-skill-list">
 
-    <span class="code-purple">if</span> curiosity <span class="code-purple">and</span> experiment:
-        <span class="code-purple">return</span> {
-            <span class="code-green">"result"</span>: <span class="code-green">"something_better"</span>,
-            <span class="code-green">"mindset"</span>: learning
-        }</code></pre>
+                        <div>
+                            <strong>
+                                Programming
+                            </strong>
+
+                            <span>
+                                JavaScript, Python, Dart
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <strong>
+                                Web
+                            </strong>
+
+                            <span>
+                                HTML5, CSS3, JavaScript,
+                                Responsive Design
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <strong>
+                                Application
+                            </strong>
+
+                            <span>
+                                Flutter, Dart, Cross-platform Development
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <strong>
+                                Backend & Cloud
+                            </strong>
+
+                            <span>
+                                Firebase Authentication,
+                                Firestore, APIs
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <strong>
+                                AI
+                            </strong>
+
+                            <span>
+                                AI APIs, Gemini Integration,
+                                Conversational Interfaces
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <strong>
+                                Tools
+                            </strong>
+
+                            <span>
+                                Git, GitHub, VS Code, JSON, REST API
+                            </span>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PROJECTS -->
+
+                <section class="resume-block">
+
+                    <h3>
+                        <i class="fa-solid fa-rocket"></i>
+                        Selected Projects
+                    </h3>
+
+
+                    <article class="resume-project">
+
+                        <div>
+
+                            <h4>
+                                Univichar AI
+                            </h4>
+
+                            <span>
+                                Flutter • Dart • Firebase • Gemini AI
+                            </span>
+
+                        </div>
+
+
+                        <p>
+
+                            AI-powered education platform focused on
+                            interactive learning, AI conversations,
+                            notes, quizzes and educational assistance.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="resume-project">
+
+                        <div>
+
+                            <h4>
+                                Developer Portfolio
+                            </h4>
+
+                            <span>
+                                HTML • CSS • JavaScript • GitHub Pages
+                            </span>
+
+                        </div>
+
+
+                        <p>
+
+                            Responsive developer portfolio designed
+                            around a programmer-focused visual identity,
+                            interactive UI components and modern web
+                            technologies.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="resume-project">
+
+                        <div>
+
+                            <h4>
+                                AI Experiments
+                            </h4>
+
+                            <span>
+                                AI • APIs • JavaScript • JSON
+                            </span>
+
+                        </div>
+
+
+                        <p>
+
+                            Experiments exploring AI APIs,
+                            conversational interfaces, prompt
+                            engineering and intelligent application
+                            experiences.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="resume-project">
+
+                        <div>
+
+                            <h4>
+                                Mobile App Experiments
+                            </h4>
+
+                            <span>
+                                Flutter • Dart • Firebase
+                            </span>
+
+                        </div>
+
+
+                        <p>
+
+                            Cross-platform application concepts created
+                            while exploring mobile UX, application
+                            architecture and cloud-backed services.
+
+                        </p>
+
+                    </article>
+
+                </section>
+
+
+                <!-- DEVELOPMENT JOURNEY -->
+
+                <section class="resume-block">
+
+                    <h3>
+                        <i class="fa-solid fa-route"></i>
+                        Development Journey
+                    </h3>
+
+
+                    <div class="resume-timeline">
+
+                        <div>
+
+                            <strong>
+                                Discovering Technology
+                            </strong>
+
+                            <p>
+                                Exploring computers, software,
+                                programming concepts and technology.
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Web Development
+                            </strong>
+
+                            <p>
+                                Learning HTML, CSS, JavaScript and
+                                responsive web development.
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Application Development
+                            </strong>
+
+                            <p>
+                                Expanding into Python, Dart and Flutter
+                                for application development.
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                AI & Cloud Development
+                            </strong>
+
+                            <p>
+                                Building AI-powered applications and
+                                exploring Firebase, APIs and cloud
+                                technologies.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- EDUCATION -->
+
+                <section class="resume-block">
+
+                    <h3>
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Education & Learning
+                    </h3>
+
+
+                    <div class="resume-education">
+
+                        <h4>
+                            Continuous Technical Learning
+                        </h4>
+
+                        <p>
+                            Programming, software development,
+                            application development, AI, cloud
+                            technologies and modern web development.
+                        </p>
+
+                        <small>
+                            Formal education details can be added here.
+                        </small>
+
+                    </div>
+
+                </section>
+
+
+                <!-- STRENGTHS -->
+
+                <section class="resume-block">
+
+                    <h3>
+                        <i class="fa-solid fa-bolt"></i>
+                        Core Strengths
+                    </h3>
+
+
+                    <div class="resume-strengths">
+
+                        <span>
+                            Problem Solving
+                        </span>
+
+                        <span>
+                            Continuous Learning
+                        </span>
+
+                        <span>
+                            Programming
+                        </span>
+
+                        <span>
+                            Product Thinking
+                        </span>
+
+                        <span>
+                            AI Exploration
+                        </span>
+
+                        <span>
+                            Digital Building
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- FOOTER -->
+
+                <footer class="resume-footer">
+
+                    <span>
+                        Siddharth.dev
+                    </span>
+
+                    <span>
+                        Built with code & curiosity.
+                    </span>
+
+                </footer>
 
             </div>
 
@@ -1941,85 +2812,102 @@ DESC;</code></pre>
      CONTACT
 ========================================================= -->
 
-<section class="section contact-section" id="contact">
+<section
+    class="section contact-section"
+    id="contact"
+>
 
     <div class="container">
 
         <div class="contact-grid">
 
-            <div class="contact-intro reveal">
+            <div class="contact-content reveal">
 
                 <p class="eyebrow">
-                    <span>09</span>
-                    CONTACT
+
+                    <span class="line"></span>
+
+                    GET IN TOUCH
+
                 </p>
+
 
                 <h2>
-                    Have an idea?
+
+                    Let's build
+
                     <span class="gradient-text">
-                        Let's build it.
+                        something.
                     </span>
+
                 </h2>
 
+
                 <p>
-                    Whether it is a website, dashboard, application,
-                    data project or simply an interesting idea,
-                    feel free to reach out.
+
+                    Have an idea, project, opportunity or simply want
+                    to talk about technology? My inbox is always open.
+
                 </p>
 
 
-                <div class="contact-links">
+                <div class="contact-details">
 
-                    <a
-                        href="mailto:your.email@example.com"
-                        class="contact-link"
-                    >
+                    <a href="mailto:your-email@example.com">
 
-                        <span class="contact-link-icon">
-                            <i class="fa-regular fa-envelope"></i>
+                        <span class="contact-icon">
+                            <i class="fa-solid fa-envelope"></i>
                         </span>
 
+
                         <span>
-                            <small>Email</small>
-                            <strong>your.email@example.com</strong>
+
+                            <small>
+                                Email
+                            </small>
+
+                            your-email@example.com
+
                         </span>
 
                     </a>
 
 
-                    <a
-                        href="https://github.com/"
-                        target="_blank"
-                        rel="noopener"
-                        class="contact-link"
-                    >
+                    <a href="#">
 
-                        <span class="contact-link-icon">
+                        <span class="contact-icon">
                             <i class="fa-brands fa-github"></i>
                         </span>
 
+
                         <span>
-                            <small>GitHub</small>
-                            <strong>github.com/</strong>
+
+                            <small>
+                                GitHub
+                            </small>
+
+                            github.com/yourusername
+
                         </span>
 
                     </a>
 
 
-                    <a
-                        href="https://www.linkedin.com/"
-                        target="_blank"
-                        rel="noopener"
-                        class="contact-link"
-                    >
+                    <a href="#">
 
-                        <span class="contact-link-icon">
-                            <i class="fa-brands fa-linkedin"></i>
+                        <span class="contact-icon">
+                            <i class="fa-brands fa-linkedin-in"></i>
                         </span>
 
+
                         <span>
-                            <small>LinkedIn</small>
-                            <strong>linkedin.com/</strong>
+
+                            <small>
+                                LinkedIn
+                            </small>
+
+                            linkedin.com/in/yourusername
+
                         </span>
 
                     </a>
@@ -2029,73 +2917,25 @@ DESC;</code></pre>
             </div>
 
 
-            <div class="contact-form-card reveal reveal-delay">
+            <form
+                class="contact-form reveal delay-1"
+                id="contactForm"
+            >
 
-                <div class="form-card-header">
-
-                    <div>
-                        <span class="form-status"></span>
-                        <span>ONLINE</span>
-                    </div>
-
-                    <span>
-                        contact.form
-                    </span>
-
-                </div>
-
-
-                <form id="contactForm">
-
-                    <div class="form-row">
-
-                        <div class="form-group">
-
-                            <label for="contactName">
-                                Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="contactName"
-                                name="name"
-                                placeholder="Your name"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="contactEmail">
-                                Email
-                            </label>
-
-                            <input
-                                type="email"
-                                id="contactEmail"
-                                name="email"
-                                placeholder="you@example.com"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
+                <div class="form-row">
 
                     <div class="form-group">
 
-                        <label for="contactSubject">
-                            Subject
+                        <label for="name">
+                            Your Name
                         </label>
 
                         <input
                             type="text"
-                            id="contactSubject"
-                            name="subject"
-                            placeholder="Project / Opportunity"
+                            id="name"
+                            name="name"
+                            placeholder="John Doe"
+                            required
                         >
 
                     </div>
@@ -2103,40 +2943,75 @@ DESC;</code></pre>
 
                     <div class="form-group">
 
-                        <label for="contactMessage">
-                            Message
+                        <label for="email">
+                            Email
                         </label>
 
-                        <textarea
-                            id="contactMessage"
-                            name="message"
-                            rows="7"
-                            placeholder="Tell me about your idea..."
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="john@example.com"
                             required
-                        ></textarea>
+                        >
 
                     </div>
 
+                </div>
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary contact-submit"
+
+                <div class="form-group">
+
+                    <label for="subject">
+                        Subject
+                    </label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="Let's build something..."
+                        required
                     >
 
-                        <span>Send Message</span>
-
-                        <i class="fa-solid fa-paper-plane"></i>
-
-                    </button>
+                </div>
 
 
-                    <p class="form-note">
-                        This demo form opens your default email client.
-                    </p>
+                <div class="form-group">
 
-                </form>
+                    <label for="message">
+                        Message
+                    </label>
 
-            </div>
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        placeholder="Tell me about your idea..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary submit-button"
+                >
+
+                    Send Message
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </button>
+
+
+                <div
+                    class="form-message"
+                    id="formMessage"
+                ></div>
+
+            </form>
 
         </div>
 
@@ -2153,22 +3028,32 @@ DESC;</code></pre>
 
     <div class="container">
 
-        <div class="cta-box reveal">
+        <div class="cta-content reveal">
 
-            <div class="cta-grid-pattern"></div>
+            <div class="cta-symbol">
+                &lt;/&gt;
+            </div>
 
-            <p class="eyebrow">
-                KEEP BUILDING
-            </p>
 
             <h2>
-                The next project
-                <span>could be yours.</span>
+                Keep building.
             </h2>
 
-            <a href="#contact" class="btn btn-primary">
-                Start a Conversation
-                <i class="fa-solid fa-arrow-right"></i>
+
+            <p>
+                The best project is always the next one.
+            </p>
+
+
+            <a
+                href="#home"
+                class="btn btn-primary"
+            >
+
+                Back to Top
+
+                <i class="fa-solid fa-arrow-up"></i>
+
             </a>
 
         </div>
@@ -2184,82 +3069,147 @@ DESC;</code></pre>
      FOOTER
 ========================================================= -->
 
-<footer class="site-footer">
+<footer class="footer">
 
-    <div class="container">
+    <div class="container footer-grid">
 
-        <div class="footer-main">
+        <div class="footer-brand">
 
-            <div class="footer-brand">
+            <a href="#home" class="logo">
 
-                <a href="#home" class="brand">
+                <span class="logo-symbol">
+                    &lt;/&gt;
+                </span>
 
-                    <span class="brand-bracket">&lt;</span>
-                    <span class="brand-name">SIDDHARTH</span>
-                    <span class="brand-dot">.</span>
-                    <span class="brand-dev">DEV</span>
-                    <span class="brand-bracket">/&gt;</span>
+                <span>
+                    SIDDHARTH<span class="logo-dot">.</span>DEV
+                </span>
 
-                </a>
-
-                <p>
-                    Building ideas into digital experiences.
-                </p>
-
-            </div>
+            </a>
 
 
-            <div class="footer-links">
-
-                <div>
-
-                    <h4>Explore</h4>
-
-                    <a href="#about">About</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-
-                </div>
-
-
-                <div>
-
-                    <h4>Projects</h4>
-
-                    <a href="projects/sales-mis.html">
-                        Sales MIS
-                    </a>
-
-                    <a href="projects/powerbi-dashboard.html">
-                        Power BI
-                    </a>
-
-                    <a href="projects/sql-analysis.html">
-                        SQL Analysis
-                    </a>
-
-                </div>
-
-            </div>
+            <p>
+                Developer. Programmer. Learner.
+                Builder of digital experiences.
+            </p>
 
         </div>
 
 
-        <div class="footer-bottom">
+        <div class="footer-links">
 
-            <span>
-                © <span id="currentYear"></span>
-                Siddharth Mishra. All rights reserved.
-            </span>
+            <h4>
+                Navigation
+            </h4>
 
-            <span class="footer-code">
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#skills">
+                Skills
+            </a>
+
+            <a href="#projects">
+                Projects
+            </a>
+
+            <a href="#resume">
+                Resume
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h4>
+                Connect
+            </h4>
+
+
+            <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                GitHub
+            </a>
+
+
+            <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                LinkedIn
+            </a>
+
+
+            <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Instagram
+            </a>
+
+        </div>
+
+
+        <div class="footer-status">
+
+            <div class="footer-online">
+
+                <span class="status-dot"></span>
+
+                Website Online
+
+            </div>
+
+
+            <p>
+
                 Built with
-                <i class="fa-solid fa-code"></i>
-                & curiosity.
-            </span>
+
+                <span class="heart">
+                    ♥
+                </span>
+
+                & code.
+
+            </p>
 
         </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <p>
+
+            ©
+
+            <span id="currentYear"></span>
+
+            Siddharth Mishra.
+            All rights reserved.
+
+        </p>
+
+
+        <p class="footer-tech">
+            HTML • CSS • JavaScript
+        </p>
 
     </div>
 
@@ -2267,146 +3217,30 @@ DESC;</code></pre>
 
 
 <!-- =========================================================
-     COMMAND PALETTE
-========================================================= -->
-
-<div class="command-overlay" id="commandOverlay">
-
-    <div class="command-modal">
-
-        <div class="command-header">
-
-            <i class="fa-solid fa-terminal"></i>
-
-            <input
-                type="text"
-                id="commandSearch"
-                placeholder="Type a command..."
-                autocomplete="off"
-            >
-
-            <button id="closeCommand">
-                ESC
-            </button>
-
-        </div>
-
-
-        <div class="command-list" id="commandList">
-
-            <button
-                class="command-item"
-                data-command="home"
-            >
-                <i class="fa-solid fa-house"></i>
-                <span>Go to Home</span>
-                <kbd>H</kbd>
-            </button>
-
-
-            <button
-                class="command-item"
-                data-command="about"
-            >
-                <i class="fa-solid fa-user"></i>
-                <span>About Me</span>
-                <kbd>A</kbd>
-            </button>
-
-
-            <button
-                class="command-item"
-                data-command="skills"
-            >
-                <i class="fa-solid fa-code"></i>
-                <span>Skills</span>
-                <kbd>S</kbd>
-            </button>
-
-
-            <button
-                class="command-item"
-                data-command="projects"
-            >
-                <i class="fa-solid fa-folder-open"></i>
-                <span>Projects</span>
-                <kbd>P</kbd>
-            </button>
-
-
-            <button
-                class="command-item"
-                data-command="resume"
-            >
-                <i class="fa-solid fa-file"></i>
-                <span>Resume Studio</span>
-                <kbd>R</kbd>
-            </button>
-
-
-            <button
-                class="command-item"
-                data-command="contact"
-            >
-                <i class="fa-solid fa-paper-plane"></i>
-                <span>Contact</span>
-                <kbd>C</kbd>
-            </button>
-
-
-            <button
-                class="command-item"
-                data-command="theme"
-            >
-                <i class="fa-solid fa-circle-half-stroke"></i>
-                <span>Toggle Theme</span>
-                <kbd>T</kbd>
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     CERTIFICATE MODAL
-========================================================= -->
-
-<div class="certificate-modal" id="certificateModal">
-
-    <div class="certificate-modal-inner">
-
-        <button
-            class="modal-close"
-            id="closeCertificateModal"
-        >
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <img
-            src=""
-            alt="Certificate"
-            id="certificateModalImage"
-        >
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
      TOAST
 ========================================================= -->
 
-<div class="toast" id="toast">
+<div
+    class="toast"
+    id="toast"
+>
 
-    <i class="fa-solid fa-circle-check"></i>
+    <div class="toast-icon">
+        <i class="fa-solid fa-check"></i>
+    </div>
 
-    <span id="toastMessage">
-        Done
-    </span>
+
+    <div>
+
+        <strong id="toastTitle">
+            Success
+        </strong>
+
+        <p id="toastMessage">
+            Action completed.
+        </p>
+
+    </div>
 
 </div>
 
@@ -2416,8 +3250,8 @@ DESC;</code></pre>
 ========================================================= -->
 
 <button
-    class="back-to-top"
-    id="backToTop"
+    class="back-top"
+    id="backTop"
     aria-label="Back to top"
 >
 
@@ -2426,7 +3260,143 @@ DESC;</code></pre>
 </button>
 
 
-<script src="js/script.js"></script>
+<!-- =========================================================
+     RESUME PRINT TEMPLATE
+========================================================= -->
+
+<template id="resumeTemplate">
+
+    <div class="resume-print-document">
+
+        <header>
+
+            <h1>
+                Siddharth Mishra
+            </h1>
+
+            <h2>
+                Developer • Programmer • Technology Learner
+            </h2>
+
+            <p>
+                Web Development • Application Development • AI
+                Integration • Digital Products
+            </p>
+
+        </header>
+
+
+        <section>
+
+            <h3>
+                Professional Summary
+            </h3>
+
+            <p>
+
+                Developer and technology learner interested in
+                programming, web development, cross-platform
+                application development, cloud services and
+                AI-powered applications.
+
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h3>
+                Technical Skills
+            </h3>
+
+            <p>
+                JavaScript • Python • Dart • HTML5 • CSS3 • Flutter
+                • Firebase • Firestore • REST API • Git • GitHub
+                • AI Integration • JSON • Responsive Design
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h3>
+                Selected Projects
+            </h3>
+
+            <h4>
+                Univichar AI
+            </h4>
+
+            <p>
+                AI-powered education platform built around
+                interactive learning, AI conversations, notes,
+                quizzes and educational assistance.
+            </p>
+
+
+            <h4>
+                Developer Portfolio
+            </h4>
+
+            <p>
+                Responsive programmer-focused portfolio with
+                interactive components and modern web technologies.
+            </p>
+
+
+            <h4>
+                AI Experiments
+            </h4>
+
+            <p>
+                Experiments exploring AI APIs, conversational
+                interfaces and intelligent application experiences.
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h3>
+                Development Journey
+            </h3>
+
+            <p>
+                Technology → Web Development → Application
+                Development → AI & Cloud Development
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h3>
+                Core Strengths
+            </h3>
+
+            <p>
+                Problem Solving • Continuous Learning • Programming
+                • Product Thinking • AI Exploration • Digital Building
+            </p>
+
+        </section>
+
+
+        <footer>
+            Siddharth.dev — Built with code & curiosity.
+        </footer>
+
+    </div>
+
+</template>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
+```
