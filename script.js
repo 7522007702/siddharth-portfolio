@@ -1,6 +1,6 @@
 /* =========================================================
    SIDDHARTH.DEV
-   VVIP DEVELOPER PORTFOLIO
+   DEVELOPER PORTFOLIO
    MAIN JAVASCRIPT
 ========================================================= */
 

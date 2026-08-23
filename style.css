@@ -1,6 +1,6 @@
 /* =========================================================
    SIDDHARTH.DEV
-   VVIP DEVELOPER PORTFOLIO
+   DEVELOPER PORTFOLIO
    MAIN STYLESHEET
 ========================================================= */
 
@@ -194,7 +194,7 @@ img {
     width: min(420px, calc(100% - 40px));
 
     font-family: var(--font-code);
-    font-size: 13px;
+    font-size: 14px;
 
     color: #a7b1ad;
 }
@@ -409,7 +409,7 @@ img {
     gap: 10px;
 
     font-family: var(--font-code);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
 
     letter-spacing: -.4px;
@@ -418,7 +418,7 @@ img {
 .logo-symbol {
     color: var(--green);
 
-    font-size: 19px;
+    font-size: 20px;
 
     text-shadow:
         0 0 15px rgba(0,255,157,.45);
@@ -437,7 +437,7 @@ img {
 .nav-link {
     position: relative;
 
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
 
     color: var(--text-muted);
@@ -689,7 +689,7 @@ img {
     margin-bottom: 22px;
 
     font-family: var(--font-code);
-    font-size: 10px;
+    font-size: 14px;
 
     color: var(--text-soft);
 
@@ -933,7 +933,7 @@ img {
     text-align: center;
 
     font-family: var(--font-code);
-    font-size: 10px;
+    font-size: 14px;
 
     color: var(--text-muted);
 }
@@ -941,7 +941,7 @@ img {
 .terminal-status {
     color: var(--green);
 
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .terminal-body {
@@ -1090,7 +1090,7 @@ img {
     color: var(--text-muted);
 
     font-family: var(--font-code);
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 1px;
 
     transform: translateX(-50%);
@@ -1184,7 +1184,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 10px;
+    font-size: 12px;
 }
 
 
@@ -1271,7 +1271,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .about-side {
@@ -1326,7 +1326,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 11px;
+    font-size: 12px;
 
     line-height: 1.6;
 }
@@ -1431,13 +1431,13 @@ img {
     color: var(--text-muted);
 
     font-family: var(--font-code);
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .skill-card h3 {
     margin-top: 20px;
 
-    font-size: 17px;
+    font-size: 20px;
 }
 
 .skill-card p {
@@ -1447,7 +1447,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .skill-bar {
@@ -1501,7 +1501,7 @@ img {
     margin-top: 8px;
 
     font-family: var(--font-code);
-    font-size: 9px;
+    font-size: 12px;
 
     color: var(--text-muted);
 }
@@ -1531,7 +1531,7 @@ img {
     color: var(--text-muted);
 
     font-family: var(--font-code);
-    font-size: 9px;
+    font-size: 11px;
 
     transition: var(--transition);
 }
@@ -1590,7 +1590,7 @@ img {
     padding: 0 18px;
 
     font-family: var(--font-code);
-    font-size: 10px;
+    font-size: 12px;
 
     color: var(--text-muted);
 
@@ -1636,7 +1636,7 @@ img {
     text-align: right;
 
     font-family: var(--font-code);
-    font-size: 11px;
+    font-size: 12px;
 
     line-height: 1.95;
 
@@ -1684,7 +1684,7 @@ img {
     border-top: 1px solid var(--border);
 
     font-family: var(--font-code);
-    font-size: 8px;
+    font-size: 10px;
 
     color: #6c7774;
 }
@@ -1718,7 +1718,7 @@ img {
 
     border-radius: 9px;
 
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
 
     transition: var(--transition);
@@ -1874,7 +1874,7 @@ img {
     border-radius: 6px;
 
     font-family: var(--font-code);
-    font-size: 8px;
+    font-size: 12px;
 
     color: var(--green);
 
@@ -1896,7 +1896,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .project-links {
@@ -1939,7 +1939,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 12px;
+    font-size: 14px;
 
     line-height: 1.75;
 }
@@ -1964,7 +1964,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 8px;
+    font-size: 12px;
 
     color: var(--text-soft);
 }
@@ -1979,7 +1979,7 @@ img {
     color: var(--green);
 
     font-family: var(--font-code);
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
 
     transition: var(--transition);
@@ -2524,7 +2524,7 @@ img {
 
     color: var(--green);
 
-    font-size: 9px;
+    font-size: 12px;
 
     letter-spacing: 1px;
 }
@@ -2532,7 +2532,7 @@ img {
 .timeline-card h3 {
     margin-top: 9px;
 
-    font-size: 21px;
+    font-size: 22px;
 }
 
 .timeline-card p {
@@ -2540,7 +2540,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .timeline-tags {
@@ -2563,7 +2563,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 8px;
+    font-size: 10px;
 }
 
 .future-card {
@@ -2632,7 +2632,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .upload-btn {
@@ -2646,7 +2646,7 @@ img {
 
     background: var(--green);
 
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
 
     cursor: pointer;
@@ -2710,7 +2710,7 @@ img {
 }
 
 .certificate-info h4 {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .certificate-info p {
@@ -2718,7 +2718,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 9px;
+    font-size: 10px;
 }
 
 
@@ -2860,13 +2860,13 @@ img {
 }
 
 .resume-profile strong {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .resume-profile small {
     margin-top: 2px;
 
-    font-size: 7px;
+    font-size: 10px;
 
     color: #6d7471;
 }
@@ -3005,13 +3005,13 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 8px;
+    font-size: 14px;
 
     font-family: var(--font-code);
 }
 
 .contact-details span:last-child {
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .contact-form {
@@ -3047,7 +3047,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 9px;
+    font-size: 14px;
 }
 
 .form-group input,
@@ -3097,7 +3097,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 9px;
+    font-size: 10px;
 
     text-align: center;
 
@@ -3180,7 +3180,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .footer-links {
@@ -3195,7 +3195,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 9px;
+    font-size: 10px;
 
     color: var(--text);
 }
@@ -3205,7 +3205,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 10px;
+    font-size: 12px;
 
     transition: var(--transition);
 }
@@ -3217,7 +3217,7 @@ img {
 }
 
 .footer-status {
-    font-size: 10px;
+    font-size: 12px;
 
     color: var(--text-muted);
 }
@@ -3254,7 +3254,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 8px;
+    font-size: 10px;
 }
 
 .footer-tech {
@@ -3330,7 +3330,7 @@ img {
 .toast strong {
     display: block;
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .toast p {
@@ -3338,7 +3338,7 @@ img {
 
     color: var(--text-muted);
 
-    font-size: 9px;
+    font-size: 10px;
 }
 
 
@@ -3445,7 +3445,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 10px;
+    font-size: 12px;
 
     color: var(--text-soft);
 }
@@ -3474,7 +3474,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 8px;
+    font-size: 10px;
 }
 
 .command-search {
@@ -3502,7 +3502,7 @@ img {
 
     outline: none;
 
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .command-search input::placeholder {
@@ -3534,7 +3534,7 @@ img {
 
     text-align: left;
 
-    font-size: 11px;
+    font-size: 12px;
 
     transition: var(--transition);
 }
@@ -3569,7 +3569,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 8px;
+    font-size: 10px;
 
     color: var(--text-muted);
 }
@@ -3586,7 +3586,7 @@ img {
 
     font-family: var(--font-code);
 
-    font-size: 8px;
+    font-size: 10px;
 }
 
 
@@ -3862,7 +3862,7 @@ img {
 
     .terminal-body {
         padding: 22px 16px;
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .terminal-window {
@@ -3882,7 +3882,7 @@ img {
 @media (max-width: 430px) {
 
     .logo {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .logo-symbol {
