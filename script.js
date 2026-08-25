@@ -894,158 +894,31 @@ function isValidEmail(email) {
    RESUME GENERATOR
 ========================================================= */
 
-$("#downloadResume")?.addEventListener(
-    "click",
-    () => {
+const downloadResume = document.getElementById("downloadResume");
 
-        const resumeHTML = `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Siddharth Mishra - Resume</title>
+if (downloadResume) {
+    downloadResume.addEventListener("click", () => {
 
-<style>
+        const resumeUrl = "assets/profile.jpg";
+        const fileName = "profile.jpg";
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 50px;
-    color: #111;
-    line-height: 1.6;
+        const link = document.createElement("a");
+
+        link.href = resumeUrl;
+        link.download = fileName;
+        link.style.display = "none";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Download ke baad PDF open kare
+        setTimeout(() => {
+            window.open(resumeUrl, "_blank");
+        }, 800);
+
+    });
 }
-
-h1 {
-    margin-bottom: 5px;
-}
-
-h2 {
-    margin-top: 30px;
-    border-bottom: 2px solid #111;
-    padding-bottom: 5px;
-}
-
-.muted {
-    color: #666;
-}
-
-.tag {
-    display: inline-block;
-    padding: 4px 8px;
-    margin: 3px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>Siddharth Mishra</h1>
-
-<p class="muted">
-Developer • Programmer • Technology Learner
-</p>
-
-<p>
-Passionate about programming, application development,
-web technologies, AI and digital products.
-</p>
-
-<h2>Technical Skills</h2>
-
-<p>
-<span class="tag">HTML5</span>
-<span class="tag">CSS3</span>
-<span class="tag">JavaScript</span>
-<span class="tag">Python</span>
-<span class="tag">Dart</span>
-<span class="tag">Flutter</span>
-<span class="tag">Firebase</span>
-<span class="tag">Git</span>
-<span class="tag">GitHub</span>
-<span class="tag">REST APIs</span>
-</p>
-
-<h2>Projects</h2>
-
-<h3>Univichar AI</h3>
-
-<p>
-AI-powered education application with conversational AI,
-learning features, notes, quizzes, authentication and
-cloud-based services.
-</p>
-
-<h3>Developer Portfolio</h3>
-
-<p>
-Modern responsive developer portfolio with interactive
-components, animations, technology showcase and
-programmer-focused UI.
-</p>
-
-<h3>Programming Experiments</h3>
-
-<p>
-Programming experiments involving Python, JavaScript,
-application logic and technology exploration.
-</p>
-
-<h2>Developer Philosophy</h2>
-
-<p>
-Build. Learn. Improve.
-</p>
-
-<h2>Contact</h2>
-
-<p>
-Email: your-email@example.com
-</p>
-
-</body>
-</html>
-        `;
-
-        const blob =
-            new Blob(
-                [resumeHTML],
-                {
-                    type:
-                        "text/html;charset=utf-8"
-                }
-            );
-
-        const url =
-            URL.createObjectURL(blob);
-
-        const anchor =
-            document.createElement("a");
-
-        anchor.href = url;
-
-        anchor.download =
-            "Siddharth-Mishra-Resume.html";
-
-        document.body.appendChild(anchor);
-
-        anchor.click();
-
-        anchor.remove();
-
-        URL.revokeObjectURL(url);
-
-
-        showToast(
-            "Resume Generated",
-            "Your resume file has been generated."
-        );
-
-    }
-);
 
 
 /* =========================================================
