@@ -173,10 +173,12 @@ window.addEventListener(
 backTop?.addEventListener(
     "click",
     () => {
+
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
+
     }
 );
 
@@ -237,10 +239,13 @@ function updateActiveNavigation() {
         if (
             scrollPosition >= section.offsetTop
         ) {
+
             currentSection = section.id;
+
         }
 
     });
+
 
     $$(".nav-link").forEach(link => {
 
@@ -276,6 +281,7 @@ const revealObserver =
                     revealObserver.unobserve(
                         entry.target
                     );
+
                 }
 
             });
@@ -328,7 +334,7 @@ const counterObserver =
 
         },
         {
-            threshold: .7
+            threshold: 0.7
         }
     );
 
@@ -349,6 +355,7 @@ function animateCounter(
 
     const startTime =
         performance.now();
+
 
     function update(currentTime) {
 
@@ -376,14 +383,24 @@ function animateCounter(
             current;
 
         if (progress < 1) {
-            requestAnimationFrame(update);
+
+            requestAnimationFrame(
+                update
+            );
+
         } else {
-            element.textContent = target;
+
+            element.textContent =
+                target;
+
         }
 
     }
 
-    requestAnimationFrame(update);
+
+    requestAnimationFrame(
+        update
+    );
 
 }
 
@@ -408,6 +425,7 @@ let commandIndex = 0;
 let characterIndex = 0;
 let deleting = false;
 
+
 function terminalType() {
 
     if (!terminalTyping) {
@@ -416,6 +434,7 @@ function terminalType() {
 
     const command =
         terminalCommands[commandIndex];
+
 
     if (!deleting) {
 
@@ -426,6 +445,7 @@ function terminalType() {
             );
 
         characterIndex++;
+
 
         if (
             characterIndex ===
@@ -440,6 +460,7 @@ function terminalType() {
             );
 
             return;
+
         }
 
     } else {
@@ -451,6 +472,7 @@ function terminalType() {
             );
 
         characterIndex--;
+
 
         if (characterIndex === 0) {
 
@@ -464,12 +486,14 @@ function terminalType() {
 
     }
 
+
     setTimeout(
         terminalType,
         deleting ? 45 : 80
     );
 
 }
+
 
 setTimeout(
     terminalType,
@@ -487,6 +511,7 @@ const filterButtons =
 const projectCards =
     $$(".project-card");
 
+
 filterButtons.forEach(button => {
 
     button.addEventListener(
@@ -500,17 +525,21 @@ filterButtons.forEach(button => {
                     )
             );
 
+
             button.classList.add(
                 "active"
             );
 
+
             const filter =
                 button.dataset.filter;
+
 
             projectCards.forEach(card => {
 
                 const category =
                     card.dataset.category;
+
 
                 if (
                     filter === "all" ||
@@ -520,6 +549,7 @@ filterButtons.forEach(button => {
                     card.classList.remove(
                         "hidden"
                     );
+
 
                     requestAnimationFrame(() => {
 
@@ -544,6 +574,7 @@ filterButtons.forEach(button => {
                         );
 
                     });
+
 
                 } else {
 
@@ -571,6 +602,7 @@ const certificateInput =
 const certificateGallery =
     $("#certificateGallery");
 
+
 let certificates =
     JSON.parse(
         localStorage.getItem(
@@ -585,22 +617,29 @@ function renderCertificates() {
         return;
     }
 
+
     certificateGallery.innerHTML = "";
+
 
     if (!certificates.length) {
 
         certificateGallery.innerHTML = `
             <div class="certificate-card placeholder-card">
+
                 <div class="certificate-placeholder">
                     <i class="fa-solid fa-certificate"></i>
                 </div>
 
                 <div class="certificate-info">
+
                     <h4>Your Certificate</h4>
+
                     <p>
                         Upload an image to showcase it here.
                     </p>
+
                 </div>
+
             </div>
         `;
 
@@ -614,8 +653,10 @@ function renderCertificates() {
             const card =
                 document.createElement("div");
 
+
             card.className =
                 "certificate-card";
+
 
             card.innerHTML = `
                 <img
@@ -654,6 +695,7 @@ function renderCertificates() {
                 </div>
             `;
 
+
             certificateGallery.appendChild(
                 card
             );
@@ -674,14 +716,17 @@ function renderCertificates() {
                             button.dataset.index
                         );
 
+
                     certificates.splice(
                         index,
                         1
                     );
 
+
                     saveCertificates();
 
                     renderCertificates();
+
 
                     showToast(
                         "Certificate Removed",
@@ -725,6 +770,7 @@ certificateInput?.addEventListener(
         const files =
             [...event.target.files];
 
+
         files.forEach(file => {
 
             if (
@@ -732,25 +778,37 @@ certificateInput?.addEventListener(
                     "image/"
                 )
             ) {
+
                 return;
+
             }
+
 
             const reader =
                 new FileReader();
 
+
             reader.onload = () => {
 
                 certificates.push({
+
                     name:
                         file.name
-                            .replace(/\.[^/.]+$/, ""),
+                            .replace(
+                                /\.[^/.]+$/,
+                                ""
+                            ),
+
                     image:
                         reader.result
+
                 });
+
 
                 saveCertificates();
 
                 renderCertificates();
+
 
                 showToast(
                     "Certificate Added",
@@ -759,9 +817,11 @@ certificateInput?.addEventListener(
 
             };
 
+
             reader.readAsDataURL(file);
 
         });
+
 
         event.target.value = "";
 
@@ -788,6 +848,7 @@ contactForm?.addEventListener(
     event => {
 
         event.preventDefault();
+
 
         const name =
             $("#name")?.value.trim();
@@ -837,6 +898,7 @@ contactForm?.addEventListener(
          * own backend/API.
          */
 
+
         const mailto =
             `mailto:your-email@example.com` +
             `?subject=${encodeURIComponent(subject)}` +
@@ -856,6 +918,7 @@ contactForm?.addEventListener(
             false
         );
 
+
         contactForm.reset();
 
     }
@@ -871,8 +934,10 @@ function setFormMessage(
         return;
     }
 
+
     formMessage.textContent =
         message;
+
 
     formMessage.style.color =
         error
@@ -891,33 +956,138 @@ function isValidEmail(email) {
 
 
 /* =========================================================
-   RESUME GENERATOR
+   RESUME DOWNLOAD
 ========================================================= */
 
-const downloadResume = document.getElementById("downloadResume");
+/*
+ * Resume file location:
+ *
+ * assets/resume.pdf
+ *
+ * IMPORTANT:
+ * Make sure your actual resume file is named:
+ *
+ * resume.pdf
+ *
+ * and is inside the assets folder.
+ *
+ * Download behavior:
+ *
+ * 1. Browser starts the PDF download.
+ * 2. After a short delay, the same PDF opens
+ *    in a new tab.
+ *
+ * This works best when the resume PDF is hosted
+ * on the same domain as the portfolio.
+ */
+
+
+const downloadResume =
+    document.getElementById("downloadResume");
+
 
 if (downloadResume) {
-    downloadResume.addEventListener("click", () => {
 
-        const resumeUrl = "assets/profile.jpg";
-        const fileName = "profile.jpg";
+    downloadResume.addEventListener(
+        "click",
+        event => {
 
-        const link = document.createElement("a");
+            event.preventDefault();
 
-        link.href = resumeUrl;
-        link.download = fileName;
-        link.style.display = "none";
 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            const resumeUrl =
+                "assets/resume.pdf";
 
-        // Download ke baad PDF open kare
-        setTimeout(() => {
-            window.open(resumeUrl, "_blank");
-        }, 800);
 
-    });
+            const fileName =
+                "Siddharth-Mishra-Resume.pdf";
+
+
+            /*
+             * Create temporary download link.
+             */
+
+            const link =
+                document.createElement("a");
+
+
+            link.href =
+                resumeUrl;
+
+
+            link.download =
+                fileName;
+
+
+            link.rel =
+                "noopener";
+
+
+            link.style.display =
+                "none";
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            /*
+             * Start download.
+             */
+
+            link.click();
+
+
+            /*
+             * Remove temporary link.
+             */
+
+            setTimeout(() => {
+
+                link.remove();
+
+            }, 100);
+
+
+            /*
+             * Open the same resume after
+             * the download has started.
+             */
+
+            setTimeout(() => {
+
+                const resumeWindow =
+                    window.open(
+                        resumeUrl,
+                        "_blank"
+                    );
+
+
+                if (
+                    resumeWindow
+                ) {
+
+                    resumeWindow.opener =
+                        null;
+
+                }
+
+            }, 800);
+
+
+            /*
+             * Notification.
+             */
+
+            showToast(
+                "Resume Downloaded",
+                "Your resume download has started."
+            );
+
+        }
+    );
+
 }
 
 
@@ -956,13 +1126,18 @@ function openCommandPalette() {
 
     state.commandOpen = true;
 
+    state.selectedCommand = 0;
+
+
     commandOverlay?.classList.add(
         "open"
     );
 
+
     document.body.classList.add(
         "no-scroll"
     );
+
 
     setTimeout(
         () => commandInput?.focus(),
@@ -976,9 +1151,11 @@ function closeCommandPalette() {
 
     state.commandOpen = false;
 
+
     commandOverlay?.classList.remove(
         "open"
     );
+
 
     document.body.classList.remove(
         "no-scroll"
@@ -1001,12 +1178,18 @@ commandOverlay?.addEventListener(
             event.target ===
             commandOverlay
         ) {
+
             closeCommandPalette();
+
         }
 
     }
 );
 
+
+/* =========================================================
+   COMMAND KEYBOARD CONTROL
+========================================================= */
 
 document.addEventListener(
     "keydown",
@@ -1016,6 +1199,10 @@ document.addEventListener(
             event.ctrlKey ||
             event.metaKey;
 
+
+        /*
+         * CTRL + K / CMD + K
+         */
 
         if (
             modifier &&
@@ -1027,8 +1214,13 @@ document.addEventListener(
             openCommandPalette();
 
             return;
+
         }
 
+
+        /*
+         * ESC
+         */
 
         if (
             event.key === "Escape" &&
@@ -1038,8 +1230,13 @@ document.addEventListener(
             closeCommandPalette();
 
             return;
+
         }
 
+
+        /*
+         * Arrow Down
+         */
 
         if (
             state.commandOpen &&
@@ -1053,6 +1250,10 @@ document.addEventListener(
         }
 
 
+        /*
+         * Arrow Up
+         */
+
         if (
             state.commandOpen &&
             event.key === "ArrowUp"
@@ -1065,6 +1266,10 @@ document.addEventListener(
         }
 
 
+        /*
+         * Enter
+         */
+
         if (
             state.commandOpen &&
             event.key === "Enter"
@@ -1072,12 +1277,14 @@ document.addEventListener(
 
             event.preventDefault();
 
-            const selected =
-                $$(".command-results button")[
-                    state.selectedCommand
-                ];
 
-            selected?.click();
+            const buttons =
+                getVisibleCommandButtons();
+
+
+            buttons[
+                state.selectedCommand
+            ]?.click();
 
         }
 
@@ -1098,12 +1305,14 @@ commandInput?.addEventListener(
                 .toLowerCase()
                 .trim();
 
+
         $$(".command-results button")
             .forEach(button => {
 
                 const text =
                     button.textContent
                         .toLowerCase();
+
 
                 button.style.display =
                     text.includes(query)
@@ -1112,11 +1321,19 @@ commandInput?.addEventListener(
 
             });
 
+
         state.selectedCommand = 0;
+
+
+        updateCommandSelection();
 
     }
 );
 
+
+/* =========================================================
+   COMMAND BUTTONS
+========================================================= */
 
 $$(".command-results button")
     .forEach(button => {
@@ -1128,9 +1345,11 @@ $$(".command-results button")
                 const command =
                     button.dataset.command;
 
+
                 navigateToCommand(
                     command
                 );
+
 
                 closeCommandPalette();
 
@@ -1140,6 +1359,61 @@ $$(".command-results button")
     });
 
 
+function getVisibleCommandButtons() {
+
+    return $$(".command-results button")
+        .filter(
+            button =>
+                button.style.display !==
+                "none"
+        );
+
+}
+
+
+function updateCommandSelection() {
+
+    const buttons =
+        getVisibleCommandButtons();
+
+
+    if (!buttons.length) {
+
+        state.selectedCommand = 0;
+
+        return;
+
+    }
+
+
+    if (
+        state.selectedCommand >=
+        buttons.length
+    ) {
+
+        state.selectedCommand =
+            buttons.length - 1;
+
+    }
+
+
+    buttons.forEach(
+        button =>
+            button.classList.remove(
+                "selected"
+            )
+    );
+
+
+    buttons[
+        state.selectedCommand
+    ]?.classList.add(
+        "selected"
+    );
+
+}
+
+
 function navigateToCommand(
     command
 ) {
@@ -1147,9 +1421,11 @@ function navigateToCommand(
     const target =
         document.getElementById(command);
 
+
     if (!target) {
         return;
     }
+
 
     target.scrollIntoView({
         behavior: "smooth",
@@ -1164,47 +1440,40 @@ function moveCommandSelection(
 ) {
 
     const buttons =
-        $$(".command-results button")
-            .filter(
-                button =>
-                    button.style.display !==
-                    "none"
-            );
+        getVisibleCommandButtons();
+
 
     if (!buttons.length) {
         return;
     }
 
+
     state.selectedCommand +=
         direction;
 
+
     if (
-        state.selectedCommand <
-        0
+        state.selectedCommand < 0
     ) {
+
         state.selectedCommand =
             buttons.length - 1;
+
     }
+
 
     if (
         state.selectedCommand >=
         buttons.length
     ) {
-        state.selectedCommand = 0;
+
+        state.selectedCommand =
+            0;
+
     }
 
-    buttons.forEach(
-        button =>
-            button.classList.remove(
-                "selected"
-            )
-    );
 
-    buttons[
-        state.selectedCommand
-    ]?.classList.add(
-        "selected"
-    );
+    updateCommandSelection();
 
 }
 
@@ -1219,6 +1488,7 @@ const cursorDot =
 const cursorRing =
     $(".cursor-ring");
 
+
 let mouseX = 0;
 let mouseY = 0;
 
@@ -1232,6 +1502,7 @@ window.addEventListener(
 
         mouseX = event.clientX;
         mouseY = event.clientY;
+
 
         if (cursorDot) {
 
@@ -1251,10 +1522,12 @@ window.addEventListener(
 function animateCursor() {
 
     ringX +=
-        (mouseX - ringX) * .18;
+        (mouseX - ringX) * 0.18;
+
 
     ringY +=
-        (mouseY - ringY) * .18;
+        (mouseY - ringY) * 0.18;
+
 
     if (cursorRing) {
 
@@ -1266,11 +1539,13 @@ function animateCursor() {
 
     }
 
+
     requestAnimationFrame(
         animateCursor
     );
 
 }
+
 
 animateCursor();
 
@@ -1282,18 +1557,23 @@ $$(
     element.addEventListener(
         "mouseenter",
         () => {
+
             cursorRing?.classList.add(
                 "hover"
             );
+
         }
     );
+
 
     element.addEventListener(
         "mouseleave",
         () => {
+
             cursorRing?.classList.remove(
                 "hover"
             );
+
         }
     );
 
@@ -1306,6 +1586,7 @@ $$(
 
 const terminal =
     $(".terminal-window");
+
 
 if (
     terminal &&
@@ -1321,23 +1602,28 @@ if (
             const rect =
                 terminal.getBoundingClientRect();
 
+
             const centerX =
                 rect.left +
                 rect.width / 2;
 
+
             const centerY =
                 rect.top +
                 rect.height / 2;
+
 
             const rotateY =
                 (event.clientX - centerX) /
                 rect.width *
                 5;
 
+
             const rotateX =
                 -(event.clientY - centerY) /
                 rect.height *
                 5;
+
 
             terminal.style.transform =
                 `perspective(1200px)
@@ -1365,26 +1651,32 @@ $$(".btn-primary").forEach(button => {
                     "(pointer:fine)"
                 ).matches
             ) {
+
                 return;
+
             }
+
 
             const rect =
                 button.getBoundingClientRect();
+
 
             const x =
                 event.clientX -
                 rect.left -
                 rect.width / 2;
 
+
             const y =
                 event.clientY -
                 rect.top -
                 rect.height / 2;
 
+
             button.style.transform =
                 `translate(
-                    ${x * .08}px,
-                    ${y * .08}px
+                    ${x * 0.08}px,
+                    ${y * 0.08}px
                 )`;
 
         }
@@ -1429,11 +1721,21 @@ function showToast(
         return;
     }
 
-    toastTitle.textContent =
-        title;
 
-    toastMessage.textContent =
-        message;
+    if (toastTitle) {
+
+        toastTitle.textContent =
+            title;
+
+    }
+
+
+    if (toastMessage) {
+
+        toastMessage.textContent =
+            message;
+
+    }
 
 
     toast.classList.add(
@@ -1473,12 +1775,15 @@ function escapeHTML(value) {
             character => {
 
                 const entities = {
+
                     "&": "&amp;",
                     "<": "&lt;",
                     ">": "&gt;",
                     '"': "&quot;",
                     "'": "&#039;"
+
                 };
+
 
                 return entities[
                     character
@@ -1496,6 +1801,7 @@ function escapeHTML(value) {
 
 const currentYear =
     $("#currentYear");
+
 
 if (currentYear) {
 
@@ -1521,23 +1827,32 @@ $$('a[href^="#"]').forEach(
                         "href"
                     );
 
+
                 if (
                     !href ||
                     href === "#"
                 ) {
+
                     return;
+
                 }
+
 
                 const target =
                     document.querySelector(
                         href
                     );
 
+
                 if (!target) {
+
                     return;
+
                 }
 
+
                 event.preventDefault();
+
 
                 target.scrollIntoView({
                     behavior: "smooth",
@@ -1559,12 +1874,24 @@ document.addEventListener(
     "keydown",
     event => {
 
+        const activeElement =
+            document.activeElement;
+
+
+        const isTyping =
+            activeElement &&
+            (
+                activeElement.tagName ===
+                    "INPUT" ||
+                activeElement.tagName ===
+                    "TEXTAREA" ||
+                activeElement.isContentEditable
+            );
+
+
         if (
             event.key === "/" &&
-            document.activeElement.tagName !==
-                "INPUT" &&
-            document.activeElement.tagName !==
-                "TEXTAREA"
+            !isTyping
         ) {
 
             event.preventDefault();
@@ -1611,11 +1938,15 @@ document.addEventListener(
         if (
             document.hidden
         ) {
+
             document.title =
                 "Come back • Siddharth.dev";
+
         } else {
+
             document.title =
                 "Siddharth.dev — Developer Portfolio";
+
         }
 
     }
@@ -1627,6 +1958,7 @@ document.addEventListener(
 ========================================================= */
 
 console.clear();
+
 
 console.log(
     "%c SIDDHARTH.DEV ",
@@ -1640,10 +1972,12 @@ console.log(
     `
 );
 
+
 console.log(
     "%c Developer Portfolio initialized.",
     "color:#00ff9d;font-size:12px;"
 );
+
 
 console.log(
     "%c Build. Learn. Improve.",
@@ -1660,6 +1994,7 @@ function initializePortfolio() {
     handleScroll();
 
     renderCertificates();
+
 
     if (
         window.matchMedia(
