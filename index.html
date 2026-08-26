@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
     <meta
@@ -18,31 +20,96 @@
         content="Siddharth Mishra, developer, programmer, portfolio, JavaScript, Python, Flutter, Dart, Firebase, AI, Gemini, GitHub"
     >
 
-    <meta name="author" content="Siddharth Mishra">
-    <meta name="theme-color" content="#05070d">
+    <meta
+        name="author"
+        content="Siddharth Mishra"
+    >
+
+    <meta
+        name="theme-color"
+        content="#05070d"
+    >
+
+    <meta
+        name="color-scheme"
+        content="dark light"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="format-detection"
+        content="telephone=no"
+    >
 
     <title>Siddharth Portfolio</title>
+
+
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
 
     <link
         rel="icon"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2305070d'/%3E%3Ctext x='50' y='66' font-size='58' text-anchor='middle' fill='%2300ff9d' font-family='Arial'%3ES%3C/text%3E%3C/svg%3E"
     >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="style.css">
+
+    <!-- =====================================================
+         MAIN STYLESHEET
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
@@ -50,7 +117,12 @@
      PRELOADER
 ========================================================= -->
 
-<div id="preloader" class="preloader">
+<div
+    id="preloader"
+    class="preloader"
+    role="status"
+    aria-label="Loading portfolio"
+>
 
     <div class="loader-terminal">
 
@@ -78,92 +150,179 @@
      CUSTOM CURSOR
 ========================================================= -->
 
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
+<div
+    class="cursor-dot"
+    aria-hidden="true"
+></div>
+
+<div
+    class="cursor-ring"
+    aria-hidden="true"
+></div>
 
 
 <!-- =========================================================
      BACKGROUND
 ========================================================= -->
 
-<div class="background-grid"></div>
-<div class="background-glow glow-one"></div>
-<div class="background-glow glow-two"></div>
+<div
+    class="background-grid"
+    aria-hidden="true"
+></div>
+
+<div
+    class="background-glow glow-one"
+    aria-hidden="true"
+></div>
+
+<div
+    class="background-glow glow-two"
+    aria-hidden="true"
+></div>
 
 
 <!-- =========================================================
      HEADER
 ========================================================= -->
 
-<header class="header" id="header">
+<header
+    class="header"
+    id="header"
+>
 
     <div class="container nav-container">
 
-        <a href="#home" class="logo">
+        <a
+            href="#home"
+            class="logo"
+            aria-label="Siddharth Portfolio home"
+        >
+
             <span class="logo-symbol">
                 &lt;SIDDHARTH<span class="logo-dot">.</span>PORTFOLIO/&gt;
             </span>
+
         </a>
 
-        <nav class="nav" id="nav">
 
-            <a href="#home" class="nav-link active">
+        <!-- =================================================
+             MAIN NAVIGATION
+        ================================================== -->
+
+        <nav
+            class="nav"
+            id="nav"
+            aria-label="Primary navigation"
+        >
+
+            <a
+                href="#home"
+                class="nav-link active"
+            >
                 Home
             </a>
 
-            <a href="#about" class="nav-link">
+            <a
+                href="#about"
+                class="nav-link"
+            >
                 About
             </a>
 
-            <a href="#skills" class="nav-link">
+            <a
+                href="#skills"
+                class="nav-link"
+            >
                 Skills
             </a>
 
-            <a href="#projects" class="nav-link">
+            <a
+                href="#projects"
+                class="nav-link"
+            >
                 Projects
             </a>
 
-            <a href="#experience" class="nav-link">
+            <a
+                href="#experience"
+                class="nav-link"
+            >
                 Journey
             </a>
 
-            <a href="#certificates" class="nav-link">
+            <a
+                href="#certificates"
+                class="nav-link"
+            >
                 Certificates
             </a>
 
-            <a href="#resume" class="nav-link">
+            <a
+                href="#resume"
+                class="nav-link"
+            >
                 Resume
             </a>
 
-            <a href="#contact" class="nav-link">
+            <a
+                href="#contact"
+                class="nav-link"
+            >
                 Contact
             </a>
 
         </nav>
 
+
+        <!-- =================================================
+             NAV ACTIONS
+        ================================================== -->
+
         <div class="nav-actions">
 
             <button
+                type="button"
                 class="icon-button"
                 id="themeToggle"
                 aria-label="Toggle theme"
+                aria-pressed="false"
             >
-                <i class="fa-solid fa-sun"></i>
+
+                <i
+                    class="fa-solid fa-sun"
+                    aria-hidden="true"
+                ></i>
+
             </button>
 
-            <a href="#contact" class="nav-cta">
+
+            <a
+                href="#contact"
+                class="nav-cta"
+            >
                 Let's Talk
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                ></i>
+
             </a>
 
+
             <button
+                type="button"
                 class="mobile-menu"
                 id="mobileMenu"
                 aria-label="Open menu"
+                aria-controls="nav"
+                aria-expanded="false"
             >
+
                 <span></span>
                 <span></span>
                 <span></span>
+
             </button>
 
         </div>
@@ -177,87 +336,175 @@
      COMMAND PALETTE
 ========================================================= -->
 
-<div class="command-overlay" id="commandOverlay">
+<div
+    class="command-overlay"
+    id="commandOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="commandPaletteTitle"
+    aria-hidden="true"
+>
 
     <div class="command-box">
 
         <div class="command-header">
 
-            <span>
-                <i class="fa-solid fa-terminal"></i>
+            <span id="commandPaletteTitle">
+
+                <i
+                    class="fa-solid fa-terminal"
+                    aria-hidden="true"
+                ></i>
+
                 Command Palette
+
             </span>
 
-            <button id="closeCommand">
+
+            <button
+                type="button"
+                id="closeCommand"
+                aria-label="Close command palette"
+            >
                 ESC
             </button>
 
         </div>
 
+
         <div class="command-search">
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i
+                class="fa-solid fa-magnifying-glass"
+                aria-hidden="true"
+            ></i>
 
             <input
-                type="text"
+                type="search"
                 id="commandInput"
                 placeholder="Search sections, projects, actions..."
                 autocomplete="off"
+                enterkeyhint="search"
+                aria-label="Search command palette"
             >
 
         </div>
 
-        <div class="command-results" id="commandResults">
 
-            <button data-command="home">
+        <div
+            class="command-results"
+            id="commandResults"
+        >
+
+            <button
+                type="button"
+                data-command="home"
+            >
+
                 <span>
-                    <i class="fa-solid fa-house"></i>
+                    <i
+                        class="fa-solid fa-house"
+                        aria-hidden="true"
+                    ></i>
                     Home
                 </span>
+
                 <kbd>⌘ 1</kbd>
+
             </button>
 
-            <button data-command="about">
+
+            <button
+                type="button"
+                data-command="about"
+            >
+
                 <span>
-                    <i class="fa-solid fa-user"></i>
+                    <i
+                        class="fa-solid fa-user"
+                        aria-hidden="true"
+                    ></i>
                     About
                 </span>
+
                 <kbd>⌘ 2</kbd>
+
             </button>
 
-            <button data-command="skills">
+
+            <button
+                type="button"
+                data-command="skills"
+            >
+
                 <span>
-                    <i class="fa-solid fa-code"></i>
+                    <i
+                        class="fa-solid fa-code"
+                        aria-hidden="true"
+                    ></i>
                     Skills
                 </span>
+
                 <kbd>⌘ 3</kbd>
+
             </button>
 
-            <button data-command="projects">
+
+            <button
+                type="button"
+                data-command="projects"
+            >
+
                 <span>
-                    <i class="fa-solid fa-rocket"></i>
+                    <i
+                        class="fa-solid fa-rocket"
+                        aria-hidden="true"
+                    ></i>
                     Projects
                 </span>
+
                 <kbd>⌘ 4</kbd>
+
             </button>
 
-            <button data-command="resume">
+
+            <button
+                type="button"
+                data-command="resume"
+            >
+
                 <span>
-                    <i class="fa-solid fa-file-lines"></i>
+                    <i
+                        class="fa-solid fa-file-lines"
+                        aria-hidden="true"
+                    ></i>
                     Resume
                 </span>
+
                 <kbd>⌘ 5</kbd>
+
             </button>
 
-            <button data-command="contact">
+
+            <button
+                type="button"
+                data-command="contact"
+            >
+
                 <span>
-                    <i class="fa-solid fa-paper-plane"></i>
+                    <i
+                        class="fa-solid fa-paper-plane"
+                        aria-hidden="true"
+                    ></i>
                     Contact
                 </span>
+
                 <kbd>⌘ 6</kbd>
+
             </button>
 
         </div>
+
 
         <div class="command-footer">
 
@@ -290,42 +537,69 @@
 
 <main>
 
+
 <!-- =========================================================
      HERO
 ========================================================= -->
 
-<section class="hero section" id="home">
+<section
+    class="hero section"
+    id="home"
+>
 
     <div class="container hero-grid">
 
         <div class="hero-content reveal">
 
             <div class="availability">
-                <span class="status-dot"></span>
+
+                <span
+                    class="status-dot"
+                    aria-hidden="true"
+                ></span>
+
                 Available for opportunities
+
             </div>
 
+
             <p class="eyebrow">
-                <span class="line"></span>
+
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
+
                 HELLO
+
             </p>
 
+
             <h1>
+
                 I'm
+
                 <span class="gradient-text">
                     Siddharth
                 </span>
+
                 <br>
+
                 <span class="outline-text">
                     a Developer.
                 </span>
+
             </h1>
 
+
             <p class="hero-description">
+
                 I build digital experiences, applications and
                 technology projects with a passion for programming,
                 problem solving and continuous learning.
+
             </p>
+
 
             <div class="hero-buttons">
 
@@ -333,19 +607,33 @@
                     href="#projects"
                     class="btn btn-primary"
                 >
+
                     Explore My Work
-                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <i
+                        class="fa-solid fa-arrow-right"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
+
 
                 <a
                     href="#resume"
                     class="btn btn-secondary"
                 >
+
                     View Resume
-                    <i class="fa-solid fa-file-lines"></i>
+
+                    <i
+                        class="fa-solid fa-file-lines"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
 
             </div>
+
 
             <div class="hero-socials">
 
@@ -355,8 +643,14 @@
                     rel="noopener noreferrer"
                     aria-label="Instagram"
                 >
-                    <i class="fa-brands fa-instagram"></i>
+
+                    <i
+                        class="fa-brands fa-instagram"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
+
 
                 <a
                     href="https://www.linkedin.com/in/siddharth-mishra8"
@@ -364,8 +658,14 @@
                     rel="noopener noreferrer"
                     aria-label="LinkedIn"
                 >
-                    <i class="fa-brands fa-linkedin-in"></i>
+
+                    <i
+                        class="fa-brands fa-linkedin-in"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
+
 
                 <a
                     href="https://github.com/"
@@ -373,14 +673,25 @@
                     rel="noopener noreferrer"
                     aria-label="GitHub"
                 >
-                    <i class="fa-brands fa-github"></i>
+
+                    <i
+                        class="fa-brands fa-github"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
+
 
                 <a
                     href="mailto:your-siddharthmishra229@gmail.com"
-                    aria-label="Email"
+                    aria-label="Email Siddharth"
                 >
-                    <i class="fa-solid fa-envelope"></i>
+
+                    <i
+                        class="fa-solid fa-envelope"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
 
             </div>
@@ -388,27 +699,45 @@
         </div>
 
 
+        <!-- =================================================
+             HERO TERMINAL
+        ================================================== -->
+
         <div class="hero-terminal-wrap reveal delay-1">
 
             <div class="terminal-window">
 
                 <div class="terminal-topbar">
 
-                    <div class="terminal-dots">
+                    <div
+                        class="terminal-dots"
+                        aria-hidden="true"
+                    >
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
 
+
                     <span class="terminal-title">
                         @ Siddharth.developer:~
                     </span>
 
-                    <span class="terminal-status">
-                        <i class="fa-solid fa-wifi"></i>
+
+                    <span
+                        class="terminal-status"
+                        aria-label="Online"
+                    >
+
+                        <i
+                            class="fa-solid fa-wifi"
+                            aria-hidden="true"
+                        ></i>
+
                     </span>
 
                 </div>
+
 
                 <div class="terminal-body">
 
@@ -432,9 +761,11 @@
 
                     </div>
 
+
                     <div class="terminal-output">
                         I am Siddharth Mishra
                     </div>
+
 
                     <div class="terminal-command">
 
@@ -456,6 +787,7 @@
 
                     </div>
 
+
                     <pre class="code-output"><span class="code-purple">{</span>
                         <span class="code-blue">"name"</span><span>:</span> <span class="code-green">"Siddharth Mishra"</span><span>,</span>
                         <span class="code-blue">"role"</span><span>:</span> <span class="code-green">"Developer"</span><span>,</span>
@@ -464,6 +796,7 @@
                         <span class="code-blue">"mindset"</span><span>:</span> <span class="code-green">"Build & Learn"</span><span>,</span>
                         <span class="code-blue">"status"</span><span>:</span> <span class="code-green">"online"</span>
                         <span class="code-purple">}</span></pre>
+
 
                     <div class="terminal-command typing-line">
 
@@ -481,7 +814,10 @@
 
                         <span id="terminalTyping"></span>
 
-                        <span class="terminal-cursor"></span>
+                        <span
+                            class="terminal-cursor"
+                            aria-hidden="true"
+                        ></span>
 
                     </div>
 
@@ -489,15 +825,25 @@
 
             </div>
 
-            <div class="floating-tech tech-html">
+
+            <div
+                class="floating-tech tech-html"
+                aria-hidden="true"
+            >
                 <i class="fa-brands fa-html5"></i>
             </div>
 
-            <div class="floating-tech tech-js">
+            <div
+                class="floating-tech tech-js"
+                aria-hidden="true"
+            >
                 <i class="fa-brands fa-js"></i>
             </div>
 
-            <div class="floating-tech tech-python">
+            <div
+                class="floating-tech tech-python"
+                aria-hidden="true"
+            >
                 <i class="fa-brands fa-python"></i>
             </div>
 
@@ -505,7 +851,11 @@
 
     </div>
 
-    <div class="scroll-indicator">
+
+    <div
+        class="scroll-indicator"
+        aria-hidden="true"
+    >
 
         <span>
             SCROLL TO EXPLORE
@@ -528,17 +878,23 @@
 
         <div class="stat-card reveal">
 
-            <div class="stat-icon">
+            <div
+                class="stat-icon"
+                aria-hidden="true"
+            >
                 <i class="fa-solid fa-code"></i>
             </div>
 
             <div>
+
                 <strong data-count="17">0</strong>
+
                 <span>+</span>
 
                 <p>
                     Technologies
                 </p>
+
             </div>
 
         </div>
@@ -546,17 +902,23 @@
 
         <div class="stat-card reveal delay-1">
 
-            <div class="stat-icon">
+            <div
+                class="stat-icon"
+                aria-hidden="true"
+            >
                 <i class="fa-solid fa-layer-group"></i>
             </div>
 
             <div>
+
                 <strong data-count="4">0</strong>
+
                 <span>+</span>
 
                 <p>
                     Projects & Experiments
                 </p>
+
             </div>
 
         </div>
@@ -564,17 +926,23 @@
 
         <div class="stat-card reveal delay-2">
 
-            <div class="stat-icon">
+            <div
+                class="stat-icon"
+                aria-hidden="true"
+            >
                 <i class="fa-solid fa-book-open"></i>
             </div>
 
             <div>
+
                 <strong data-count="24">0</strong>
+
                 <span>+</span>
 
                 <p>
                     Learning Hours
                 </p>
+
             </div>
 
         </div>
@@ -582,16 +950,21 @@
 
         <div class="stat-card reveal delay-3">
 
-            <div class="stat-icon">
+            <div
+                class="stat-icon"
+                aria-hidden="true"
+            >
                 <i class="fa-solid fa-bolt"></i>
             </div>
 
             <div>
+
                 <strong>∞</strong>
 
                 <p>
                     Curiosity
                 </p>
+
             </div>
 
         </div>
@@ -615,16 +988,27 @@
         <div class="section-heading reveal">
 
             <p class="eyebrow">
-                <span class="line"></span>
+
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
+
                 ABOUT ME
+
             </p>
 
+
             <h2>
+
                 More than a
+
                 <span class="gradient-text">
                     developer.
                 </span>
+
             </h2>
+
 
             <p>
                 A technology enthusiast who enjoys turning ideas
@@ -642,26 +1026,36 @@
                     01
                 </div>
 
+
                 <h3>
+
                     I build with
+
                     <span>
                         purpose.
                     </span>
+
                 </h3>
 
+
                 <p>
+
                     I'm Siddharth Mishra, a Developer, Programmer, and Technology Learner with a practical business and problem-solving mindset.
                     I’m focused on programming, web technologies, application development, data analysis, AI integration, and digital products.
                     With 4+ years of retail sales and operations experience, I bring strong customer handling, coordination, communication, and business understanding.
                     I have hands-on knowledge of MS Excel, SQL, Power BI, Python, Tally ERP, HTML, CSS, and JavaScript.
                     Alongside pursuing my BBA, I continuously explore new technologies, build practical solutions, and strengthen my technical and analytical skills.
                     My approach is simple: understand the problem, learn, build, analyze, improve, and create solutions that deliver real-world value.
+
                 </p>
 
+
                 <div class="about-signature">
+
                     <span>
                         — Siddharth Mishra
                     </span>
+
                 </div>
 
             </div>
@@ -669,11 +1063,16 @@
 
             <div class="about-side">
 
+
                 <div class="mini-card reveal delay-1">
 
-                    <div class="mini-card-icon">
+                    <div
+                        class="mini-card-icon"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-brain"></i>
                     </div>
+
 
                     <div>
 
@@ -693,9 +1092,13 @@
 
                 <div class="mini-card reveal delay-2">
 
-                    <div class="mini-card-icon">
+                    <div
+                        class="mini-card-icon"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
+
 
                     <div>
 
@@ -715,9 +1118,13 @@
 
                 <div class="mini-card reveal delay-3">
 
-                    <div class="mini-card-icon">
+                    <div
+                        class="mini-card-icon"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-rocket"></i>
                     </div>
+
 
                     <div>
 
@@ -758,20 +1165,31 @@
 
             <p class="eyebrow">
 
-                <span class="line"></span>
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
 
                 TECHNOLOGY STACK
 
-                <span class="line"></span>
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
 
             </p>
 
+
             <h2>
+
                 My
+
                 <span class="gradient-text">
                     toolbox.
                 </span>
+
             </h2>
+
 
             <p>
                 Technologies I use to learn, experiment, build and
@@ -783,11 +1201,15 @@
 
         <div class="skills-grid">
 
+
             <div class="skill-card reveal">
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo html-logo">
+                    <div
+                        class="skill-logo html-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-brands fa-html5"></i>
                     </div>
 
@@ -819,7 +1241,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo css-logo">
+                    <div
+                        class="skill-logo css-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-brands fa-css3-alt"></i>
                     </div>
 
@@ -851,7 +1276,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo js-logo">
+                    <div
+                        class="skill-logo js-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-brands fa-js"></i>
                     </div>
 
@@ -883,7 +1311,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo python-logo">
+                    <div
+                        class="skill-logo python-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-brands fa-python"></i>
                     </div>
 
@@ -915,7 +1346,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo dart-logo">
+                    <div
+                        class="skill-logo dart-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-code"></i>
                     </div>
 
@@ -947,7 +1381,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo flutter-logo">
+                    <div
+                        class="skill-logo flutter-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-mobile-screen-button"></i>
                     </div>
 
@@ -979,7 +1416,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo firebase-logo">
+                    <div
+                        class="skill-logo firebase-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-fire"></i>
                     </div>
 
@@ -1011,7 +1451,10 @@
 
                 <div class="skill-card-top">
 
-                    <div class="skill-logo git-logo">
+                    <div
+                        class="skill-logo git-logo"
+                        aria-hidden="true"
+                    >
                         <i class="fa-brands fa-git-alt"></i>
                     </div>
 
@@ -1076,18 +1519,35 @@
                 <div class="editor-tabs">
 
                     <div class="editor-tab active">
-                        <i class="fa-brands fa-js"></i>
+
+                        <i
+                            class="fa-brands fa-js"
+                            aria-hidden="true"
+                        ></i>
+
                         siddharth.js
+
                     </div>
 
+
                     <div class="editor-tab">
-                        <i class="fa-solid fa-code"></i>
+
+                        <i
+                            class="fa-solid fa-code"
+                            aria-hidden="true"
+                        ></i>
+
                         developer.json
+
                     </div>
 
                 </div>
 
-                <div class="editor-actions">
+
+                <div
+                    class="editor-actions"
+                    aria-hidden="true"
+                >
                     <span></span>
                     <span></span>
                     <span></span>
@@ -1098,7 +1558,10 @@
 
             <div class="editor-content">
 
-                <div class="line-numbers">
+                <div
+                    class="line-numbers"
+                    aria-hidden="true"
+                >
                     01<br>
                     02<br>
                     03<br>
@@ -1134,12 +1597,18 @@
             <div class="editor-footer">
 
                 <span>
-                    <i class="fa-solid fa-code-branch"></i>
+                    <i
+                        class="fa-solid fa-code-branch"
+                        aria-hidden="true"
+                    ></i>
                     main
                 </span>
 
                 <span>
-                    <i class="fa-solid fa-circle-check"></i>
+                    <i
+                        class="fa-solid fa-circle-check"
+                        aria-hidden="true"
+                    ></i>
                     Ready
                 </span>
 
@@ -1170,16 +1639,27 @@
         <div class="section-heading reveal">
 
             <p class="eyebrow">
-                <span class="line"></span>
+
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
+
                 SELECTED WORK
+
             </p>
 
+
             <h2>
+
                 Things I've
+
                 <span class="gradient-text">
                     built.
                 </span>
+
             </h2>
+
 
             <p>
                 Projects, experiments and digital products that
@@ -1192,6 +1672,7 @@
         <div class="project-filters reveal">
 
             <button
+                type="button"
                 class="filter-btn active"
                 data-filter="all"
             >
@@ -1199,6 +1680,7 @@
             </button>
 
             <button
+                type="button"
                 class="filter-btn"
                 data-filter="web"
             >
@@ -1206,6 +1688,7 @@
             </button>
 
             <button
+                type="button"
                 class="filter-btn"
                 data-filter="app"
             >
@@ -1213,6 +1696,7 @@
             </button>
 
             <button
+                type="button"
                 class="filter-btn"
                 data-filter="ai"
             >
@@ -1220,6 +1704,7 @@
             </button>
 
             <button
+                type="button"
                 class="filter-btn"
                 data-filter="other"
             >
@@ -1231,6 +1716,9 @@
 
         <div class="projects-grid">
 
+
+            <!-- PROJECT 01 -->
+
             <article
                 class="project-card featured reveal"
                 data-category="app"
@@ -1238,14 +1726,27 @@
 
                 <div class="project-visual project-ai">
 
-                    <div class="project-grid-pattern"></div>
+                    <div
+                        class="project-grid-pattern"
+                        aria-hidden="true"
+                    ></div>
 
-                    <div class="project-icon-large">
+                    <div
+                        class="project-icon-large"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-brain"></i>
                     </div>
 
-                    <div class="project-orbit orbit-one"></div>
-                    <div class="project-orbit orbit-two"></div>
+                    <div
+                        class="project-orbit orbit-one"
+                        aria-hidden="true"
+                    ></div>
+
+                    <div
+                        class="project-orbit orbit-two"
+                        aria-hidden="true"
+                    ></div>
 
                     <span class="project-label">
                         AI / EDUCATION
@@ -1262,29 +1763,39 @@
                             01
                         </span>
 
+
                         <div class="project-links">
 
                             <a
                                 href="#"
                                 aria-label="Live project"
                             >
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
+
 
                             <a
                                 href="#"
                                 aria-label="Source code"
                             >
-                                <i class="fa-brands fa-github"></i>
+                                <i
+                                    class="fa-brands fa-github"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
                         </div>
 
                     </div>
 
+
                     <h3>
                         Univichar AI
                     </h3>
+
 
                     <p>
                         An AI-powered education platform designed to
@@ -1292,22 +1803,36 @@
                         notes, quizzes and educational assistance.
                     </p>
 
+
                     <div class="project-tech">
+
                         <span>Flutter</span>
                         <span>Dart</span>
                         <span>Firebase</span>
                         <span>Gemini AI</span>
+
                     </div>
 
-                    <a href="#" class="project-more">
+
+                    <a
+                        href="#"
+                        class="project-more"
+                    >
                         View Project
-                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </a>
 
                 </div>
 
             </article>
 
+
+            <!-- PROJECT 02 -->
 
             <article
                 class="project-card reveal delay-1"
@@ -1318,20 +1843,38 @@
 
                     <div class="browser-window">
 
-                        <div class="browser-bar">
+                        <div
+                            class="browser-bar"
+                            aria-hidden="true"
+                        >
                             <span></span>
                             <span></span>
                             <span></span>
                         </div>
 
+
                         <div class="browser-content">
 
-                            <div class="fake-heading"></div>
+                            <div
+                                class="fake-heading"
+                                aria-hidden="true"
+                            ></div>
 
-                            <div class="fake-line"></div>
-                            <div class="fake-line short"></div>
+                            <div
+                                class="fake-line"
+                                aria-hidden="true"
+                            ></div>
 
-                            <div class="fake-cards">
+                            <div
+                                class="fake-line short"
+                                aria-hidden="true"
+                            ></div>
+
+
+                            <div
+                                class="fake-cards"
+                                aria-hidden="true"
+                            >
                                 <span></span>
                                 <span></span>
                                 <span></span>
@@ -1352,23 +1895,39 @@
                             02
                         </span>
 
+
                         <div class="project-links">
 
-                            <a href="#">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <a
+                                href="#"
+                                aria-label="Live project"
+                            >
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
-                            <a href="#">
-                                <i class="fa-brands fa-github"></i>
+
+                            <a
+                                href="#"
+                                aria-label="Source code"
+                            >
+                                <i
+                                    class="fa-brands fa-github"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
                         </div>
 
                     </div>
 
+
                     <h3>
                         Developer Portfolio
                     </h3>
+
 
                     <p>
                         A futuristic, responsive developer portfolio
@@ -1376,22 +1935,36 @@
                         programmer-focused visual identity.
                     </p>
 
+
                     <div class="project-tech">
+
                         <span>HTML</span>
                         <span>CSS</span>
                         <span>JavaScript</span>
                         <span>GitHub Pages</span>
+
                     </div>
 
-                    <a href="#" class="project-more">
+
+                    <a
+                        href="#"
+                        class="project-more"
+                    >
                         View Project
-                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </a>
 
                 </div>
 
             </article>
 
+
+            <!-- PROJECT 03 -->
 
             <article
                 class="project-card reveal delay-2"
@@ -1400,11 +1973,18 @@
 
                 <div class="project-visual project-code">
 
-                    <div class="ai-pulse">
+                    <div
+                        class="ai-pulse"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-microchip"></i>
                     </div>
 
-                    <div class="ai-lines">
+
+                    <div
+                        class="ai-lines"
+                        aria-hidden="true"
+                    >
                         <span></span>
                         <span></span>
                         <span></span>
@@ -1422,23 +2002,39 @@
                             03
                         </span>
 
+
                         <div class="project-links">
 
-                            <a href="#">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <a
+                                href="#"
+                                aria-label="Live project"
+                            >
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
-                            <a href="#">
-                                <i class="fa-brands fa-github"></i>
+
+                            <a
+                                href="#"
+                                aria-label="Source code"
+                            >
+                                <i
+                                    class="fa-brands fa-github"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
                         </div>
 
                     </div>
 
+
                     <h3>
                         AI Experiments
                     </h3>
+
 
                     <p>
                         A collection of experiments exploring AI APIs,
@@ -1446,22 +2042,36 @@
                         and intelligent application experiences.
                     </p>
 
+
                     <div class="project-tech">
+
                         <span>AI</span>
                         <span>API</span>
                         <span>JavaScript</span>
                         <span>JSON</span>
+
                     </div>
 
-                    <a href="#" class="project-more">
+
+                    <a
+                        href="#"
+                        class="project-more"
+                    >
                         Explore
-                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </a>
 
                 </div>
 
             </article>
 
+
+            <!-- PROJECT 04 -->
 
             <article
                 class="project-card reveal"
@@ -1472,21 +2082,44 @@
 
                     <div class="phone-mockup">
 
-                        <div class="phone-notch"></div>
+                        <div
+                            class="phone-notch"
+                            aria-hidden="true"
+                        ></div>
+
 
                         <div class="phone-screen">
 
-                            <div class="phone-header">
+                            <div
+                                class="phone-header"
+                                aria-hidden="true"
+                            >
                                 <span></span>
                                 <span></span>
                             </div>
 
-                            <div class="phone-avatar"></div>
 
-                            <div class="phone-text"></div>
-                            <div class="phone-text short"></div>
+                            <div
+                                class="phone-avatar"
+                                aria-hidden="true"
+                            ></div>
 
-                            <div class="phone-button"></div>
+
+                            <div
+                                class="phone-text"
+                                aria-hidden="true"
+                            ></div>
+
+                            <div
+                                class="phone-text short"
+                                aria-hidden="true"
+                            ></div>
+
+
+                            <div
+                                class="phone-button"
+                                aria-hidden="true"
+                            ></div>
 
                         </div>
 
@@ -1503,23 +2136,39 @@
                             04
                         </span>
 
+
                         <div class="project-links">
 
-                            <a href="#">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <a
+                                href="#"
+                                aria-label="Live project"
+                            >
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
-                            <a href="#">
-                                <i class="fa-brands fa-github"></i>
+
+                            <a
+                                href="#"
+                                aria-label="Source code"
+                            >
+                                <i
+                                    class="fa-brands fa-github"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
                         </div>
 
                     </div>
 
+
                     <h3>
                         Mobile App Experiments
                     </h3>
+
 
                     <p>
                         Cross-platform application concepts built while
@@ -1527,21 +2176,35 @@
                         mobile UX patterns.
                     </p>
 
+
                     <div class="project-tech">
+
                         <span>Flutter</span>
                         <span>Dart</span>
                         <span>Firebase</span>
+
                     </div>
 
-                    <a href="#" class="project-more">
+
+                    <a
+                        href="#"
+                        class="project-more"
+                    >
                         Explore
-                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </a>
 
                 </div>
 
             </article>
 
+
+            <!-- PROJECT 05 -->
 
             <article
                 class="project-card reveal delay-1"
@@ -1553,17 +2216,29 @@
                     <div class="mini-terminal">
 
                         <div>
-                            <span class="green">$</span>
+
+                            <span class="green">
+                                $
+                            </span>
+
                             python main.py
+
                         </div>
+
 
                         <div class="terminal-success">
                             ✓ Program executed successfully
                         </div>
 
+
                         <div>
-                            <span class="green">$</span>
+
+                            <span class="green">
+                                $
+                            </span>
+
                             _
+
                         </div>
 
                     </div>
@@ -1579,19 +2254,28 @@
                             05
                         </span>
 
+
                         <div class="project-links">
 
-                            <a href="#">
-                                <i class="fa-brands fa-github"></i>
+                            <a
+                                href="#"
+                                aria-label="Source code"
+                            >
+                                <i
+                                    class="fa-brands fa-github"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
                         </div>
 
                     </div>
 
+
                     <h3>
                         Programming Experiments
                     </h3>
+
 
                     <p>
                         Small programming projects created to understand
@@ -1599,21 +2283,35 @@
                         development concepts.
                     </p>
 
+
                     <div class="project-tech">
+
                         <span>Python</span>
                         <span>Logic</span>
                         <span>Algorithms</span>
+
                     </div>
 
-                    <a href="#" class="project-more">
+
+                    <a
+                        href="#"
+                        class="project-more"
+                    >
                         View Work
-                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </a>
 
                 </div>
 
             </article>
 
+
+            <!-- PROJECT 06 -->
 
             <article
                 class="project-card reveal delay-2"
@@ -1624,19 +2322,34 @@
 
                     <div class="dashboard-mockup">
 
-                        <div class="dash-sidebar"></div>
+                        <div
+                            class="dash-sidebar"
+                            aria-hidden="true"
+                        ></div>
+
 
                         <div class="dash-main">
 
-                            <div class="dash-top"></div>
+                            <div
+                                class="dash-top"
+                                aria-hidden="true"
+                            ></div>
 
-                            <div class="dash-stats">
+
+                            <div
+                                class="dash-stats"
+                                aria-hidden="true"
+                            >
                                 <span></span>
                                 <span></span>
                                 <span></span>
                             </div>
 
-                            <div class="dash-chart"></div>
+
+                            <div
+                                class="dash-chart"
+                                aria-hidden="true"
+                            ></div>
 
                         </div>
 
@@ -1653,23 +2366,39 @@
                             06
                         </span>
 
+
                         <div class="project-links">
 
-                            <a href="#">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <a
+                                href="#"
+                                aria-label="Live project"
+                            >
+                                <i
+                                    class="fa-solid fa-arrow-up-right-from-square"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
-                            <a href="#">
-                                <i class="fa-brands fa-github"></i>
+
+                            <a
+                                href="#"
+                                aria-label="Source code"
+                            >
+                                <i
+                                    class="fa-brands fa-github"
+                                    aria-hidden="true"
+                                ></i>
                             </a>
 
                         </div>
 
                     </div>
 
+
                     <h3>
                         Dashboard UI
                     </h3>
+
 
                     <p>
                         A responsive dashboard concept focused on clean
@@ -1677,15 +2406,27 @@
                         responsive layouts.
                     </p>
 
+
                     <div class="project-tech">
+
                         <span>HTML</span>
                         <span>CSS</span>
                         <span>JavaScript</span>
+
                     </div>
 
-                    <a href="#" class="project-more">
+
+                    <a
+                        href="#"
+                        class="project-more"
+                    >
                         Explore
-                        <i class="fa-solid fa-arrow-right"></i>
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </a>
 
                 </div>
@@ -1714,13 +2455,20 @@
 
             <p class="eyebrow">
 
-                <span class="line"></span>
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
 
                 MY JOURNEY
 
-                <span class="line"></span>
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
 
             </p>
+
 
             <h2>
 
@@ -1734,6 +2482,7 @@
 
             </h2>
 
+
             <p>
                 A journey driven by curiosity and technology.
             </p>
@@ -1743,11 +2492,13 @@
 
         <div class="timeline">
 
+
             <div class="timeline-item reveal">
 
                 <div class="timeline-marker">
                     <span></span>
                 </div>
+
 
                 <div class="timeline-card">
 
@@ -1755,15 +2506,18 @@
                         PHASE 01
                     </span>
 
+
                     <h3>
                         Discovering Technology
                     </h3>
+
 
                     <p>
                         Started exploring computers, software,
                         programming concepts and the world of
                         technology.
                     </p>
+
 
                     <div class="timeline-tags">
                         <span>Computer</span>
@@ -1782,20 +2536,24 @@
                     <span></span>
                 </div>
 
+
                 <div class="timeline-card">
 
                     <span class="timeline-date">
                         PHASE 02
                     </span>
 
+
                     <h3>
                         Web Development
                     </h3>
+
 
                     <p>
                         Started building websites and understanding
                         HTML, CSS, JavaScript and responsive design.
                     </p>
+
 
                     <div class="timeline-tags">
                         <span>HTML</span>
@@ -1814,20 +2572,24 @@
                     <span></span>
                 </div>
 
+
                 <div class="timeline-card">
 
                     <span class="timeline-date">
                         PHASE 03
                     </span>
 
+
                     <h3>
                         Application Development
                     </h3>
+
 
                     <p>
                         Expanded into programming languages and
                         cross-platform application development.
                     </p>
+
 
                     <div class="timeline-tags">
                         <span>Python</span>
@@ -1846,20 +2608,24 @@
                     <span></span>
                 </div>
 
+
                 <div class="timeline-card">
 
                     <span class="timeline-date">
                         NOW
                     </span>
 
+
                     <h3>
                         Building with AI & Cloud
                     </h3>
+
 
                     <p>
                         Exploring AI-powered applications, Firebase,
                         APIs and building complete digital products.
                     </p>
+
 
                     <div class="timeline-tags">
                         <span>AI</span>
@@ -1878,21 +2644,25 @@
                     <span></span>
                 </div>
 
+
                 <div class="timeline-card future-card">
 
                     <span class="timeline-date">
                         NEXT
                     </span>
 
+
                     <h3>
                         What's Next?
                     </h3>
+
 
                     <p>
                         Keep learning, build bigger products and
                         explore technologies that can solve real-world
                         problems.
                     </p>
+
 
                     <div class="timeline-tags">
                         <span>Explore</span>
@@ -1926,11 +2696,15 @@
 
             <p class="eyebrow">
 
-                <span class="line"></span>
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
 
                 CERTIFICATIONS
 
             </p>
+
 
             <h2>
 
@@ -1941,6 +2715,7 @@
                 </span>
 
             </h2>
+
 
             <p>
                 Certificates, credentials and achievements can be
@@ -1954,26 +2729,39 @@
 
             <div class="upload-panel">
 
-                <div class="upload-icon">
+                <div
+                    class="upload-icon"
+                    aria-hidden="true"
+                >
                     <i class="fa-solid fa-cloud-arrow-up"></i>
                 </div>
+
 
                 <h3>
                     Add Certificate
                 </h3>
+
 
                 <p>
                     Add your certificate images to build your
                     personal certification gallery.
                 </p>
 
+
                 <label
                     for="certificateInput"
                     class="upload-btn"
                 >
-                    <i class="fa-solid fa-plus"></i>
+
+                    <i
+                        class="fa-solid fa-plus"
+                        aria-hidden="true"
+                    ></i>
+
                     Add Certificate
+
                 </label>
+
 
                 <input
                     type="file"
@@ -1993,15 +2781,20 @@
 
                 <div class="certificate-card placeholder-card">
 
-                    <div class="certificate-placeholder">
+                    <div
+                        class="certificate-placeholder"
+                        aria-hidden="true"
+                    >
                         <i class="fa-solid fa-certificate"></i>
                     </div>
+
 
                     <div class="certificate-info">
 
                         <h4>
                             Your Certificate
                         </h4>
+
 
                         <p>
                             Upload an image to showcase it here.
@@ -2035,11 +2828,15 @@
 
             <p class="eyebrow">
 
-                <span class="line"></span>
+                <span
+                    class="line"
+                    aria-hidden="true"
+                ></span>
 
                 PROFESSIONAL PROFILE
 
             </p>
+
 
             <h2>
 
@@ -2050,6 +2847,7 @@
                 </span>
 
             </h2>
+
 
             <p>
                 A concise overview of my technical profile,
@@ -2065,11 +2863,15 @@
 
                 <p class="eyebrow">
 
-                    <span class="line"></span>
+                    <span
+                        class="line"
+                        aria-hidden="true"
+                    ></span>
 
                     RESUME / CV
 
                 </p>
+
 
                 <h2>
 
@@ -2081,10 +2883,12 @@
 
                 </h2>
 
+
                 <p>
                     View, print or download my professional
                     developer resume.
                 </p>
+
 
                 <div class="resume-buttons">
 
@@ -2093,17 +2897,30 @@
                         class="btn btn-primary"
                         id="downloadResume"
                     >
-                        <i class="fa-solid fa-download"></i>
+
+                        <i
+                            class="fa-solid fa-download"
+                            aria-hidden="true"
+                        ></i>
+
                         Download Resume
+
                     </button>
+
 
                     <button
                         type="button"
                         id="printResume"
                         class="btn btn-secondary"
                     >
-                        <i class="fa-solid fa-print"></i>
+
+                        <i
+                            class="fa-solid fa-print"
+                            aria-hidden="true"
+                        ></i>
+
                         Print Resume
+
                     </button>
 
                 </div>
@@ -2115,17 +2932,22 @@
 
                 <div class="resume-document">
 
-                    <div class="resume-document-top">
+                    <div
+                        class="resume-document-top"
+                        aria-hidden="true"
+                    >
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
+
 
                     <div class="resume-profile">
 
                         <div class="resume-avatar">
                             S
                         </div>
+
 
                         <div>
 
@@ -2141,13 +2963,21 @@
 
                     </div>
 
-                    <div class="resume-lines">
+
+                    <div
+                        class="resume-lines"
+                        aria-hidden="true"
+                    >
                         <span></span>
                         <span></span>
                         <span class="short"></span>
                     </div>
 
-                    <div class="resume-columns">
+
+                    <div
+                        class="resume-columns"
+                        aria-hidden="true"
+                    >
                         <span></span>
                         <span></span>
                     </div>
@@ -2176,15 +3006,20 @@
 
         <div class="contact-grid">
 
+
             <div class="contact-content reveal">
 
                 <p class="eyebrow">
 
-                    <span class="line"></span>
+                    <span
+                        class="line"
+                        aria-hidden="true"
+                    ></span>
 
                     GET IN TOUCH
 
                 </p>
+
 
                 <h2>
 
@@ -2196,6 +3031,7 @@
 
                 </h2>
 
+
                 <p>
                     Have an idea, project, opportunity or simply want
                     to talk about technology? My inbox is always open.
@@ -2204,11 +3040,21 @@
 
                 <div class="contact-details">
 
-                    <a href="mailto:your-siddharthmishra229@gmail.com">
+
+                    <a
+                        href="mailto:your-siddharthmishra229@gmail.com"
+                        aria-label="Email Siddharth"
+                    >
 
                         <span class="contact-icon">
-                            <i class="fa-solid fa-envelope"></i>
+
+                            <i
+                                class="fa-solid fa-envelope"
+                                aria-hidden="true"
+                            ></i>
+
                         </span>
+
 
                         <span>
 
@@ -2216,18 +3062,27 @@
                                 Email
                             </small>
 
-                            
-
                         </span>
 
                     </a>
 
 
-                    <a href="https://www.linkedin.com/in/siddharth-mishra8">
+                    <a
+                        href="https://www.linkedin.com/in/siddharth-mishra8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn"
+                    >
 
                         <span class="contact-icon">
-                            <i class="fa-brands fa-linkedin-in"></i>
+
+                            <i
+                                class="fa-brands fa-linkedin-in"
+                                aria-hidden="true"
+                            ></i>
+
                         </span>
+
 
                         <span>
 
@@ -2235,18 +3090,27 @@
                                 LinkedIn
                             </small>
 
-                            
-
                         </span>
 
                     </a>
 
 
-                    <a href="https://www.instagram.com/siddharthmishr.a?igsi=MTI3cDA2enp1dXFzdg==">
+                    <a
+                        href="https://www.instagram.com/siddharthmishr.a?igsi=MTI3cDA2enp1dXFzdg=="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Instagram"
+                    >
 
                         <span class="contact-icon">
-                            <i class="fa-brands fa-instagram"></i>
+
+                            <i
+                                class="fa-brands fa-instagram"
+                                aria-hidden="true"
+                            ></i>
+
                         </span>
+
 
                         <span>
 
@@ -2254,26 +3118,33 @@
                                 Instagram
                             </small>
 
-                            
-
                         </span>
 
                     </a>
 
 
-                    <a href="#">
+                    <a
+                        href="https://github.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub"
+                    >
 
                         <span class="contact-icon">
-                            <i class="fa-brands fa-github"></i>
+
+                            <i
+                                class="fa-brands fa-github"
+                                aria-hidden="true"
+                            ></i>
+
                         </span>
+
 
                         <span>
 
                             <small>
                                 GitHub
                             </small>
-
-                            
 
                         </span>
 
@@ -2284,12 +3155,18 @@
             </div>
 
 
+            <!-- =================================================
+                 CONTACT FORM
+            ================================================== -->
+
             <form
                 class="contact-form reveal delay-1"
                 id="contactForm"
+                novalidate
             >
 
                 <div class="form-row">
+
 
                     <div class="form-group">
 
@@ -2297,11 +3174,15 @@
                             Your Name
                         </label>
 
+
                         <input
                             type="text"
                             id="name"
                             name="name"
                             placeholder="Your Name"
+                            autocomplete="name"
+                            autocapitalize="words"
+                            enterkeyhint="next"
                             required
                         >
 
@@ -2314,11 +3195,15 @@
                             Email
                         </label>
 
+
                         <input
                             type="email"
                             id="email"
                             name="email"
                             placeholder="@gmail.com"
+                            autocomplete="email"
+                            inputmode="email"
+                            enterkeyhint="next"
                             required
                         >
 
@@ -2333,11 +3218,14 @@
                         Subject
                     </label>
 
+
                     <input
                         type="text"
                         id="subject"
                         name="subject"
                         placeholder="Let's build something..."
+                        autocomplete="off"
+                        enterkeyhint="next"
                         required
                     >
 
@@ -2350,11 +3238,14 @@
                         Message
                     </label>
 
+
                     <textarea
                         id="message"
                         name="message"
                         rows="6"
                         placeholder="Tell me about your idea..."
+                        autocomplete="off"
+                        enterkeyhint="send"
                         required
                     ></textarea>
 
@@ -2365,14 +3256,22 @@
                     type="submit"
                     class="btn btn-primary submit-button"
                 >
+
                     Send Message
-                    <i class="fa-solid fa-paper-plane"></i>
+
+                    <i
+                        class="fa-solid fa-paper-plane"
+                        aria-hidden="true"
+                    ></i>
+
                 </button>
 
 
                 <div
                     class="form-message"
                     id="formMessage"
+                    role="status"
+                    aria-live="polite"
                 ></div>
 
             </form>
@@ -2394,24 +3293,36 @@
 
         <div class="cta-content reveal">
 
-            <div class="cta-symbol">
+            <div
+                class="cta-symbol"
+                aria-hidden="true"
+            >
                 &lt;/&gt;
             </div>
+
 
             <h2>
                 Keep building.
             </h2>
 
+
             <p>
                 The best project is always the next one.
             </p>
+
 
             <a
                 href="#home"
                 class="btn btn-primary"
             >
+
                 Back to Top
-                <i class="fa-solid fa-arrow-up"></i>
+
+                <i
+                    class="fa-solid fa-arrow-up"
+                    aria-hidden="true"
+                ></i>
+
             </a>
 
         </div>
@@ -2431,15 +3342,23 @@
 
     <div class="container footer-grid">
 
+
         <div class="footer-brand">
 
-            <a href="#home" class="logo">
+            <a
+                href="#home"
+                class="logo"
+                aria-label="Siddharth Portfolio home"
+            >
 
                 <span class="logo-symbol">
+
                     &lt;SIDDHARTH<span class="logo-dot">.</span>PORTFOLIO/&gt;
+
                 </span>
 
             </a>
+
 
             <p>
                 Developer. Programmer. Learner.
@@ -2449,24 +3368,28 @@
         </div>
 
 
-        
-
-
         <div class="footer-status">
 
             <div class="footer-online">
 
-                <span class="status-dot"></span>
+                <span
+                    class="status-dot"
+                    aria-hidden="true"
+                ></span>
 
                 Website Online
 
             </div>
 
+
             <p>
 
                 Built with
 
-                <span class="heart">
+                <span
+                    class="heart"
+                    aria-hidden="true"
+                >
                     ♥
                 </span>
 
@@ -2504,17 +3427,25 @@
 <div
     class="toast"
     id="toast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
 >
 
-    <div class="toast-icon">
+    <div
+        class="toast-icon"
+        aria-hidden="true"
+    >
         <i class="fa-solid fa-check"></i>
     </div>
+
 
     <div>
 
         <strong id="toastTitle">
             Success
         </strong>
+
 
         <p id="toastMessage">
             Action completed.
@@ -2530,12 +3461,16 @@
 ========================================================= -->
 
 <button
+    type="button"
     class="back-top"
     id="backTop"
     aria-label="Back to top"
 >
 
-    <i class="fa-solid fa-arrow-up"></i>
+    <i
+        class="fa-solid fa-arrow-up"
+        aria-hidden="true"
+    ></i>
 
 </button>
 
@@ -2554,17 +3489,20 @@
                 Siddharth Mishra
             </h1>
 
+
             <h2 contenteditable="true">
                 Developer • Programmer • Technology Learner
             </h2>
 
-            <p contenteditable="true">
-               +91 7522007702
-            </p>
 
             <p contenteditable="true">
-               Web Development • Application Development • AI
-               Integration • Digital Products
+                +91 7522007702
+            </p>
+
+
+            <p contenteditable="true">
+                Web Development • Application Development • AI
+                Integration • Digital Products
             </p>
 
         </header>
@@ -2575,6 +3513,7 @@
             <h3>
                 Professional Summary
             </h3>
+
 
             <p>
                 Developer and technology learner interested in
@@ -2592,6 +3531,7 @@
                 Technical Skills
             </h3>
 
+
             <p>
                 JavaScript • Python • Dart • HTML5 • CSS3 • Flutter
                 • Firebase • Firestore • REST API • Git • GitHub
@@ -2607,9 +3547,11 @@
                 Selected Projects
             </h3>
 
+
             <h4>
                 Univichar AI
             </h4>
+
 
             <p>
                 AI-powered education platform built around
@@ -2622,6 +3564,7 @@
                 Developer Portfolio
             </h4>
 
+
             <p>
                 Responsive programmer-focused portfolio with
                 interactive components and modern web technologies.
@@ -2631,6 +3574,7 @@
             <h4>
                 AI Experiments
             </h4>
+
 
             <p>
                 Experiments exploring AI APIs, conversational
@@ -2646,6 +3590,7 @@
                 Development Journey
             </h3>
 
+
             <p>
                 Technology → Web Development → Application
                 Development → AI & Cloud Development
@@ -2659,6 +3604,7 @@
             <h3>
                 Core Strengths
             </h3>
+
 
             <p>
                 Problem Solving • Continuous Learning • Programming
@@ -2677,7 +3623,14 @@
 </template>
 
 
-<script src="script.js"></script>
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script
+    src="script.js"
+    defer
+></script>
 
 </body>
 </html>

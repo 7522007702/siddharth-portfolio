@@ -23,7 +23,9 @@ const $$ = (selector, parent = document) =>
 ========================================================= */
 
 const state = {
-    theme: localStorage.getItem("siddharth-theme") || "dark",
+    theme:
+        localStorage.getItem("siddharth-theme") || "dark",
+
     commandOpen: false,
     menuOpen: false,
     selectedCommand: 0
@@ -40,22 +42,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const loaderBar = $("#loaderBar");
     const loaderPercent = $("#loaderPercent");
 
+    if (!preloader) {
+        document.body.classList.remove("no-scroll");
+        return;
+    }
+
     let progress = 0;
 
     const interval = setInterval(() => {
 
-        progress += Math.floor(Math.random() * 8) + 3;
+        progress +=
+            Math.floor(Math.random() * 8) + 3;
 
         if (progress >= 100) {
             progress = 100;
         }
 
         if (loaderBar) {
-            loaderBar.style.width = `${progress}%`;
+            loaderBar.style.width =
+                `${progress}%`;
         }
 
         if (loaderPercent) {
-            loaderPercent.textContent = `${progress}%`;
+            loaderPercent.textContent =
+                `${progress}%`;
         }
 
         if (progress >= 100) {
@@ -64,11 +74,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
 
-                preloader?.classList.add("hidden");
+                preloader.classList.add("hidden");
 
-                document.body.classList.remove("no-scroll");
+                document.body.classList.remove(
+                    "no-scroll"
+                );
 
             }, 350);
+
         }
 
     }, 90);
@@ -83,9 +96,17 @@ document.addEventListener("DOMContentLoaded", () => {
 function applyTheme(theme) {
 
     if (theme === "light") {
-        document.body.classList.add("light-theme");
+
+        document.body.classList.add(
+            "light-theme"
+        );
+
     } else {
-        document.body.classList.remove("light-theme");
+
+        document.body.classList.remove(
+            "light-theme"
+        );
+
     }
 
     const icon = $("#themeToggle i");
@@ -111,22 +132,25 @@ function applyTheme(theme) {
 applyTheme(state.theme);
 
 
-$("#themeToggle")?.addEventListener("click", () => {
+$("#themeToggle")?.addEventListener(
+    "click",
+    () => {
 
-    applyTheme(
-        state.theme === "dark"
-            ? "light"
-            : "dark"
-    );
+        applyTheme(
+            state.theme === "dark"
+                ? "light"
+                : "dark"
+        );
 
-    showToast(
-        "Theme Changed",
-        state.theme === "light"
-            ? "Light theme enabled."
-            : "Dark theme enabled."
-    );
+        showToast(
+            "Theme Changed",
+            state.theme === "light"
+                ? "Light theme enabled."
+                : "Dark theme enabled."
+        );
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -136,22 +160,27 @@ $("#themeToggle")?.addEventListener("click", () => {
 const header = $("#header");
 const backTop = $("#backTop");
 
+
 function handleScroll() {
 
     const scrollY = window.scrollY;
 
     if (header) {
+
         header.classList.toggle(
             "scrolled",
             scrollY > 30
         );
+
     }
 
     if (backTop) {
+
         backTop.classList.toggle(
             "show",
             scrollY > 600
         );
+
     }
 
     updateActiveNavigation();
@@ -162,7 +191,9 @@ function handleScroll() {
 window.addEventListener(
     "scroll",
     handleScroll,
-    { passive: true }
+    {
+        passive: true
+    }
 );
 
 
@@ -190,35 +221,53 @@ backTop?.addEventListener(
 const mobileMenu = $("#mobileMenu");
 const nav = $("#nav");
 
-mobileMenu?.addEventListener("click", () => {
 
-    state.menuOpen = !state.menuOpen;
+function closeMobileMenu() {
 
-    mobileMenu.classList.toggle(
-        "active",
-        state.menuOpen
+    state.menuOpen = false;
+
+    mobileMenu?.classList.remove(
+        "active"
     );
 
-    nav?.classList.toggle(
-        "open",
-        state.menuOpen
+    nav?.classList.remove(
+        "open"
     );
 
-});
+}
 
 
-$$(".nav-link").forEach(link => {
+mobileMenu?.addEventListener(
+    "click",
+    () => {
 
-    link.addEventListener("click", () => {
+        state.menuOpen =
+            !state.menuOpen;
 
-        state.menuOpen = false;
+        mobileMenu.classList.toggle(
+            "active",
+            state.menuOpen
+        );
 
-        mobileMenu?.classList.remove("active");
-        nav?.classList.remove("open");
+        nav?.classList.toggle(
+            "open",
+            state.menuOpen
+        );
 
-    });
+    }
+);
 
-});
+
+$$(".nav-link").forEach(
+    link => {
+
+        link.addEventListener(
+            "click",
+            closeMobileMenu
+        );
+
+    }
+);
 
 
 /* =========================================================
@@ -227,37 +276,44 @@ $$(".nav-link").forEach(link => {
 
 function updateActiveNavigation() {
 
-    const sections = $$("main section[id]");
+    const sections =
+        $$("main section[id]");
 
     const scrollPosition =
         window.scrollY + 180;
 
     let currentSection = "home";
 
+
     sections.forEach(section => {
 
         if (
-            scrollPosition >= section.offsetTop
+            scrollPosition >=
+            section.offsetTop
         ) {
 
-            currentSection = section.id;
+            currentSection =
+                section.id;
 
         }
 
     });
 
 
-    $$(".nav-link").forEach(link => {
+    $$(".nav-link").forEach(
+        link => {
 
-        const target =
-            link.getAttribute("href");
+            const target =
+                link.getAttribute("href");
 
-        link.classList.toggle(
-            "active",
-            target === `#${currentSection}`
-        );
+            link.classList.toggle(
+                "active",
+                target ===
+                `#${currentSection}`
+            );
 
-    });
+        }
+    );
 
 }
 
@@ -266,82 +322,153 @@ function updateActiveNavigation() {
    REVEAL ANIMATION
 ========================================================= */
 
-const revealObserver =
-    new IntersectionObserver(
-        entries => {
+let revealObserver = null;
 
-            entries.forEach(entry => {
 
-                if (entry.isIntersecting) {
+if (
+    "IntersectionObserver" in window
+) {
 
-                    entry.target.classList.add(
-                        "visible"
-                    );
+    revealObserver =
+        new IntersectionObserver(
+            entries => {
 
-                    revealObserver.unobserve(
-                        entry.target
-                    );
+                entries.forEach(
+                    entry => {
 
-                }
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-            });
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
-        },
-        {
-            threshold: 0.12
+                            revealObserver.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    $$(".reveal").forEach(
+        element => {
+
+            revealObserver.observe(
+                element
+            );
+
         }
     );
 
+} else {
 
-$$(".reveal").forEach(element => {
+    $$(".reveal").forEach(
+        element =>
+            element.classList.add(
+                "visible"
+            )
+    );
 
-    revealObserver.observe(element);
-
-});
+}
 
 
 /* =========================================================
    COUNTERS
 ========================================================= */
 
-const counterObserver =
-    new IntersectionObserver(
-        entries => {
+let counterObserver = null;
 
-            entries.forEach(entry => {
 
-                if (!entry.isIntersecting) {
-                    return;
-                }
+if (
+    "IntersectionObserver" in window
+) {
 
-                const element = entry.target;
+    counterObserver =
+        new IntersectionObserver(
+            entries => {
 
-                const target =
-                    Number(
-                        element.dataset.count
-                    );
+                entries.forEach(
+                    entry => {
 
-                animateCounter(
-                    element,
-                    target
+                        if (
+                            !entry.isIntersecting
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const element =
+                            entry.target;
+
+
+                        const target =
+                            Number(
+                                element.dataset.count
+                            );
+
+
+                        if (
+                            Number.isFinite(
+                                target
+                            )
+                        ) {
+
+                            animateCounter(
+                                element,
+                                target
+                            );
+
+                        }
+
+
+                        counterObserver.unobserve(
+                            element
+                        );
+
+                    }
                 );
 
-                counterObserver.unobserve(
-                    element
-                );
+            },
+            {
+                threshold: 0.7
+            }
+        );
 
-            });
 
-        },
-        {
-            threshold: 0.7
+    $$("[data-count]").forEach(
+        counter => {
+
+            counterObserver.observe(
+                counter
+            );
+
         }
     );
 
+} else {
 
-$$("[data-count]").forEach(
-    counter => counterObserver.observe(counter)
-);
+    $$("[data-count]").forEach(
+        element => {
+
+            element.textContent =
+                element.dataset.count || "0";
+
+        }
+    );
+
+}
 
 
 function animateCounter(
@@ -362,27 +489,35 @@ function animateCounter(
         const elapsed =
             currentTime - startTime;
 
+
         const progress =
             Math.min(
                 elapsed / duration,
                 1
             );
 
+
         const eased =
-            1 - Math.pow(
+            1 -
+            Math.pow(
                 1 - progress,
                 3
             );
+
 
         current =
             Math.floor(
                 target * eased
             );
 
+
         element.textContent =
             current;
 
-        if (progress < 1) {
+
+        if (
+            progress < 1
+        ) {
 
             requestAnimationFrame(
                 update
@@ -412,6 +547,7 @@ function animateCounter(
 const terminalTyping =
     $("#terminalTyping");
 
+
 const terminalCommands = [
     "npm run build",
     "git status",
@@ -420,6 +556,7 @@ const terminalCommands = [
     "git push origin main",
     "keep_learning()"
 ];
+
 
 let commandIndex = 0;
 let characterIndex = 0;
@@ -432,8 +569,11 @@ function terminalType() {
         return;
     }
 
+
     const command =
-        terminalCommands[commandIndex];
+        terminalCommands[
+            commandIndex
+        ];
 
 
     if (!deleting) {
@@ -444,11 +584,12 @@ function terminalType() {
                 characterIndex + 1
             );
 
+
         characterIndex++;
 
 
         if (
-            characterIndex ===
+            characterIndex >=
             command.length
         ) {
 
@@ -471,15 +612,22 @@ function terminalType() {
                 characterIndex - 1
             );
 
+
         characterIndex--;
 
 
-        if (characterIndex === 0) {
+        if (
+            characterIndex <= 0
+        ) {
+
+            characterIndex = 0;
 
             deleting = false;
 
             commandIndex =
-                (commandIndex + 1) %
+                (
+                    commandIndex + 1
+                ) %
                 terminalCommands.length;
 
         }
@@ -508,88 +656,103 @@ setTimeout(
 const filterButtons =
     $$(".filter-btn");
 
+
 const projectCards =
     $$(".project-card");
 
 
-filterButtons.forEach(button => {
+filterButtons.forEach(
+    button => {
 
-    button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            filterButtons.forEach(
-                btn =>
-                    btn.classList.remove(
-                        "active"
-                    )
-            );
-
-
-            button.classList.add(
-                "active"
-            );
+                filterButtons.forEach(
+                    btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                );
 
 
-            const filter =
-                button.dataset.filter;
+                button.classList.add(
+                    "active"
+                );
 
 
-            projectCards.forEach(card => {
-
-                const category =
-                    card.dataset.category;
+                const filter =
+                    button.dataset.filter;
 
 
-                if (
-                    filter === "all" ||
-                    category === filter
-                ) {
+                projectCards.forEach(
+                    card => {
 
-                    card.classList.remove(
-                        "hidden"
-                    );
+                        const category =
+                            card.dataset.category;
 
 
-                    requestAnimationFrame(() => {
+                        const visible =
+                            filter === "all" ||
+                            category === filter;
 
-                        card.animate(
-                            [
-                                {
-                                    opacity: 0,
-                                    transform:
-                                        "translateY(10px)"
-                                },
-                                {
-                                    opacity: 1,
-                                    transform:
-                                        "translateY(0)"
+
+                        if (visible) {
+
+                            card.classList.remove(
+                                "hidden"
+                            );
+
+
+                            requestAnimationFrame(
+                                () => {
+
+                                    if (
+                                        typeof card.animate ===
+                                        "function"
+                                    ) {
+
+                                        card.animate(
+                                            [
+                                                {
+                                                    opacity: 0,
+                                                    transform:
+                                                        "translateY(10px)"
+                                                },
+                                                {
+                                                    opacity: 1,
+                                                    transform:
+                                                        "translateY(0)"
+                                                }
+                                            ],
+                                            {
+                                                duration: 300,
+                                                easing:
+                                                    "cubic-bezier(.2,.8,.2,1)"
+                                            }
+                                        );
+
+                                    }
+
                                 }
-                            ],
-                            {
-                                duration: 300,
-                                easing:
-                                    "cubic-bezier(.2,.8,.2,1)"
-                            }
-                        );
+                            );
 
-                    });
+                        } else {
 
+                            card.classList.add(
+                                "hidden"
+                            );
 
-                } else {
+                        }
 
-                    card.classList.add(
-                        "hidden"
-                    );
+                    }
+                );
 
-                }
+            }
+        );
 
-            });
-
-        }
-    );
-
-});
+    }
+);
 
 
 /* =========================================================
@@ -599,16 +762,63 @@ filterButtons.forEach(button => {
 const certificateInput =
     $("#certificateInput");
 
+
 const certificateGallery =
     $("#certificateGallery");
 
 
-let certificates =
-    JSON.parse(
-        localStorage.getItem(
-            "siddharth-certificates"
-        ) || "[]"
-    );
+let certificates = [];
+
+
+try {
+
+    certificates =
+        JSON.parse(
+            localStorage.getItem(
+                "siddharth-certificates"
+            ) || "[]"
+        );
+
+    if (
+        !Array.isArray(certificates)
+    ) {
+
+        certificates = [];
+
+    }
+
+} catch (error) {
+
+    certificates = [];
+
+}
+
+
+function saveCertificates() {
+
+    try {
+
+        localStorage.setItem(
+            "siddharth-certificates",
+            JSON.stringify(
+                certificates
+            )
+        );
+
+        return true;
+
+    } catch (error) {
+
+        showToast(
+            "Storage Limit",
+            "Browser storage is full. Use smaller images."
+        );
+
+        return false;
+
+    }
+
+}
 
 
 function renderCertificates() {
@@ -621,7 +831,9 @@ function renderCertificates() {
     certificateGallery.innerHTML = "";
 
 
-    if (!certificates.length) {
+    if (
+        !certificates.length
+    ) {
 
         certificateGallery.innerHTML = `
             <div class="certificate-card placeholder-card">
@@ -644,6 +856,7 @@ function renderCertificates() {
         `;
 
         return;
+
     }
 
 
@@ -651,50 +864,83 @@ function renderCertificates() {
         (certificate, index) => {
 
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             card.className =
                 "certificate-card";
 
 
-            card.innerHTML = `
-                <img
-                    class="certificate-image"
-                    src="${certificate.image}"
-                    alt="${escapeHTML(certificate.name)}"
-                >
+            const image =
+                document.createElement(
+                    "img"
+                );
 
-                <div class="certificate-info">
+            image.className =
+                "certificate-image";
 
-                    <h4>
-                        ${escapeHTML(certificate.name)}
-                    </h4>
+            image.src =
+                certificate.image;
 
-                    <p>
-                        Personal Certificate
-                    </p>
+            image.alt =
+                certificate.name ||
+                "Certificate";
 
-                    <button
-                        class="certificate-delete"
-                        data-index="${index}"
-                        style="
-                            margin-top:10px;
-                            padding:6px 9px;
-                            background:transparent;
-                            color:#ff7087;
-                            border:1px solid rgba(255,112,135,.2);
-                            border-radius:6px;
-                            font-size:8px;
-                            cursor:pointer;
-                        "
-                    >
-                        Delete
-                    </button>
 
-                </div>
-            `;
+            const info =
+                document.createElement(
+                    "div"
+                );
 
+            info.className =
+                "certificate-info";
+
+
+            const title =
+                document.createElement(
+                    "h4"
+                );
+
+            title.textContent =
+                certificate.name ||
+                "Certificate";
+
+
+            const description =
+                document.createElement(
+                    "p"
+                );
+
+            description.textContent =
+                "Personal Certificate";
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.type =
+                "button";
+
+            deleteButton.className =
+                "certificate-delete";
+
+            deleteButton.dataset.index =
+                index;
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            info.appendChild(title);
+            info.appendChild(description);
+            info.appendChild(deleteButton);
+
+            card.appendChild(image);
+            card.appendChild(info);
 
             certificateGallery.appendChild(
                 card
@@ -715,6 +961,15 @@ function renderCertificates() {
                         Number(
                             button.dataset.index
                         );
+
+
+                    if (
+                        Number.isNaN(index)
+                    ) {
+
+                        return;
+
+                    }
 
 
                     certificates.splice(
@@ -742,85 +997,88 @@ function renderCertificates() {
 }
 
 
-function saveCertificates() {
-
-    try {
-
-        localStorage.setItem(
-            "siddharth-certificates",
-            JSON.stringify(certificates)
-        );
-
-    } catch (error) {
-
-        showToast(
-            "Storage Limit",
-            "Browser storage is full. Use smaller images."
-        );
-
-    }
-
-}
-
-
 certificateInput?.addEventListener(
     "change",
     event => {
 
         const files =
-            [...event.target.files];
+            [...(
+                event.target.files || []
+            )];
 
 
-        files.forEach(file => {
+        files.forEach(
+            file => {
 
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
 
-                return;
+                    showToast(
+                        "Invalid File",
+                        `${file.name} is not an image.`
+                    );
 
-            }
+                    return;
+
+                }
 
 
-            const reader =
-                new FileReader();
+                const reader =
+                    new FileReader();
 
 
-            reader.onload = () => {
+                reader.onload = () => {
 
-                certificates.push({
+                    certificates.push({
 
-                    name:
-                        file.name
-                            .replace(
+                        name:
+                            file.name.replace(
                                 /\.[^/.]+$/,
                                 ""
                             ),
 
-                    image:
-                        reader.result
+                        image:
+                            reader.result
 
-                });
-
-
-                saveCertificates();
-
-                renderCertificates();
+                    });
 
 
-                showToast(
-                    "Certificate Added",
-                    `${file.name} added successfully.`
+                    if (
+                        saveCertificates()
+                    ) {
+
+                        renderCertificates();
+
+
+                        showToast(
+                            "Certificate Added",
+                            `${file.name} added successfully.`
+                        );
+
+                    }
+
+                };
+
+
+                reader.onerror = () => {
+
+                    showToast(
+                        "Upload Error",
+                        `Could not read ${file.name}.`
+                    );
+
+                };
+
+
+                reader.readAsDataURL(
+                    file
                 );
 
-            };
-
-
-            reader.readAsDataURL(file);
-
-        });
+            }
+        );
 
 
         event.target.value = "";
@@ -839,6 +1097,7 @@ renderCertificates();
 const contactForm =
     $("#contactForm");
 
+
 const formMessage =
     $("#formMessage");
 
@@ -853,11 +1112,14 @@ contactForm?.addEventListener(
         const name =
             $("#name")?.value.trim();
 
+
         const email =
             $("#email")?.value.trim();
 
+
         const subject =
             $("#subject")?.value.trim();
+
 
         const message =
             $("#message")?.value.trim();
@@ -876,10 +1138,13 @@ contactForm?.addEventListener(
             );
 
             return;
+
         }
 
 
-        if (!isValidEmail(email)) {
+        if (
+            !isValidEmail(email)
+        ) {
 
             setFormMessage(
                 "Please enter a valid email address.",
@@ -887,30 +1152,25 @@ contactForm?.addEventListener(
             );
 
             return;
+
         }
 
 
         /*
-         * Frontend-only portfolio form.
-         *
-         * To make it actually send email, connect this
-         * form to Formspree, EmailJS, Web3Forms or your
-         * own backend/API.
+         * Replace this email address
+         * with your actual email address.
          */
-
 
         const mailto =
             `mailto:your-email@example.com` +
-            `?subject=${encodeURIComponent(subject)}` +
+            `?subject=${encodeURIComponent(
+                subject
+            )}` +
             `&body=${encodeURIComponent(
                 `Name: ${name}\n` +
                 `Email: ${email}\n\n` +
                 `${message}`
             )}`;
-
-
-        window.location.href =
-            mailto;
 
 
         setFormMessage(
@@ -919,7 +1179,18 @@ contactForm?.addEventListener(
         );
 
 
-        contactForm.reset();
+        window.location.href =
+            mailto;
+
+
+        setTimeout(
+            () => {
+
+                contactForm.reset();
+
+            },
+            500
+        );
 
     }
 );
@@ -956,34 +1227,34 @@ function isValidEmail(email) {
 
 
 /* =========================================================
-   RESUME DOWNLOAD
+   RESUME DOWNLOAD + OPEN
 ========================================================= */
 
 /*
- * Resume file location:
+ * Resume location:
  *
  * assets/resume.pdf
  *
- * IMPORTANT:
- * Make sure your actual resume file is named:
+ * Make sure the file exists exactly here:
  *
- * resume.pdf
+ * assets/resume.pdf
  *
- * and is inside the assets folder.
+ * Download button:
  *
- * Download behavior:
+ * #downloadResume
  *
- * 1. Browser starts the PDF download.
- * 2. After a short delay, the same PDF opens
- *    in a new tab.
+ * Behavior:
  *
- * This works best when the resume PDF is hosted
- * on the same domain as the portfolio.
+ * 1. Download PDF.
+ * 2. Open same PDF in a new tab.
+ *
+ * NOTE:
+ * Browser security policies may affect automatic
+ * downloading on some hosting environments.
  */
 
-
 const downloadResume =
-    document.getElementById("downloadResume");
+    $("#downloadResume");
 
 
 if (downloadResume) {
@@ -1004,85 +1275,84 @@ if (downloadResume) {
 
 
             /*
+             * Open resume first in a new tab.
+             *
+             * Opening from the original click event
+             * avoids popup blockers.
+             */
+
+            const resumeWindow =
+                window.open(
+                    resumeUrl,
+                    "_blank"
+                );
+
+
+            if (
+                resumeWindow
+            ) {
+
+                resumeWindow.opener =
+                    null;
+
+            }
+
+
+            /*
              * Create temporary download link.
              */
 
-            const link =
-                document.createElement("a");
+            const downloadLink =
+                document.createElement(
+                    "a"
+                );
 
 
-            link.href =
+            downloadLink.href =
                 resumeUrl;
 
 
-            link.download =
+            downloadLink.download =
                 fileName;
 
 
-            link.rel =
+            downloadLink.rel =
                 "noopener";
 
 
-            link.style.display =
+            downloadLink.style.display =
                 "none";
 
 
             document.body.appendChild(
-                link
+                downloadLink
             );
 
 
             /*
-             * Start download.
+             * Trigger download.
              */
 
-            link.click();
+            downloadLink.click();
 
 
             /*
-             * Remove temporary link.
+             * Remove temporary element.
              */
 
-            setTimeout(() => {
+            setTimeout(
+                () => {
 
-                link.remove();
+                    downloadLink.remove();
 
-            }, 100);
+                },
+                1000
+            );
 
-
-            /*
-             * Open the same resume after
-             * the download has started.
-             */
-
-            setTimeout(() => {
-
-                const resumeWindow =
-                    window.open(
-                        resumeUrl,
-                        "_blank"
-                    );
-
-
-                if (
-                    resumeWindow
-                ) {
-
-                    resumeWindow.opener =
-                        null;
-
-                }
-
-            }, 800);
-
-
-            /*
-             * Notification.
-             */
 
             showToast(
-                "Resume Downloaded",
-                "Your resume download has started."
+                "Resume Download",
+                "Your resume has been opened and download has started."
             );
 
         }
@@ -1092,12 +1362,18 @@ if (downloadResume) {
 
 
 /* =========================================================
-   PRINT
+   PRINT RESUME
 ========================================================= */
 
-$("#printResume")?.addEventListener(
+const printResume =
+    $("#printResume");
+
+
+printResume?.addEventListener(
     "click",
-    () => {
+    event => {
+
+        event.preventDefault();
 
         window.print();
 
@@ -1112,11 +1388,14 @@ $("#printResume")?.addEventListener(
 const commandOverlay =
     $("#commandOverlay");
 
+
 const commandInput =
     $("#commandInput");
 
+
 const commandResults =
     $("#commandResults");
+
 
 const closeCommand =
     $("#closeCommand");
@@ -1124,12 +1403,17 @@ const closeCommand =
 
 function openCommandPalette() {
 
+    if (!commandOverlay) {
+        return;
+    }
+
+
     state.commandOpen = true;
 
     state.selectedCommand = 0;
 
 
-    commandOverlay?.classList.add(
+    commandOverlay.classList.add(
         "open"
     );
 
@@ -1139,8 +1423,15 @@ function openCommandPalette() {
     );
 
 
+    updateCommandSelection();
+
+
     setTimeout(
-        () => commandInput?.focus(),
+        () => {
+
+            commandInput?.focus();
+
+        },
         100
     );
 
@@ -1211,7 +1502,17 @@ document.addEventListener(
 
             event.preventDefault();
 
-            openCommandPalette();
+            if (
+                state.commandOpen
+            ) {
+
+                closeCommandPalette();
+
+            } else {
+
+                openCommandPalette();
+
+            }
 
             return;
 
@@ -1223,13 +1524,29 @@ document.addEventListener(
          */
 
         if (
-            event.key === "Escape" &&
-            state.commandOpen
+            event.key === "Escape"
         ) {
 
-            closeCommandPalette();
+            if (
+                state.commandOpen
+            ) {
 
-            return;
+                closeCommandPalette();
+
+                return;
+
+            }
+
+
+            if (
+                state.menuOpen
+            ) {
+
+                closeMobileMenu();
+
+                return;
+
+            }
 
         }
 
@@ -1307,22 +1624,25 @@ commandInput?.addEventListener(
 
 
         $$(".command-results button")
-            .forEach(button => {
+            .forEach(
+                button => {
 
-                const text =
-                    button.textContent
-                        .toLowerCase();
-
-
-                button.style.display =
-                    text.includes(query)
-                        ? "flex"
-                        : "none";
-
-            });
+                    const text =
+                        button.textContent
+                            .toLowerCase();
 
 
-        state.selectedCommand = 0;
+                    button.style.display =
+                        text.includes(query)
+                            ? "flex"
+                            : "none";
+
+                }
+            );
+
+
+        state.selectedCommand =
+            0;
 
 
         updateCommandSelection();
@@ -1336,27 +1656,29 @@ commandInput?.addEventListener(
 ========================================================= */
 
 $$(".command-results button")
-    .forEach(button => {
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                const command =
-                    button.dataset.command;
-
-
-                navigateToCommand(
-                    command
-                );
+                    const command =
+                        button.dataset.command;
 
 
-                closeCommandPalette();
+                    navigateToCommand(
+                        command
+                    );
 
-            }
-        );
 
-    });
+                    closeCommandPalette();
+
+                }
+            );
+
+        }
+    );
 
 
 function getVisibleCommandButtons() {
@@ -1377,9 +1699,12 @@ function updateCommandSelection() {
         getVisibleCommandButtons();
 
 
-    if (!buttons.length) {
+    if (
+        !buttons.length
+    ) {
 
-        state.selectedCommand = 0;
+        state.selectedCommand =
+            0;
 
         return;
 
@@ -1393,6 +1718,16 @@ function updateCommandSelection() {
 
         state.selectedCommand =
             buttons.length - 1;
+
+    }
+
+
+    if (
+        state.selectedCommand < 0
+    ) {
+
+        state.selectedCommand =
+            0;
 
     }
 
@@ -1418,8 +1753,15 @@ function navigateToCommand(
     command
 ) {
 
+    if (!command) {
+        return;
+    }
+
+
     const target =
-        document.getElementById(command);
+        document.getElementById(
+            command
+        );
 
 
     if (!target) {
@@ -1443,8 +1785,12 @@ function moveCommandSelection(
         getVisibleCommandButtons();
 
 
-    if (!buttons.length) {
+    if (
+        !buttons.length
+    ) {
+
         return;
+
     }
 
 
@@ -1485,6 +1831,7 @@ function moveCommandSelection(
 const cursorDot =
     $(".cursor-dot");
 
+
 const cursorRing =
     $(".cursor-ring");
 
@@ -1496,43 +1843,59 @@ let ringX = 0;
 let ringY = 0;
 
 
-window.addEventListener(
-    "mousemove",
-    event => {
-
-        mouseX = event.clientX;
-        mouseY = event.clientY;
+const finePointer =
+    window.matchMedia(
+        "(pointer:fine)"
+    ).matches;
 
 
-        if (cursorDot) {
+if (finePointer) {
 
-            cursorDot.style.left =
-                `${mouseX}px`;
+    window.addEventListener(
+        "mousemove",
+        event => {
 
-            cursorDot.style.top =
-                `${mouseY}px`;
+            mouseX =
+                event.clientX;
 
+            mouseY =
+                event.clientY;
+
+
+            if (cursorDot) {
+
+                cursorDot.style.left =
+                    `${mouseX}px`;
+
+                cursorDot.style.top =
+                    `${mouseY}px`;
+
+            }
+
+        },
+        {
+            passive: true
         }
+    );
 
-    },
-    { passive: true }
-);
+}
 
 
 function animateCursor() {
 
-    ringX +=
-        (mouseX - ringX) * 0.18;
-
-
-    ringY +=
-        (mouseY - ringY) * 0.18;
-
-
     if (cursorRing) {
+
+        ringX +=
+            (mouseX - ringX) * 0.18;
+
+
+        ringY +=
+            (mouseY - ringY) * 0.18;
+
 
         cursorRing.style.left =
             `${ringX}px`;
+
 
         cursorRing.style.top =
             `${ringY}px`;
@@ -1547,41 +1910,52 @@ function animateCursor() {
 }
 
 
-animateCursor();
+if (cursorRing && finePointer) {
+
+    animateCursor();
+
+}
 
 
-$$(
-    "a, button, input, textarea, .skill-card, .project-card"
-).forEach(element => {
+if (finePointer) {
 
-    element.addEventListener(
-        "mouseenter",
-        () => {
+    $$(
+        "a, button, input, textarea, select, " +
+        ".skill-card, .project-card"
+    ).forEach(
+        element => {
 
-            cursorRing?.classList.add(
-                "hover"
+            element.addEventListener(
+                "mouseenter",
+                () => {
+
+                    cursorRing?.classList.add(
+                        "hover"
+                    );
+
+                }
+            );
+
+
+            element.addEventListener(
+                "mouseleave",
+                () => {
+
+                    cursorRing?.classList.remove(
+                        "hover"
+                    );
+
+                }
             );
 
         }
     );
 
-
-    element.addEventListener(
-        "mouseleave",
-        () => {
-
-            cursorRing?.classList.remove(
-                "hover"
-            );
-
-        }
-    );
-
-});
+}
 
 
 /* =========================================================
-   HERO PARALLAX
+   HERO TERMINAL PARALLAX
 ========================================================= */
 
 const terminal =
@@ -1590,9 +1964,7 @@ const terminal =
 
 if (
     terminal &&
-    window.matchMedia(
-        "(pointer:fine)"
-    ).matches
+    finePointer
 ) {
 
     document.addEventListener(
@@ -1614,13 +1986,19 @@ if (
 
 
             const rotateY =
-                (event.clientX - centerX) /
+                (
+                    event.clientX -
+                    centerX
+                ) /
                 rect.width *
                 5;
 
 
             const rotateX =
-                -(event.clientY - centerY) /
+                -(
+                    event.clientY -
+                    centerY
+                ) /
                 rect.height *
                 5;
 
@@ -1629,6 +2007,20 @@ if (
                 `perspective(1200px)
                  rotateY(${rotateY}deg)
                  rotateX(${rotateX}deg)`;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    terminal.addEventListener(
+        "mouseleave",
+        () => {
+
+            terminal.style.transform =
+                "";
 
         }
     );
@@ -1640,59 +2032,55 @@ if (
    MAGNETIC BUTTONS
 ========================================================= */
 
-$$(".btn-primary").forEach(button => {
+if (finePointer) {
 
-    button.addEventListener(
-        "mousemove",
-        event => {
+    $$(".btn-primary").forEach(
+        button => {
 
-            if (
-                !window.matchMedia(
-                    "(pointer:fine)"
-                ).matches
-            ) {
+            button.addEventListener(
+                "mousemove",
+                event => {
 
-                return;
-
-            }
+                    const rect =
+                        button.getBoundingClientRect();
 
 
-            const rect =
-                button.getBoundingClientRect();
+                    const x =
+                        event.clientX -
+                        rect.left -
+                        rect.width / 2;
 
 
-            const x =
-                event.clientX -
-                rect.left -
-                rect.width / 2;
+                    const y =
+                        event.clientY -
+                        rect.top -
+                        rect.height / 2;
 
 
-            const y =
-                event.clientY -
-                rect.top -
-                rect.height / 2;
+                    button.style.transform =
+                        `translate(
+                            ${x * 0.08}px,
+                            ${y * 0.08}px
+                        )`;
+
+                }
+            );
 
 
-            button.style.transform =
-                `translate(
-                    ${x * 0.08}px,
-                    ${y * 0.08}px
-                )`;
+            button.addEventListener(
+                "mouseleave",
+                () => {
 
-        }
-    );
+                    button.style.transform =
+                        "";
 
-
-    button.addEventListener(
-        "mouseleave",
-        () => {
-
-            button.style.transform = "";
+                }
+            );
 
         }
     );
 
-});
+}
 
 
 /* =========================================================
@@ -1710,8 +2098,10 @@ function showToast(
     const toast =
         $("#toast");
 
+
     const toastTitle =
         $("#toastTitle");
+
 
     const toastMessage =
         $("#toastMessage");
@@ -1815,7 +2205,9 @@ if (currentYear) {
    SMOOTH ANCHOR FALLBACK
 ========================================================= */
 
-$$('a[href^="#"]').forEach(
+$$(
+    'a[href^="#"]'
+).forEach(
     anchor => {
 
         anchor.addEventListener(
@@ -1838,16 +2230,25 @@ $$('a[href^="#"]').forEach(
                 }
 
 
-                const target =
-                    document.querySelector(
-                        href
-                    );
+                let target = null;
 
 
-                if (!target) {
+                try {
+
+                    target =
+                        document.querySelector(
+                            href
+                        );
+
+                } catch (error) {
 
                     return;
 
+                }
+
+
+                if (!target) {
+                    return;
                 }
 
 
@@ -1867,7 +2268,7 @@ $$('a[href^="#"]').forEach(
 
 
 /* =========================================================
-   KEYBOARD SHORTCUTS
+   KEYBOARD SHORTCUT
 ========================================================= */
 
 document.addEventListener(
@@ -1888,6 +2289,10 @@ document.addEventListener(
                 activeElement.isContentEditable
             );
 
+
+        /*
+         * "/" opens command palette
+         */
 
         if (
             event.key === "/" &&
@@ -1917,8 +2322,9 @@ document.addEventListener(
             HTMLImageElement
         ) {
 
-            event.target.style.display =
-                "none";
+            event.target.classList.add(
+                "image-error"
+            );
 
         }
 
@@ -1928,7 +2334,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   PERFORMANCE
+   VISIBILITY CHANGE
 ========================================================= */
 
 document.addEventListener(
@@ -1995,6 +2401,10 @@ function initializePortfolio() {
 
     renderCertificates();
 
+
+    /*
+     * Reduced motion support
+     */
 
     if (
         window.matchMedia(
