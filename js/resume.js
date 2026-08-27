@@ -1,577 +1,155 @@
-/* =========================================================
-   SIDDHARTH.DEV
-   PROFESSIONAL RESUME ENGINE
-========================================================= */
-
 "use strict";
 
+/*
+=========================================================
+RESUME BUILDER
+=========================================================
 
-(() => {
+Features:
 
-    const $ =
-        selector =>
-            document.querySelector(selector);
+- 4 templates
+- Template 1: photo supported
+- Template 2: no photo
+- Template 3: technical skills + soft skills + photo
+- Template 4: technical skills + soft skills + no photo
+- Live editing
+- Image upload
+- Image removal
+- Print
+- Browser PDF generation
+- A4 layout
+=========================================================
+*/
 
-    const $$ =
-        selector =>
-            [...document.querySelectorAll(selector)];
+
+(function () {
+
+    let activeTemplate =
+        "template1";
+
+    let photoData =
+        "";
 
 
     const modal =
-        $("#resume-modal");
+        document.getElementById(
+            "resumeModal"
+        );
 
-    const preview =
-        $("#resume-preview");
+    const closeButton =
+        document.getElementById(
+            "resumeClose"
+        );
 
-    if (!modal || !preview) {
+    const paper =
+        document.getElementById(
+            "resumePaper"
+        );
+
+    const activeTemplateLabel =
+        document.getElementById(
+            "activeTemplateLabel"
+        );
+
+
+    if (!modal || !paper) {
         return;
     }
 
 
     /* =====================================================
-       STATE
+       FIELD HELPERS
     ===================================================== */
 
-    const STORAGE_KEY =
-        "siddharth_resume_system_v1";
+    function value(id, fallback = "") {
 
+        const element =
+            document.getElementById(id);
 
-    const defaultState = {
-
-        template: "1",
-
-        name: "Siddharth Mishra",
-
-        role:
-            "Developer • Builder • Learner",
-
-        email:
-            "siddharth@example.com",
-
-        phone:
-            "+91 XXXXX XXXXX",
-
-        location:
-            "Lucknow, Uttar Pradesh, India",
-
-        summary:
-            "BBA student and technology enthusiast with practical experience in sales and operations, and a strong interest in programming, data analysis, automation and digital problem solving.",
-
-        education:
-            "BBA — Ambalika Management and Technology Institute\n12th — UP Board, PCB\nO Level",
-
-        experience:
-            "4+ Years — Retail Sales & Operations\nCustomer handling, sales operations, communication, problem solving and business support.",
-
-        skills:
-            "HTML5\nCSS3\nJavaScript\nPython\nSQL\nPower BI\nGit\nGitHub\nProblem Solving",
-
-        technicalSkills:
-            "HTML5 • CSS3 • JavaScript • Python • SQL • Power BI • Git • GitHub • Flutter • Dart • Firebase",
-
-        softSkills:
-            "Problem Solving • Communication • Teamwork • Adaptability • Learning Mindset • Customer Handling",
-
-        photo:
-            "assets/profile.jpg"
-
-    };
-
-
-    let state =
-        loadState();
-
-
-    /* =====================================================
-       STORAGE
-    ===================================================== */
-
-    function loadState() {
-
-        try {
-
-            const saved =
-                localStorage.getItem(
-                    STORAGE_KEY
-                );
-
-            if (!saved) {
-                return {
-                    ...defaultState
-                };
-            }
-
-            return {
-                ...defaultState,
-                ...JSON.parse(saved)
-            };
-
-        } catch (error) {
-
-            console.warn(
-                "Resume state could not be loaded.",
-                error
-            );
-
-            return {
-                ...defaultState
-            };
-
-        }
+        return element
+            ? element.value.trim()
+            : fallback;
 
     }
 
 
-    function saveState() {
-
-        try {
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(state)
-            );
-
-        } catch (error) {
-
-            console.warn(
-                "Resume state could not be saved.",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       OPEN / CLOSE
-    ===================================================== */
-
-    function openEditor() {
-
-        modal.classList.add("open");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "modal-open"
-        );
-
-        populateControls();
-
-        render();
-
-    }
-
-
-    function closeEditor() {
-
-        modal.classList.remove("open");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        document.body.classList.remove(
-            "modal-open"
-        );
-
-    }
-
-
-    const openButton =
-        $("#open-resume-editor");
-
-    const closeButton =
-        $("#close-resume-editor");
-
-
-    if (openButton) {
-        openButton.addEventListener(
-            "click",
-            openEditor
-        );
-    }
-
-
-    if (closeButton) {
-        closeButton.addEventListener(
-            "click",
-            closeEditor
-        );
-    }
-
-
-    const backdrop =
-        $(".resume-modal-backdrop");
-
-    if (backdrop) {
-
-        backdrop.addEventListener(
-            "click",
-            closeEditor
-        );
-
-    }
-
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape" &&
-                modal.classList.contains("open")
-            ) {
-
-                closeEditor();
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       INPUT MAP
-    ===================================================== */
-
-    const fields = {
-
-        name: $("#resume-name"),
-
-        role: $("#resume-role"),
-
-        email: $("#resume-email"),
-
-        phone: $("#resume-phone"),
-
-        location: $("#resume-location"),
-
-        summary: $("#resume-summary"),
-
-        education: $("#resume-education"),
-
-        experience: $("#resume-experience"),
-
-        skills: $("#resume-skills"),
-
-        technicalSkills:
-            $("#resume-technical-skills"),
-
-        softSkills:
-            $("#resume-soft-skills")
-
-    };
-
-
-    function populateControls() {
-
-        Object.entries(fields)
-            .forEach(
-                ([key, element]) => {
-
-                    if (!element) {
-                        return;
-                    }
-
-                    element.value =
-                        state[key] ?? "";
-
-                }
-            );
-
-    }
-
-
-    /* =====================================================
-       INPUT EVENTS
-    ===================================================== */
-
-    Object.entries(fields)
-        .forEach(
-            ([key, element]) => {
-
-                if (!element) {
-                    return;
-                }
-
-                element.addEventListener(
-                    "input",
-                    () => {
-
-                        state[key] =
-                            element.value;
-
-                        saveState();
-
-                        render();
-
-                    }
-                );
-
-            }
-        );
-
-
-    /* =====================================================
-       TEMPLATE
-    ===================================================== */
-
-    const templateButtons =
-        $$(".template-button");
-
-
-    templateButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const template =
-                        button.dataset.template;
-
-                    if (!template) {
-                        return;
-                    }
-
-                    state.template =
-                        template;
-
-                    saveState();
-
-                    updateTemplateButtons();
-
-                    render();
-
-                }
-            );
-
-        }
-    );
-
-
-    function updateTemplateButtons() {
-
-        templateButtons.forEach(
-            button => {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.template ===
-                    state.template
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       TEXT HELPERS
-    ===================================================== */
-
-    function escapeHTML(value) {
-
-        return String(value)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-
-    }
-
-
-    function multilineHTML(value) {
-
-        return escapeHTML(value)
-            .replace(/\n/g, "<br>");
-
-    }
-
-
-    function renderSkills(value) {
-
-        return String(value)
-            .split(/\n|,/)
-            .map(
-                skill =>
-                    skill.trim()
+    function escapeHtml(text) {
+
+        return String(text)
+            .replace(
+                /&/g,
+                "&amp;"
             )
-            .filter(Boolean)
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    function splitItems(text) {
+
+        return text
+            .split(/[,|\n]/)
+            .map(
+                item =>
+                    item.trim()
+            )
+            .filter(Boolean);
+
+    }
+
+
+    function skillsHtml(text) {
+
+        return splitItems(text)
             .map(
                 skill =>
-                    `<span>${escapeHTML(skill)}</span>`
+                    `<span class="resume-skill">${escapeHtml(skill)}</span>`
             )
             .join("");
 
     }
 
 
-    /* =====================================================
-       RENDER
-    ===================================================== */
+    function multilineHtml(text) {
 
-    function render() {
-
-        preview.className =
-            `resume-paper template-${state.template}`;
-
-
-        const name =
-            preview.querySelector(
-                '[data-resume-field="name"]'
+        return escapeHtml(text)
+            .replace(
+                /\n/g,
+                "<br>"
             );
-
-        const role =
-            preview.querySelector(
-                '[data-resume-field="role"]'
-            );
-
-        const email =
-            preview.querySelector(
-                '[data-resume-field="email"]'
-            );
-
-        const phone =
-            preview.querySelector(
-                '[data-resume-field="phone"]'
-            );
-
-        const location =
-            preview.querySelector(
-                '[data-resume-field="location"]'
-            );
-
-        const summary =
-            preview.querySelector(
-                '[data-resume-field="summary"]'
-            );
-
-        const education =
-            preview.querySelector(
-                '[data-resume-field="education"]'
-            );
-
-        const experience =
-            preview.querySelector(
-                '[data-resume-field="experience"]'
-            );
-
-
-        if (name) {
-            name.textContent =
-                state.name;
-        }
-
-        if (role) {
-            role.textContent =
-                state.role;
-        }
-
-        if (email) {
-            email.textContent =
-                state.email;
-        }
-
-        if (phone) {
-            phone.textContent =
-                state.phone;
-        }
-
-        if (location) {
-            location.textContent =
-                state.location;
-        }
-
-        if (summary) {
-            summary.textContent =
-                state.summary;
-        }
-
-        if (education) {
-            education.innerHTML =
-                multilineHTML(
-                    state.education
-                );
-        }
-
-        if (experience) {
-            experience.innerHTML =
-                multilineHTML(
-                    state.experience
-                );
-        }
-
-
-        const skillsOutput =
-            $("#resume-skills-output");
-
-        if (skillsOutput) {
-
-            skillsOutput.innerHTML =
-                renderSkills(
-                    state.skills
-                );
-
-        }
-
-
-        const technicalOutput =
-            $("#resume-technical-output");
-
-        if (technicalOutput) {
-
-            technicalOutput.textContent =
-                state.technicalSkills;
-
-        }
-
-
-        const softOutput =
-            $("#resume-soft-output");
-
-        if (softOutput) {
-
-            softOutput.textContent =
-                state.softSkills;
-
-        }
-
-
-        updatePhoto();
-
-        updateTemplateStatus();
-
-        updatePhotoControl();
 
     }
 
 
-    /* =====================================================
-       TEMPLATE STATUS
-    ===================================================== */
+    function bulletsHtml(text) {
 
-    function updateTemplateStatus() {
-
-        const status =
-            $("#resume-template-status");
-
-        if (!status) {
-            return;
-        }
-
-        status.textContent =
-            `TEMPLATE ${String(
-                state.template
-            ).padStart(2, "0")}`;
+        return text
+            .split(/\n/)
+            .map(
+                line =>
+                    line.trim()
+            )
+            .filter(Boolean)
+            .map(
+                line =>
+                    `<li>${escapeHtml(line)}</li>`
+            )
+            .join("");
 
     }
 
@@ -581,13 +159,9 @@
     ===================================================== */
 
     const photoInput =
-        $("#resume-photo-input");
-
-    const removePhoto =
-        $("#remove-resume-photo");
-
-    const photo =
-        $("#resume-photo");
+        document.getElementById(
+            "resumePhoto"
+        );
 
 
     if (photoInput) {
@@ -599,9 +173,11 @@
                 const file =
                     event.target.files?.[0];
 
+
                 if (!file) {
                     return;
                 }
+
 
                 if (
                     !file.type.startsWith(
@@ -609,11 +185,9 @@
                     )
                 ) {
 
-                    alert(
-                        "Please select a valid image."
+                    window.showToast?.(
+                        "Please select an image file."
                     );
-
-                    photoInput.value = "";
 
                     return;
 
@@ -625,14 +199,16 @@
 
 
                 reader.onload =
-                    () => {
+                    event => {
 
-                        state.photo =
-                            reader.result;
+                        photoData =
+                            event.target.result;
 
-                        saveState();
+                        renderResume();
 
-                        updatePhoto();
+                        window.showToast?.(
+                            "Profile photo added."
+                        );
 
                     };
 
@@ -647,22 +223,29 @@
     }
 
 
+    const removePhoto =
+        document.getElementById(
+            "removePhoto"
+        );
+
+
     if (removePhoto) {
 
         removePhoto.addEventListener(
             "click",
             () => {
 
-                state.photo =
-                    "";
-
-                saveState();
-
-                updatePhoto();
+                photoData = "";
 
                 if (photoInput) {
                     photoInput.value = "";
                 }
+
+                renderResume();
+
+                window.showToast?.(
+                    "Profile photo removed."
+                );
 
             }
         );
@@ -670,74 +253,933 @@
     }
 
 
-    function updatePhoto() {
+    /* =====================================================
+       TEMPLATE SELECTORS
+    ===================================================== */
 
-        if (!photo) {
-            return;
+    document
+        .querySelectorAll(
+            ".template-select"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    setTemplate(
+                        button.dataset.template
+                    );
+
+                }
+            );
+
+        });
+
+
+    function setTemplate(template) {
+
+        activeTemplate =
+            template ||
+            "template1";
+
+
+        document
+            .querySelectorAll(
+                ".template-select"
+            )
+            .forEach(button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.template ===
+                    activeTemplate
+                );
+
+            });
+
+
+        const number =
+            activeTemplate
+                .replace(
+                    "template",
+                    ""
+                );
+
+
+        if (activeTemplateLabel) {
+
+            activeTemplateLabel.textContent =
+                `Template ${number.padStart(2, "0")}`;
+
         }
 
-        photo.src =
-            state.photo ||
-            "assets/profile.jpg";
 
-    }
-
-
-    function updatePhotoControl() {
-
-        const control =
-            $("#photo-control");
-
-        if (!control) {
-            return;
-        }
-
-        const photoAllowed =
-            state.template === "1" ||
-            state.template === "3";
-
-        control.style.display =
-            photoAllowed
-                ? ""
-                : "none";
+        renderResume();
 
     }
 
 
     /* =====================================================
-       RESET
+       INPUT EVENTS
     ===================================================== */
 
-    const resetButton =
-        $("#resume-reset");
+    const inputIds = [
+
+        "resumeName",
+        "resumeTitle",
+        "resumeEmail",
+        "resumePhone",
+        "resumeLocation",
+        "resumeLinkedin",
+        "resumeGithub",
+        "resumeSummary",
+        "resumeTechnicalSkills",
+        "resumeSoftSkills",
+        "resumeExperience",
+        "resumeEducation"
+
+    ];
 
 
-    if (resetButton) {
+    inputIds.forEach(
+        id => {
 
-        resetButton.addEventListener(
+            const element =
+                document.getElementById(id);
+
+
+            if (!element) return;
+
+
+            element.addEventListener(
+                "input",
+                () => {
+
+                    renderResume();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       OPEN
+    ===================================================== */
+
+    window.openResumeBuilder =
+        function (template = "template1") {
+
+            setTemplate(
+                template
+            );
+
+
+            modal.classList.add(
+                "open"
+            );
+
+
+            modal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+
+            document.body.classList.add(
+                "modal-open"
+            );
+
+
+            renderResume();
+
+        };
+
+
+    /* =====================================================
+       CLOSE
+    ===================================================== */
+
+    function closeModal() {
+
+        modal.classList.remove(
+            "open"
+        );
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        document.body.classList.remove(
+            "modal-open"
+        );
+
+    }
+
+
+    closeButton?.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    document
+        .querySelector(
+            ".resume-modal-backdrop"
+        )
+        ?.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains(
+                    "open"
+                )
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       BUILD COMMON DATA
+    ===================================================== */
+
+    function getData() {
+
+        return {
+
+            name:
+                value(
+                    "resumeName",
+                    "Siddharth Mishra"
+                ),
+
+            title:
+                value(
+                    "resumeTitle",
+                    "Developer & Data Analyst"
+                ),
+
+            email:
+                value(
+                    "resumeEmail",
+                    "your-email@example.com"
+                ),
+
+            phone:
+                value(
+                    "resumePhone",
+                    "+91 XXXXX XXXXX"
+                ),
+
+            location:
+                value(
+                    "resumeLocation",
+                    "India"
+                ),
+
+            linkedin:
+                value(
+                    "resumeLinkedin",
+                    "linkedin.com/in/your-profile"
+                ),
+
+            github:
+                value(
+                    "resumeGithub",
+                    "github.com/your-profile"
+                ),
+
+            summary:
+                value(
+                    "resumeSummary"
+                ),
+
+            technicalSkills:
+                value(
+                    "resumeTechnicalSkills"
+                ),
+
+            softSkills:
+                value(
+                    "resumeSoftSkills"
+                ),
+
+            experience:
+                value(
+                    "resumeExperience"
+                ),
+
+            education:
+                value(
+                    "resumeEducation"
+                ),
+
+            photo:
+                photoData
+
+        };
+
+    }
+
+
+    /* =====================================================
+       PHOTO HTML
+    ===================================================== */
+
+    function photoHtml(data) {
+
+        if (!data.photo) {
+
+            return `
+                <div class="resume-photo">
+                    <div
+                        style="
+                            width:100%;
+                            height:100%;
+                            display:grid;
+                            place-items:center;
+                            color:#94a3b8;
+                            font-size:9px;
+                            text-align:center;
+                        "
+                    >
+                        PHOTO
+                    </div>
+                </div>
+            `;
+
+        }
+
+
+        return `
+            <div class="resume-photo">
+                <img
+                    src="${data.photo}"
+                    alt="Profile Photo"
+                >
+            </div>
+        `;
+
+    }
+
+
+    /* =====================================================
+       TEMPLATE 1
+    ===================================================== */
+
+    function template1(data) {
+
+        return `
+
+        <article class="resume-document resume-template1">
+
+            <header class="resume-header">
+
+                <div>
+
+                    <h1 class="resume-name">
+                        ${escapeHtml(data.name)}
+                    </h1>
+
+                    <p class="resume-title">
+                        ${escapeHtml(data.title)}
+                    </p>
+
+                    <div class="resume-contact-line">
+
+                        <span>${escapeHtml(data.email)}</span>
+
+                        <span>${escapeHtml(data.phone)}</span>
+
+                        <span>${escapeHtml(data.location)}</span>
+
+                        <span>${escapeHtml(data.linkedin)}</span>
+
+                        <span>${escapeHtml(data.github)}</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="resume-header-right">
+
+                    ${photoHtml(data)}
+
+                </div>
+
+            </header>
+
+
+            <section>
+
+                <h2 class="resume-section-title">
+                    Professional Summary
+                </h2>
+
+                <p class="resume-text">
+                    ${multilineHtml(data.summary)}
+                </p>
+
+            </section>
+
+
+            <div class="resume-columns">
+
+                <div>
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Experience
+                        </h2>
+
+                        <ul class="resume-list">
+                            ${bulletsHtml(data.experience)}
+                        </ul>
+
+                    </section>
+
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Education
+                        </h2>
+
+                        <p class="resume-text">
+                            ${multilineHtml(data.education)}
+                        </p>
+
+                    </section>
+
+                </div>
+
+
+                <aside>
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Technical Skills
+                        </h2>
+
+                        <div class="resume-skills">
+                            ${skillsHtml(data.technicalSkills)}
+                        </div>
+
+                    </section>
+
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Soft Skills
+                        </h2>
+
+                        <div class="resume-skills">
+                            ${skillsHtml(data.softSkills)}
+                        </div>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </article>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       TEMPLATE 2
+       NO PHOTO
+    ===================================================== */
+
+    function template2(data) {
+
+        return `
+
+        <article class="resume-document resume-template2">
+
+            <header class="resume-header">
+
+                <h1 class="resume-name">
+                    ${escapeHtml(data.name)}
+                </h1>
+
+                <p class="resume-title">
+                    ${escapeHtml(data.title)}
+                </p>
+
+                <div class="resume-contact-line">
+
+                    <span>${escapeHtml(data.email)}</span>
+                    <span>${escapeHtml(data.phone)}</span>
+                    <span>${escapeHtml(data.location)}</span>
+                    <span>${escapeHtml(data.linkedin)}</span>
+                    <span>${escapeHtml(data.github)}</span>
+
+                </div>
+
+            </header>
+
+
+            <section>
+
+                <h2 class="resume-section-title">
+                    Professional Summary
+                </h2>
+
+                <p class="resume-text">
+                    ${multilineHtml(data.summary)}
+                </p>
+
+            </section>
+
+
+            <div class="resume-columns">
+
+                <div>
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Experience
+                        </h2>
+
+                        <ul class="resume-list">
+                            ${bulletsHtml(data.experience)}
+                        </ul>
+
+                    </section>
+
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Education
+                        </h2>
+
+                        <p class="resume-text">
+                            ${multilineHtml(data.education)}
+                        </p>
+
+                    </section>
+
+                </div>
+
+
+                <div>
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Technical Skills
+                        </h2>
+
+                        <div class="resume-skills">
+                            ${skillsHtml(data.technicalSkills)}
+                        </div>
+
+                    </section>
+
+
+                    <section>
+
+                        <h2 class="resume-section-title">
+                            Soft Skills
+                        </h2>
+
+                        <div class="resume-skills">
+                            ${skillsHtml(data.softSkills)}
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       TEMPLATE 3
+       TECHNICAL + SOFT + PHOTO
+    ===================================================== */
+
+    function template3(data) {
+
+        return `
+
+        <article class="resume-document resume-template3">
+
+            <header class="resume-header">
+
+                <div>
+
+                    <h1 class="resume-name">
+                        ${escapeHtml(data.name)}
+                    </h1>
+
+                    <p class="resume-title">
+                        ${escapeHtml(data.title)}
+                    </p>
+
+                    <div class="resume-contact-line">
+
+                        <span>${escapeHtml(data.email)}</span>
+                        <span>${escapeHtml(data.phone)}</span>
+                        <span>${escapeHtml(data.location)}</span>
+                        <span>${escapeHtml(data.linkedin)}</span>
+                        <span>${escapeHtml(data.github)}</span>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    ${photoHtml(data)}
+
+                </div>
+
+            </header>
+
+
+            <div class="resume-content">
+
+                <section>
+
+                    <h2 class="resume-section-title">
+                        Professional Summary
+                    </h2>
+
+                    <p class="resume-text">
+                        ${multilineHtml(data.summary)}
+                    </p>
+
+                </section>
+
+
+                <div class="resume-columns">
+
+                    <div>
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Experience
+                            </h2>
+
+                            <ul class="resume-list">
+                                ${bulletsHtml(data.experience)}
+                            </ul>
+
+                        </section>
+
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Education
+                            </h2>
+
+                            <p class="resume-text">
+                                ${multilineHtml(data.education)}
+                            </p>
+
+                        </section>
+
+                    </div>
+
+
+                    <aside>
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Technical Skills
+                            </h2>
+
+                            <div class="resume-skills">
+                                ${skillsHtml(data.technicalSkills)}
+                            </div>
+
+                        </section>
+
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Soft Skills
+                            </h2>
+
+                            <div class="resume-skills">
+                                ${skillsHtml(data.softSkills)}
+                            </div>
+
+                        </section>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       TEMPLATE 4
+       TECHNICAL + SOFT + NO PHOTO
+    ===================================================== */
+
+    function template4(data) {
+
+        return `
+
+        <article class="resume-document resume-template4">
+
+            <header class="resume-header">
+
+                <h1 class="resume-name">
+                    ${escapeHtml(data.name)}
+                </h1>
+
+                <p class="resume-title">
+                    ${escapeHtml(data.title)}
+                </p>
+
+                <div class="resume-contact-line">
+
+                    <span>${escapeHtml(data.email)}</span>
+                    <span>${escapeHtml(data.phone)}</span>
+                    <span>${escapeHtml(data.location)}</span>
+                    <span>${escapeHtml(data.linkedin)}</span>
+                    <span>${escapeHtml(data.github)}</span>
+
+                </div>
+
+            </header>
+
+
+            <div class="resume-content">
+
+                <section>
+
+                    <h2 class="resume-section-title">
+                        Professional Summary
+                    </h2>
+
+                    <p class="resume-text">
+                        ${multilineHtml(data.summary)}
+                    </p>
+
+                </section>
+
+
+                <div class="resume-columns">
+
+                    <main>
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Experience
+                            </h2>
+
+                            <ul class="resume-list">
+                                ${bulletsHtml(data.experience)}
+                            </ul>
+
+                        </section>
+
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Education
+                            </h2>
+
+                            <p class="resume-text">
+                                ${multilineHtml(data.education)}
+                            </p>
+
+                        </section>
+
+                    </main>
+
+
+                    <aside>
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Technical Skills
+                            </h2>
+
+                            <div class="resume-skills">
+                                ${skillsHtml(data.technicalSkills)}
+                            </div>
+
+                        </section>
+
+
+                        <section>
+
+                            <h2 class="resume-section-title">
+                                Soft Skills
+                            </h2>
+
+                            <div class="resume-skills">
+                                ${skillsHtml(data.softSkills)}
+                            </div>
+
+                        </section>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       RENDER
+    ===================================================== */
+
+    function renderResume() {
+
+        const data =
+            getData();
+
+
+        let html = "";
+
+
+        switch (activeTemplate) {
+
+            case "template2":
+
+                html =
+                    template2(data);
+
+                break;
+
+
+            case "template3":
+
+                html =
+                    template3(data);
+
+                break;
+
+
+            case "template4":
+
+                html =
+                    template4(data);
+
+                break;
+
+
+            case "template1":
+
+            default:
+
+                html =
+                    template1(data);
+
+                break;
+
+        }
+
+
+        paper.innerHTML =
+            html;
+
+    }
+
+
+    /* =====================================================
+       DOWNLOAD PDF
+    =====================================================
+
+    Browser security does not allow a normal HTML page to
+    silently generate a PDF file everywhere.
+
+    Therefore the professional browser-native approach is:
+
+       Download PDF -> print dialog -> Save as PDF
+
+    This produces the same A4 resume.
+    ===================================================== */
+
+    const downloadButton =
+        document.getElementById(
+            "downloadResume"
+        );
+
+
+    if (downloadButton) {
+
+        downloadButton.addEventListener(
             "click",
             () => {
 
-                const confirmed =
-                    window.confirm(
-                        "Reset the resume to its default content?"
-                    );
+                renderResume();
 
-                if (!confirmed) {
-                    return;
-                }
+                window.showToast?.(
+                    "Print dialog opened — choose 'Save as PDF' to download your resume."
+                );
 
-                state = {
-                    ...defaultState
-                };
 
-                saveState();
+                setTimeout(
+                    () => {
 
-                populateControls();
+                        printResume();
 
-                updateTemplateButtons();
-
-                render();
+                    },
+                    150
+                );
 
             }
         );
@@ -750,14 +1192,22 @@
     ===================================================== */
 
     const printButton =
-        $("#resume-print");
+        document.getElementById(
+            "printResume"
+        );
 
 
     if (printButton) {
 
         printButton.addEventListener(
             "click",
-            printResume
+            () => {
+
+                renderResume();
+
+                printResume();
+
+            }
         );
 
     }
@@ -766,10 +1216,18 @@
     function printResume() {
 
         /*
-         * We create a completely separate print document.
-         * This makes the printed resume independent from
-         * the editor UI and guarantees A4 output.
+         * Important:
+         *
+         * We open a dedicated print window containing
+         * exactly the selected resume.
+         *
+         * This makes the print result independent from
+         * the portfolio page.
          */
+
+        const resumeHtml =
+            paper.innerHTML;
+
 
         const printWindow =
             window.open(
@@ -781,7 +1239,7 @@
 
         if (!printWindow) {
 
-            alert(
+            window.showToast?.(
                 "Please allow pop-ups to print the resume."
             );
 
@@ -790,128 +1248,169 @@
         }
 
 
-        const paperHTML =
-            preview.outerHTML;
-
-
         const styles =
-            getResumeStyles();
+            collectResumeStyles();
 
 
         printWindow.document.open();
 
+
         printWindow.document.write(`
-            <!DOCTYPE html>
+<!DOCTYPE html>
 
-            <html lang="en">
+<html lang="en">
 
-            <head>
+<head>
 
-                <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-                <meta
-                    name="viewport"
-                    content="width=device-width,initial-scale=1.0"
-                >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-                <title>
-                    ${escapeHTML(
-                        state.name
-                    )} — Resume
-                </title>
+    <title>
+        ${escapeHtml(
+            value(
+                "resumeName",
+                "Siddharth Mishra"
+            )
+        )} — Resume
+    </title>
 
-                <style>
-                    ${styles}
+    <style>
 
-                    html,
-                    body {
-                        margin: 0;
-                        padding: 0;
-                        background: #fff;
-                    }
+        ${styles}
 
-                    body {
-                        width: 210mm;
-                    }
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
 
-                    .resume-paper {
-                        margin: 0 !important;
-                        box-shadow: none !important;
-                    }
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+        }
 
-                    @page {
-                        size: A4 portrait;
-                        margin: 0;
-                    }
-                </style>
+        .resume-document {
+            box-shadow: none !important;
+        }
 
-            </head>
+        @media print {
 
-            <body>
+            html,
+            body {
+                width: 210mm;
+                min-height: 297mm;
+            }
 
-                <div id="resume-print-window">
-                    ${paperHTML}
-                </div>
+        }
 
-                <script>
-                    window.addEventListener(
-                        "load",
-                        function () {
+    </style>
 
-                            setTimeout(
-                                function () {
-                                    window.print();
-                                },
-                                400
-                            );
+</head>
 
-                        }
-                    );
-                <\/script>
+<body>
 
-            </body>
+    <div class="resume-paper">
 
-            </html>
+        ${resumeHtml}
+
+    </div>
+
+</body>
+
+</html>
         `);
 
+
         printWindow.document.close();
+
+
+        printWindow.focus();
+
+
+        setTimeout(
+            () => {
+
+                printWindow.print();
+
+            },
+            500
+        );
+
+
+        printWindow.onafterprint =
+            () => {
+
+                printWindow.close();
+
+            };
 
     }
 
 
     /* =====================================================
-       GET RESUME CSS
+       RESUME STYLE COLLECTION
     ===================================================== */
 
-    function getResumeStyles() {
+    function collectResumeStyles() {
 
-        const styleSheets =
-            [...document.styleSheets];
+        const sheets =
+            Array.from(
+                document.styleSheets
+            );
+
 
         let css = "";
 
-        styleSheets.forEach(
+
+        sheets.forEach(
             sheet => {
 
                 try {
 
-                    [...sheet.cssRules]
-                        .forEach(
-                            rule => {
+                    const rules =
+                        Array.from(
+                            sheet.cssRules
+                        );
+
+
+                    rules.forEach(
+                        rule => {
+
+                            const text =
+                                rule.cssText || "";
+
+
+                            if (
+                                text.includes(
+                                    "resume-"
+                                ) ||
+                                text.includes(
+                                    "resume"
+                                ) ||
+                                text.includes(
+                                    "template"
+                                )
+                            ) {
 
                                 css +=
-                                    rule.cssText +
-                                    "\n";
+                                    `${text}\n`;
 
                             }
-                        );
+
+                        }
+                    );
 
                 } catch (error) {
 
                     /*
-                     * Cross-origin stylesheets cannot
-                     * always be read. Google Fonts
-                     * are intentionally ignored.
+                     * Cross-origin stylesheets may not
+                     * be readable. The resume CSS is
+                     * local, so this is normally fine.
                      */
 
                 }
@@ -926,46 +1425,12 @@
 
 
     /* =====================================================
-       INITIAL STATE
+       INITIAL RENDER
     ===================================================== */
 
-    updateTemplateButtons();
+    setTemplate(
+        "template1"
+    );
 
-    render();
-
-
-    /* =====================================================
-       PUBLIC API
-    ===================================================== */
-
-    window.SiddharthResume = {
-
-        open:
-            openEditor,
-
-        close:
-            closeEditor,
-
-        print:
-            printResume,
-
-        reset:
-            () => {
-
-                state = {
-                    ...defaultState
-                };
-
-                saveState();
-
-                populateControls();
-
-                updateTemplateButtons();
-
-                render();
-
-            }
-
-    };
 
 })();

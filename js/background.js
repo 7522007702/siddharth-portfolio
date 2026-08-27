@@ -1,87 +1,89 @@
-/* =========================================================
-   SIDDHARTH.DEV
-   LIVE PROGRAMMING BACKGROUND ENGINE
-========================================================= */
-
 "use strict";
 
+/*
+=========================================================
+LIVE PROGRAMMING BACKGROUND
+=========================================================
 
-(() => {
+This creates a lightweight animated programming/data
+background using Canvas.
+
+No external library is required.
+=========================================================
+*/
+
+(function () {
 
     const canvas =
-        document.getElementById("background-canvas");
+        document.getElementById("programmingCanvas");
 
-    if (!canvas) {
-        return;
-    }
-
+    if (!canvas) return;
 
     const ctx =
-        canvas.getContext("2d", {
-            alpha: true
-        });
-
+        canvas.getContext("2d");
 
     let width = 0;
     let height = 0;
-    let dpr = 1;
 
-    let animationFrame = 0;
+    let animationFrame = null;
 
-    let mouseX = 0;
-    let mouseY = 0;
+    const symbols = [
+        "01",
+        "10",
+        "{}",
+        "[]",
+        "()",
+        "</>",
+        "=>",
+        "&&",
+        "||",
+        "SQL",
+        "JS",
+        "PY",
+        "CSS",
+        "HTML",
+        "SELECT",
+        "FROM",
+        "JOIN",
+        "const",
+        "function",
+        "return",
+        "async",
+        "await",
+        "API",
+        "DATA",
+        "AI",
+        "git"
+    ];
 
-    let targetMouseX = 0;
-    let targetMouseY = 0;
+
+    const particles = [];
 
 
-    /* =====================================================
-       CONFIGURATION
-    ===================================================== */
+    const config = {
 
-    const CONFIG = {
+        particleCount:
+            window.innerWidth < 700
+                ? 35
+                : 70,
 
-        particles: 85,
+        speed: 0.25,
 
-        rain: 90,
+        opacity:
+            0.25,
 
-        stars: 70,
-
-        maxPixelRatio: 2,
-
-        particleSpeed: .25,
-
-        rainSpeedMin: 5,
-
-        rainSpeedMax: 13
+        fontSize:
+            11
 
     };
 
 
-    const particles = [];
-    const rain = [];
-    const stars = [];
+    function resizeCanvas() {
 
-
-    /* =====================================================
-       RANDOM
-    ===================================================== */
-
-    const random =
-        (min, max) =>
-            Math.random() * (max - min) + min;
-
-
-    /* =====================================================
-       RESIZE
-    ===================================================== */
-
-    function resize() {
-
-        dpr =
+        const dpr =
             Math.min(
                 window.devicePixelRatio || 1,
-                CONFIG.maxPixelRatio
+                2
             );
 
         width =
@@ -91,10 +93,10 @@
             window.innerHeight;
 
         canvas.width =
-            Math.floor(width * dpr);
+            width * dpr;
 
         canvas.height =
-            Math.floor(height * dpr);
+            height * dpr;
 
         canvas.style.width =
             `${width}px`;
@@ -111,153 +113,262 @@
             0
         );
 
-        initialize();
-
     }
 
 
-    /* =====================================================
-       PARTICLE
-    ===================================================== */
+    function random(min, max) {
+
+        return (
+            Math.random() *
+            (max - min)
+        ) + min;
+
+    }
+
 
     function createParticle() {
 
         return {
 
-            x: random(0, width),
+            x:
+                random(0, width),
 
-            y: random(0, height),
+            y:
+                random(0, height),
 
-            radius: random(.4, 1.7),
+            speed:
+                random(
+                    config.speed * .5,
+                    config.speed * 1.8
+                ),
 
-            speedX: random(-.15, .15),
+            opacity:
+                random(.05, config.opacity),
 
-            speedY: random(
-                -.05,
-                CONFIG.particleSpeed
-            ),
+            symbol:
+                symbols[
+                    Math.floor(
+                        Math.random() *
+                        symbols.length
+                    )
+                ],
 
-            alpha: random(.15, .6),
+            size:
+                random(9, config.fontSize + 2),
 
-            phase: random(0, Math.PI * 2)
-
-        };
-
-    }
-
-
-    /* =====================================================
-       RAIN
-    ===================================================== */
-
-    function createRain() {
-
-        return {
-
-            x: random(0, width),
-
-            y: random(-height, height),
-
-            length: random(8, 25),
-
-            speed: random(
-                CONFIG.rainSpeedMin,
-                CONFIG.rainSpeedMax
-            ),
-
-            alpha: random(.04, .16)
+            drift:
+                random(-.18, .18)
 
         };
 
     }
 
-
-    /* =====================================================
-       STARS
-    ===================================================== */
-
-    function createStar() {
-
-        return {
-
-            x: random(0, width),
-
-            y: random(0, height * .7),
-
-            radius: random(.2, 1),
-
-            alpha: random(.1, .4),
-
-            phase: random(0, Math.PI * 2)
-
-        };
-
-    }
-
-
-    /* =====================================================
-       INITIALIZE
-    ===================================================== */
 
     function initialize() {
 
         particles.length = 0;
-        rain.length = 0;
-        stars.length = 0;
-
-
-        const particleCount =
-            width < 700
-                ? Math.floor(CONFIG.particles * .55)
-                : CONFIG.particles;
-
-
-        const rainCount =
-            width < 700
-                ? Math.floor(CONFIG.rain * .5)
-                : CONFIG.rain;
-
 
         for (
             let i = 0;
-            i < particleCount;
+            i < config.particleCount;
             i++
         ) {
+
             particles.push(
                 createParticle()
             );
-        }
 
-
-        for (
-            let i = 0;
-            i < rainCount;
-            i++
-        ) {
-            rain.push(
-                createRain()
-            );
-        }
-
-
-        for (
-            let i = 0;
-            i < CONFIG.stars;
-            i++
-        ) {
-            stars.push(
-                createStar()
-            );
         }
 
     }
 
 
-    /* =====================================================
-       DRAW BACKGROUND
-    ===================================================== */
+    function drawGrid() {
 
-    function drawBackground() {
+        const spacing = 80;
+
+        ctx.save();
+
+        ctx.strokeStyle =
+            "rgba(56,189,248,.025)";
+
+        ctx.lineWidth = 1;
+
+        for (
+            let x = 0;
+            x < width;
+            x += spacing
+        ) {
+
+            ctx.beginPath();
+
+            ctx.moveTo(x, 0);
+
+            ctx.lineTo(x, height);
+
+            ctx.stroke();
+
+        }
+
+
+        for (
+            let y = 0;
+            y < height;
+            y += spacing
+        ) {
+
+            ctx.beginPath();
+
+            ctx.moveTo(0, y);
+
+            ctx.lineTo(width, y);
+
+            ctx.stroke();
+
+        }
+
+        ctx.restore();
+
+    }
+
+
+    function drawParticle(particle) {
+
+        ctx.save();
+
+        ctx.font =
+            `${particle.size}px "Courier New", monospace`;
+
+        ctx.fillStyle =
+            `rgba(56,189,248,${particle.opacity})`;
+
+        ctx.fillText(
+            particle.symbol,
+            particle.x,
+            particle.y
+        );
+
+        ctx.restore();
+
+    }
+
+
+    function updateParticle(particle) {
+
+        particle.y +=
+            particle.speed;
+
+        particle.x +=
+            particle.drift;
+
+        if (
+            particle.y >
+            height + 40
+        ) {
+
+            particle.y =
+                -40;
+
+            particle.x =
+                random(0, width);
+
+        }
+
+        if (
+            particle.x >
+            width + 80
+        ) {
+
+            particle.x = -80;
+
+        }
+
+        if (
+            particle.x <
+            -80
+        ) {
+
+            particle.x =
+                width + 80;
+
+        }
+
+    }
+
+
+    function drawConnections() {
+
+        const maxDistance = 130;
+
+        for (
+            let i = 0;
+            i < particles.length;
+            i++
+        ) {
+
+            for (
+                let j = i + 1;
+                j < particles.length;
+                j++
+            ) {
+
+                const a =
+                    particles[i];
+
+                const b =
+                    particles[j];
+
+                const dx =
+                    a.x - b.x;
+
+                const dy =
+                    a.y - b.y;
+
+                const distance =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+                if (
+                    distance <
+                    maxDistance
+                ) {
+
+                    const opacity =
+                        (
+                            1 -
+                            distance /
+                            maxDistance
+                        ) * .05;
+
+                    ctx.strokeStyle =
+                        `rgba(56,189,248,${opacity})`;
+
+                    ctx.beginPath();
+
+                    ctx.moveTo(
+                        a.x,
+                        a.y
+                    );
+
+                    ctx.lineTo(
+                        b.x,
+                        b.y
+                    );
+
+                    ctx.stroke();
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    function animate() {
 
         ctx.clearRect(
             0,
@@ -266,311 +377,25 @@
             height
         );
 
+        drawGrid();
 
-        /* sky glow */
+        drawConnections();
 
-        const gradient =
-            ctx.createRadialGradient(
-                width * .5,
-                height * .3,
-                0,
-                width * .5,
-                height * .3,
-                Math.max(width, height) * .7
-            );
 
-        gradient.addColorStop(
-            0,
-            "rgba(20,50,75,.16)"
-        );
+        particles.forEach(
+            particle => {
 
-        gradient.addColorStop(
-            .45,
-            "rgba(8,20,35,.06)"
-        );
+                updateParticle(
+                    particle
+                );
 
-        gradient.addColorStop(
-            1,
-            "rgba(0,0,0,0)"
-        );
-
-        ctx.fillStyle = gradient;
-
-        ctx.fillRect(
-            0,
-            0,
-            width,
-            height
-        );
-
-    }
-
-
-    /* =====================================================
-       DRAW STARS
-    ===================================================== */
-
-    function drawStars(time) {
-
-        stars.forEach(star => {
-
-            const twinkle =
-                star.alpha +
-                Math.sin(
-                    time * .001 +
-                    star.phase
-                ) * .08;
-
-            ctx.beginPath();
-
-            ctx.arc(
-                star.x,
-                star.y,
-                star.radius,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle =
-                `rgba(150,220,255,${Math.max(
-                    .02,
-                    twinkle
-                )})`;
-
-            ctx.fill();
-
-        });
-
-    }
-
-
-    /* =====================================================
-       DRAW PARTICLES
-    ===================================================== */
-
-    function drawParticles(time) {
-
-        particles.forEach(particle => {
-
-            particle.x +=
-                particle.speedX;
-
-            particle.y +=
-                particle.speedY;
-
-            if (particle.x < -10) {
-                particle.x = width + 10;
-            }
-
-            if (particle.x > width + 10) {
-                particle.x = -10;
-            }
-
-            if (particle.y > height + 10) {
-                particle.y = -10;
-            }
-
-
-            const pulse =
-                particle.alpha +
-                Math.sin(
-                    time * .0015 +
-                    particle.phase
-                ) * .1;
-
-
-            ctx.beginPath();
-
-            ctx.arc(
-                particle.x,
-                particle.y,
-                particle.radius,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fillStyle =
-                `rgba(102,247,212,${Math.max(
-                    .02,
-                    pulse
-                )})`;
-
-            ctx.fill();
-
-        });
-
-    }
-
-
-    /* =====================================================
-       DRAW RAIN
-    ===================================================== */
-
-    function drawRain() {
-
-        ctx.lineWidth = .6;
-
-        rain.forEach(drop => {
-
-            drop.y += drop.speed;
-
-            drop.x -= drop.speed * .07;
-
-
-            if (drop.y > height + 30) {
-
-                drop.y =
-                    random(-height * .3, -20);
-
-                drop.x =
-                    random(0, width);
-
-            }
-
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-                drop.x,
-                drop.y
-            );
-
-            ctx.lineTo(
-                drop.x - 2,
-                drop.y + drop.length
-            );
-
-            ctx.strokeStyle =
-                `rgba(100,180,220,${drop.alpha})`;
-
-            ctx.stroke();
-
-        });
-
-    }
-
-
-    /* =====================================================
-       PARALLAX
-    ===================================================== */
-
-    function updateParallax() {
-
-        mouseX +=
-            (targetMouseX - mouseX) * .035;
-
-        mouseY +=
-            (targetMouseY - mouseY) * .035;
-
-
-        const city =
-            document.querySelector(".city");
-
-        const terminals =
-            document.querySelectorAll(
-                ".bg-terminal"
-            );
-
-        if (city) {
-
-            city.style.transform =
-                `translate3d(
-                    ${mouseX * -0.015}px,
-                    ${mouseY * -0.008}px,
-                    0
-                )`;
-
-        }
-
-
-        terminals.forEach(
-            (terminal, index) => {
-
-                const multiplier =
-                    index === 0
-                        ? -.025
-                        : .025;
-
-                terminal.style.marginLeft =
-                    `${mouseX * multiplier}px`;
-
-                terminal.style.marginTop =
-                    `${mouseY * multiplier}px`;
+                drawParticle(
+                    particle
+                );
 
             }
         );
 
-    }
-
-
-    /* =====================================================
-       MOUSE
-    ===================================================== */
-
-    window.addEventListener(
-        "mousemove",
-        event => {
-
-            targetMouseX =
-                event.clientX -
-                width / 2;
-
-            targetMouseY =
-                event.clientY -
-                height / 2;
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* =====================================================
-       TOUCH
-    ===================================================== */
-
-    window.addEventListener(
-        "touchmove",
-        event => {
-
-            const touch =
-                event.touches[0];
-
-            if (!touch) {
-                return;
-            }
-
-            targetMouseX =
-                touch.clientX -
-                width / 2;
-
-            targetMouseY =
-                touch.clientY -
-                height / 2;
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* =====================================================
-       ANIMATION
-    ===================================================== */
-
-    function animate(time) {
-
-        drawBackground();
-
-        drawStars(time);
-
-        drawParticles(time);
-
-        drawRain();
-
-        updateParallax();
 
         animationFrame =
             requestAnimationFrame(
@@ -580,9 +405,42 @@
     }
 
 
-    /* =====================================================
-       VISIBILITY
-    ===================================================== */
+    function start() {
+
+        resizeCanvas();
+
+        initialize();
+
+        animate();
+
+    }
+
+
+    let resizeTimeout;
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            clearTimeout(
+                resizeTimeout
+            );
+
+            resizeTimeout =
+                setTimeout(
+                    () => {
+
+                        resizeCanvas();
+
+                        initialize();
+
+                    },
+                    150
+                );
+
+        }
+    );
+
 
     document.addEventListener(
         "visibilitychange",
@@ -592,16 +450,24 @@
                 document.hidden
             ) {
 
-                cancelAnimationFrame(
-                    animationFrame
-                );
+                if (animationFrame) {
+
+                    cancelAnimationFrame(
+                        animationFrame
+                    );
+
+                    animationFrame =
+                        null;
+
+                }
 
             } else {
 
-                animationFrame =
-                    requestAnimationFrame(
-                        animate
-                    );
+                if (!animationFrame) {
+
+                    animate();
+
+                }
 
             }
 
@@ -609,24 +475,6 @@
     );
 
 
-    /* =====================================================
-       INIT
-    ===================================================== */
-
-    window.addEventListener(
-        "resize",
-        resize,
-        {
-            passive: true
-        }
-    );
-
-
-    resize();
-
-    animationFrame =
-        requestAnimationFrame(
-            animate
-        );
+    start();
 
 })();
