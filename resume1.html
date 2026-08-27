@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Siddharth Mishra Resume Workspace"
+    >
+
+    <title>
+        Resume Workspace — Siddharth Mishra
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+
+            --bg: #05080d;
+            --panel: #0a111a;
+            --panel-2: #0d1621;
+
+            --line:
+                rgba(255,255,255,.1);
+
+            --line-strong:
+                rgba(255,255,255,.18);
+
+            --text:
+                #edf5f7;
+
+            --muted:
+                #82939f;
+
+            --accent:
+                #61f2b3;
+
+            --paper:
+                #ffffff;
+
+            --ink:
+                #111111;
+
+            --mono:
+                "Fira Code",
+                Consolas,
+                monospace;
+
+            --sans:
+                Inter,
+                Arial,
+                sans-serif;
+
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-width: 320px;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
+
+            font-family:
+                var(--sans);
+
+        }
+
+
+        button,
+        a {
+
+            font:
+                inherit;
+
+        }
+
+
+        button {
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .workspace-toolbar {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                100;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            min-height:
+                62px;
+
+            padding:
+                10px 18px;
+
+            border-bottom:
+                1px solid var(--line);
+
+            background:
+                rgba(5,8,13,.94);
+
+            backdrop-filter:
+                blur(16px);
+
+        }
+
+
+        .toolbar-title {
+
+            margin-right:
+                auto;
+
+            color:
+                var(--accent);
+
+            font-family:
+                var(--mono);
+
+            font-size:
+                11px;
+
+            font-weight:
+                600;
+
+        }
+
+
+        .toolbar-button,
+        .toolbar-link {
+
+            min-height:
+                38px;
+
+            padding:
+                0 12px;
+
+            border:
+                1px solid var(--line-strong);
+
+            background:
+                var(--panel);
+
+            color:
+                var(--text);
+
+            text-decoration:
+                none;
+
+            font-family:
+                var(--mono);
+
+            font-size:
+                9px;
+
+            transition:
+                180ms ease;
+
+        }
+
+
+        .toolbar-button:hover,
+        .toolbar-link:hover {
+
+            border-color:
+                var(--accent);
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .toolbar-button.active {
+
+            border-color:
+                var(--accent);
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .resume-workspace {
+
+            padding:
+                25px 15px 70px;
+
+        }
+
+
+        .workspace-note {
+
+            width:
+                min(1180px,100%);
+
+            margin:
+                0 auto 15px;
+
+            padding:
+                12px 15px;
+
+            border:
+                1px solid var(--line);
+
+            background:
+                rgba(255,255,255,.015);
+
+            color:
+                var(--muted);
+
+            font-family:
+                var(--mono);
+
+            font-size:
+                9px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+        .template-switcher {
+
+            width:
+                min(1180px,100%);
+
+            margin:
+                0 auto 20px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                7px;
+
+        }
+
+
+        .template-switcher button {
+
+            min-height:
+                42px;
+
+            border:
+                1px solid var(--line);
+
+            background:
+                var(--panel);
+
+            color:
+                var(--muted);
+
+            font-family:
+                var(--mono);
+
+            font-size:
+                9px;
+
+        }
+
+
+        .template-switcher button:hover,
+        .template-switcher button.active {
+
+            border-color:
+                var(--accent);
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .resume-template {
+
+            display:
+                none;
+
+        }
+
+
+        .resume-template.active {
+
+            display:
+                block;
+
+        }
+
+
+        /* =====================================================
+           A4 PAPER
+        ===================================================== */
+
+        .a4-paper {
+
+            width:
+                210mm;
+
+            min-height:
+                297mm;
+
+            margin:
+                0 auto;
+
+            padding:
+                16mm;
+
+            background:
+                var(--paper);
+
+            color:
+                var(--ink);
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.4);
+
+        }
+
+
+        .a4-paper.editing {
+
+            outline:
+                2px dashed
+                rgba(0,0,0,.2);
+
+        }
+
+
+        .pdf-paper {
+
+            width:
+                210mm;
+
+            min-height:
+                297mm;
+
+            padding:
+                16mm;
+
+            margin:
+                0 auto;
+
+            background:
+                white;
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.4);
+
+        }
+
+
+        .original-pdf {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                calc(297mm - 32mm);
+
+            border:
+                0;
+
+        }
+
+
+        /* =====================================================
+           RESUME TYPOGRAPHY
+        ===================================================== */
+
+        .resume-name {
+
+            margin:
+                0;
+
+            font-size:
+                30px;
+
+            line-height:
+                1.1;
+
+            letter-spacing:
+                -.04em;
+
+        }
+
+
+        .resume-role {
+
+            margin:
+                5px 0;
+
+            font-size:
+                12px;
+
+            color:
+                #333;
+
+        }
+
+
+        .resume-contact {
+
+            margin:
+                7px 0 0;
+
+            color:
+                #555;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .resume-section-title {
+
+            margin:
+                19px 0 8px;
+
+            padding-bottom:
+                4px;
+
+            border-bottom:
+                1px solid #111;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .1em;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .resume-subtitle {
+
+            margin:
+                8px 0 2px;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .resume-text,
+        .resume-list {
+
+            margin:
+                3px 0;
+
+            color:
+                #292929;
+
+            font-size:
+                9.5px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        .resume-list {
+
+            padding-left:
+                17px;
+
+        }
+
+
+        .resume-meta {
+
+            color:
+                #555;
+
+            font-size:
+                8.5px;
+
+        }
+
+
+        .resume-columns {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                18px;
+
+        }
+
+
+        .resume-photo {
+
+            width:
+                90px;
+
+            height:
+                110px;
+
+            object-fit:
+                cover;
+
+            float:
+                right;
+
+            margin-left:
+                20px;
+
+            border:
+                1px solid #aaa;
+
+        }
+
+
+        .resume-tags {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                4px;
+
+        }
+
+
+        .resume-tag {
+
+            padding:
+                4px 6px;
+
+            border:
+                1px solid #999;
+
+            font-size:
+                8px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .workspace-toolbar {
+
+                flex-wrap:
+                    wrap;
+
+            }
+
+
+            .toolbar-title {
+
+                width:
+                    100%;
+
+                margin:
+                    0 0 4px;
+
+            }
+
+
+            .template-switcher {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+
+            .a4-paper,
+            .pdf-paper {
+
+                width:
+                    100%;
+
+                min-height:
+                    auto;
+
+                padding:
+                    9mm;
+
+            }
+
+
+            .original-pdf {
+
+                height:
+                    80vh;
+
+            }
+
+        }
+
+
+        @media (max-width: 520px) {
+
+            .workspace-toolbar {
+
+                padding:
+                    8px;
+
+            }
+
+
+            .toolbar-button,
+            .toolbar-link {
+
+                flex:
+                    1;
+
+                font-size:
+                    8px;
+
+            }
+
+
+            .template-switcher {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .resume-columns {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .resume-photo {
+
+                width:
+                    75px;
+
+                height:
+                    90px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @page {
+
+            size:
+                A4;
+
+            margin:
+                0;
+
+        }
+
+
+        @media print {
+
+            html,
+            body {
+
+                background:
+                    white;
+
+            }
+
+
+            .workspace-toolbar,
+            .workspace-note,
+            .template-switcher {
+
+                display:
+                    none !important;
+
+            }
+
+
+            .resume-workspace {
+
+                padding:
+                    0;
+
+            }
+
+
+            .resume-template {
+
+                display:
+                    none !important;
+
+            }
+
+
+            .resume-template.active {
+
+                display:
+                    block !important;
+
+            }
+
+
+            .a4-paper,
+            .pdf-paper {
+
+                width:
+                    210mm;
+
+                min-height:
+                    297mm;
+
+                margin:
+                    0;
+
+                padding:
+                    16mm;
+
+                box-shadow:
+                    none;
+
+                outline:
+                    none;
+
+            }
+
+
+            .original-pdf {
+
+                width:
+                    100%;
+
+                height:
+                    265mm;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOOLBAR
+========================================================= -->
+
+<div class="workspace-toolbar">
+
+    <div class="toolbar-title">
+        resume.workspace / A4
+    </div>
+
+
+    <button
+        class="toolbar-button"
+        id="editButton"
+    >
+        Edit
+    </button>
+
+
+    <button
+        class="toolbar-button"
+        id="printButton"
+    >
+        Print
+    </button>
+
+
+    <button
+        class="toolbar-button"
+        id="downloadButton"
+    >
+        Download PDF
+    </button>
+
+
+    <a
+        class="toolbar-link"
+        href="index.html"
+    >
+        ← Portfolio
+    </a>
+
+</div>
+
+
+<!-- =========================================================
+     WORKSPACE
+========================================================= -->
+
+<main class="resume-workspace">
+
+
+    <div class="workspace-note">
+
+        <strong>Resume system:</strong>
+
+        Template 01 keeps your original
+        <strong>assets/resume.pdf</strong> untouched.
+
+        Templates 02–04 are editable A4 HTML
+        versions designed specifically for
+        editing and printing.
+
+    </div>
+
+
+    <!-- TEMPLATE SWITCHER -->
+
+    <div class="template-switcher">
+
+        <button
+            class="active"
+            data-template="original"
+        >
+            01 / ORIGINAL
+        </button>
+
+        <button
+            data-template="professional"
+        >
+            02 / PROFESSIONAL
+        </button>
+
+        <button
+            data-template="no-photo-a"
+        >
+            03 / NO PHOTO
+        </button>
+
+        <button
+            data-template="no-photo-b"
+        >
+            04 / NO PHOTO
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         TEMPLATE 01 — ORIGINAL PDF
+    ====================================================== -->
+
+    <section
+        class="resume-template active"
+        id="template-original"
+    >
+
+        <div class="pdf-paper">
+
+            <iframe
+                class="original-pdf"
+                id="originalPdf"
+                src="assets/resume.pdf#view=FitH"
+                title="Original Siddharth Mishra Resume"
+            ></iframe>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TEMPLATE 02 — PROFESSIONAL WITH PHOTO
+    ====================================================== -->
+
+    <section
+        class="resume-template"
+        id="template-professional"
+    >
+
+        <article
+            class="a4-paper editable-template"
+            contenteditable="false"
+        >
+
+            <img
+                src="assets/profile.jpg"
+                class="resume-photo"
+                alt="Siddharth Mishra"
+                onerror="this.style.display='none'"
+            >
+
+
+            <h1 class="resume-name">
+                Siddharth Mishra
+            </h1>
+
+
+            <div class="resume-role">
+                Developer • Programmer • Technology Learner • Digital Builder
+            </div>
+
+
+            <div class="resume-contact">
+                Email: your-email@example.com
+                · Phone: +91-XXXXXXXXXX
+                · India
+                · GitHub
+                · LinkedIn
+            </div>
+
+
+            <h2 class="resume-section-title">
+                Personal Details
+            </h2>
+
+
+            <p class="resume-text">
+                <strong>Name:</strong>
+                Siddharth Mishra
+            </p>
+
+
+            <p class="resume-text">
+                <strong>Professional Role:</strong>
+                Developer / Programmer
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Professional Summary
+            </h2>
+
+
+            <p class="resume-text">
+
+                Motivated technology learner and developer
+                interested in software development, web
+                technologies, application development, AI,
+                cloud services and digital products.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Skills
+            </h2>
+
+
+            <div class="resume-columns">
+
+                <div>
+
+                    <h3 class="resume-subtitle">
+                        Technical Skills
+                    </h3>
+
+                    <p class="resume-text">
+
+                        HTML, CSS, JavaScript, Python, SQL,
+                        Dart, Flutter, Firebase, REST APIs,
+                        JSON, Git, GitHub, Power BI.
+
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="resume-subtitle">
+                        Soft Skills
+                    </h3>
+
+                    <p class="resume-text">
+
+                        Problem solving, structured thinking,
+                        communication, adaptability,
+                        continuous learning and attention
+                        to detail.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h2 class="resume-section-title">
+                Professional Experience
+            </h2>
+
+
+            <h3 class="resume-subtitle">
+                Developer / Project Work
+            </h3>
+
+
+            <p class="resume-text">
+
+                Independent development and learning projects
+                involving responsive web experiences,
+                cross-platform applications, AI experiments
+                and cloud-backed product ideas.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Education
+            </h2>
+
+
+            <p class="resume-text">
+
+                Continuous technical learning across
+                programming, software development, AI,
+                cloud technologies and modern web development.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Certification
+            </h2>
+
+
+            <p class="resume-text">
+                Add verified certifications here.
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Language
+            </h2>
+
+
+            <p class="resume-text">
+                Hindi · English
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Projects
+            </h2>
+
+
+            <ul class="resume-list">
+
+                <li>
+                    <strong>Univichar AI</strong>
+                    — Flutter, Dart, Firebase, Gemini AI.
+                </li>
+
+                <li>
+                    <strong>Developer Portfolio</strong>
+                    — HTML, CSS, JavaScript.
+                </li>
+
+                <li>
+                    <strong>AI Experiments</strong>
+                    — AI APIs, JavaScript, JSON.
+                </li>
+
+            </ul>
+
+        </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         TEMPLATE 03 — NO PHOTO
+    ====================================================== -->
+
+    <section
+        class="resume-template"
+        id="template-no-photo-a"
+    >
+
+        <article
+            class="a4-paper editable-template"
+            contenteditable="false"
+        >
+
+            <h1 class="resume-name">
+                Siddharth Mishra
+            </h1>
+
+
+            <div class="resume-role">
+                Developer • Programmer • Technology Learner
+            </div>
+
+
+            <div class="resume-contact">
+                Email · Phone · Location · GitHub · LinkedIn
+            </div>
+
+
+            <h2 class="resume-section-title">
+                Personal Details
+            </h2>
+
+
+            <p class="resume-text">
+                <strong>Name:</strong>
+                Siddharth Mishra
+            </p>
+
+
+            <p class="resume-text">
+                <strong>Professional Role:</strong>
+                Developer / Programmer
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Professional Summary
+            </h2>
+
+
+            <p class="resume-text">
+
+                Motivated technology learner and developer
+                focused on programming, web development,
+                application development, AI and digital products.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Skills
+            </h2>
+
+
+            <div class="resume-columns">
+
+                <div>
+
+                    <h3 class="resume-subtitle">
+                        Technical Skills
+                    </h3>
+
+                    <p class="resume-text">
+
+                        HTML5, CSS3, JavaScript, Python, SQL,
+                        Dart, Flutter, Firebase, APIs,
+                        Git, GitHub and Power BI.
+
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="resume-subtitle">
+                        Soft Skills
+                    </h3>
+
+                    <p class="resume-text">
+
+                        Problem solving, communication,
+                        adaptability, structured thinking,
+                        continuous learning.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h2 class="resume-section-title">
+                Professional Experience
+            </h2>
+
+
+            <h3 class="resume-subtitle">
+                Developer / Project Work
+            </h3>
+
+
+            <p class="resume-text">
+
+                Independent projects and technical exploration
+                across web development, applications,
+                AI interfaces and cloud-backed systems.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Education
+            </h2>
+
+
+            <p class="resume-text">
+
+                Continuous technical learning in programming,
+                software development, AI, cloud and web technologies.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Certification
+            </h2>
+
+
+            <p class="resume-text">
+                Add verified certifications.
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Language
+            </h2>
+
+
+            <p class="resume-text">
+                Hindi · English
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Selected Projects
+            </h2>
+
+
+            <ul class="resume-list">
+
+                <li>
+                    Univichar AI — AI-powered education platform.
+                </li>
+
+                <li>
+                    Developer Portfolio — responsive
+                    programmer-focused website.
+                </li>
+
+                <li>
+                    AI Experiments — APIs and intelligent interfaces.
+                </li>
+
+            </ul>
+
+        </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         TEMPLATE 04 — NO PHOTO / COMPACT
+    ====================================================== -->
+
+    <section
+        class="resume-template"
+        id="template-no-photo-b"
+    >
+
+        <article
+            class="a4-paper editable-template"
+            contenteditable="false"
+        >
+
+            <h1 class="resume-name">
+                Siddharth Mishra
+            </h1>
+
+
+            <div class="resume-role">
+                DEVELOPER / PROGRAMMER
+            </div>
+
+
+            <div class="resume-columns">
+
+                <div>
+
+                    <h2 class="resume-section-title">
+                        Personal Details
+                    </h2>
+
+                    <p class="resume-text">
+
+                        <strong>Name</strong><br>
+                        Siddharth Mishra
+
+                    </p>
+
+                    <p class="resume-text">
+
+                        <strong>Location</strong><br>
+                        India
+
+                    </p>
+
+                    <p class="resume-text">
+
+                        <strong>Languages</strong><br>
+                        Hindi, English
+
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h2 class="resume-section-title">
+                        Professional Summary
+                    </h2>
+
+                    <p class="resume-text">
+
+                        Developer and technology learner
+                        exploring modern software development,
+                        responsive web interfaces,
+                        cross-platform applications,
+                        AI, APIs and cloud services.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h2 class="resume-section-title">
+                Skills — Technical
+            </h2>
+
+
+            <div class="resume-tags">
+
+                <span class="resume-tag">
+                    HTML
+                </span>
+
+                <span class="resume-tag">
+                    CSS
+                </span>
+
+                <span class="resume-tag">
+                    JavaScript
+                </span>
+
+                <span class="resume-tag">
+                    Python
+                </span>
+
+                <span class="resume-tag">
+                    Dart
+                </span>
+
+                <span class="resume-tag">
+                    Flutter
+                </span>
+
+                <span class="resume-tag">
+                    Firebase
+                </span>
+
+                <span class="resume-tag">
+                    SQL
+                </span>
+
+                <span class="resume-tag">
+                    Git
+                </span>
+
+                <span class="resume-tag">
+                    GitHub
+                </span>
+
+                <span class="resume-tag">
+                    Power BI
+                </span>
+
+            </div>
+
+
+            <h2 class="resume-section-title">
+                Skills — Soft
+            </h2>
+
+
+            <p class="resume-text">
+
+                Problem solving · adaptability · communication
+                · continuous learning · attention to detail
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Professional Experience
+            </h2>
+
+
+            <p class="resume-text">
+
+                <strong>
+                    Independent Developer / Project Work
+                </strong>
+
+                <br>
+
+                Designing, coding and iterating on web,
+                mobile and AI-oriented projects.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Education
+            </h2>
+
+
+            <p class="resume-text">
+
+                Continuous technical learning and
+                project-based development.
+
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Certification
+            </h2>
+
+
+            <p class="resume-text">
+                Add verified certifications.
+            </p>
+
+
+            <h2 class="resume-section-title">
+                Projects
+            </h2>
+
+
+            <ul class="resume-list">
+
+                <li>
+                    Univichar AI —
+                    Flutter / Firebase / Gemini AI.
+                </li>
+
+                <li>
+                    Developer Portfolio —
+                    HTML / CSS / JavaScript.
+                </li>
+
+                <li>
+                    AI Experiments —
+                    APIs / JSON / JavaScript.
+                </li>
+
+            </ul>
+
+        </article>
+
+    </section>
+
+</main>
+
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   TEMPLATE SYSTEM
+========================================================= */
+
+const templateButtons =
+    [...document.querySelectorAll(
+        "[data-template]"
+    )];
+
+
+const templates = [
+    ...document.querySelectorAll(
+        ".resume-template"
+    )
+];
+
+
+let currentTemplate =
+    "original";
+
+
+function activateTemplate(
+    name
+) {
+
+    currentTemplate =
+        name;
+
+
+    templates.forEach(template => {
+
+        template.classList.toggle(
+            "active",
+            template.id ===
+                `template-${name}`
+        );
+
+    });
+
+
+    templateButtons.forEach(button => {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.template === name
+        );
+
+    });
+
+
+    localStorage.setItem(
+        "resumeTemplate",
+        name
+    );
+
+
+    /* Reset edit mode */
+
+    document
+        .querySelectorAll(
+            ".editable-template"
+        )
+        .forEach(element => {
+
+            element.contentEditable =
+                "false";
+
+            element.classList.remove(
+                "editing"
+            );
+
+        });
+
+
+    document
+        .querySelector("#editButton")
+        .classList.remove(
+            "active"
+        );
+
+}
+
+
+templateButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                activateTemplate(
+                    button.dataset.template
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   EDIT MODE
+========================================================= */
+
+const editButton =
+    document.querySelector(
+        "#editButton"
+    );
+
+
+editButton.addEventListener(
+    "click",
+    () => {
+
+        if (
+            currentTemplate ===
+            "original"
+        ) {
+
+            alert(
+                "The original resume.pdf is preserved exactly. Select Template 02, 03 or 04 to edit its content."
+            );
+
+            return;
+
+        }
+
+
+        const activeTemplate =
+            document.querySelector(
+                ".resume-template.active .editable-template"
+            );
+
+
+        if (!activeTemplate) {
+            return;
+        }
+
+
+        const editing =
+            activeTemplate.contentEditable ===
+            "true";
+
+
+        activeTemplate.contentEditable =
+            String(!editing);
+
+
+        activeTemplate.classList.toggle(
+            "editing",
+            !editing
+        );
+
+
+        editButton.classList.toggle(
+            "active",
+            !editing
+        );
+
+
+        editButton.textContent =
+            !editing
+                ? "Editing ON"
+                : "Edit";
+
+    }
+);
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+const printButton =
+    document.querySelector(
+        "#printButton"
+    );
+
+
+printButton.addEventListener(
+    "click",
+    () => {
+
+        window.print();
+
+    }
+);
+
+
+/* =========================================================
+   ORIGINAL PDF DOWNLOAD
+========================================================= */
+
+const downloadButton =
+    document.querySelector(
+        "#downloadButton"
+    );
+
+
+downloadButton.addEventListener(
+    "click",
+    () => {
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            "assets/resume.pdf";
+
+
+        link.download =
+            "Siddharth-Mishra-Resume.pdf";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+    }
+);
+
+
+/* =========================================================
+   URL PARAMETERS
+========================================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const savedTemplate =
+    localStorage.getItem(
+        "resumeTemplate"
+    );
+
+
+const requestedTemplate =
+    params.get("template");
+
+
+activateTemplate(
+    requestedTemplate ||
+    savedTemplate ||
+    "original"
+);
+
+
+/* =========================================================
+   AUTO DOWNLOAD
+========================================================= */
+
+if (
+    params.get("mode") ===
+    "download"
+) {
+
+    setTimeout(
+        () => {
+
+            downloadButton.click();
+
+        },
+        500
+    );
+
+}
+
+</script>
+
+</body>
+</html>

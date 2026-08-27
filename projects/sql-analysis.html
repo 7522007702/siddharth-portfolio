@@ -10,70 +10,192 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>SQL Data Analysis | Siddharth Mishra</title>
-
-    <link
-        rel="icon"
-        href="../assets/favicon.svg"
+    <meta
+        name="description"
+        content="Siddharth.dev — SQL Analysis project."
     >
+
+    <title>SQL Analysis | Siddharth.dev</title>
 
     <link
         rel="stylesheet"
         href="../css/style.css"
     >
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <style>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
+        .project-page {
+            min-height: 100vh;
+            padding: 140px 0 100px;
+        }
+
+        .project-header {
+            max-width: 900px;
+            margin-bottom: 55px;
+        }
+
+        .project-header h1 {
+            margin: 10px 0 20px;
+            font-size: clamp(48px,7vw,90px);
+            line-height: .95;
+            letter-spacing: -.07em;
+        }
+
+        .project-header h1 span {
+            color: var(--accent);
+        }
+
+        .project-header p {
+            color: var(--text-soft);
+        }
+
+        .sql-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .sql-editor,
+        .sql-results {
+            min-height: 450px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(3,7,13,.9);
+            box-shadow: var(--shadow);
+        }
+
+        .workspace-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 17px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .workspace-header span {
+            color: var(--text-muted);
+            font-family: var(--font-code);
+            font-size: 9px;
+        }
+
+        .workspace-header span:last-child {
+            color: var(--accent);
+        }
+
+        .sql-code {
+            padding: 25px;
+
+            font-family: var(--font-code);
+            font-size: 12px;
+            line-height: 2;
+
+            color: #aab8ca;
+        }
+
+        .sql-keyword {
+            color: #b777ff;
+        }
+
+        .sql-function {
+            color: var(--accent-2);
+        }
+
+        .sql-string {
+            color: var(--accent);
+        }
+
+        .sql-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sql-table th,
+        .sql-table td {
+            padding: 11px 13px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            font-size: 11px;
+        }
+
+        .sql-table th {
+            color: var(--accent);
+            font-family: var(--font-code);
+            font-size: 9px;
+        }
+
+        .sql-table td {
+            color: var(--text-soft);
+        }
+
+        .sql-table-wrap {
+            overflow-x: auto;
+            padding: 10px 15px;
+        }
+
+        .sql-info {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .info-card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255,255,255,.02);
+        }
+
+        .info-card p,
+        .info-card li {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+
+            .sql-workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .sql-info {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
 
 </head>
 
-
 <body>
 
-<div class="background-system">
-
-    <div class="grid-background"></div>
-
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-
+<div class="programming-background">
+    <canvas id="background-canvas"></canvas>
+    <div class="bg-vignette"></div>
+    <div class="bg-scanlines"></div>
 </div>
 
 
-<header class="site-header scrolled">
+<header class="site-header">
 
-    <div class="container nav-container">
+    <div class="container header-inner">
 
         <a
-            href="../index.html"
             class="brand"
+            href="../index.html"
         >
-
-            <span class="brand-bracket">&lt;</span>
-            <span class="brand-name">SIDDHARTH</span>
-            <span class="brand-dot">.</span>
-            <span class="brand-dev">DEV</span>
-            <span class="brand-bracket">/&gt;</span>
-
+            <span class="brand-symbol">&lt;/&gt;</span>
+            <span class="brand-text">
+                siddharth<span>.dev</span>
+            </span>
         </a>
-
 
         <a
             href="../index.html#projects"
-            class="header-cta"
+            class="button button-secondary"
         >
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-            Back to Projects
-
+            ← Back to Projects
         </a>
 
     </div>
@@ -81,248 +203,179 @@
 </header>
 
 
-<main>
-
-<section
-    class="section"
-    style="padding-top:180px"
->
+<main class="project-page">
 
     <div class="container">
 
-        <p class="eyebrow">
-            <span>CASE STUDY 03</span>
-            DATABASE • ANALYSIS
-        </p>
+        <header class="project-header">
+
+            <p class="section-label">
+                PROJECT / 03
+            </p>
+
+            <h1>
+                SQL
+                <span>Analysis.</span>
+            </h1>
+
+            <p>
+                A structured SQL analysis project demonstrating
+                practical querying, filtering, aggregation, grouping,
+                sorting and business-oriented data exploration.
+            </p>
+
+        </header>
 
 
-        <h1
-            style="
-                margin-top:20px;
-                font-family:var(--font-display);
-                font-size:clamp(3rem,8vw,7rem);
-                line-height:.9;
-                letter-spacing:-.06em;
-            "
-        >
+        <section class="sql-workspace">
 
-            SQL Data
-            <span class="gradient-text">
-                Analysis.
-            </span>
+            <article class="sql-editor">
 
-        </h1>
+                <div class="workspace-header">
 
+                    <span>
+                        analysis.sql
+                    </span>
 
-        <p
-            style="
-                max-width:750px;
-                margin-top:30px;
-                color:var(--text-soft);
-                line-height:1.9;
-            "
-        >
-
-            A query-driven analytical project demonstrating
-            filtering, aggregation, grouping, joins, ranking
-            and business-oriented data exploration.
-
-        </p>
-
-
-        <div
-            class="code-showcase"
-            style="margin-top:60px"
-        >
-
-            <div class="code-showcase-header">
-
-                <div class="terminal-dots">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span>
+                        ● QUERY READY
+                    </span>
 
                 </div>
 
-                analysis.sql
 
-            </div>
+                <pre class="sql-code"><code><span class="sql-keyword">SELECT</span>
+    category,
+    <span class="sql-function">COUNT</span>(*) <span class="sql-keyword">AS</span> orders,
+    <span class="sql-function">SUM</span>(amount) <span class="sql-keyword">AS</span> revenue,
+    <span class="sql-function">AVG</span>(amount) <span class="sql-keyword">AS</span> average_order
+<span class="sql-keyword">FROM</span> sales
+<span class="sql-keyword">WHERE</span>
+    status = <span class="sql-string">'Completed'</span>
+<span class="sql-keyword">GROUP BY</span>
+    category
+<span class="sql-keyword">ORDER BY</span>
+    revenue <span class="sql-keyword">DESC</span>;</code></pre>
 
-
-            <div class="code-showcase-body">
-
-<pre><code><span class="code-purple">SELECT</span>
-    customer,
-    region,
-    <span class="code-blue">SUM</span>(revenue)
-        <span class="code-purple">AS</span> total_revenue,
-    <span class="code-blue">COUNT</span>(order_id)
-        <span class="code-purple">AS</span> total_orders
-
-<span class="code-purple">FROM</span> sales
-
-<span class="code-purple">WHERE</span>
-    year = 2026
-
-<span class="code-purple">GROUP BY</span>
-    customer,
-    region
-
-<span class="code-purple">HAVING</span>
-    <span class="code-blue">SUM</span>(revenue) &gt; 50000
-
-<span class="code-purple">ORDER BY</span>
-    total_revenue <span class="code-purple">DESC</span>;</code></pre>
-
-            </div>
-
-        </div>
+            </article>
 
 
-        <div
-            class="services-grid"
-            style="margin-top:50px"
-        >
+            <article class="sql-results">
 
-            <div class="service-card">
+                <div class="workspace-header">
 
-                <i class="fa-solid fa-filter"></i>
+                    <span>
+                        query_results
+                    </span>
 
-                <h3>Filtering</h3>
+                    <span>
+                        4 ROWS
+                    </span>
+
+                </div>
+
+
+                <div class="sql-table-wrap">
+
+                    <table class="sql-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Category</th>
+                                <th>Orders</th>
+                                <th>Revenue</th>
+                                <th>Average</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Electronics</td>
+                                <td>428</td>
+                                <td>₹3.42L</td>
+                                <td>₹799</td>
+                            </tr>
+
+                            <tr>
+                                <td>Fashion</td>
+                                <td>351</td>
+                                <td>₹2.64L</td>
+                                <td>₹752</td>
+                            </tr>
+
+                            <tr>
+                                <td>Home</td>
+                                <td>278</td>
+                                <td>₹1.83L</td>
+                                <td>₹658</td>
+                            </tr>
+
+                            <tr>
+                                <td>Accessories</td>
+                                <td>191</td>
+                                <td>₹1.14L</td>
+                                <td>₹596</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <section class="sql-info">
+
+            <article class="info-card">
+
+                <h3>Querying</h3>
 
                 <p>
-                    WHERE conditions used to isolate relevant
-                    records for analysis.
+                    SELECT, WHERE, ORDER BY and filtering
+                    for focused data retrieval.
                 </p>
 
-            </div>
+            </article>
 
 
-            <div class="service-card">
-
-                <i class="fa-solid fa-layer-group"></i>
+            <article class="info-card">
 
                 <h3>Aggregation</h3>
 
                 <p>
-                    SUM, COUNT, AVG and other functions
-                    transform rows into useful metrics.
+                    COUNT, SUM and AVG to generate
+                    useful business metrics.
                 </p>
 
-            </div>
+            </article>
 
 
-            <div class="service-card">
+            <article class="info-card">
 
-                <i class="fa-solid fa-link"></i>
-
-                <h3>Joins</h3>
+                <h3>Analysis</h3>
 
                 <p>
-                    Multiple data sources can be connected
-                    through relational logic.
+                    GROUP BY and sorting to identify
+                    meaningful patterns and performance.
                 </p>
 
-            </div>
+            </article>
 
-
-            <div class="service-card">
-
-                <i class="fa-solid fa-ranking-star"></i>
-
-                <h3>Ranking</h3>
-
-                <p>
-                    ORDER BY and analytical logic identify
-                    high-performing entities.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="code-showcase"
-            style="margin-top:50px"
-        >
-
-            <div class="code-showcase-header">
-
-                <div class="terminal-dots">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-
-                analytics.sql
-
-            </div>
-
-
-            <div class="code-showcase-body">
-
-<pre><code><span class="code-purple">WITH</span> ranked_sales <span class="code-purple">AS</span> (
-
-    <span class="code-purple">SELECT</span>
-        customer,
-        revenue,
-
-        <span class="code-blue">RANK</span>() <span class="code-purple">OVER</span>(
-            <span class="code-purple">ORDER BY</span>
-            revenue <span class="code-purple">DESC</span>
-        ) <span class="code-purple">AS</span> revenue_rank
-
-    <span class="code-purple">FROM</span> sales
-)
-
-<span class="code-purple">SELECT</span> *
-<span class="code-purple">FROM</span> ranked_sales
-<span class="code-purple">WHERE</span> revenue_rank &lt;= 10;</code></pre>
-
-            </div>
-
-        </div>
+        </section>
 
     </div>
-
-</section>
 
 </main>
 
 
-<footer class="site-footer">
-
-    <div class="container">
-
-        <div class="footer-bottom">
-
-            <span>
-                ©
-                <span id="year"></span>
-                Siddharth Mishra
-            </span>
-
-            <a href="../index.html">
-                Back to Portfolio
-            </a>
-
-        </div>
-
-    </div>
-
-</footer>
-
-
-<script>
-
-document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-</script>
+<script src="../js/background.js"></script>
 
 </body>
 </html>

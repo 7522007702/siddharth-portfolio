@@ -1,0 +1,846 @@
+/* =========================================================
+   SIDDHARTH.DEV
+   RESUME SYSTEM
+========================================================= */
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.resume-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 10000;
+
+    display: none;
+
+    padding: 20px;
+}
+
+.resume-modal.open {
+    display: block;
+}
+
+.resume-modal-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.84);
+
+    backdrop-filter:
+        blur(12px);
+}
+
+.resume-modal-container {
+    position: relative;
+    z-index: 2;
+
+    width: min(
+        1500px,
+        100%
+    );
+
+    height: min(
+        95vh,
+        1000px
+    );
+
+    margin: auto;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(102,247,212,.18);
+
+    border-radius: 16px;
+
+    background:
+        #080c14;
+
+    box-shadow:
+        0 40px 100px
+        rgba(0,0,0,.7);
+
+    animation:
+        resume-modal-in
+        .25s
+        ease;
+}
+
+@keyframes resume-modal-in {
+
+    from {
+        opacity: 0;
+        transform: scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.resume-modal-header {
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 13px 20px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
+
+    background:
+        rgba(4,8,14,.92);
+}
+
+.resume-modal-header h2 {
+    margin: 3px 0 0;
+
+    font-size: 17px;
+}
+
+.modal-close {
+    width: 42px;
+    height: 42px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: #fff;
+
+    font-size: 25px;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   EDITOR LAYOUT
+========================================================= */
+
+.resume-editor-layout {
+    height:
+        calc(100% - 76px);
+
+    display: grid;
+
+    grid-template-columns:
+        390px 1fr;
+}
+
+.resume-controls {
+    overflow-y: auto;
+
+    padding: 20px;
+
+    border-right:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+.resume-preview-area {
+    overflow: auto;
+
+    padding: 25px;
+
+    background:
+        #111722;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.control-block {
+    margin-bottom: 16px;
+}
+
+.control-block > label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #8e9aac;
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+.resume-input {
+    width: 100%;
+
+    padding: 10px 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: #f4f7fb;
+
+    font-size: 12px;
+
+    transition:
+        border-color .2s,
+        background .2s;
+}
+
+.resume-input:focus {
+    border-color:
+        rgba(102,247,212,.45);
+
+    background:
+        rgba(102,247,212,.025);
+}
+
+.resume-textarea {
+    min-height: 80px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+.control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+
+/* =========================================================
+   TEMPLATE SELECTOR
+========================================================= */
+
+.template-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+}
+
+.template-button {
+    min-height: 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    padding: 8px 10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color: #fff;
+
+    text-align: left;
+}
+
+.template-button strong {
+    color: #66f7d4;
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+    font-size: 9px;
+}
+
+.template-button span {
+    margin-top: 4px;
+
+    color: #8994a7;
+
+    font-size: 10px;
+}
+
+.template-button.active {
+    border-color:
+        rgba(102,247,212,.5);
+
+    background:
+        rgba(102,247,212,.06);
+}
+
+
+/* =========================================================
+   PHOTO CONTROL
+========================================================= */
+
+.resume-file-input {
+    width: 100%;
+
+    padding: 8px;
+
+    border:
+        1px dashed
+        rgba(255,255,255,.15);
+
+    border-radius: 8px;
+
+    color: #8e9aac;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.small-button {
+    min-height: 35px;
+
+    margin-top: 7px;
+
+    padding: 0 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 7px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: #dce3ed;
+
+    font-size: 10px;
+}
+
+.resume-control-actions {
+    position: sticky;
+
+    bottom: -20px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    padding-top: 15px;
+    padding-bottom: 5px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #080c14 20%
+        );
+}
+
+
+/* =========================================================
+   PREVIEW TOOLBAR
+========================================================= */
+
+.resume-preview-toolbar {
+    position: sticky;
+    top: 0;
+
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+    padding: 8px 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius: 7px;
+
+    background:
+        rgba(5,8,13,.85);
+
+    color: #7d899c;
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   A4 PAPER
+========================================================= */
+
+.resume-paper {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 0 auto;
+
+    background: #fff;
+    color: #171b22;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.5);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    --resume-accent: #1d4ed8;
+    --resume-muted: #5b6470;
+}
+
+.resume-paper-inner {
+    min-height: 297mm;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 17mm 17mm 13mm;
+}
+
+
+/* =========================================================
+   RESUME HEADER
+========================================================= */
+
+.resume-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 8mm;
+
+    border-bottom:
+        2px solid
+        var(--resume-accent);
+}
+
+.resume-identity h1 {
+    margin: 0;
+
+    color: #10141b;
+
+    font-size: 30px;
+    line-height: 1.05;
+}
+
+.resume-identity > p {
+    margin: 5px 0 9px;
+
+    color:
+        var(--resume-accent);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.resume-contact-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+
+    color:
+        var(--resume-muted);
+
+    font-size: 8.5px;
+}
+
+.resume-photo-wrapper {
+    flex:
+        0 0 30mm;
+
+    width: 30mm;
+    height: 36mm;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        #dce1e8;
+
+    background:
+        #f3f5f8;
+}
+
+.resume-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.resume-body {
+    flex: 1;
+}
+
+.resume-block {
+    margin-top: 6mm;
+}
+
+.resume-block h2 {
+    margin: 0 0 2.5mm;
+
+    padding-bottom: 1.5mm;
+
+    border-bottom:
+        1px solid
+        #e0e4e9;
+
+    color: #11161d;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.resume-block p,
+.resume-multiline {
+    margin: 0;
+
+    color: #343b46;
+
+    font-size: 9.5px;
+    line-height: 1.55;
+}
+
+.resume-multiline {
+    white-space: normal;
+}
+
+.resume-skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.resume-skills-list span {
+    padding: 3px 6px;
+
+    border:
+        1px solid
+        #dce2e8;
+
+    color: #333b47;
+
+    font-size: 8px;
+}
+
+.resume-footer {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 8mm;
+    padding-top: 3mm;
+
+    border-top:
+        1px solid
+        #e0e4e9;
+
+    color:
+        #7a8491;
+
+    font-size: 7px;
+    letter-spacing: .08em;
+}
+
+
+/* =========================================================
+   TEMPLATE 1
+   ORIGINAL STYLE
+========================================================= */
+
+.template-1 {
+    --resume-accent: #1d4ed8;
+}
+
+.template-1 .resume-header {
+    border-bottom-width: 2px;
+}
+
+.template-1 .resume-block h2 {
+    color: #1d4ed8;
+}
+
+
+/* =========================================================
+   TEMPLATE 2
+   NO PHOTO
+========================================================= */
+
+.template-2 {
+    --resume-accent: #111827;
+}
+
+.template-2 .resume-photo-wrapper {
+    display: none;
+}
+
+.template-2 .resume-header {
+    border-bottom:
+        3px solid
+        #111827;
+}
+
+.template-2 .resume-identity h1 {
+    font-size: 32px;
+}
+
+.template-2 .resume-block h2 {
+    color: #111827;
+}
+
+
+/* =========================================================
+   TEMPLATE 3
+   TECHNICAL + SOFT + PHOTO
+========================================================= */
+
+.template-3 {
+    --resume-accent: #047857;
+}
+
+.template-3 .resume-photo-wrapper {
+    display: block;
+
+    border:
+        3px solid
+        #047857;
+
+    border-radius: 50%;
+
+    width: 34mm;
+    height: 34mm;
+}
+
+.template-3 .resume-photo-wrapper img {
+    border-radius: 50%;
+}
+
+.template-3 .resume-header {
+    border-bottom:
+        2px solid
+        #047857;
+}
+
+.template-3 .resume-block h2 {
+    color: #047857;
+}
+
+
+/* =========================================================
+   TEMPLATE 4
+   TECHNICAL + SOFT, NO PHOTO
+========================================================= */
+
+.template-4 {
+    --resume-accent: #7c3aed;
+}
+
+.template-4 .resume-photo-wrapper {
+    display: none;
+}
+
+.template-4 .resume-header {
+    border-bottom:
+        2px solid
+        #7c3aed;
+}
+
+.template-4 .resume-block h2 {
+    color: #7c3aed;
+}
+
+
+/* =========================================================
+   SPECIAL SKILL VISIBILITY
+========================================================= */
+
+.resume-paper .resume-special-block {
+    display: none;
+}
+
+.template-3 .resume-special-block,
+.template-4 .resume-special-block {
+    display: block;
+}
+
+.template-3 #resume-skills-block,
+.template-4 #resume-skills-block {
+    display: none;
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 210mm;
+        min-height: 297mm;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        background: #fff !important;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    #resume-print-window,
+    #resume-print-window * {
+        visibility: visible !important;
+    }
+
+    #resume-print-window {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 210mm;
+        min-height: 297mm;
+    }
+
+    .resume-paper {
+        width: 210mm !important;
+        min-height: 297mm !important;
+
+        margin: 0 !important;
+
+        box-shadow: none !important;
+    }
+
+    .resume-paper-inner {
+        min-height: 297mm !important;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE EDITOR
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .resume-editor-layout {
+        grid-template-columns:
+            330px 1fr;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .resume-modal {
+        padding: 0;
+    }
+
+    .resume-modal-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .resume-editor-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-controls {
+        max-height: 48vh;
+
+        border-right: 0;
+        border-bottom:
+            1px solid
+            rgba(255,255,255,.07);
+    }
+
+    .resume-preview-area {
+        min-height: 52vh;
+    }
+
+    .resume-paper {
+        transform-origin: top left;
+
+        margin-left: 0;
+
+        transform:
+            scale(.55);
+
+        margin-bottom:
+            -130mm;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .control-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .template-selector {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}

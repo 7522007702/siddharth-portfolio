@@ -10,70 +10,220 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Power BI Dashboard | Siddharth Mishra</title>
-
-    <link
-        rel="icon"
-        href="../assets/favicon.svg"
+    <meta
+        name="description"
+        content="Siddharth.dev — Power BI Dashboard project."
     >
+
+    <title>Power BI Dashboard | Siddharth.dev</title>
 
     <link
         rel="stylesheet"
         href="../css/style.css"
     >
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <style>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
+        .project-page {
+            min-height: 100vh;
+            padding: 140px 0 100px;
+        }
+
+        .project-header {
+            max-width: 900px;
+            margin-bottom: 55px;
+        }
+
+        .project-header h1 {
+            margin: 10px 0 20px;
+            font-size: clamp(48px,7vw,90px);
+            line-height: .95;
+            letter-spacing: -.07em;
+        }
+
+        .project-header h1 span {
+            color: var(--accent-2);
+        }
+
+        .project-header p {
+            color: var(--text-soft);
+        }
+
+        .bi-dashboard {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: rgba(5,10,17,.9);
+            box-shadow: var(--shadow);
+        }
+
+        .bi-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bi-top strong {
+            font-family: var(--font-code);
+            font-size: 11px;
+        }
+
+        .bi-top span {
+            color: var(--accent-2);
+            font-family: var(--font-code);
+            font-size: 9px;
+        }
+
+        .bi-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+            padding: 20px;
+        }
+
+        .bi-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .bi-card.large {
+            grid-column: span 2;
+        }
+
+        .bi-card h3 {
+            margin: 0 0 15px;
+            font-size: 13px;
+        }
+
+        .bi-number {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .bi-label {
+            color: var(--text-muted);
+            font-family: var(--font-code);
+            font-size: 8px;
+        }
+
+        .line-chart {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,.025) 0 1px,
+                    transparent 1px 45px
+                );
+        }
+
+        .line-chart svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .donut {
+            width: 135px;
+            aspect-ratio: 1;
+            margin: 10px auto;
+            border-radius: 50%;
+            background:
+                conic-gradient(
+                    var(--accent-2) 0 42%,
+                    var(--accent) 42% 73%,
+                    var(--accent-3) 73% 100%
+                );
+            display: grid;
+            place-items: center;
+        }
+
+        .donut::after {
+            content: "100%";
+            width: 80px;
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #080d15;
+            color: #fff;
+            font-family: var(--font-code);
+            font-size: 11px;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .info {
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255,255,255,.02);
+        }
+
+        .info p,
+        .info li {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+
+            .bi-content {
+                grid-template-columns: 1fr;
+            }
+
+            .bi-card.large {
+                grid-column: span 1;
+            }
+
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
 
 </head>
 
-
 <body>
 
-<div class="background-system">
-
-    <div class="grid-background"></div>
-
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-
+<div class="programming-background">
+    <canvas id="background-canvas"></canvas>
+    <div class="bg-vignette"></div>
+    <div class="bg-scanlines"></div>
 </div>
 
 
-<header class="site-header scrolled">
+<header class="site-header">
 
-    <div class="container nav-container">
+    <div class="container header-inner">
 
         <a
-            href="../index.html"
             class="brand"
+            href="../index.html"
         >
-
-            <span class="brand-bracket">&lt;</span>
-            <span class="brand-name">SIDDHARTH</span>
-            <span class="brand-dot">.</span>
-            <span class="brand-dev">DEV</span>
-            <span class="brand-bracket">/&gt;</span>
-
+            <span class="brand-symbol">&lt;/&gt;</span>
+            <span class="brand-text">
+                siddharth<span>.dev</span>
+            </span>
         </a>
-
 
         <a
             href="../index.html#projects"
-            class="header-cta"
+            class="button button-secondary"
         >
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-            Back to Projects
-
+            ← Back to Projects
         </a>
 
     </div>
@@ -81,225 +231,169 @@
 </header>
 
 
-<main>
-
-<section
-    class="section"
-    style="padding-top:180px"
->
+<main class="project-page">
 
     <div class="container">
 
-        <p class="eyebrow">
-            <span>CASE STUDY 02</span>
-            BUSINESS INTELLIGENCE
-        </p>
+        <header class="project-header">
+
+            <p class="section-label">
+                PROJECT / 02
+            </p>
+
+            <h1>
+                Power BI
+                <span>Dashboard.</span>
+            </h1>
+
+            <p>
+                An analytics-focused dashboard concept designed to
+                transform business data into visual KPIs, trends and
+                decision-support information.
+            </p>
+
+        </header>
 
 
-        <h1
-            style="
-                margin-top:20px;
-                font-family:var(--font-display);
-                font-size:clamp(3rem,8vw,7rem);
-                line-height:.9;
-                letter-spacing:-.06em;
-            "
-        >
+        <section class="bi-dashboard">
 
-            Power BI
-            <span class="gradient-text">
-                Dashboard.
-            </span>
-
-        </h1>
-
-
-        <p
-            style="
-                max-width:750px;
-                margin-top:30px;
-                color:var(--text-soft);
-                line-height:1.9;
-            "
-        >
-
-            An interactive business intelligence dashboard concept
-            focused on KPI visibility, visual storytelling,
-            trends and data-driven decision making.
-
-        </p>
-
-
-        <div
-            class="powerbi-preview"
-            style="
-                margin-top:60px;
-                height:500px;
-                border:1px solid var(--line);
-                border-radius:20px;
-            "
-        >
-
-            <div class="powerbi-header">
-                POWER BI • BUSINESS INTELLIGENCE
+            <div class="bi-top">
+                <strong>BUSINESS_INTELLIGENCE / EXECUTIVE_VIEW</strong>
+                <span>● ANALYTICS ONLINE</span>
             </div>
 
 
-            <div class="powerbi-body">
+            <div class="bi-content">
 
-                <div class="pie-chart"></div>
+                <article class="bi-card">
+
+                    <span class="bi-label">
+                        REVENUE
+                    </span>
+
+                    <div class="bi-number">
+                        ₹12.8L
+                    </div>
+
+                    <span class="bi-label">
+                        +14.2% VS PREVIOUS PERIOD
+                    </span>
+
+                </article>
 
 
-                <div class="power-bars">
+                <article class="bi-card">
 
-                    <span style="height:35%"></span>
-                    <span style="height:65%"></span>
-                    <span style="height:48%"></span>
-                    <span style="height:82%"></span>
-                    <span style="height:58%"></span>
-                    <span style="height:92%"></span>
+                    <span class="bi-label">
+                        CUSTOMERS
+                    </span>
 
-                </div>
+                    <div class="bi-number">
+                        4,832
+                    </div>
+
+                    <span class="bi-label">
+                        ACTIVE DATASET
+                    </span>
+
+                </article>
+
+
+                <article class="bi-card">
+
+                    <span class="bi-label">
+                        CONVERSION
+                    </span>
+
+                    <div class="bi-number">
+                        8.7%
+                    </div>
+
+                    <span class="bi-label">
+                        TARGET 10%
+                    </span>
+
+                </article>
+
+
+                <article class="bi-card large">
+
+                    <h3>Revenue Trend</h3>
+
+                    <div class="line-chart">
+
+                        <svg
+                            viewBox="0 0 600 180"
+                            preserveAspectRatio="none"
+                        >
+
+                            <polyline
+                                points="0,150 80,135 150,142 220,110 300,120 370,75 450,90 520,45 600,25"
+                                fill="none"
+                                stroke="rgba(102,247,212,.85)"
+                                stroke-width="4"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                </article>
+
+
+                <article class="bi-card">
+
+                    <h3>Category Mix</h3>
+
+                    <div class="donut"></div>
+
+                    <span class="bi-label">
+                        PRODUCT DISTRIBUTION
+                    </span>
+
+                </article>
 
             </div>
 
-        </div>
+        </section>
 
 
-        <div
-            class="services-grid"
-            style="margin-top:50px"
-        >
+        <section class="project-info">
 
-            <div class="service-card">
+            <article class="info">
 
-                <i class="fa-solid fa-database"></i>
+                <h2>Technology</h2>
 
-                <h3>Data Model</h3>
+                <ul>
+                    <li>Microsoft Power BI</li>
+                    <li>Data modelling</li>
+                    <li>DAX concepts</li>
+                    <li>SQL</li>
+                    <li>Business analytics</li>
+                </ul>
+
+            </article>
+
+
+            <article class="info">
+
+                <h2>Objective</h2>
 
                 <p>
-                    Designed a logical structure for connecting
-                    and analyzing business data.
+                    Present complex business information in a visual,
+                    understandable and decision-oriented format.
                 </p>
 
-            </div>
+            </article>
 
-
-            <div class="service-card">
-
-                <i class="fa-solid fa-calculator"></i>
-
-                <h3>DAX</h3>
-
-                <p>
-                    KPI-oriented calculation concepts for
-                    business performance analysis.
-                </p>
-
-            </div>
-
-
-            <div class="service-card">
-
-                <i class="fa-solid fa-chart-pie"></i>
-
-                <h3>Visualization</h3>
-
-                <p>
-                    Charts and visual elements designed to
-                    communicate trends clearly.
-                </p>
-
-            </div>
-
-
-            <div class="service-card">
-
-                <i class="fa-solid fa-gauge-high"></i>
-
-                <h3>KPI Dashboard</h3>
-
-                <p>
-                    Focused overview of important business
-                    performance indicators.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="code-showcase"
-            style="margin-top:50px"
-        >
-
-            <div class="code-showcase-header">
-
-                <div class="terminal-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                measure.dax
-
-            </div>
-
-
-            <div class="code-showcase-body">
-
-<pre><code>Total Revenue =
-<span class="code-blue">SUM</span>(
-    Sales[Revenue]
-)
-
-Average Order Value =
-<span class="code-blue">DIVIDE</span>(
-    [Total Revenue],
-    <span class="code-blue">COUNT</span>(Sales[OrderID])
-)</code></pre>
-
-            </div>
-
-        </div>
+        </section>
 
     </div>
-
-</section>
 
 </main>
 
 
-<footer class="site-footer">
-
-    <div class="container">
-
-        <div class="footer-bottom">
-
-            <span>
-                ©
-                <span id="year"></span>
-                Siddharth Mishra
-            </span>
-
-            <a href="../index.html">
-                Back to Portfolio
-            </a>
-
-        </div>
-
-    </div>
-
-</footer>
-
-
-<script>
-
-document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-</script>
+<script src="../js/background.js"></script>
 
 </body>
 </html>
