@@ -1,7 +1,7 @@
 /* =========================================================
    SIDDHARTH.DEV
    VVIP PORTFOLIO SYSTEM
-   MAIN JAVASCRIPT
+   COMPLETE JAVASCRIPT
 ========================================================= */
 
 "use strict";
@@ -17,124 +17,21 @@ const $ = (selector, parent = document) =>
 const $$ = (selector, parent = document) =>
     [...parent.querySelectorAll(selector)];
 
+const random = (min, max) =>
+    Math.random() * (max - min) + min;
 
-const clamp = (value, min, max) =>
-    Math.min(Math.max(value, min), max);
-
-
-const escapeHTML = (value) => {
-
-    const div = document.createElement("div");
-
-    div.textContent = value ?? "";
-
-    return div.innerHTML;
-};
-
-
-/* =========================================================
-   DOM READY
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initYear();
-    initHeader();
-    initMobileNavigation();
-    initTyping();
-    initCursor();
-    initParallax();
-    initRevealAnimations();
-    initCounters();
-    initSkills();
-    initCertificates();
-    initContactForm();
-    initResumeSystem();
-
-});
+const randomInt = (min, max) =>
+    Math.floor(random(min, max + 1));
 
 
 /* =========================================================
    YEAR
 ========================================================= */
 
-function initYear() {
+const currentYear = $("#currentYear");
 
-    const year = $("#currentYear");
-
-    if (year) {
-        year.textContent =
-            new Date().getFullYear();
-    }
-
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-function initHeader() {
-
-    const header = $("#siteHeader");
-
-    if (!header) return;
-
-    const updateHeader = () => {
-
-        if (window.scrollY > 30) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-    };
-
-    updateHeader();
-
-    window.addEventListener(
-        "scroll",
-        updateHeader,
-        { passive: true }
-    );
-
-
-    const sections = $$("main section[id]");
-
-    const links = $$(".nav-link");
-
-    const observer = new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (!entry.isIntersecting) return;
-
-                const id = entry.target.id;
-
-                links.forEach(link => {
-
-                    link.classList.toggle(
-                        "active",
-                        link.getAttribute("href") === `#${id}`
-                    );
-
-                });
-
-            });
-
-        },
-        {
-            rootMargin:
-                "-35% 0px -55% 0px"
-        }
-    );
-
-
-    sections.forEach(section =>
-        observer.observe(section)
-    );
-
+if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
 }
 
 
@@ -142,1226 +39,880 @@ function initHeader() {
    MOBILE NAVIGATION
 ========================================================= */
 
-function initMobileNavigation() {
+const mobileMenuButton = $("#mobileMenuButton");
+const mainNavigation = $("#mainNavigation");
 
-    const toggle = $("#menuToggle");
-    const nav = $("#mainNav");
+if (mobileMenuButton && mainNavigation) {
 
-    if (!toggle || !nav) return;
+    mobileMenuButton.addEventListener("click", () => {
 
-    toggle.addEventListener(
-        "click",
-        () => {
+        const opened =
+            mainNavigation.classList.toggle("open");
 
-            const open =
-                nav.classList.toggle("open");
-
-            toggle.setAttribute(
-                "aria-expanded",
-                String(open)
-            );
-
-        }
-    );
-
-
-    $$(".nav-link", nav).forEach(link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                nav.classList.remove("open");
-
-                toggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
+        mobileMenuButton.setAttribute(
+            "aria-expanded",
+            String(opened)
         );
 
     });
 
+}
 
-    document.addEventListener(
-        "click",
-        event => {
 
-            if (
-                !nav.contains(event.target) &&
-                !toggle.contains(event.target)
-            ) {
-                nav.classList.remove("open");
+$$(".nav-link").forEach(link => {
 
-                toggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-            }
+    link.addEventListener("click", () => {
 
+        mainNavigation?.classList.remove("open");
+
+        mobileMenuButton?.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+const sections =
+    $$("main section[id]");
+
+const navLinks =
+    $$(".nav-link");
+
+const sectionObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                });
+
+                const active =
+                    $(`.nav-link[href="#${entry.target.id}"]`);
+
+                active?.classList.add("active");
+
+            });
+
+        },
+        {
+            threshold: 0.3
         }
     );
 
-}
+sections.forEach(section =>
+    sectionObserver.observe(section)
+);
 
 
 /* =========================================================
-   TYPING ENGINE
+   TYPING ANIMATION
 ========================================================= */
 
-function initTyping() {
+const typingText = $("#typingText");
 
-    const element = $("#typingText");
+const typingWords = [
+    "creating useful digital experiences",
+    "solving practical problems",
+    "learning new technologies",
+    "building with code",
+    "turning ideas into projects",
+    "exploring data and technology"
+];
 
-    if (!element) return;
+let typingWordIndex = 0;
+let typingCharIndex = 0;
+let deleting = false;
 
-    const words = [
-        "Developer",
-        "Builder",
-        "Problem Solver",
-        "Digital Creator",
-        "Continuous Learner"
-    ];
+function typeWriter() {
 
-    let wordIndex = 0;
-    let charIndex = 0;
-
-    let deleting = false;
-
-    const type = () => {
-
-        const current =
-            words[wordIndex];
-
-        if (!deleting) {
-
-            charIndex++;
-
-            element.textContent =
-                current.slice(0, charIndex);
-
-            if (charIndex >= current.length) {
-
-                deleting = true;
-
-                setTimeout(
-                    type,
-                    1450
-                );
-
-                return;
-            }
-
-        } else {
-
-            charIndex--;
-
-            element.textContent =
-                current.slice(0, charIndex);
-
-            if (charIndex <= 0) {
-
-                deleting = false;
-
-                wordIndex =
-                    (wordIndex + 1) %
-                    words.length;
-
-            }
-
-        }
-
-        setTimeout(
-            type,
-            deleting ? 48 : 90
-        );
-
-    };
-
-    type();
-
-}
-
-
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
-
-function initCursor() {
-
-    const dot = $(".cursor-dot");
-    const ring = $(".cursor-ring");
-
-    if (!dot || !ring) return;
-
-
-    const isTouch =
-        window.matchMedia(
-            "(hover: none), (pointer: coarse)"
-        ).matches;
-
-    if (isTouch) {
-
-        dot.style.display = "none";
-        ring.style.display = "none";
-
+    if (!typingText) {
         return;
     }
 
+    const word =
+        typingWords[typingWordIndex];
 
-    document.addEventListener(
-        "mousemove",
-        event => {
+    if (!deleting) {
 
-            dot.style.left =
-                `${event.clientX}px`;
-
-            dot.style.top =
-                `${event.clientY}px`;
-
-            ring.animate(
-                {
-                    left: `${event.clientX}px`,
-                    top: `${event.clientY}px`
-                },
-                {
-                    duration: 500,
-                    fill: "forwards"
-                }
+        typingText.textContent =
+            word.substring(
+                0,
+                typingCharIndex + 1
             );
 
+        typingCharIndex++;
+
+        if (typingCharIndex === word.length) {
+
+            deleting = true;
+
+            setTimeout(
+                typeWriter,
+                1500
+            );
+
+            return;
+        }
+
+    } else {
+
+        typingText.textContent =
+            word.substring(
+                0,
+                typingCharIndex - 1
+            );
+
+        typingCharIndex--;
+
+        if (typingCharIndex === 0) {
+
+            deleting = false;
+
+            typingWordIndex =
+                (typingWordIndex + 1) %
+                typingWords.length;
+
+        }
+
+    }
+
+    setTimeout(
+        typeWriter,
+        deleting ? 38 : 65
+    );
+}
+
+typeWriter();
+
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (
+                    entry.isIntersecting
+                ) {
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12
         }
     );
 
-
-    $$("a, button, input, textarea, .template-card")
-        .forEach(element => {
-
-            element.addEventListener(
-                "mouseenter",
-                () => {
-                    ring.classList.add("cursor-hover");
-                }
-            );
-
-            element.addEventListener(
-                "mouseleave",
-                () => {
-                    ring.classList.remove("cursor-hover");
-                }
-            );
-
-        });
-
-}
+$$(".reveal").forEach(element =>
+    revealObserver.observe(element)
+);
 
 
 /* =========================================================
-   PARALLAX
+   CYBERPUNK CITY GENERATOR
 ========================================================= */
 
-function initParallax() {
+const farBuildings = $("#farBuildings");
+const midBuildings = $("#midBuildings");
+const nearBuildings = $("#nearBuildings");
 
-    const body = document.body;
+function createBuilding(layer, minHeight, maxHeight) {
 
-    let targetX = 0;
-    let targetY = 0;
+    if (!layer) {
+        return;
+    }
 
-    let currentX = 0;
-    let currentY = 0;
+    const building =
+        document.createElement("div");
 
+    building.className =
+        "city-building";
 
-    window.addEventListener(
-        "mousemove",
-        event => {
+    building.style.height =
+        `${randomInt(minHeight, maxHeight)}%`;
 
-            const x =
-                event.clientX /
-                window.innerWidth;
+    const antenna =
+        document.createElement("span");
 
-            const y =
-                event.clientY /
-                window.innerHeight;
+    antenna.className =
+        "building-antenna";
 
-            targetX =
-                (x - 0.5) * 2;
+    if (Math.random() > 0.6) {
+        building.appendChild(antenna);
+    }
 
-            targetY =
-                (y - 0.5) * 2;
-
-        },
-        { passive: true }
-    );
-
-
-    const animate = () => {
-
-        currentX +=
-            (targetX - currentX) * 0.035;
-
-        currentY +=
-            (targetY - currentY) * 0.035;
-
-
-        body.style.setProperty(
-            "--mouse-x",
-            `${currentX * 100}`
-        );
-
-        body.style.setProperty(
-            "--mouse-y",
-            `${currentY * 100}`
-        );
-
-
-        requestAnimationFrame(animate);
-
-    };
-
-
-    animate();
-
+    layer.appendChild(building);
 }
 
 
+function generateBuildings() {
+
+    const width =
+        window.innerWidth;
+
+    const count =
+        Math.ceil(width / 60);
+
+    farBuildings.innerHTML = "";
+    midBuildings.innerHTML = "";
+    nearBuildings.innerHTML = "";
+
+    for (let i = 0; i < count; i++) {
+
+        createBuilding(
+            farBuildings,
+            20,
+            65
+        );
+
+        createBuilding(
+            midBuildings,
+            25,
+            78
+        );
+
+        createBuilding(
+            nearBuildings,
+            30,
+            88
+        );
+
+    }
+
+}
+
+generateBuildings();
+
+
+let buildingResizeTimer;
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        clearTimeout(buildingResizeTimer);
+
+        buildingResizeTimer =
+            setTimeout(
+                generateBuildings,
+                250
+            );
+
+    }
+);
+
+
 /* =========================================================
-   REVEAL ANIMATIONS
+   NEON SIGNS
 ========================================================= */
 
-function initRevealAnimations() {
+const neonSigns = $("#neonSigns");
 
-    const items =
-        $$(".reveal");
+const signWords = [
+    "CODE",
+    "DATA",
+    "AI",
+    "DEV",
+    "BUILD",
+    "SQL",
+    "WEB",
+    "NEXUS",
+    "DIGITAL",
+    "SYSTEM",
+    "TECH",
+    "01",
+    "1010",
+    "∞"
+];
 
-    if (!items.length) return;
+function generateNeonSigns() {
+
+    if (!neonSigns) {
+        return;
+    }
+
+    neonSigns.innerHTML = "";
+
+    const total =
+        Math.max(
+            7,
+            Math.floor(window.innerWidth / 170)
+        );
+
+    for (let i = 0; i < total; i++) {
+
+        const sign =
+            document.createElement("div");
+
+        sign.className =
+            "neon-sign";
+
+        const type =
+            randomInt(0, 2);
+
+        if (type === 1) {
+            sign.classList.add("pink");
+        }
+
+        if (type === 2) {
+            sign.classList.add("purple");
+        }
+
+        sign.textContent =
+            signWords[
+                randomInt(
+                    0,
+                    signWords.length - 1
+                )
+            ];
+
+        sign.style.left =
+            `${random(4, 96)}%`;
+
+        sign.style.top =
+            `${random(28, 67)}%`;
+
+        sign.style.animationDelay =
+            `${random(0, 4)}s`;
+
+        neonSigns.appendChild(sign);
+
+    }
+
+}
+
+generateNeonSigns();
 
 
-    const observer =
-        new IntersectionObserver(
-            entries => {
+/* =========================================================
+   MOVING VEHICLES
+========================================================= */
 
-                entries.forEach(
-                    entry => {
+const movingVehicles =
+    $("#movingVehicles");
 
-                        if (
-                            !entry.isIntersecting
-                        ) {
-                            return;
-                        }
+function generateVehicles() {
 
-                        entry.target
-                            .classList
-                            .add("visible");
+    if (!movingVehicles) {
+        return;
+    }
 
-                        observer.unobserve(
-                            entry.target
-                        );
+    movingVehicles.innerHTML = "";
 
-                    }
-                );
+    for (let i = 0; i < 7; i++) {
 
-            },
-            {
-                threshold: 0.12
+        const vehicle =
+            document.createElement("div");
+
+        vehicle.className =
+            "vehicle";
+
+        if (i % 2 === 1) {
+            vehicle.classList.add("reverse");
+        }
+
+        vehicle.style.left =
+            `${random(-20, 90)}%`;
+
+        vehicle.style.top =
+            `${random(72, 91)}%`;
+
+        vehicle.style.animationDuration =
+            `${random(6, 13)}s`;
+
+        vehicle.style.animationDelay =
+            `${random(-12, 0)}s`;
+
+        movingVehicles.appendChild(vehicle);
+
+    }
+
+}
+
+generateVehicles();
+
+
+/* =========================================================
+   RAIN GENERATOR
+========================================================= */
+
+const rainLayer = $("#rainLayer");
+
+function generateRain() {
+
+    if (!rainLayer) {
+        return;
+    }
+
+    rainLayer.innerHTML = "";
+
+    const mobile =
+        window.innerWidth < 700;
+
+    const amount =
+        mobile ? 95 : 180;
+
+    const fragment =
+        document.createDocumentFragment();
+
+    for (let i = 0; i < amount; i++) {
+
+        const drop =
+            document.createElement("span");
+
+        drop.className =
+            "rain-drop";
+
+        drop.style.left =
+            `${random(0, 100)}%`;
+
+        drop.style.top =
+            `${random(-20, 100)}%`;
+
+        drop.style.height =
+            `${random(35, 90)}px`;
+
+        drop.style.opacity =
+            random(0.12, 0.6);
+
+        drop.style.animationDuration =
+            `${random(0.45, 1.25)}s`;
+
+        drop.style.animationDelay =
+            `${random(-2, 0)}s`;
+
+        fragment.appendChild(drop);
+
+    }
+
+    rainLayer.appendChild(fragment);
+
+}
+
+generateRain();
+
+
+/* =========================================================
+   CITY PARTICLES
+========================================================= */
+
+const particlesLayer =
+    $("#particlesLayer");
+
+function generateParticles() {
+
+    if (!particlesLayer) {
+        return;
+    }
+
+    particlesLayer.innerHTML = "";
+
+    const amount =
+        window.innerWidth < 700
+            ? 25
+            : 55;
+
+    const fragment =
+        document.createDocumentFragment();
+
+    for (let i = 0; i < amount; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.className =
+            "city-particle";
+
+        particle.style.left =
+            `${random(0, 100)}%`;
+
+        particle.style.top =
+            `${random(40, 100)}%`;
+
+        particle.style.animationDuration =
+            `${random(7, 18)}s`;
+
+        particle.style.animationDelay =
+            `${random(-15, 0)}s`;
+
+        particle.style.opacity =
+            random(0.1, 0.6);
+
+        fragment.appendChild(particle);
+
+    }
+
+    particlesLayer.appendChild(fragment);
+
+}
+
+generateParticles();
+
+
+/* =========================================================
+   PARALLAX CITY
+========================================================= */
+
+const cityBackground =
+    $("#city-background");
+
+let parallaxX = 0;
+let parallaxY = 0;
+
+window.addEventListener(
+    "pointermove",
+    event => {
+
+        const x =
+            event.clientX /
+            window.innerWidth;
+
+        const y =
+            event.clientY /
+            window.innerHeight;
+
+        parallaxX =
+            (x - 0.5) * 2;
+
+        parallaxY =
+            (y - 0.5) * 2;
+
+        if (cityBackground) {
+
+            cityBackground.style.transform =
+                `translate3d(
+                    ${parallaxX * -5}px,
+                    ${parallaxY * -3}px,
+                    0
+                )`;
+
+        }
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* =========================================================
+   RESUME DATA
+========================================================= */
+
+const resumeData = {
+
+    name:
+        "Siddharth Mishra",
+
+    title:
+        "Developer • Builder • Learner",
+
+    email:
+        "",
+
+    phone:
+        "",
+
+    location:
+        "Lucknow, Uttar Pradesh, India",
+
+    about:
+        "BBA student, problem solver and digital builder interested in programming, analytics, business and practical technology.",
+
+    technicalSkills:
+        "HTML5, CSS3, JavaScript, Python, SQL, Power BI, Git, GitHub",
+
+    softSkills:
+        "Problem Solving, Communication, Teamwork, Continuous Learning, Adaptability",
+
+    experience:
+        "4 Years — Retail Sales & Operations Executive",
+
+    education:
+        "BBA — Ambalika Management and Technology Institute",
+
+    photo:
+        "assets/profile.jpg"
+
+};
+
+
+/* =========================================================
+   RESUME DOM
+========================================================= */
+
+const resumePreview =
+    $("#resumePreview");
+
+const resumeName =
+    $("#resumeName");
+
+const resumeTitle =
+    $("#resumeTitle");
+
+const resumeEmail =
+    $("#resumeEmail");
+
+const resumePhone =
+    $("#resumePhone");
+
+const resumeLocation =
+    $("#resumeLocation");
+
+const resumeAbout =
+    $("#resumeAbout");
+
+const resumeTechnicalSkills =
+    $("#resumeTechnicalSkills");
+
+const resumeSoftSkills =
+    $("#resumeSoftSkills");
+
+const resumeExperience =
+    $("#resumeExperience");
+
+const resumeEducation =
+    $("#resumeEducation");
+
+const resumePhoto =
+    $("#resumePhoto");
+
+const resumePreviewPhoto =
+    $("#resumePreviewPhoto");
+
+
+/* =========================================================
+   UPDATE RESUME PREVIEW
+========================================================= */
+
+function updateResumePreview() {
+
+    if (!resumePreview) {
+        return;
+    }
+
+    const setText =
+        (selector, value) => {
+
+            const element =
+                $(selector);
+
+            if (element) {
+                element.textContent =
+                    value || "";
             }
-        );
-
-
-    items.forEach(
-        item =>
-            observer.observe(item)
-    );
-
-}
-
-
-/* =========================================================
-   COUNTERS
-========================================================= */
-
-function initCounters() {
-
-    const counters =
-        $$("[data-counter]");
-
-    if (!counters.length) return;
-
-
-    const animateCounter =
-        element => {
-
-            const target =
-                Number(
-                    element.dataset.counter
-                );
-
-            let value = 0;
-
-            const duration = 1100;
-
-            const start =
-                performance.now();
-
-
-            const frame =
-                now => {
-
-                    const progress =
-                        clamp(
-                            (now - start) /
-                            duration,
-                            0,
-                            1
-                        );
-
-                    const eased =
-                        1 -
-                        Math.pow(
-                            1 - progress,
-                            3
-                        );
-
-                    value =
-                        Math.round(
-                            target * eased
-                        );
-
-                    element.textContent =
-                        value;
-
-                    if (progress < 1) {
-                        requestAnimationFrame(
-                            frame
-                        );
-                    }
-
-                };
-
-
-            requestAnimationFrame(frame);
 
         };
 
+    setText(
+        "[data-resume-name]",
+        resumeName?.value
+    );
 
-    const observer =
-        new IntersectionObserver(
-            entries => {
+    setText(
+        "[data-resume-title]",
+        resumeTitle?.value
+    );
 
-                entries.forEach(entry => {
+    setText(
+        "[data-resume-email]",
+        resumeEmail?.value || "Email"
+    );
 
-                    if (
-                        !entry.isIntersecting
-                    ) return;
+    setText(
+        "[data-resume-phone]",
+        resumePhone?.value || "Phone"
+    );
 
-                    animateCounter(
-                        entry.target
-                    );
+    setText(
+        "[data-resume-location]",
+        resumeLocation?.value
+    );
 
-                    observer.unobserve(
-                        entry.target
-                    );
+    setText(
+        "[data-resume-about]",
+        resumeAbout?.value
+    );
 
-                });
+    setText(
+        "[data-resume-technical-skills]",
+        resumeTechnicalSkills?.value
+    );
 
-            },
-            {
-                threshold: 0.7
-            }
-        );
+    setText(
+        "[data-resume-soft-skills]",
+        resumeSoftSkills?.value
+    );
 
+    setText(
+        "[data-resume-experience]",
+        resumeExperience?.value
+    );
 
-    counters.forEach(counter =>
-        observer.observe(counter)
+    setText(
+        "[data-resume-education]",
+        resumeEducation?.value
     );
 
 }
 
 
-/* =========================================================
-   SKILLS
-========================================================= */
+[
+    resumeName,
+    resumeTitle,
+    resumeEmail,
+    resumePhone,
+    resumeLocation,
+    resumeAbout,
+    resumeTechnicalSkills,
+    resumeSoftSkills,
+    resumeExperience,
+    resumeEducation
+].forEach(input => {
 
-function initSkills() {
-
-    const bars =
-        $$(".skill-bar i");
-
-    if (!bars.length) return;
-
-
-    const observer =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (
-                        !entry.isIntersecting
-                    ) return;
-
-                    const bar =
-                        entry.target;
-
-                    const width =
-                        getComputedStyle(
-                            bar
-                        ).getPropertyValue(
-                            "--skill"
-                        );
-
-                    bar.style.width =
-                        "0%";
-
-                    requestAnimationFrame(
-                        () => {
-
-                            setTimeout(
-                                () => {
-                                    bar.style.width =
-                                        width;
-                                },
-                                100
-                            );
-
-                        }
-                    );
-
-                    observer.unobserve(
-                        bar
-                    );
-
-                });
-
-            },
-            {
-                threshold: 0.25
-            }
-        );
-
-
-    bars.forEach(
-        bar =>
-            observer.observe(bar)
+    input?.addEventListener(
+        "input",
+        updateResumePreview
     );
 
-}
+});
+
+
+updateResumePreview();
 
 
 /* =========================================================
-   CERTIFICATE UPLOAD
+   RESUME PHOTO
 ========================================================= */
 
-function initCertificates() {
+resumePhoto?.addEventListener(
+    "change",
+    event => {
 
-    const input =
-        $("#certificateUpload");
+        const file =
+            event.target.files?.[0];
 
-    const grid =
-        $("#certificateGrid");
-
-    if (!input || !grid) return;
-
-
-    input.addEventListener(
-        "change",
-        event => {
-
-            const files =
-                [...event.target.files];
-
-            files.forEach(file => {
-
-                if (
-                    !file.type.startsWith(
-                        "image/"
-                    )
-                ) return;
-
-
-                const reader =
-                    new FileReader();
-
-
-                reader.onload =
-                    loadEvent => {
-
-                        const item =
-                            document.createElement(
-                                "div"
-                            );
-
-                        item.className =
-                            "certificate-item";
-
-
-                        const img =
-                            document.createElement(
-                                "img"
-                            );
-
-                        img.src =
-                            loadEvent.target.result;
-
-                        img.alt =
-                            file.name;
-
-
-                        item.appendChild(img);
-
-                        grid.appendChild(item);
-
-                    };
-
-
-                reader.readAsDataURL(file);
-
-            });
-
-
-            if (files.length) {
-
-                showToast(
-                    `${files.length} certificate image${files.length > 1 ? "s" : ""} added`
-                );
-
-            }
-
+        if (!file) {
+            return;
         }
-    );
 
-}
-
-
-/* =========================================================
-   CONTACT FORM
-========================================================= */
-
-function initContactForm() {
-
-    const form =
-        $("#contactForm");
-
-    if (!form) return;
-
-
-    form.addEventListener(
-        "submit",
-        event => {
-
-            /*
-             * The form uses mailto as a fallback.
-             * We allow the browser to open the user's
-             * configured email client.
-             */
-
-            const button =
-                $("button[type='submit']", form);
-
-            if (button) {
-
-                button.disabled = true;
-
-                setTimeout(
-                    () => {
-                        button.disabled = false;
-                    },
-                    1500
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   RESUME SYSTEM
-========================================================= */
-
-function initResumeSystem() {
-
-    const modal =
-        $("#resumeModal");
-
-    const openButton =
-        $("#openResumeEditor");
-
-    const closeButton =
-        $("#closeResumeEditor");
-
-    const printButton =
-        $("#printResume");
-
-    const resetButton =
-        $("#resetResume");
-
-    const paper =
-        $("#resumePaper");
-
-    const templateCards =
-        $$(".template-card");
-
-    const templateLabel =
-        $("#activeTemplateLabel");
-
-    const photoInput =
-        $("#resumePhotoInput");
-
-    const removePhoto =
-        $("#removeResumePhoto");
-
-    const photoBox =
-        $("#resumePhotoBox");
-
-    const photo =
-        $("#resumePhoto");
-
-
-    if (
-        !modal ||
-        !openButton ||
-        !paper
-    ) {
-        return;
-    }
-
-
-    /* -------------------------------------------------------
-       DEFAULT DATA
-    ------------------------------------------------------- */
-
-    const defaultData = {
-
-        name:
-            "Siddharth Mishra",
-
-        title:
-            "Developer • Builder • Learner",
-
-        email:
-            "siddharthmishra8@gmail.com",
-
-        phone:
-            "+91 XXXXX XXXXX",
-
-        location:
-            "Lucknow, Uttar Pradesh, India",
-
-        linkedin:
-            "linkedin.com/in/siddharthmishra8",
-
-        github:
-            "github.com/7522007702",
-
-        summary:
-            "BBA student and technology enthusiast with practical experience in retail sales and operations. Interested in programming, web development, data analytics and digital products. Strong problem-solving mindset with a continuous-learning approach.",
-
-        technicalSkills:
-            "HTML5, CSS3, JavaScript, Python, SQL, Power BI, Git, GitHub, Flutter, Firebase, Data Analysis",
-
-        softSkills:
-            "Problem Solving, Communication, Teamwork, Adaptability, Customer Handling, Continuous Learning",
-
-        education:
-            "Bachelor of Business Administration\nAmbalika Management and Technology Institute\n\n12th — UP Board PCB\nO Level",
-
-        experience:
-            "Retail Sales & Operations Executive\n4 Years Experience\n\nSales, customer handling, operations, reporting and practical problem solving.",
-
-        projects:
-            "Univichar AI — AI education application\nPower BI Dashboard — Business analytics\nSQL Analysis — Data querying and analysis\nDigital Web Experiments — Front-end development"
-
-    };
-
-
-    let resumeData =
-        { ...defaultData };
-
-
-    let currentTemplate = 1;
-
-
-    /* -------------------------------------------------------
-       OPEN
-    ------------------------------------------------------- */
-
-    openButton.addEventListener(
-        "click",
-        () => {
-
-            modal.classList.add("open");
-
-            modal.setAttribute(
-                "aria-hidden",
-                "false"
+        if (!file.type.startsWith("image/")) {
+            showToast(
+                "Please select an image file."
             );
 
-            document.body.classList.add(
-                "modal-open"
-            );
-
-            syncPreview();
-
+            return;
         }
-    );
 
+        const reader =
+            new FileReader();
 
-    /* -------------------------------------------------------
-       CLOSE
-    ------------------------------------------------------- */
-
-    const closeEditor = () => {
-
-        modal.classList.remove("open");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        document.body.classList.remove(
-            "modal-open"
-        );
-
-    };
-
-
-    closeButton?.addEventListener(
-        "click",
-        closeEditor
-    );
-
-
-    $(".resume-modal-backdrop")
-        ?.addEventListener(
-            "click",
-            closeEditor
-        );
-
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape" &&
-                modal.classList.contains("open")
-            ) {
-                closeEditor();
-            }
-
-        }
-    );
-
-
-    /* -------------------------------------------------------
-       FORM FIELDS
-    ------------------------------------------------------- */
-
-    const fields =
-        $$("[data-resume-field]");
-
-
-    fields.forEach(field => {
-
-        const key =
-            field.dataset.resumeField;
-
-
-        field.addEventListener(
-            "input",
+        reader.onload =
             () => {
 
-                resumeData[key] =
-                    field.value;
+                resumePreviewPhoto.src =
+                    reader.result;
 
-                updatePreviewField(
-                    key,
-                    field.value
-                );
+                resumeData.photo =
+                    reader.result;
 
-            }
-        );
-
-    });
-
-
-    /* -------------------------------------------------------
-       UPDATE PREVIEW
-    ------------------------------------------------------- */
-
-    function updatePreviewField(
-        key,
-        value
-    ) {
-
-        $$(
-            `[data-preview="${key}"]`,
-            paper
-        ).forEach(
-            element => {
-
-                element.textContent =
-                    value;
-
-            }
-        );
-
-    }
-
-
-    function syncPreview() {
-
-        Object.entries(
-            resumeData
-        ).forEach(
-            ([key, value]) => {
-
-                updatePreviewField(
-                    key,
-                    value
-                );
-
-            }
-        );
-
-
-        applyTemplate(
-            currentTemplate,
-            false
-        );
-
-    }
-
-
-    /* -------------------------------------------------------
-       TEMPLATES
-    ------------------------------------------------------- */
-
-    templateCards.forEach(card => {
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                const template =
-                    Number(
-                        card.dataset.template
-                    );
-
-                currentTemplate =
-                    template;
-
-                templateCards.forEach(
-                    item => {
-
-                        item.classList.toggle(
-                            "selected",
-                            item === card
-                        );
-
-                    }
-                );
-
-
-                applyTemplate(
-                    template,
-                    true
-                );
-
-            }
-        );
-
-    });
-
-
-    function applyTemplate(
-        template,
-        showMessage = true
-    ) {
-
-        paper.classList.remove(
-            "template-1",
-            "template-2",
-            "template-3",
-            "template-4"
-        );
-
-        paper.classList.add(
-            `template-${template}`
-        );
-
-
-        if (templateLabel) {
-
-            templateLabel.textContent =
-                `TEMPLATE ${String(template).padStart(2, "0")}`;
-
-        }
-
-
-        /*
-         * Template 1 + 3 support photo.
-         * Template 2 + 4 intentionally hide it
-         * through CSS.
-         */
-
-        if (
-            template === 1 ||
-            template === 3
-        ) {
-
-            photoBox.style.display =
-                "block";
-
-        } else {
-
-            photoBox.style.display =
-                "none";
-
-        }
-
-
-        if (showMessage) {
-
-            const labels = {
-                1: "Original Professional template selected",
-                2: "Professional No Photo template selected",
-                3: "Technical Profile template selected",
-                4: "Technical No Photo template selected"
             };
 
-            showToast(
-                labels[template]
-            );
-
-        }
+        reader.readAsDataURL(file);
 
     }
-
-
-    /* -------------------------------------------------------
-       PHOTO UPLOAD
-    ------------------------------------------------------- */
-
-    photoInput?.addEventListener(
-        "change",
-        event => {
-
-            const file =
-                event.target.files?.[0];
-
-            if (!file) return;
-
-
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                showToast(
-                    "Please choose an image file"
-                );
-
-                return;
-            }
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                loadEvent => {
-
-                    photo.src =
-                        loadEvent.target.result;
-
-                    photoBox.dataset.customPhoto =
-                        "true";
-
-
-                    showToast(
-                        "Resume photo updated"
-                    );
-
-                };
-
-
-            reader.readAsDataURL(file);
-
-        }
-    );
-
-
-    /* -------------------------------------------------------
-       REMOVE PHOTO
-    ------------------------------------------------------- */
-
-    removePhoto?.addEventListener(
-        "click",
-        () => {
-
-            photo.src =
-                "assets/profile.jpg";
-
-            photoBox.dataset.customPhoto =
-                "false";
-
-            photoInput.value =
-                "";
-
-            showToast(
-                "Resume photo restored"
-            );
-
-        }
-    );
-
-
-    /* -------------------------------------------------------
-       PRINT
-    ------------------------------------------------------- */
-
-    printButton?.addEventListener(
-        "click",
-        () => {
-
-            syncPreview();
-
-            setTimeout(
-                () => {
-
-                    window.print();
-
-                },
-                120
-            );
-
-        }
-    );
-
-
-    /* -------------------------------------------------------
-       RESET
-    ------------------------------------------------------- */
-
-    resetButton?.addEventListener(
-        "click",
-        () => {
-
-            resumeData =
-                { ...defaultData };
-
-
-            fields.forEach(field => {
-
-                const key =
-                    field.dataset.resumeField;
-
-                field.value =
-                    resumeData[key];
-
-            });
-
-
-            currentTemplate = 1;
-
-
-            templateCards.forEach(
-                (card, index) => {
-
-                    card.classList.toggle(
-                        "selected",
-                        index === 0
-                    );
-
-                }
-            );
-
-
-            photo.src =
-                "assets/profile.jpg";
-
-            photoInput.value =
-                "";
-
-            syncPreview();
-
-
-            showToast(
-                "Resume restored to default"
-            );
-
-        }
-    );
-
-
-    /* -------------------------------------------------------
-       DOWNLOAD ORIGINAL PDF
-    ------------------------------------------------------- */
-
-    const downloadButton =
-        $(".resume-download");
-
-    downloadButton?.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "Downloading resume.pdf"
-            );
-
-        }
-    );
-
-}
+);
 
 
 /* =========================================================
-   TOAST SYSTEM
+   RESUME TEMPLATES
 ========================================================= */
 
-let toastTimer = null;
+const templateOptions =
+    $$(".template-option");
 
+templateOptions.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const template =
+                button.dataset.template;
+
+            templateOptions.forEach(
+                item =>
+                    item.classList.remove("active")
+            );
+
+            button.classList.add("active");
+
+            resumePreview.className =
+                `resume-paper template-${template}`;
+
+            showToast(
+                `Resume template ${template} selected.`
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   RESUME TOAST
+========================================================= */
+
+const resumeToast =
+    $("#resumeToast");
+
+let toastTimer;
 
 function showToast(message) {
 
-    const toast =
-        $("#toast");
+    if (!resumeToast) {
+        return;
+    }
 
-    const text =
-        $("#toastMessage");
-
-    if (!toast || !text) return;
-
-
-    text.textContent =
+    resumeToast.textContent =
         message;
 
+    resumeToast.classList.add("show");
 
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        toastTimer
-    );
-
+    clearTimeout(toastTimer);
 
     toastTimer =
         setTimeout(
             () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
+                resumeToast.classList.remove("show");
             },
             2600
         );
@@ -1370,34 +921,798 @@ function showToast(message) {
 
 
 /* =========================================================
-   SMOOTH ANCHOR HANDLING
+   DOWNLOAD ORIGINAL PDF
 ========================================================= */
 
-$$("a[href^='#']").forEach(link => {
+const downloadOriginalResume =
+    $("#downloadOriginalResume");
 
-    link.addEventListener(
+downloadOriginalResume?.addEventListener(
+    "click",
+    () => {
+
+        const link =
+            document.createElement("a");
+
+        link.href =
+            "assets/resume.pdf";
+
+        link.download =
+            "Siddharth-Mishra-Resume.pdf";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        /*
+         * Also open the original PDF after the download starts.
+         * This gives the user the exact PDF available in assets.
+         */
+
+        setTimeout(
+            () => {
+                window.open(
+                    "assets/resume.pdf",
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+            },
+            350
+        );
+
+        showToast(
+            "Original resume PDF download started."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   OPEN ORIGINAL RESUME
+========================================================= */
+
+const printResumeButton =
+    $("#printResumeButton");
+
+printResumeButton?.addEventListener(
+    "click",
+    () => {
+
+        const popup =
+            window.open(
+                "assets/resume.pdf",
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        if (!popup) {
+
+            showToast(
+                "Please allow pop-ups to open the resume."
+            );
+
+            return;
+        }
+
+        showToast(
+            "Original resume opened. Edit/print it from the PDF viewer."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   BUILD EDITABLE RESUME HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function getCurrentTemplate() {
+
+    const active =
+        $(".template-option.active");
+
+    return active?.dataset.template || "1";
+
+}
+
+
+function getResumeHTML() {
+
+    const template =
+        getCurrentTemplate();
+
+    const name =
+        escapeHTML(resumeName?.value);
+
+    const title =
+        escapeHTML(resumeTitle?.value);
+
+    const email =
+        escapeHTML(resumeEmail?.value || "Email");
+
+    const phone =
+        escapeHTML(resumePhone?.value || "Phone");
+
+    const location =
+        escapeHTML(resumeLocation?.value);
+
+    const about =
+        escapeHTML(resumeAbout?.value);
+
+    const technical =
+        escapeHTML(
+            resumeTechnicalSkills?.value
+        );
+
+    const soft =
+        escapeHTML(
+            resumeSoftSkills?.value
+        );
+
+    const experience =
+        escapeHTML(
+            resumeExperience?.value
+        );
+
+    const education =
+        escapeHTML(
+            resumeEducation?.value
+        );
+
+    const photo =
+        resumePreviewPhoto?.src ||
+        "assets/profile.jpg";
+
+    const photoAllowed =
+        template !== "2" &&
+        template !== "4";
+
+    const photoHTML =
+        photoAllowed
+            ? `<img class="resume-photo" src="${photo}" alt="Resume Photo">`
+            : "";
+
+    const skillHeading =
+        template === "1" || template === "2"
+            ? "HARD SKILLS"
+            : "TECHNICAL SKILLS";
+
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>${name} — Resume</title>
+
+<style>
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #e9edf2;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.resume {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 0 auto;
+
+    padding: 17mm;
+
+    background: #fff;
+
+    color: #172033;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.18);
+}
+
+.resume.template-1 {
+    border-top: 6px solid #111827;
+}
+
+.resume.template-2 {
+    border-top: 8px solid #172033;
+}
+
+.resume.template-3 {
+    border-left: 8px solid #00a9b5;
+}
+
+.resume.template-4 {
+    border-left: 8px solid #172033;
+}
+
+.header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    padding-bottom: 7mm;
+
+    border-bottom: 2px solid #172033;
+}
+
+.header h1 {
+    margin: 0 0 5px;
+
+    font-size: 29px;
+}
+
+.header h2 {
+    margin: 0;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    color: #536078;
+}
+
+.resume-photo {
+    width: 32mm;
+    height: 38mm;
+
+    object-fit: cover;
+
+    border: 1px solid #ccd2dc;
+}
+
+.contact {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    padding: 4mm 0;
+
+    border-bottom: 1px solid #dce1e8;
+
+    color: #526078;
+
+    font-size: 9px;
+}
+
+.section {
+    margin-top: 6mm;
+}
+
+.section h3 {
+    margin: 0 0 2.5mm;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    color: #111a2c;
+}
+
+.section p {
+    margin: 0;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    color: #4b5568;
+}
+
+.footer {
+    position: absolute;
+
+    left: 17mm;
+    right: 17mm;
+    bottom: 8mm;
+
+    padding-top: 3mm;
+
+    border-top: 1px solid #dce1e8;
+
+    text-align: center;
+
+    font-family: monospace;
+
+    font-size: 7px;
+
+    color: #9ba5b6;
+}
+
+.toolbar {
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+    right: 15px;
+
+    display: flex;
+
+    gap: 10px;
+
+    justify-content: center;
+
+    z-index: 20;
+}
+
+.toolbar button {
+    border: 0;
+
+    padding: 10px 16px;
+
+    cursor: pointer;
+
+    background: #111827;
+
+    color: white;
+
+    border-radius: 6px;
+}
+
+@media print {
+
+    html,
+    body {
+        background: #fff;
+    }
+
+    .toolbar {
+        display: none;
+    }
+
+    .resume {
+        margin: 0;
+
+        box-shadow: none;
+
+        width: 210mm;
+        min-height: 297mm;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="toolbar">
+
+    <button onclick="window.print()">
+        Print A4
+    </button>
+
+    <button onclick="window.close()">
+        Close
+    </button>
+
+</div>
+
+<div class="resume template-${template}">
+
+    <div class="header">
+
+        <div>
+
+            <h1>${name}</h1>
+
+            <h2>${title}</h2>
+
+        </div>
+
+        ${photoHTML}
+
+    </div>
+
+    <div class="contact">
+
+        <span>${email}</span>
+        <span>${phone}</span>
+        <span>${location}</span>
+
+    </div>
+
+    <div class="section">
+
+        <h3>PROFILE</h3>
+
+        <p>${about}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>EXPERIENCE</h3>
+
+        <p>${experience}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>EDUCATION</h3>
+
+        <p>${education}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>${skillHeading}</h3>
+
+        <p>${technical}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>SOFT SKILLS</h3>
+
+        <p>${soft}</p>
+
+    </div>
+
+    <div class="footer">
+        &lt;/siddharth.resume&gt;
+    </div>
+
+</div>
+
+</body>
+</html>
+`;
+
+}
+
+
+/* =========================================================
+   OPEN EDITABLE RESUME
+========================================================= */
+
+function openEditableResume(
+    autoPrint = false
+) {
+
+    updateResumePreview();
+
+    const resumeWindow =
+        window.open(
+            "",
+            "_blank",
+            "width=1100,height=900"
+        );
+
+    if (!resumeWindow) {
+
+        showToast(
+            "Please allow pop-ups to open the editable resume."
+        );
+
+        return;
+
+    }
+
+    resumeWindow.document.open();
+
+    resumeWindow.document.write(
+        getResumeHTML()
+    );
+
+    resumeWindow.document.close();
+
+    showToast(
+        autoPrint
+            ? "Editable A4 resume opened."
+            : "Editable resume opened."
+    );
+
+    if (autoPrint) {
+
+        setTimeout(
+            () => {
+
+                try {
+                    resumeWindow.focus();
+                    resumeWindow.print();
+                } catch (error) {
+                    console.warn(
+                        "Print could not start automatically.",
+                        error
+                    );
+                }
+
+            },
+            900
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EDITED RESUME BUTTONS
+========================================================= */
+
+const downloadEditedResume =
+    $("#downloadEditedResume");
+
+downloadEditedResume?.addEventListener(
+    "click",
+    () => {
+
+        openEditableResume(false);
+
+    }
+);
+
+
+const printEditedResume =
+    $("#printEditedResume");
+
+printEditedResume?.addEventListener(
+    "click",
+    () => {
+
+        openEditableResume(true);
+
+    }
+);
+
+
+/* =========================================================
+   CERTIFICATE UPLOAD
+========================================================= */
+
+const certificateUpload =
+    $("#certificateUpload");
+
+const certificateGallery =
+    $("#certificateGallery");
+
+certificateUpload?.addEventListener(
+    "change",
+    event => {
+
+        const files =
+            [...event.target.files];
+
+        if (!files.length) {
+            return;
+        }
+
+        files.forEach(file => {
+
+            if (!file.type.startsWith("image/")) {
+                return;
+            }
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                () => {
+
+                    const image =
+                        document.createElement("img");
+
+                    image.src =
+                        reader.result;
+
+                    image.alt =
+                        "Certificate";
+
+                    certificateGallery.appendChild(
+                        image
+                    );
+
+                };
+
+            reader.readAsDataURL(file);
+
+        });
+
+        showToast(
+            `${files.length} certificate image(s) added.`
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CONTACT EMAIL
+========================================================= */
+
+function updateContactEmail() {
+
+    const email =
+        resumeEmail?.value?.trim();
+
+    const emailContact =
+        $("#emailContact");
+
+    const emailText =
+        $("#contactEmailText");
+
+    if (!email) {
+
+        emailContact?.setAttribute(
+            "href",
+            "mailto:"
+        );
+
+        if (emailText) {
+            emailText.textContent =
+                "Send an email";
+        }
+
+        return;
+    }
+
+    emailContact?.setAttribute(
+        "href",
+        `mailto:${email}`
+    );
+
+    if (emailText) {
+        emailText.textContent =
+            email;
+    }
+
+}
+
+resumeEmail?.addEventListener(
+    "input",
+    updateContactEmail
+);
+
+updateContactEmail();
+
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+const contactForm =
+    $("#contactForm");
+
+const contactFormStatus =
+    $("#contactFormStatus");
+
+contactForm?.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        const formData =
+            new FormData(contactForm);
+
+        const name =
+            formData.get("name");
+
+        const email =
+            formData.get("email");
+
+        const message =
+            formData.get("message");
+
+        const subject =
+            encodeURIComponent(
+                `Portfolio Contact — ${name}`
+            );
+
+        const body =
+            encodeURIComponent(
+                `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`
+            );
+
+        /*
+         * Static GitHub Pages sites do not have a server-side
+         * mail endpoint. Therefore the form safely prepares
+         * a mailto message using the user's email client.
+         */
+
+        const destination =
+            resumeEmail?.value?.trim();
+
+        if (!destination) {
+
+            if (contactFormStatus) {
+
+                contactFormStatus.textContent =
+                    "Add your email in Resume Studio first, or configure a mail address in the HTML.";
+
+            }
+
+            return;
+
+        }
+
+        window.location.href =
+            `mailto:${destination}?subject=${subject}&body=${body}`;
+
+        if (contactFormStatus) {
+
+            contactFormStatus.textContent =
+                "Opening your email application...";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SMOOTH ANCHOR FALLBACK
+========================================================= */
+
+$$('a[href^="#"]').forEach(anchor => {
+
+    anchor.addEventListener(
         "click",
         event => {
 
-            const targetId =
-                link.getAttribute("href");
+            const targetID =
+                anchor.getAttribute("href");
 
             if (
-                !targetId ||
-                targetId === "#"
+                !targetID ||
+                targetID === "#"
             ) {
                 return;
             }
 
-
             const target =
-                $(targetId);
+                $(targetID);
 
-            if (!target) return;
-
+            if (!target) {
+                return;
+            }
 
             event.preventDefault();
-
 
             target.scrollIntoView({
                 behavior: "smooth",
@@ -1411,42 +1726,26 @@ $$("a[href^='#']").forEach(link => {
 
 
 /* =========================================================
-   WINDOW LOAD
+   INITIALIZATION
 ========================================================= */
 
-window.addEventListener(
-    "load",
+document.addEventListener(
+    "DOMContentLoaded",
     () => {
 
-        document.body.classList.add(
-            "page-loaded"
+        updateResumePreview();
+
+        updateContactEmail();
+
+        console.log(
+            "%cSIDDHARTH.DEV",
+            "color:#00f5ff;font-size:20px;font-weight:bold;"
         );
 
-    }
-);
-
-
-/* =========================================================
-   PRINT CLEANUP
-========================================================= */
-
-window.addEventListener(
-    "afterprint",
-    () => {
-
-        const modal =
-            $("#resumeModal");
-
-        if (
-            modal &&
-            modal.classList.contains("open")
-        ) {
-
-            showToast(
-                "A4 print dialog completed"
-            );
-
-        }
+        console.log(
+            "%cSystem initialized successfully.",
+            "color:#70e6a4;font-size:12px;"
+        );
 
     }
 );

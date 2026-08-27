@@ -2,1696 +2,1295 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Siddharth Mishra | Developer • Builder • Learner</title>
-    <meta name="description" content="Siddharth Mishra — Developer, Builder and Continuous Learner. Explore projects, technical skills, experience, certificates and resume.">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <meta name="theme-color" content="#05070d">
+    <meta name="color-scheme" content="dark">
 
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <meta name="description"
+          content="Siddharth Mishra — Developer, Builder and Learner. Personal portfolio website.">
+
+    <meta name="author" content="Siddharth Mishra">
+
+    <title>Siddharth.dev | Developer • Builder • Learner</title>
+
+    <link rel="icon" href="assets/favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <!-- =========================================================
-     GLOBAL BACKGROUND
+     CYBERPUNK CITY BACKGROUND
 ========================================================= -->
 
-<div id="cityBackground" class="city-background" aria-hidden="true">
+<div id="city-background" class="city-background" aria-hidden="true">
 
     <div class="city-sky"></div>
 
+    <div class="city-glow glow-one"></div>
+    <div class="city-glow glow-two"></div>
+    <div class="city-glow glow-three"></div>
+
     <div class="moon"></div>
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
 
-    <div class="far-buildings">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-    </div>
+    <div class="cloud cloud-one"></div>
+    <div class="cloud cloud-two"></div>
+    <div class="cloud cloud-three"></div>
 
-    <div class="city-buildings">
-        <div class="building b1">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
+    <div class="far-buildings" id="farBuildings"></div>
+    <div class="mid-buildings" id="midBuildings"></div>
+    <div class="near-buildings" id="nearBuildings"></div>
 
-        <div class="building b2">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="building b3">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="building b4">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="building b5">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="building b6">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="building b7">
-            <i></i><i></i><i></i><i></i><i></i>
-            <i></i><i></i><i></i><i></i><i></i>
-        </div>
-    </div>
-
-    <div class="neon-sign sign-1">CODE</div>
-    <div class="neon-sign sign-2">DEV</div>
-    <div class="neon-sign sign-3">AI</div>
-    <div class="neon-sign sign-4">BUILD</div>
+    <div class="neon-signs" id="neonSigns"></div>
 
     <div class="road">
-        <div class="road-light road-light-1"></div>
-        <div class="road-light road-light-2"></div>
-        <div class="road-light road-light-3"></div>
-        <div class="road-light road-light-4"></div>
-        <div class="road-light road-light-5"></div>
+        <div class="road-glow"></div>
+        <div class="road-lines"></div>
     </div>
 
-    <div class="rain-layer rain-1"></div>
-    <div class="rain-layer rain-2"></div>
-    <div class="rain-layer rain-3"></div>
-
-    <div class="atmosphere"></div>
+    <div class="moving-vehicles" id="movingVehicles"></div>
 
     <div class="train-track">
-        <div class="train">
-            <span class="train-window"></span>
-            <span class="train-window"></span>
-            <span class="train-window"></span>
-            <span class="train-window"></span>
-            <span class="train-window"></span>
-            <span class="train-light"></span>
+        <div class="train" id="cityTrain">
+
+            <div class="train-headlight"></div>
+
+            <div class="train-body">
+
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+                <div class="train-window"></div>
+
+                <div class="train-door"></div>
+                <div class="train-door"></div>
+
+            </div>
+
+            <div class="train-light"></div>
+
         </div>
     </div>
 
-    <div class="foreground-glow"></div>
+    <div class="rain-layer" id="rainLayer"></div>
+    <div class="mist-layer"></div>
+    <div class="particles-layer" id="particlesLayer"></div>
+
+    <div class="city-vignette"></div>
+
 </div>
 
 
 <!-- =========================================================
-     CUSTOM CURSOR
+     APP
 ========================================================= -->
 
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
+<div id="app">
 
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+    <header class="site-header">
 
-<header class="site-header" id="siteHeader">
+        <div class="header-inner">
 
-    <div class="container nav-container">
+            <a href="#home" class="brand">
+                <span class="brand-bracket">&lt;</span>
+                <span>SIDDHARTH</span>
+                <span class="brand-dot">.</span>
+                <span>DEV</span>
+                <span class="brand-bracket">/&gt;</span>
+            </a>
 
-        <a href="#home" class="brand" aria-label="Siddharth home">
-            <span class="brand-bracket">&lt;</span>
-            <span>SIDDHARTH</span>
-            <span class="brand-bracket">/&gt;</span>
-        </a>
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                aria-label="Open navigation"
+                aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            aria-label="Open navigation"
-            aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+            <nav class="main-navigation" id="mainNavigation">
 
-        <nav class="main-nav" id="mainNav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#journey" class="nav-link">Journey</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#certificates" class="nav-link">Certificates</a>
+                <a href="#resume" class="nav-link">Resume</a>
+                <a href="#contact" class="nav-link">Contact</a>
 
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#journey" class="nav-link">Journey</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#certificates" class="nav-link">Certificates</a>
-            <a href="#resume" class="nav-link">Resume</a>
-            <a href="#contact" class="nav-link">Contact</a>
-
-        </nav>
-
-        <a href="#contact" class="nav-cta">
-            <span>Let's Connect</span>
-            <b>↗</b>
-        </a>
-
-    </div>
-</header>
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<main>
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
-<section class="hero section" id="home">
-
-    <div class="container hero-grid">
-
-        <div class="hero-content reveal">
-
-            <div class="availability">
-                <span class="status-dot"></span>
-                Available for opportunities
-            </div>
-
-            <p class="hero-code-line">
-                <span>01</span>
-                <span>// welcome_to_my_digital_space</span>
-            </p>
-
-            <h1>
-                Hi, I'm
-                <span class="gradient-text">Siddharth</span>
-                <br>
-                <span class="typing-prefix">&gt;</span>
-                <span id="typingText"></span>
-                <span class="typing-cursor">|</span>
-            </h1>
-
-            <p class="hero-description">
-                I build practical digital experiences by combining
-                <strong>technology</strong>, <strong>problem solving</strong>
-                and continuous learning.
-            </p>
-
-            <div class="hero-actions">
-
-                <a href="#projects" class="btn btn-primary">
-                    <span>Explore My Work</span>
-                    <b>↗</b>
-                </a>
-
-                <a href="#contact" class="btn btn-secondary">
-                    <span>Contact Me</span>
-                    <b>→</b>
-                </a>
-
-            </div>
-
-            <div class="hero-terminal">
-
-                <div class="terminal-top">
-                    <div class="terminal-dots">
-                        <i></i><i></i><i></i>
-                    </div>
-
-                    <span>terminal — siddharth.dev</span>
-
-                    <span>⌘</span>
-                </div>
-
-                <div class="terminal-body">
-
-                    <p>
-                        <span class="terminal-green">siddharth@dev</span>
-                        <span>:</span>
-                        <span class="terminal-blue">~</span>
-                        <span>$</span>
-                        whoami
-                    </p>
-
-                    <p class="terminal-output">
-                        Developer • Builder • Problem Solver • Continuous Learner
-                    </p>
-
-                    <p>
-                        <span class="terminal-green">siddharth@dev</span>
-                        <span>:</span>
-                        <span class="terminal-blue">~</span>
-                        <span>$</span>
-                        status
-                    </p>
-
-                    <p class="terminal-output terminal-online">
-                        ● systems_online / creativity_active / learning_continuous
-                    </p>
-
-                </div>
-
-            </div>
+            </nav>
 
         </div>
 
+    </header>
 
-        <div class="hero-visual reveal">
 
-            <div class="profile-orbit orbit-one"></div>
-            <div class="profile-orbit orbit-two"></div>
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
-            <div class="profile-card">
+    <main>
 
-                <div class="profile-card-top">
-                    <span>DEVELOPER_ID</span>
-                    <span>01</span>
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section id="home" class="hero section">
+
+            <div class="hero-grid">
+
+                <div class="hero-content reveal">
+
+                    <div class="availability-badge">
+                        <span class="status-dot"></span>
+                        Available for opportunities
+                    </div>
+
+                    <p class="hero-kicker">
+                        DEVELOPER <span>•</span> BUILDER <span>•</span> LEARNER
+                    </p>
+
+                    <h1>
+                        Building
+                        <span class="gradient-text">digital</span>
+                        experiences.
+                    </h1>
+
+                    <div class="typing-wrapper">
+                        <span class="typing-prefix">&gt; </span>
+                        <span id="typingText"></span>
+                        <span class="typing-cursor">_</span>
+                    </div>
+
+                    <p class="hero-description">
+                        I am Siddharth Mishra — a BBA student, problem solver
+                        and digital builder who enjoys turning ideas into
+                        useful, modern and practical digital experiences.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="#projects" class="btn btn-primary">
+                            <span>Explore My Work</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+
+                        <a href="#contact" class="btn btn-secondary">
+                            Contact Me
+                        </a>
+
+                    </div>
+
+                    <div class="hero-tech-line">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                        <span>Python</span>
+                        <span>SQL</span>
+                        <span>Power BI</span>
+                    </div>
+
                 </div>
 
-                <div class="profile-image-wrap">
 
-                    <div class="profile-image-ring"></div>
+                <div class="hero-terminal glass-card reveal">
 
-                    <img
-                        src="assets/profile.jpg"
-                        alt="Siddharth Mishra"
-                        class="profile-image">
+                    <div class="terminal-top">
+
+                        <div class="terminal-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <span>portfolio.config</span>
+
+                    </div>
+
+                    <div class="terminal-body">
+
+                        <p>
+                            <span class="code-purple">const</span>
+                            developer =
+                            <span class="code-green">'Siddharth'</span>;
+                        </p>
+
+                        <p>
+                            <span class="code-purple">const</span>
+                            mindset =
+                            <span class="code-green">'build'</span>;
+                        </p>
+
+                        <p>
+                            <span class="code-purple">const</span>
+                            learning =
+                            <span class="code-green">true</span>;
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <span class="code-blue">while</span>
+                            (learning) {
+                        </p>
+
+                        <p class="indent">
+                            solveProblems();
+                        </p>
+
+                        <p class="indent">
+                            buildProjects();
+                        </p>
+
+                        <p class="indent">
+                            learnSomethingNew();
+                        </p>
+
+                        <p>}</p>
+
+                        <div class="terminal-output">
+                            <span>✓ system.ready</span>
+                            <span>✓ creativity.online</span>
+                            <span>✓ future.loading</span>
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <div class="profile-info">
+            </div>
 
-                    <h2>Siddharth Mishra</h2>
+            <a href="#about" class="scroll-indicator">
+                <span>SCROLL TO EXPLORE</span>
+                <span class="scroll-line"></span>
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
+
+        <section id="about" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">01</span>
+
+                <div>
+                    <p class="section-label">WHO I AM</p>
+                    <h2>About <span>Me</span></h2>
+                </div>
+
+            </div>
+
+            <div class="about-grid">
+
+                <div class="profile-card glass-card reveal">
+
+                    <div class="profile-image-wrapper">
+
+                        <div class="profile-ring"></div>
+
+                        <img
+                            src="assets/profile.jpg"
+                            alt="Siddharth Mishra"
+                            class="profile-image">
+
+                    </div>
+
+                    <h3>Siddharth Mishra</h3>
 
                     <p>Developer • Builder • Learner</p>
 
-                    <div class="profile-tags">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JS</span>
-                        <span>PYTHON</span>
+                    <div class="profile-location">
+                        <span>⌖</span>
+                        <span>Lucknow, Uttar Pradesh, India</span>
                     </div>
 
                 </div>
 
-                <div class="profile-card-bottom">
-                    <span>INDIA</span>
-                    <span>OPEN_TO_WORK</span>
+
+                <div class="about-content reveal">
+
+                    <p class="about-lead">
+                        I believe technology becomes powerful when it solves
+                        real problems and makes everyday work simpler.
+                    </p>
+
+                    <p>
+                        I am currently pursuing BBA while continuously
+                        developing my technical and digital skills. My
+                        interests combine business understanding,
+                        programming, analytics and practical problem solving.
+                    </p>
+
+                    <p>
+                        I enjoy exploring new technologies, creating useful
+                        things and finding better ways to solve or prevent
+                        problems.
+                    </p>
+
+                    <div class="about-stats">
+
+                        <div>
+                            <strong>17</strong>
+                            <span>Technologies</span>
+                        </div>
+
+                        <div>
+                            <strong>4</strong>
+                            <span>Projects & Experiments</span>
+                        </div>
+
+                        <div>
+                            <strong>24+</strong>
+                            <span>Learning Hours</span>
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="floating-code code-one">
-                &lt;code /&gt;
-            </div>
-
-            <div class="floating-code code-two">
-                { solve(); }
-            </div>
-
-            <div class="floating-code code-three">
-                010101
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="hero-scroll">
-        <span>SCROLL TO EXPLORE</span>
-        <div class="scroll-line"></div>
-    </div>
-
-</section>
+        </section>
 
 
-<!-- =========================================================
-     ABOUT
-========================================================= -->
+        <!-- =================================================
+             SKILLS
+        ================================================== -->
 
-<section class="section about-section" id="about">
+        <section id="skills" class="section">
 
-    <div class="container">
+            <div class="section-heading reveal">
 
-        <div class="section-heading reveal">
+                <span class="section-number">02</span>
 
-            <span class="section-number">01</span>
-
-            <div>
-                <p class="eyebrow">ABOUT ME</p>
-                <h2>Building with purpose.<br><span>Learning without limits.</span></h2>
-            </div>
-
-        </div>
-
-        <div class="about-grid">
-
-            <div class="about-main glass-card reveal">
-
-                <div class="code-label">
-                    <span>about.js</span>
-                    <span>●</span>
-                </div>
-
-                <p class="about-large">
-                    I am a <strong>BBA student</strong> with a strong interest
-                    in technology, programming, digital products and business.
-                </p>
-
-                <p>
-                    My approach is simple: understand the problem, break it
-                    into smaller systems, build a practical solution and keep
-                    improving it.
-                </p>
-
-                <p>
-                    I enjoy exploring new technologies, creating useful things,
-                    solving problems and finding ways to prevent problems before
-                    they happen.
-                </p>
-
-                <div class="about-code-block">
-                    <span class="code-purple">const</span>
-                    <span class="code-white">developer</span>
-                    <span>=</span>
-                    <span>{</span>
-
-                    <br>
-
-                    <span class="indent">
-                        mindset:
-                        <span class="code-string">'build'</span>,
-                    </span>
-
-                    <br>
-
-                    <span class="indent">
-                        approach:
-                        <span class="code-string">'solve'</span>,
-                    </span>
-
-                    <br>
-
-                    <span class="indent">
-                        learning:
-                        <span class="code-string">'continuous'</span>
-                    </span>
-
-                    <br>
-
-                    <span>}</span>
+                <div>
+                    <p class="section-label">MY TOOLKIT</p>
+                    <h2>Skills & <span>Technologies</span></h2>
                 </div>
 
             </div>
 
 
-            <div class="about-stats reveal">
+            <div class="skills-layout">
 
-                <div class="stat-card glass-card">
-                    <span class="stat-icon">⌘</span>
-                    <strong data-counter="17">0</strong>
-                    <span>Technologies</span>
+                <div class="skills-grid">
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">HTML</div>
+                        <div>
+                            <h3>HTML5</h3>
+                            <p>Semantic Web Structure</p>
+                        </div>
+                        <span class="skill-percent">95%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">CSS</div>
+                        <div>
+                            <h3>CSS3</h3>
+                            <p>Modern UI & Responsive Design</p>
+                        </div>
+                        <span class="skill-percent">92%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">JS</div>
+                        <div>
+                            <h3>JavaScript</h3>
+                            <p>Interactive Web Applications</p>
+                        </div>
+                        <span class="skill-percent">88%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">PY</div>
+                        <div>
+                            <h3>Python</h3>
+                            <p>Automation & Logic</p>
+                        </div>
+                        <span class="skill-percent">82%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">SQL</div>
+                        <div>
+                            <h3>SQL</h3>
+                            <p>Data & Database Analysis</p>
+                        </div>
+                        <span class="skill-percent">85%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">BI</div>
+                        <div>
+                            <h3>Power BI</h3>
+                            <p>Business Intelligence</p>
+                        </div>
+                        <span class="skill-percent">80%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">GIT</div>
+                        <div>
+                            <h3>Git</h3>
+                            <p>Version Control</p>
+                        </div>
+                        <span class="skill-percent">78%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">GH</div>
+                        <div>
+                            <h3>GitHub</h3>
+                            <p>Code Collaboration</p>
+                        </div>
+                        <span class="skill-percent">82%</span>
+                    </div>
+
+                    <div class="skill-card glass-card reveal">
+                        <div class="skill-icon">PS</div>
+                        <div>
+                            <h3>Problem Solving</h3>
+                            <p>Analytical Thinking</p>
+                        </div>
+                        <span class="skill-percent">94%</span>
+                    </div>
+
                 </div>
 
-                <div class="stat-card glass-card">
-                    <span class="stat-icon">◈</span>
-                    <strong data-counter="4">0</strong>
-                    <span>Projects & Experiments</span>
-                </div>
 
-                <div class="stat-card glass-card">
-                    <span class="stat-icon">◷</span>
-                    <strong data-counter="24">0</strong>
-                    <span>Learning Hours</span>
-                </div>
+                <div class="code-panel glass-card reveal">
 
-                <div class="stat-card glass-card">
-                    <span class="stat-icon">∞</span>
-                    <strong>∞</strong>
-                    <span>Curiosity</span>
+                    <div class="code-header">
+                        <span>developer.skills.js</span>
+                        <span>● ● ●</span>
+                    </div>
+
+                    <pre><code><span class="code-purple">const</span> skills = {
+  frontend: [
+    <span class="code-green">"HTML5"</span>,
+    <span class="code-green">"CSS3"</span>,
+    <span class="code-green">"JavaScript"</span>
+  ],
+
+  data: [
+    <span class="code-green">"Python"</span>,
+    <span class="code-green">"SQL"</span>,
+    <span class="code-green">"Power BI"</span>
+  ],
+
+  workflow: [
+    <span class="code-green">"Git"</span>,
+    <span class="code-green">"GitHub"</span>
+  ],
+
+  mindset: [
+    <span class="code-green">"Problem Solving"</span>,
+    <span class="code-green">"Continuous Learning"</span>
+  ]
+};</code></pre>
+
                 </div>
 
             </div>
 
-        </div>
-
-    </div>
-</section>
+        </section>
 
 
-<!-- =========================================================
-     SKILLS
-========================================================= -->
+        <!-- =================================================
+             JOURNEY
+        ================================================== -->
 
-<section class="section skills-section" id="skills">
+        <section id="journey" class="section">
 
-    <div class="container">
+            <div class="section-heading reveal">
 
-        <div class="section-heading reveal">
+                <span class="section-number">03</span>
 
-            <span class="section-number">02</span>
+                <div>
+                    <p class="section-label">MY PATH</p>
+                    <h2>Learning <span>Journey</span></h2>
+                </div>
 
-            <div>
-                <p class="eyebrow">TECH STACK</p>
-                <h2>Tools I use to<br><span>turn ideas into systems.</span></h2>
             </div>
 
-        </div>
 
+            <div class="timeline">
 
-        <div class="skills-grid">
+                <div class="timeline-item reveal">
 
-            <article class="skill-category glass-card reveal">
-
-                <div class="category-header">
-                    <span class="category-icon">&lt;/&gt;</span>
-                    <div>
-                        <h3>Programming & Web</h3>
-                        <p>Building digital interfaces and logic.</p>
-                    </div>
-                </div>
-
-                <div class="skill-list">
-
-                    <div class="skill-row">
-                        <div><span>HTML5</span><b>90%</b></div>
-                        <div class="skill-bar"><i style="--skill:90%"></i></div>
+                    <div class="timeline-marker">
+                        01
                     </div>
 
-                    <div class="skill-row">
-                        <div><span>CSS3</span><b>88%</b></div>
-                        <div class="skill-bar"><i style="--skill:88%"></i></div>
-                    </div>
+                    <div class="timeline-card glass-card">
 
-                    <div class="skill-row">
-                        <div><span>JavaScript</span><b>82%</b></div>
-                        <div class="skill-bar"><i style="--skill:82%"></i></div>
-                    </div>
+                        <span class="timeline-tag">EDUCATION</span>
 
-                    <div class="skill-row">
-                        <div><span>Python</span><b>78%</b></div>
-                        <div class="skill-bar"><i style="--skill:78%"></i></div>
-                    </div>
+                        <h3>BBA — Business Administration</h3>
 
-                </div>
-
-            </article>
-
-
-            <article class="skill-category glass-card reveal">
-
-                <div class="category-header">
-                    <span class="category-icon">⌁</span>
-                    <div>
-                        <h3>Data & Analytics</h3>
-                        <p>Turning information into decisions.</p>
-                    </div>
-                </div>
-
-                <div class="skill-list">
-
-                    <div class="skill-row">
-                        <div><span>SQL</span><b>84%</b></div>
-                        <div class="skill-bar"><i style="--skill:84%"></i></div>
-                    </div>
-
-                    <div class="skill-row">
-                        <div><span>Power BI</span><b>80%</b></div>
-                        <div class="skill-bar"><i style="--skill:80%"></i></div>
-                    </div>
-
-                    <div class="skill-row">
-                        <div><span>Data Analysis</span><b>76%</b></div>
-                        <div class="skill-bar"><i style="--skill:76%"></i></div>
-                    </div>
-
-                    <div class="skill-row">
-                        <div><span>Reporting</span><b>82%</b></div>
-                        <div class="skill-bar"><i style="--skill:82%"></i></div>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <article class="skill-category glass-card reveal">
-
-                <div class="category-header">
-                    <span class="category-icon">◉</span>
-                    <div>
-                        <h3>Development Tools</h3>
-                        <p>Systems behind reliable development.</p>
-                    </div>
-                </div>
-
-                <div class="technology-cloud">
-
-                    <span>Git</span>
-                    <span>GitHub</span>
-                    <span>VS Code</span>
-                    <span>Firebase</span>
-                    <span>Flutter</span>
-                    <span>APIs</span>
-                    <span>Responsive UI</span>
-                    <span>Debugging</span>
-
-                </div>
-
-            </article>
-
-
-            <article class="skill-category glass-card reveal">
-
-                <div class="category-header">
-                    <span class="category-icon">✦</span>
-                    <div>
-                        <h3>Problem Solving</h3>
-                        <p>Thinking beyond the obvious solution.</p>
-                    </div>
-                </div>
-
-                <div class="problem-meter">
-
-                    <div class="meter-circle">
-                        <span>92%</span>
-                    </div>
-
-                    <div>
-                        <strong>Problem Solver</strong>
-                        <p>
-                            Break complex requirements into smaller,
-                            understandable and actionable systems.
+                        <p class="timeline-place">
+                            Ambalika Management and Technology Institute
                         </p>
+
+                        <p>
+                            Developing business understanding while
+                            strengthening technical and analytical skills.
+                        </p>
+
                     </div>
 
                 </div>
 
-            </article>
 
-        </div>
+                <div class="timeline-item reveal">
 
-    </div>
-</section>
-
-
-<!-- =========================================================
-     JOURNEY
-========================================================= -->
-
-<section class="section journey-section" id="journey">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-number">03</span>
-
-            <div>
-                <p class="eyebrow">MY JOURNEY</p>
-                <h2>Learning through<br><span>real-world experience.</span></h2>
-            </div>
-
-        </div>
-
-
-        <div class="timeline">
-
-            <div class="timeline-line"></div>
-
-            <article class="timeline-item reveal">
-
-                <div class="timeline-dot">
-                    <span></span>
-                </div>
-
-                <div class="timeline-date">CURRENT</div>
-
-                <div class="timeline-card glass-card">
-
-                    <div class="timeline-card-top">
-                        <span class="timeline-tag">EDUCATION</span>
-                        <span>2026</span>
+                    <div class="timeline-marker">
+                        02
                     </div>
 
-                    <h3>Bachelor of Business Administration</h3>
+                    <div class="timeline-card glass-card">
 
-                    <p class="timeline-company">
-                        Ambalika Management and Technology Institute
-                    </p>
-
-                    <p>
-                        Combining business understanding with technology,
-                        digital systems, analytics and practical development.
-                    </p>
-
-                </div>
-
-            </article>
-
-
-            <article class="timeline-item reveal">
-
-                <div class="timeline-dot">
-                    <span></span>
-                </div>
-
-                <div class="timeline-date">4 YEARS</div>
-
-                <div class="timeline-card glass-card">
-
-                    <div class="timeline-card-top">
                         <span class="timeline-tag">EXPERIENCE</span>
-                        <span>RETAIL</span>
+
+                        <h3>Retail Sales & Operations</h3>
+
+                        <p class="timeline-place">
+                            4 Years Professional Experience
+                        </p>
+
+                        <p>
+                            Customer interaction, sales operations,
+                            coordination, problem solving and practical
+                            business exposure.
+                        </p>
+
                     </div>
 
-                    <h3>Retail Sales & Operations</h3>
-
-                    <p class="timeline-company">
-                        Sales • Customer Handling • Operations
-                    </p>
-
-                    <p>
-                        Four years of practical experience understanding
-                        customers, operations, sales processes and
-                        problem solving in real working environments.
-                    </p>
-
                 </div>
 
-            </article>
 
+                <div class="timeline-item reveal">
 
-            <article class="timeline-item reveal">
-
-                <div class="timeline-dot">
-                    <span></span>
-                </div>
-
-                <div class="timeline-date">FOUNDATION</div>
-
-                <div class="timeline-card glass-card">
-
-                    <div class="timeline-card-top">
-                        <span class="timeline-tag">EDUCATION</span>
-                        <span>UP BOARD</span>
+                    <div class="timeline-marker">
+                        03
                     </div>
 
-                    <h3>Academic Foundation</h3>
+                    <div class="timeline-card glass-card">
 
-                    <p class="timeline-company">
-                        12th — PCB • O Level
-                    </p>
+                        <span class="timeline-tag">DIGITAL</span>
 
-                    <p>
-                        Built the foundation for analytical thinking,
-                        computer literacy and continuous self-learning.
-                    </p>
+                        <h3>Developer & Digital Builder</h3>
+
+                        <p class="timeline-place">
+                            Continuous learning
+                        </p>
+
+                        <p>
+                            Building websites, dashboards, data solutions
+                            and practical digital experiments.
+                        </p>
+
+                    </div>
 
                 </div>
 
-            </article>
-
-        </div>
-
-    </div>
-</section>
-
-
-<!-- =========================================================
-     PROJECTS
-========================================================= -->
-
-<section class="section projects-section" id="projects">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-number">04</span>
-
-            <div>
-                <p class="eyebrow">SELECTED WORK</p>
-                <h2>Projects built to<br><span>solve real problems.</span></h2>
             </div>
 
-        </div>
+        </section>
 
 
-        <div class="projects-grid">
+        <!-- =================================================
+             PROJECTS
+        ================================================== -->
 
-            <article class="project-card project-featured glass-card reveal">
+        <section id="projects" class="section">
 
-                <div class="project-visual project-ai">
+            <div class="section-heading reveal">
 
-                    <div class="project-code">
+                <span class="section-number">04</span>
 
-                        <span class="line">
-                            <b>01</b> class <em>UnivicharAI</em> {
-                        </span>
-
-                        <span class="line">
-                            <b>02</b> &nbsp;&nbsp;teach();
-                        </span>
-
-                        <span class="line">
-                            <b>03</b> &nbsp;&nbsp;learn();
-                        </span>
-
-                        <span class="line">
-                            <b>04</b> &nbsp;&nbsp;remember();
-                        </span>
-
-                        <span class="line">
-                            <b>05</b> }
-                        </span>
-
-                    </div>
-
-                    <span class="project-number">01</span>
-
+                <div>
+                    <p class="section-label">WHAT I BUILD</p>
+                    <h2>Projects & <span>Experiments</span></h2>
                 </div>
 
-                <div class="project-content">
+            </div>
 
-                    <div class="project-meta">
-                        <span>AI / EDUCATION</span>
-                        <span>2026</span>
-                    </div>
 
-                    <h3>Univichar AI</h3>
+            <div class="projects-grid">
+
+                <article class="project-card glass-card reveal">
+
+                    <div class="project-number">01</div>
+
+                    <div class="project-icon">&lt;/&gt;</div>
+
+                    <h3>Sales MIS Dashboard</h3>
 
                     <p>
-                        An education-focused AI teacher experience designed
-                        to help users learn through AI chat, notes, quizzes,
-                        courses, voice interaction and conversation history.
+                        A structured business dashboard concept designed
+                        around sales monitoring, performance and useful
+                        business insights.
                     </p>
 
                     <div class="project-tags">
-                        <span>Flutter</span>
-                        <span>Gemini</span>
-                        <span>Firebase</span>
-                        <span>Dart</span>
+                        <span>Excel</span>
+                        <span>Analytics</span>
+                        <span>MIS</span>
                     </div>
 
-                    <a href="#" class="project-link">
-                        <span>Explore Project</span>
-                        <b>↗</b>
+                    <a href="projects/sales-mis.html" class="project-link">
+                        View Project →
                     </a>
 
-                </div>
-
-            </article>
+                </article>
 
 
-            <article class="project-card glass-card reveal">
+                <article class="project-card glass-card reveal">
 
-                <div class="project-visual project-dashboard">
+                    <div class="project-number">02</div>
 
-                    <div class="dashboard-bars">
-                        <i style="--height:42%"></i>
-                        <i style="--height:67%"></i>
-                        <i style="--height:53%"></i>
-                        <i style="--height:88%"></i>
-                        <i style="--height:74%"></i>
-                        <i style="--height:96%"></i>
-                    </div>
-
-                    <span class="project-number">02</span>
-
-                </div>
-
-                <div class="project-content">
-
-                    <div class="project-meta">
-                        <span>ANALYTICS</span>
-                        <span>01</span>
-                    </div>
+                    <div class="project-icon">▦</div>
 
                     <h3>Power BI Dashboard</h3>
 
                     <p>
-                        Interactive business dashboard concepts focused on
-                        visual reporting, KPIs and decision-making.
+                        Interactive business intelligence dashboard focused
+                        on visual reporting and decision-oriented insights.
                     </p>
 
                     <div class="project-tags">
                         <span>Power BI</span>
                         <span>Data</span>
-                        <span>Analytics</span>
+                        <span>Visualization</span>
                     </div>
 
-                </div>
+                    <a href="projects/powerbi-dashboard.html"
+                       class="project-link">
+                        View Project →
+                    </a>
 
-            </article>
+                </article>
 
 
-            <article class="project-card glass-card reveal">
+                <article class="project-card glass-card reveal">
 
-                <div class="project-visual project-sql">
+                    <div class="project-number">03</div>
 
-                    <div class="sql-terminal">
+                    <div class="project-icon">SQL</div>
 
-                        <span>SELECT</span>
-                        <span>customer,</span>
-                        <span>sales</span>
-                        <span>FROM transactions</span>
-                        <span>ORDER BY sales DESC;</span>
-
-                    </div>
-
-                    <span class="project-number">03</span>
-
-                </div>
-
-                <div class="project-content">
-
-                    <div class="project-meta">
-                        <span>DATA</span>
-                        <span>02</span>
-                    </div>
-
-                    <h3>SQL Analysis</h3>
+                    <h3>SQL Data Analysis</h3>
 
                     <p>
-                        Practical SQL analysis concepts for querying,
-                        filtering, aggregating and understanding business data.
+                        Practical SQL analysis concepts for extracting,
+                        filtering and understanding structured business data.
                     </p>
 
                     <div class="project-tags">
                         <span>SQL</span>
-                        <span>Queries</span>
+                        <span>Database</span>
                         <span>Analysis</span>
                     </div>
 
-                </div>
+                    <a href="projects/sql-analysis.html"
+                       class="project-link">
+                        View Project →
+                    </a>
 
-            </article>
+                </article>
 
 
-            <article class="project-card glass-card reveal">
+                <article class="project-card featured glass-card reveal">
 
-                <div class="project-visual project-web">
+                    <div class="project-number">04</div>
 
-                    <div class="browser-frame">
+                    <div class="project-icon">AI</div>
 
-                        <div class="browser-top">
-                            <i></i><i></i><i></i>
-                        </div>
-
-                        <div class="browser-content">
-                            <span>&lt;HTML&gt;</span>
-                            <span>BUILD</span>
-                            <span>CREATE</span>
-                            <span>&lt;/HTML&gt;</span>
-                        </div>
-
-                    </div>
-
-                    <span class="project-number">04</span>
-
-                </div>
-
-                <div class="project-content">
-
-                    <div class="project-meta">
-                        <span>WEB</span>
-                        <span>03</span>
-                    </div>
-
-                    <h3>Digital Experiments</h3>
+                    <h3>Univichar AI</h3>
 
                     <p>
-                        Front-end experiments exploring responsive design,
-                        animation, interaction and modern developer interfaces.
+                        An education-focused AI teacher application concept
+                        combining conversational AI, learning assistance,
+                        notes, quizzes and voice interaction.
                     </p>
 
                     <div class="project-tags">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
+                        <span>AI</span>
+                        <span>Flutter</span>
+                        <span>Firebase</span>
                     </div>
 
+                    <span class="project-status">
+                        In Development
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CERTIFICATES
+        ================================================== -->
+
+        <section id="certificates" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">05</span>
+
+                <div>
+                    <p class="section-label">ACHIEVEMENTS</p>
+                    <h2>Certificates & <span>Credentials</span></h2>
                 </div>
 
-            </article>
-
-        </div>
-
-    </div>
-</section>
-
-
-<!-- =========================================================
-     CERTIFICATES
-========================================================= -->
-
-<section class="section certificates-section" id="certificates">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-number">05</span>
-
-            <div>
-                <p class="eyebrow">CERTIFICATES</p>
-                <h2>Proof of learning.<br><span>Evidence of progress.</span></h2>
             </div>
 
-        </div>
 
+            <div class="certificate-empty glass-card reveal">
 
-        <div class="certificate-empty glass-card reveal">
+                <div class="certificate-icon">◇</div>
 
-            <div class="certificate-icon">✦</div>
-
-            <h3>Certificates Showcase</h3>
-
-            <p>
-                Add your certificates here as image files. The portfolio
-                structure is ready for a complete certificate gallery.
-            </p>
-
-            <label class="upload-button">
-                <input
-                    type="file"
-                    id="certificateUpload"
-                    accept="image/*"
-                    multiple>
-                <span>+ Add Certificate Images</span>
-            </label>
-
-        </div>
-
-
-        <div class="certificate-grid" id="certificateGrid"></div>
-
-    </div>
-</section>
-
-
-<!-- =========================================================
-     RESUME
-========================================================= -->
-
-<section class="section resume-section" id="resume">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-number">06</span>
-
-            <div>
-                <p class="eyebrow">RESUME SYSTEM</p>
-                <h2>Your professional profile,<br><span>ready to move.</span></h2>
-            </div>
-
-        </div>
-
-
-        <div class="resume-layout">
-
-            <div class="resume-intro glass-card reveal">
-
-                <div class="resume-file-icon">PDF</div>
-
-                <p class="eyebrow">OFFICIAL RESUME</p>
-
-                <h3>Download my current resume</h3>
+                <h3>Certificates</h3>
 
                 <p>
-                    The original PDF stored inside the portfolio assets is
-                    available directly for download.
+                    Certificate images can be added to this portfolio as
+                    achievements and learning credentials.
                 </p>
 
-                <div class="resume-actions">
+                <label class="upload-button">
+                    <input type="file"
+                           id="certificateUpload"
+                           accept="image/*"
+                           multiple>
+                    Add Certificate
+                </label>
 
-                    <a
-                        href="assets/resume.pdf"
-                        class="btn btn-primary resume-download"
-                        download="Siddharth-Mishra-Resume.pdf">
-                        <span>Download PDF</span>
-                        <b>↓</b>
-                    </a>
+                <div id="certificateGallery"
+                     class="certificate-gallery"></div>
 
-                    <button
-                        class="btn btn-secondary"
-                        id="openResumeEditor">
-                        <span>Open Resume Editor</span>
-                        <b>↗</b>
-                    </button>
+            </div>
 
-                </div>
+        </section>
 
-                <div class="resume-note">
-                    <span>✓</span>
-                    Original resume PDF is preserved in assets/resume.pdf
+
+        <!-- =================================================
+             RESUME
+        ================================================== -->
+
+        <section id="resume" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">06</span>
+
+                <div>
+                    <p class="section-label">PROFESSIONAL PROFILE</p>
+                    <h2>Resume <span>Studio</span></h2>
                 </div>
 
             </div>
 
 
-            <div class="resume-templates glass-card reveal">
+            <div class="resume-studio glass-card reveal">
 
-                <div class="templates-header">
+                <div class="resume-intro">
+
                     <div>
-                        <p class="eyebrow">TEMPLATES</p>
-                        <h3>Choose your format</h3>
+
+                        <span class="terminal-label">
+                            resume.system
+                        </span>
+
+                        <h3>
+                            Choose your professional
+                            <span>resume template.</span>
+                        </h3>
+
+                        <p>
+                            Select a template, edit your information,
+                            optionally add a photo and print the final
+                            resume in A4 format.
+                        </p>
+
                     </div>
 
-                    <span>04 DESIGNS</span>
+                    <div class="resume-actions">
+
+                        <button class="btn btn-primary"
+                                id="downloadOriginalResume">
+                            Download PDF
+                        </button>
+
+                        <button class="btn btn-secondary"
+                                id="printResumeButton">
+                            Open / Print Resume
+                        </button>
+
+                    </div>
+
                 </div>
 
 
-                <div class="template-grid">
+                <div class="template-selector">
 
-                    <button
-                        class="template-card selected"
-                        data-template="1">
+                    <button class="template-option active"
+                            data-template="1">
 
-                        <span class="template-number">01</span>
-
-                        <div class="template-preview preview-one">
-                            <div class="preview-photo"></div>
-                            <div class="preview-lines"></div>
-                            <div class="preview-lines short"></div>
-                            <div class="preview-lines"></div>
-                        </div>
-
-                        <strong>Original Professional</strong>
-                        <small>Photo • Standard Resume</small>
+                        <span>01</span>
+                        <strong>Original</strong>
+                        <small>Existing Resume</small>
 
                     </button>
 
+                    <button class="template-option"
+                            data-template="2">
 
-                    <button
-                        class="template-card"
-                        data-template="2">
-
-                        <span class="template-number">02</span>
-
-                        <div class="template-preview preview-two">
-                            <div class="preview-header"></div>
-                            <div class="preview-lines"></div>
-                            <div class="preview-lines short"></div>
-                            <div class="preview-lines"></div>
-                        </div>
-
-                        <strong>Professional No Photo</strong>
-                        <small>Clean • Formal • Developer</small>
+                        <span>02</span>
+                        <strong>Professional</strong>
+                        <small>No Photo</small>
 
                     </button>
 
+                    <button class="template-option"
+                            data-template="3">
 
-                    <button
-                        class="template-card"
-                        data-template="3">
-
-                        <span class="template-number">03</span>
-
-                        <div class="template-preview preview-three">
-                            <div class="preview-photo"></div>
-                            <div class="preview-sidebar"></div>
-                            <div class="preview-lines"></div>
-                            <div class="preview-lines short"></div>
-                        </div>
-
-                        <strong>Technical Profile</strong>
-                        <small>Photo • Technical Skills</small>
+                        <span>03</span>
+                        <strong>Technical</strong>
+                        <small>Photo Enabled</small>
 
                     </button>
 
+                    <button class="template-option"
+                            data-template="4">
 
-                    <button
-                        class="template-card"
-                        data-template="4">
-
-                        <span class="template-number">04</span>
-
-                        <div class="template-preview preview-four">
-                            <div class="preview-sidebar"></div>
-                            <div class="preview-header"></div>
-                            <div class="preview-lines"></div>
-                            <div class="preview-lines short"></div>
-                        </div>
-
-                        <strong>Technical No Photo</strong>
-                        <small>Technical • Minimal</small>
+                        <span>04</span>
+                        <strong>Technical Pro</strong>
+                        <small>No Photo</small>
 
                     </button>
+
+                </div>
+
+
+                <div class="resume-editor">
+
+                    <aside class="resume-controls">
+
+                        <div class="control-heading">
+                            <span>&gt; editor</span>
+                        </div>
+
+                        <label>
+                            Full Name
+                            <input type="text"
+                                   id="resumeName"
+                                   value="Siddharth Mishra">
+                        </label>
+
+                        <label>
+                            Professional Title
+                            <input type="text"
+                                   id="resumeTitle"
+                                   value="Developer • Builder • Learner">
+                        </label>
+
+                        <label>
+                            Email
+                            <input type="email"
+                                   id="resumeEmail"
+                                   value="">
+                        </label>
+
+                        <label>
+                            Phone
+                            <input type="text"
+                                   id="resumePhone"
+                                   value="">
+                        </label>
+
+                        <label>
+                            Location
+                            <input type="text"
+                                   id="resumeLocation"
+                                   value="Lucknow, Uttar Pradesh, India">
+                        </label>
+
+                        <label>
+                            About
+                            <textarea id="resumeAbout">BBA student, problem solver and digital builder interested in programming, analytics, business and practical technology.</textarea>
+                        </label>
+
+                        <label>
+                            Technical Skills
+                            <textarea id="resumeTechnicalSkills">HTML5, CSS3, JavaScript, Python, SQL, Power BI, Git, GitHub</textarea>
+                        </label>
+
+                        <label>
+                            Soft Skills
+                            <textarea id="resumeSoftSkills">Problem Solving, Communication, Teamwork, Continuous Learning, Adaptability</textarea>
+                        </label>
+
+                        <label>
+                            Experience
+                            <textarea id="resumeExperience">4 Years — Retail Sales & Operations Executive</textarea>
+                        </label>
+
+                        <label>
+                            Education
+                            <textarea id="resumeEducation">BBA — Ambalika Management and Technology Institute</textarea>
+                        </label>
+
+                        <label class="photo-upload-control">
+                            Resume Photo
+                            <input type="file"
+                                   id="resumePhoto"
+                                   accept="image/*">
+                        </label>
+
+                        <button class="btn btn-primary full-width"
+                                id="downloadEditedResume">
+                            Download / Open Editable Resume
+                        </button>
+
+                        <button class="btn btn-secondary full-width"
+                                id="printEditedResume">
+                            Print A4
+                        </button>
+
+                    </aside>
+
+
+                    <div class="resume-preview-area">
+
+                        <div class="preview-label">
+                            LIVE A4 PREVIEW
+                        </div>
+
+                        <div id="resumePreview"
+                             class="resume-paper template-1">
+
+                            <div class="resume-paper-header">
+
+                                <div>
+
+                                    <h1 data-resume-name>
+                                        Siddharth Mishra
+                                    </h1>
+
+                                    <h2 data-resume-title>
+                                        Developer • Builder • Learner
+                                    </h2>
+
+                                </div>
+
+                                <img
+                                    id="resumePreviewPhoto"
+                                    class="resume-photo"
+                                    src="assets/profile.jpg"
+                                    alt="Resume Photo">
+
+                            </div>
+
+
+                            <div class="resume-contact">
+                                <span data-resume-email>Email</span>
+                                <span data-resume-phone>Phone</span>
+                                <span data-resume-location>
+                                    Lucknow, Uttar Pradesh, India
+                                </span>
+                            </div>
+
+
+                            <div class="resume-section">
+
+                                <h3>PROFILE</h3>
+
+                                <p data-resume-about>
+                                    BBA student, problem solver and digital
+                                    builder interested in programming,
+                                    analytics, business and practical
+                                    technology.
+                                </p>
+
+                            </div>
+
+
+                            <div class="resume-section">
+
+                                <h3>EXPERIENCE</h3>
+
+                                <p data-resume-experience>
+                                    4 Years — Retail Sales & Operations Executive
+                                </p>
+
+                            </div>
+
+
+                            <div class="resume-section">
+
+                                <h3>EDUCATION</h3>
+
+                                <p data-resume-education>
+                                    BBA — Ambalika Management and Technology Institute
+                                </p>
+
+                            </div>
+
+
+                            <div class="resume-section technical-section">
+
+                                <h3 class="skills-heading">
+                                    <span class="template-hard-title">
+                                        HARD SKILLS
+                                    </span>
+                                    <span class="template-technical-title">
+                                        TECHNICAL SKILLS
+                                    </span>
+                                </h3>
+
+                                <p data-resume-technical-skills>
+                                    HTML5, CSS3, JavaScript, Python, SQL,
+                                    Power BI, Git, GitHub
+                                </p>
+
+                            </div>
+
+
+                            <div class="resume-section">
+
+                                <h3>SOFT SKILLS</h3>
+
+                                <p data-resume-soft-skills>
+                                    Problem Solving, Communication, Teamwork,
+                                    Continuous Learning, Adaptability
+                                </p>
+
+                            </div>
+
+                            <div class="resume-code-footer">
+                                &lt;/siddharth.resume&gt;
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
-
-    </div>
-</section>
+        </section>
 
 
-<!-- =========================================================
-     CONTACT
-========================================================= -->
+        <!-- =================================================
+             CONTACT
+        ================================================== -->
 
-<section class="section contact-section" id="contact">
+        <section id="contact" class="section">
 
-    <div class="container">
-
-        <div class="contact-box glass-card reveal">
-
-            <div class="contact-copy">
+            <div class="section-heading reveal">
 
                 <span class="section-number">07</span>
 
-                <p class="eyebrow">CONTACT</p>
-
-                <h2>
-                    Have an idea?
-                    <br>
-                    <span>Let's build it.</span>
-                </h2>
-
-                <p>
-                    Whether it is a project, opportunity, collaboration or
-                    simply an interesting problem, I am always open to
-                    meaningful conversations.
-                </p>
-
-                <div class="contact-terminal">
-                    <span>&gt; connection.request()</span>
-                    <span class="terminal-green">READY</span>
+                <div>
+                    <p class="section-label">LET'S CONNECT</p>
+                    <h2>Start a <span>Conversation</span></h2>
                 </div>
 
             </div>
 
 
-            <form
-                class="contact-form"
-                id="contactForm"
-                action="mailto:siddharthmishra8@gmail.com"
-                method="post"
-                enctype="text/plain">
-
-                <label>
-                    <span>Name</span>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
-                        required>
-                </label>
-
-                <label>
-                    <span>Email</span>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="you@example.com"
-                        required>
-                </label>
-
-                <label>
-                    <span>Message</span>
-                    <textarea
-                        name="message"
-                        rows="6"
-                        placeholder="Tell me about your idea..."
-                        required></textarea>
-                </label>
-
-                <button type="submit" class="btn btn-primary">
-                    <span>Send Message</span>
-                    <b>↗</b>
-                </button>
-
-            </form>
+            <div class="contact-grid">
 
-        </div>
+                <div class="contact-content reveal">
 
-    </div>
-</section>
+                    <p class="contact-lead">
+                        Have an opportunity, project idea or simply want
+                        to connect?
+                    </p>
 
-</main>
+                    <p>
+                        I am always interested in learning, building and
+                        discussing useful digital ideas.
+                    </p>
 
+                    <div class="contact-links">
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+                        <a href="mailto:"
+                           id="emailContact"
+                           class="contact-item glass-card">
 
-<footer class="site-footer">
+                            <span class="contact-symbol">@</span>
 
-    <div class="container footer-inner">
+                            <span>
+                                <small>Email</small>
+                                <strong id="contactEmailText">
+                                    Send an email
+                                </strong>
+                            </span>
 
-        <div>
-            <a href="#home" class="brand">
-                <span class="brand-bracket">&lt;</span>
-                SIDDHARTH
-                <span class="brand-bracket">/&gt;</span>
-            </a>
+                            <span>→</span>
 
-            <p>
-                Developer • Builder • Continuous Learner
-            </p>
-        </div>
+                        </a>
 
-        <div class="footer-links">
 
-            <a
-                href="https://github.com/7522007702"
-                target="_blank"
-                rel="noopener noreferrer">
-                GitHub
-            </a>
-
-            <a
-                href="https://www.linkedin.com/in/siddharthmishra8/"
-                target="_blank"
-                rel="noopener noreferrer">
-                LinkedIn
-            </a>
-
-            <a
-                href="https://www.instagram.com/siddharthmishr.a/"
-                target="_blank"
-                rel="noopener noreferrer">
-                Instagram
-            </a>
-
-        </div>
-
-        <div class="footer-copy">
-            © <span id="currentYear"></span> Siddharth Mishra
-        </div>
-
-    </div>
-
-</footer>
-
+                        <a href="https://github.com/7522007702"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="contact-item glass-card">
 
-<!-- =========================================================
-     RESUME EDITOR MODAL
-========================================================= -->
-
-<div
-    class="resume-modal"
-    id="resumeModal"
-    aria-hidden="true">
-
-    <div class="resume-modal-backdrop"></div>
+                            <span class="contact-symbol">GH</span>
 
-    <div class="resume-editor-shell">
+                            <span>
+                                <small>GitHub</small>
+                                <strong>7522007702</strong>
+                            </span>
 
-        <div class="editor-toolbar">
+                            <span>↗</span>
 
-            <div>
-                <span class="editor-status-dot"></span>
-                Resume Editor
-            </div>
+                        </a>
 
-            <div class="editor-toolbar-actions">
 
-                <button id="resetResume">
-                    Reset
-                </button>
+                        <a href="https://www.linkedin.com/in/siddharthmishra8/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="contact-item glass-card">
 
-                <button id="printResume" class="toolbar-primary">
-                    Print A4
-                </button>
+                            <span class="contact-symbol">in</span>
 
-                <button id="closeResumeEditor" class="toolbar-close">
-                    ×
-                </button>
+                            <span>
+                                <small>LinkedIn</small>
+                                <strong>Siddharth Mishra</strong>
+                            </span>
 
-            </div>
+                            <span>↗</span>
 
-        </div>
+                        </a>
 
 
-        <div class="resume-editor-layout">
+                        <a href="https://www.instagram.com/siddharthmishr.a/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="contact-item glass-card">
 
-            <aside class="resume-controls">
+                            <span class="contact-symbol">IG</span>
 
-                <div class="control-heading">
-                    <p class="eyebrow">EDIT PROFILE</p>
-                    <h3>Resume Information</h3>
-                </div>
+                            <span>
+                                <small>Instagram</small>
+                                <strong>@siddharthmishr.a</strong>
+                            </span>
 
+                            <span>↗</span>
 
-                <div class="editor-group">
-
-                    <label>
-                        Full Name
-                        <input
-                            type="text"
-                            data-resume-field="name"
-                            value="Siddharth Mishra">
-                    </label>
-
-                    <label>
-                        Professional Title
-                        <input
-                            type="text"
-                            data-resume-field="title"
-                            value="Developer • Builder • Learner">
-                    </label>
-
-                    <label>
-                        Email
-                        <input
-                            type="email"
-                            data-resume-field="email"
-                            value="siddharthmishra8@gmail.com">
-                    </label>
-
-                    <label>
-                        Phone
-                        <input
-                            type="text"
-                            data-resume-field="phone"
-                            value="+91 XXXXX XXXXX">
-                    </label>
-
-                    <label>
-                        Location
-                        <input
-                            type="text"
-                            data-resume-field="location"
-                            value="Lucknow, Uttar Pradesh, India">
-                    </label>
-
-                    <label>
-                        LinkedIn
-                        <input
-                            type="text"
-                            data-resume-field="linkedin"
-                            value="linkedin.com/in/siddharthmishra8">
-                    </label>
-
-                    <label>
-                        GitHub
-                        <input
-                            type="text"
-                            data-resume-field="github"
-                            value="github.com/7522007702">
-                    </label>
-
-                </div>
-
-
-                <div class="editor-group">
-
-                    <h4>Professional Summary</h4>
-
-                    <textarea
-                        data-resume-field="summary"
-                        rows="7">BBA student and technology enthusiast with practical experience in retail sales and operations. Interested in programming, web development, data analytics and digital products. Strong problem-solving mindset with a continuous-learning approach.</textarea>
-
-                </div>
-
-
-                <div class="editor-group">
-
-                    <h4>Technical Skills</h4>
-
-                    <textarea
-                        data-resume-field="technicalSkills"
-                        rows="6">HTML5, CSS3, JavaScript, Python, SQL, Power BI, Git, GitHub, Flutter, Firebase, Data Analysis</textarea>
-
-                </div>
-
-
-                <div class="editor-group">
-
-                    <h4>Soft Skills</h4>
-
-                    <textarea
-                        data-resume-field="softSkills"
-                        rows="5">Problem Solving, Communication, Teamwork, Adaptability, Customer Handling, Continuous Learning</textarea>
-
-                </div>
-
-
-                <div class="editor-group">
-
-                    <h4>Education</h4>
-
-                    <textarea
-                        data-resume-field="education"
-                        rows="6">Bachelor of Business Administration
-Ambalika Management and Technology Institute
-
-12th — UP Board PCB
-O Level</textarea>
-
-                </div>
-
-
-                <div class="editor-group">
-
-                    <h4>Experience</h4>
-
-                    <textarea
-                        data-resume-field="experience"
-                        rows="7">Retail Sales & Operations Executive
-4 Years Experience
-
-Sales, customer handling, operations, reporting and practical problem solving.</textarea>
-
-                </div>
-
-
-                <div class="editor-group">
-
-                    <h4>Projects</h4>
-
-                    <textarea
-                        data-resume-field="projects"
-                        rows="8">Univichar AI — AI education application
-Power BI Dashboard — Business analytics
-SQL Analysis — Data querying and analysis
-Digital Web Experiments — Front-end development</textarea>
-
-                </div>
-
-
-                <div class="editor-group photo-control">
-
-                    <h4>Profile Photo</h4>
-
-                    <input
-                        type="file"
-                        id="resumePhotoInput"
-                        accept="image/*">
-
-                    <button
-                        type="button"
-                        id="removeResumePhoto">
-                        Remove Photo
-                    </button>
-
-                </div>
-
-            </aside>
-
-
-            <section class="resume-preview-area">
-
-                <div class="a4-info">
-                    <span>A4 PREVIEW</span>
-                    <span id="activeTemplateLabel">TEMPLATE 01</span>
-                </div>
-
-
-                <div
-                    class="resume-paper template-1"
-                    id="resumePaper">
-
-                    <div class="resume-paper-inner">
-
-                        <header class="resume-header">
-
-                            <div class="resume-header-text">
-
-                                <h1 data-preview="name">
-                                    Siddharth Mishra
-                                </h1>
-
-                                <h2 data-preview="title">
-                                    Developer • Builder • Learner
-                                </h2>
-
-                                <div class="resume-contact-line">
-                                    <span data-preview="email">
-                                        siddharthmishra8@gmail.com
-                                    </span>
-                                    <span data-preview="phone">
-                                        +91 XXXXX XXXXX
-                                    </span>
-                                    <span data-preview="location">
-                                        Lucknow, Uttar Pradesh, India
-                                    </span>
-                                </div>
-
-                                <div class="resume-links-line">
-                                    <span data-preview="linkedin">
-                                        linkedin.com/in/siddharthmishra8
-                                    </span>
-                                    <span data-preview="github">
-                                        github.com/7522007702
-                                    </span>
-                                </div>
-
-                            </div>
-
-                            <div
-                                class="resume-photo-box"
-                                id="resumePhotoBox">
-
-                                <img
-                                    src="assets/profile.jpg"
-                                    alt="Resume profile photo"
-                                    id="resumePhoto">
-
-                            </div>
-
-                        </header>
-
-
-                        <div class="resume-body">
-
-                            <main class="resume-main-column">
-
-                                <section class="resume-block">
-
-                                    <h3>Professional Summary</h3>
-
-                                    <p data-preview="summary">
-                                        BBA student and technology enthusiast
-                                        with practical experience in retail
-                                        sales and operations. Interested in
-                                        programming, web development, data
-                                        analytics and digital products.
-                                        Strong problem-solving mindset with
-                                        a continuous-learning approach.
-                                    </p>
-
-                                </section>
-
-
-                                <section class="resume-block">
-
-                                    <h3>Experience</h3>
-
-                                    <div
-                                        class="resume-preformatted"
-                                        data-preview="experience">Retail Sales & Operations Executive
-4 Years Experience
-
-Sales, customer handling, operations, reporting and practical problem solving.</div>
-
-                                </section>
-
-
-                                <section class="resume-block">
-
-                                    <h3>Education</h3>
-
-                                    <div
-                                        class="resume-preformatted"
-                                        data-preview="education">Bachelor of Business Administration
-Ambalika Management and Technology Institute
-
-12th — UP Board PCB
-O Level</div>
-
-                                </section>
-
-
-                                <section class="resume-block">
-
-                                    <h3>Projects</h3>
-
-                                    <div
-                                        class="resume-preformatted"
-                                        data-preview="projects">Univichar AI — AI education application
-Power BI Dashboard — Business analytics
-SQL Analysis — Data querying and analysis
-Digital Web Experiments — Front-end development</div>
-
-                                </section>
-
-                            </main>
-
-
-                            <aside class="resume-side-column">
-
-                                <section class="resume-block">
-
-                                    <h3>Technical Skills</h3>
-
-                                    <div
-                                        class="resume-preformatted"
-                                        data-preview="technicalSkills">HTML5, CSS3, JavaScript, Python, SQL, Power BI, Git, GitHub, Flutter, Firebase, Data Analysis</div>
-
-                                </section>
-
-
-                                <section class="resume-block">
-
-                                    <h3>Soft Skills</h3>
-
-                                    <div
-                                        class="resume-preformatted"
-                                        data-preview="softSkills">Problem Solving, Communication, Teamwork, Adaptability, Customer Handling, Continuous Learning</div>
-
-                                </section>
-
-
-                                <section class="resume-block">
-
-                                    <h3>Languages</h3>
-
-                                    <p>
-                                        Hindi<br>
-                                        English
-                                    </p>
-
-                                </section>
-
-                            </aside>
-
-                        </div>
-
-
-                        <footer class="resume-paper-footer">
-                            <span>SIDDHARTH MISHRA</span>
-                            <span>PROFESSIONAL PROFILE</span>
-                        </footer>
+                        </a>
 
                     </div>
 
                 </div>
 
-            </section>
 
+                <form id="contactForm"
+                      class="contact-form glass-card reveal">
+
+                    <div class="form-line"></div>
+
+                    <label>
+                        <span>&gt; your_name</span>
+                        <input type="text"
+                               name="name"
+                               placeholder="Enter your name"
+                               required>
+                    </label>
+
+                    <label>
+                        <span>&gt; your_email</span>
+                        <input type="email"
+                               name="email"
+                               placeholder="Enter your email"
+                               required>
+                    </label>
+
+                    <label>
+                        <span>&gt; message</span>
+                        <textarea name="message"
+                                  rows="6"
+                                  placeholder="Write your message..."
+                                  required></textarea>
+                    </label>
+
+                    <button type="submit"
+                            class="btn btn-primary full-width">
+                        Send Message →
+                    </button>
+
+                    <p id="contactFormStatus"
+                       class="form-status"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-code">
+            <span>&lt;footer&gt;</span>
+            <span>Built with HTML • CSS • JavaScript</span>
+            <span>&lt;/footer&gt;</span>
         </div>
 
-    </div>
+        <p>
+            © <span id="currentYear"></span>
+            Siddharth Mishra. All rights reserved.
+        </p>
+
+    </footer>
 
 </div>
 
 
 <!-- =========================================================
-     TOAST
+     RESUME POPUP / PRINT WINDOW DATA
 ========================================================= -->
 
-<div class="toast" id="toast">
-    <span class="toast-icon">✓</span>
-    <span id="toastMessage">Done</span>
+<div id="resumeToast"
+     class="resume-toast"
+     aria-live="polite">
+    Resume system ready.
 </div>
 
 
