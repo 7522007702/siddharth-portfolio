@@ -1,810 +1,37 @@
 /* =========================================================
    SIDDHARTH.DEV
    VVIP PORTFOLIO SYSTEM
-   MAIN JAVASCRIPT
+   COMPLETE JAVASCRIPT
 ========================================================= */
 
 "use strict";
 
 
 /* =========================================================
-   GLOBAL HELPERS
+   HELPERS
 ========================================================= */
 
-const $ = (selector, scope = document) =>
-    scope.querySelector(selector);
+const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-const $$ = (selector, scope = document) =>
-    [...scope.querySelectorAll(selector)];
-
-
-const clamp = (value, min, max) =>
-    Math.min(Math.max(value, min), max);
-
+const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
 const random = (min, max) =>
     Math.random() * (max - min) + min;
-
 
 const randomInt = (min, max) =>
     Math.floor(random(min, max + 1));
 
 
 /* =========================================================
-   DOM
+   YEAR
 ========================================================= */
 
-const body = document.body;
+const currentYear = $("#currentYear");
 
-const siteLoader = $("#siteLoader");
-const loaderStatus = $("#loaderStatus");
-
-const mainHeader = $("#mainHeader");
-const mainNav = $("#mainNav");
-const menuToggle = $("#menuToggle");
-
-const cursorDot = $("#cursorDot");
-const cursorRing = $("#cursorRing");
-
-const scrollProgress = $("#scrollProgress");
-
-const typingText = $("#typingText");
-const terminalTime = $("#terminalTime");
-
-const cityBackground = $("#cityBackground");
-
-const resumeStudio = $("#resumeStudio");
-const openResumeStudio = $("#openResumeStudio");
-const closeResumeStudio = $("#closeResumeStudio");
-
-const downloadResume = $("#downloadResume");
-const studioDownloadPdf = $("#studioDownloadPdf");
-const studioPrint = $("#studioPrint");
-
-const resumePaper = $("#resumePaper");
-
-const toast = $("#toast");
-const toastMessage = $("#toastMessage");
-
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-const loaderMessages = [
-    "BOOTING SYSTEM...",
-    "LOADING CITY ENGINE...",
-    "INITIALIZING UI...",
-    "MOUNTING PORTFOLIO...",
-    "SYSTEM READY."
-];
-
-
-let loaderIndex = 0;
-
-const loaderInterval = setInterval(() => {
-
-    loaderIndex++;
-
-    if (loaderIndex < loaderMessages.length) {
-        loaderStatus.textContent =
-            loaderMessages[loaderIndex];
-    }
-
-}, 420);
-
-
-window.addEventListener("load", () => {
-
-    setTimeout(() => {
-
-        clearInterval(loaderInterval);
-
-        if (loaderStatus) {
-            loaderStatus.textContent =
-                "SYSTEM READY.";
-        }
-
-        siteLoader.classList.add("loaded");
-
-    }, 1300);
-
-});
-
-
-/* =========================================================
-   CYBERPUNK CITY ENGINE
-========================================================= */
-
-function createStars() {
-
-    const container = $("#skyStars");
-
-    if (!container) return;
-
-    const fragment =
-        document.createDocumentFragment();
-
-    for (let i = 0; i < 120; i++) {
-
-        const star =
-            document.createElement("span");
-
-        star.className =
-            "sky-star";
-
-        star.style.left =
-            `${random(0, 100)}%`;
-
-        star.style.top =
-            `${random(0, 62)}%`;
-
-        star.style.setProperty(
-            "--duration",
-            `${random(0, 3)}s`
-        );
-
-        star.style.animationDelay =
-            `${random(-3, 0)}s`;
-
-        fragment.appendChild(star);
-
-    }
-
-    container.appendChild(fragment);
-
-}
-
-
-function createRain(containerId, count) {
-
-    const container =
-        document.getElementById(containerId);
-
-    if (!container) return;
-
-    const fragment =
-        document.createDocumentFragment();
-
-    for (let i = 0; i < count; i++) {
-
-        const drop =
-            document.createElement("span");
-
-        drop.className =
-            "rain-drop";
-
-        drop.style.setProperty(
-            "--left",
-            `${random(-10, 110)}%`
-        );
-
-        drop.style.setProperty(
-            "--top",
-            `${random(-20, 100)}%`
-        );
-
-        drop.style.setProperty(
-            "--length",
-            `${random(12, 55)}px`
-        );
-
-        drop.style.setProperty(
-            "--opacity",
-            random(.05, .42).toFixed(2)
-        );
-
-        drop.style.setProperty(
-            "--speed",
-            `${random(.45, 1.8)}s`
-        );
-
-        drop.style.setProperty(
-            "--delay",
-            `${random(-2, 0)}s`
-        );
-
-        fragment.appendChild(drop);
-
-    }
-
-    container.appendChild(fragment);
-
-}
-
-
-const signTexts = [
-    "DEV",
-    "AI",
-    "DATA",
-    "CODE",
-    "SQL",
-    "WEB",
-    "LAB",
-    "TECH",
-    "BI",
-    "SYS"
-];
-
-
-const signColors = [
-    "#00f5ff",
-    "#a78bfa",
-    "#ff4db8",
-    "#6eff9c"
-];
-
-
-function createBuilding(layer, options = {}) {
-
-    const building =
-        document.createElement("div");
-
-    building.className =
-        "building";
-
-    const width =
-        random(
-            options.minWidth || 45,
-            options.maxWidth || 130
-        );
-
-    const height =
-        random(
-            options.minHeight || 120,
-            options.maxHeight || 300
-        );
-
-    const columns =
-        randomInt(
-            2,
-            5
-        );
-
-    building.style.setProperty(
-        "--width",
-        `${width}px`
-    );
-
-    building.style.setProperty(
-        "--height",
-        `${height}px`
-    );
-
-    building.style.setProperty(
-        "--cols",
-        columns
-    );
-
-    const top =
-        document.createElement("span");
-
-    top.className =
-        "building-top";
-
-    building.appendChild(top);
-
-
-    if (Math.random() > .5) {
-
-        const antenna =
-            document.createElement("span");
-
-        antenna.className =
-            "rooftop-antenna";
-
-        antenna.style.setProperty(
-            "--antenna-height",
-            `${random(12, 55)}px`
-        );
-
-        building.appendChild(antenna);
-
-
-        const light =
-            document.createElement("span");
-
-        light.className =
-            "rooftop-light";
-
-        building.appendChild(light);
-
-    }
-
-
-    const windows =
-        document.createElement("div");
-
-    windows.className =
-        "building-windows";
-
-
-    const windowCount =
-        Math.ceil(
-            height / 18
-        ) * columns;
-
-
-    for (let i = 0; i < windowCount; i++) {
-
-        const win =
-            document.createElement("span");
-
-        win.className =
-            "window";
-
-        if (Math.random() < .34) {
-
-            win.classList.add("lit");
-
-            const color =
-                signColors[
-                    randomInt(
-                        0,
-                        signColors.length - 1
-                    )
-                ];
-
-            win.style.setProperty(
-                "--window-color",
-                color
-            );
-
-            win.style.setProperty(
-                "--flicker",
-                `${random(3, 8)}s`
-            );
-
-            win.style.setProperty(
-                "--window-delay",
-                `${random(-5, 0)}s`
-            );
-
-        }
-
-        windows.appendChild(win);
-
-    }
-
-    building.appendChild(windows);
-
-
-    if (Math.random() < .18) {
-
-        const sign =
-            document.createElement("span");
-
-        sign.className =
-            "neon-sign";
-
-        sign.textContent =
-            signTexts[
-                randomInt(
-                    0,
-                    signTexts.length - 1
-                )
-            ];
-
-        sign.style.setProperty(
-            "--sign-color",
-            signColors[
-                randomInt(
-                    0,
-                    signColors.length - 1
-                )
-            ]
-        );
-
-        sign.style.setProperty(
-            "--sign-top",
-            `${random(20, 70)}%`
-        );
-
-        building.appendChild(sign);
-
-    }
-
-    layer.appendChild(building);
-
-}
-
-
-function createCity() {
-
-    const far =
-        $("#cityFar");
-
-    const mid =
-        $("#cityMid");
-
-    const near =
-        $("#cityNear");
-
-    if (!far || !mid || !near) return;
-
-
-    const fillLayer = (
-        layer,
-        count,
-        options
-    ) => {
-
-        for (let i = 0; i < count; i++) {
-
-            createBuilding(
-                layer,
-                options
-            );
-
-        }
-
-    };
-
-
-    fillLayer(
-        far,
-        35,
-        {
-            minWidth: 35,
-            maxWidth: 90,
-            minHeight: 90,
-            maxHeight: 210
-        }
-    );
-
-
-    fillLayer(
-        mid,
-        27,
-        {
-            minWidth: 55,
-            maxWidth: 120,
-            minHeight: 140,
-            maxHeight: 280
-        }
-    );
-
-
-    fillLayer(
-        near,
-        20,
-        {
-            minWidth: 70,
-            maxWidth: 150,
-            minHeight: 180,
-            maxHeight: 360
-        }
-    );
-
-}
-
-
-function createRoadLines() {
-
-    const container =
-        $("#roadLines");
-
-    if (!container) return;
-
-    for (let i = 0; i < 14; i++) {
-
-        const line =
-            document.createElement("span");
-
-        line.className =
-            "road-line";
-
-        line.style.setProperty(
-            "--x",
-            `${random(5, 95)}%`
-        );
-
-        line.style.setProperty(
-            "--speed",
-            `${random(1.6, 3.5)}s`
-        );
-
-        line.style.setProperty(
-            "--delay",
-            `${random(-3, 0)}s`
-        );
-
-        container.appendChild(line);
-
-    }
-
-}
-
-
-function createMovingLights() {
-
-    const container =
-        $("#movingLights");
-
-    if (!container) return;
-
-    for (let i = 0; i < 18; i++) {
-
-        const light =
-            document.createElement("span");
-
-        light.className =
-            "moving-light";
-
-        light.style.setProperty(
-            "--light-width",
-            `${random(2, 5)}px`
-        );
-
-        light.style.setProperty(
-            "--light-height",
-            `${random(2, 5)}px`
-        );
-
-        light.style.setProperty(
-            "--start",
-            `${random(-10, 100)}%`
-        );
-
-        light.style.setProperty(
-            "--bottom",
-            `${random(12, 65)}%`
-        );
-
-        light.style.setProperty(
-            "--duration",
-            `${random(4, 10)}s`
-        );
-
-        light.style.setProperty(
-            "--delay",
-            `${random(-10, 0)}s`
-        );
-
-        light.style.setProperty(
-            "--light-color",
-            Math.random() > .45
-                ? "#00f5ff"
-                : "#ff4d78"
-        );
-
-        container.appendChild(light);
-
-    }
-
-}
-
-
-function initCity() {
-
-    createStars();
-
-    createRain(
-        "rainBack",
-        90
-    );
-
-    createRain(
-        "rainFront",
-        150
-    );
-
-    createCity();
-
-    createRoadLines();
-
-    createMovingLights();
-
-}
-
-
-initCity();
-
-
-/* =========================================================
-   PARALLAX / CAMERA
-========================================================= */
-
-let targetX = 0;
-let targetY = 0;
-
-let currentX = 0;
-let currentY = 0;
-
-
-window.addEventListener(
-    "mousemove",
-    event => {
-
-        targetX =
-            (event.clientX /
-                window.innerWidth -
-                .5) * 2;
-
-        targetY =
-            (event.clientY /
-                window.innerHeight -
-                .5) * 2;
-
-        if (
-            window.innerWidth > 850 &&
-            cityBackground
-        ) {
-
-            cityBackground.style.transform =
-                `translate3d(
-                    ${targetX * -5}px,
-                    ${targetY * -3}px,
-                    0
-                )`;
-
-        }
-
-    },
-    { passive: true }
-);
-
-
-function animateParallax() {
-
-    currentX +=
-        (targetX - currentX) * .035;
-
-    currentY +=
-        (targetY - currentY) * .035;
-
-    const near =
-        $("#cityNear");
-
-    const mid =
-        $("#cityMid");
-
-    const far =
-        $("#cityFar");
-
-    if (near) {
-
-        near.style.transform =
-            `translate3d(
-                ${currentX * -9}px,
-                ${currentY * -4}px,
-                0
-            )`;
-
-    }
-
-    if (mid) {
-
-        mid.style.transform =
-            `translate3d(
-                ${currentX * -5}px,
-                ${currentY * -2}px,
-                0
-            )`;
-
-    }
-
-    if (far) {
-
-        far.style.transform =
-            `translate3d(
-                ${currentX * -2}px,
-                ${currentY}px,
-                0
-            )`;
-
-    }
-
-    requestAnimationFrame(
-        animateParallax
-    );
-
-}
-
-
-animateParallax();
-
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-let mouseX = -100;
-let mouseY = -100;
-
-let ringX = -100;
-let ringY = -100;
-
-
-if (
-    cursorDot &&
-    cursorRing &&
-    window.innerWidth > 850
-) {
-
-    window.addEventListener(
-        "mousemove",
-        event => {
-
-            mouseX =
-                event.clientX;
-
-            mouseY =
-                event.clientY;
-
-            cursorDot.style.left =
-                `${mouseX}px`;
-
-            cursorDot.style.top =
-                `${mouseY}px`;
-
-        },
-        { passive: true }
-    );
-
-
-    function animateCursor() {
-
-        ringX +=
-            (mouseX - ringX) * .15;
-
-        ringY +=
-            (mouseY - ringY) * .15;
-
-        cursorRing.style.left =
-            `${ringX}px`;
-
-        cursorRing.style.top =
-            `${ringY}px`;
-
-        requestAnimationFrame(
-            animateCursor
-        );
-
-    }
-
-    animateCursor();
-
-
-    document.addEventListener(
-        "mouseover",
-        event => {
-
-            if (
-                event.target.closest(
-                    "a, button, input, textarea, .project-card"
-                )
-            ) {
-
-                cursorRing.classList.add(
-                    "hover"
-                );
-
-            }
-
-        }
-    );
-
-
-    document.addEventListener(
-        "mouseout",
-        event => {
-
-            if (
-                event.target.closest(
-                    "a, button, input, textarea, .project-card"
-                )
-            ) {
-
-                cursorRing.classList.remove(
-                    "hover"
-                );
-
-            }
-
-        }
-    );
-
+if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
 }
 
 
@@ -812,702 +39,594 @@ if (
    MOBILE NAVIGATION
 ========================================================= */
 
-if (menuToggle) {
+const mobileMenuButton = $("#mobileMenuButton");
+const mainNavigation = $("#mainNavigation");
 
-    menuToggle.addEventListener(
-        "click",
-        () => {
+if (mobileMenuButton && mainNavigation) {
 
-            const open =
-                mainNav.classList.toggle(
-                    "open"
-                );
+    mobileMenuButton.addEventListener("click", () => {
 
-            menuToggle.setAttribute(
-                "aria-expanded",
-                String(open)
-            );
+        const opened =
+            mainNavigation.classList.toggle("open");
 
-        }
-    );
+        mobileMenuButton.setAttribute(
+            "aria-expanded",
+            String(opened)
+        );
+
+    });
 
 }
 
 
-$$(".nav-link").forEach(
-    link => {
+$$(".nav-link").forEach(link => {
 
-        link.addEventListener(
-            "click",
-            () => {
+    link.addEventListener("click", () => {
 
-                mainNav.classList.remove(
-                    "open"
-                );
+        mainNavigation?.classList.remove("open");
 
-                menuToggle?.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
+        mobileMenuButton?.setAttribute(
+            "aria-expanded",
+            "false"
         );
 
-    }
-);
+    });
+
+});
 
 
 /* =========================================================
-   HEADER + SCROLL
+   ACTIVE NAVIGATION
 ========================================================= */
 
 const sections =
-    $$("section[id]");
+    $$("main section[id]");
 
 const navLinks =
     $$(".nav-link");
 
+const sectionObserver =
+    new IntersectionObserver(
+        entries => {
 
-function updateScrollUI() {
+            entries.forEach(entry => {
 
-    const scrollTop =
-        window.scrollY;
+                if (!entry.isIntersecting) {
+                    return;
+                }
 
-    const documentHeight =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                });
 
-    const progress =
-        documentHeight > 0
-            ? scrollTop / documentHeight * 100
-            : 0;
+                const active =
+                    $(`.nav-link[href="#${entry.target.id}"]`);
 
-    if (scrollProgress) {
+                active?.classList.add("active");
 
-        scrollProgress.style.width =
-            `${progress}%`;
+            });
 
-    }
-
-
-    if (mainHeader) {
-
-        mainHeader.classList.toggle(
-            "scrolled",
-            scrollTop > 40
-        );
-
-    }
-
-
-    let current =
-        "home";
-
-
-    sections.forEach(
-        section => {
-
-            const top =
-                section.offsetTop -
-                150;
-
-            if (
-                scrollTop >= top
-            ) {
-
-                current =
-                    section.id;
-
-            }
-
+        },
+        {
+            threshold: 0.3
         }
     );
 
-
-    navLinks.forEach(
-        link => {
-
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                `#${current}`
-            );
-
-        }
-    );
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    updateScrollUI,
-    { passive: true }
+sections.forEach(section =>
+    sectionObserver.observe(section)
 );
-
-updateScrollUI();
 
 
 /* =========================================================
-   TYPING ENGINE
+   TYPING ANIMATION
 ========================================================= */
 
-const typingPhrases = [
-    "turning ideas into digital products.",
-    "building practical solutions.",
-    "learning something new every day.",
-    "solving problems with technology.",
-    "designing systems that make sense."
+const typingText = $("#typingText");
+
+const typingWords = [
+    "creating useful digital experiences",
+    "solving practical problems",
+    "learning new technologies",
+    "building with code",
+    "turning ideas into projects",
+    "exploring data and technology"
 ];
 
-
-let phraseIndex = 0;
-let charIndex = 0;
+let typingWordIndex = 0;
+let typingCharIndex = 0;
 let deleting = false;
 
+function typeWriter() {
 
-function typeLoop() {
+    if (!typingText) {
+        return;
+    }
 
-    if (!typingText) return;
-
-    const phrase =
-        typingPhrases[
-            phraseIndex
-        ];
-
+    const word =
+        typingWords[typingWordIndex];
 
     if (!deleting) {
 
         typingText.textContent =
-            phrase.slice(
+            word.substring(
                 0,
-                charIndex + 1
+                typingCharIndex + 1
             );
 
-        charIndex++;
+        typingCharIndex++;
 
-
-        if (
-            charIndex >=
-            phrase.length
-        ) {
+        if (typingCharIndex === word.length) {
 
             deleting = true;
 
             setTimeout(
-                typeLoop,
-                1800
+                typeWriter,
+                1500
             );
 
             return;
-
         }
 
     } else {
 
         typingText.textContent =
-            phrase.slice(
+            word.substring(
                 0,
-                charIndex - 1
+                typingCharIndex - 1
             );
 
-        charIndex--;
+        typingCharIndex--;
 
-
-        if (
-            charIndex <= 0
-        ) {
+        if (typingCharIndex === 0) {
 
             deleting = false;
 
-            phraseIndex =
-                (phraseIndex + 1) %
-                typingPhrases.length;
+            typingWordIndex =
+                (typingWordIndex + 1) %
+                typingWords.length;
 
         }
 
     }
 
-
     setTimeout(
-        typeLoop,
-        deleting ? 35 : 70
+        typeWriter,
+        deleting ? 38 : 65
     );
-
 }
 
-
-typeLoop();
+typeWriter();
 
 
 /* =========================================================
-   TERMINAL CLOCK
+   REVEAL ANIMATION
 ========================================================= */
-
-function updateTerminalTime() {
-
-    if (!terminalTime) return;
-
-    const now =
-        new Date();
-
-    terminalTime.textContent =
-        now.toLocaleTimeString(
-            "en-GB",
-            {
-                hour12: false
-            }
-        );
-
-}
-
-
-setInterval(
-    updateTerminalTime,
-    1000
-);
-
-updateTerminalTime();
-
-
-/* =========================================================
-   REVEAL OBSERVER
-========================================================= */
-
-const revealElements =
-    $$(
-        ".section-heading, " +
-        ".about-profile, " +
-        ".about-content, " +
-        ".identity-card, " +
-        ".stat-card, " +
-        ".skill-row, " +
-        ".journey-item, " +
-        ".project-card, " +
-        ".certificate-empty, " +
-        ".resume-info, " +
-        ".resume-code, " +
-        ".contact-copy, " +
-        ".contact-form"
-    );
-
-
-revealElements.forEach(
-    element => {
-
-        element.classList.add(
-            "reveal"
-        );
-
-    }
-);
-
 
 const revealObserver =
     new IntersectionObserver(
         entries => {
 
-            entries.forEach(
-                entry => {
+            entries.forEach(entry => {
 
-                    if (
-                        entry.isIntersecting
-                    ) {
+                if (
+                    entry.isIntersecting
+                ) {
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
+                    entry.target.classList.add(
+                        "visible"
+                    );
 
-                        if (
-                            entry.target.classList.contains(
-                                "skill-row"
-                            )
-                        ) {
-
-                            entry.target.classList.add(
-                                "visible"
-                            );
-
-                        }
-
-                    }
+                    revealObserver.unobserve(
+                        entry.target
+                    );
 
                 }
-            );
+
+            });
 
         },
         {
-            threshold: .12
+            threshold: 0.12
         }
     );
 
-
-revealElements.forEach(
-    element =>
-        revealObserver.observe(
-            element
-        )
+$$(".reveal").forEach(element =>
+    revealObserver.observe(element)
 );
 
 
 /* =========================================================
-   COUNTERS
+   CYBERPUNK CITY GENERATOR
 ========================================================= */
 
-const counters =
-    $$(".stat-number");
+const farBuildings = $("#farBuildings");
+const midBuildings = $("#midBuildings");
+const nearBuildings = $("#nearBuildings");
+
+function createBuilding(layer, minHeight, maxHeight) {
+
+    if (!layer) {
+        return;
+    }
+
+    const building =
+        document.createElement("div");
+
+    building.className =
+        "city-building";
+
+    building.style.height =
+        `${randomInt(minHeight, maxHeight)}%`;
+
+    const antenna =
+        document.createElement("span");
+
+    antenna.className =
+        "building-antenna";
+
+    if (Math.random() > 0.6) {
+        building.appendChild(antenna);
+    }
+
+    layer.appendChild(building);
+}
 
 
-function animateCounter(
-    element
-) {
+function generateBuildings() {
 
-    const target =
-        Number(
-            element.dataset.count
+    const width =
+        window.innerWidth;
+
+    const count =
+        Math.ceil(width / 60);
+
+    farBuildings.innerHTML = "";
+    midBuildings.innerHTML = "";
+    nearBuildings.innerHTML = "";
+
+    for (let i = 0; i < count; i++) {
+
+        createBuilding(
+            farBuildings,
+            20,
+            65
         );
 
-    const duration =
-        1300;
+        createBuilding(
+            midBuildings,
+            25,
+            78
+        );
 
-    const start =
-        performance.now();
-
-
-    function update(now) {
-
-        const elapsed =
-            now - start;
-
-        const progress =
-            Math.min(
-                elapsed / duration,
-                1
-            );
-
-        const eased =
-            1 -
-            Math.pow(
-                1 - progress,
-                3
-            );
-
-        element.textContent =
-            Math.floor(
-                target * eased
-            );
-
-        if (
-            progress < 1
-        ) {
-
-            requestAnimationFrame(
-                update
-            );
-
-        } else {
-
-            element.textContent =
-                target;
-
-        }
+        createBuilding(
+            nearBuildings,
+            30,
+            88
+        );
 
     }
 
-
-    requestAnimationFrame(
-        update
-    );
-
 }
 
+generateBuildings();
 
-const counterObserver =
-    new IntersectionObserver(
-        entries => {
 
-            entries.forEach(
-                entry => {
+let buildingResizeTimer;
 
-                    if (
-                        entry.isIntersecting &&
-                        !entry.target.dataset.counted
-                    ) {
+window.addEventListener(
+    "resize",
+    () => {
 
-                        entry.target.dataset.counted =
-                            "true";
+        clearTimeout(buildingResizeTimer);
 
-                        animateCounter(
-                            entry.target
-                        );
-
-                    }
-
-                }
-            );
-
-        },
-        {
-            threshold: .5
-        }
-    );
-
-
-counters.forEach(
-    counter =>
-        counterObserver.observe(
-            counter
-        )
-);
-
-
-/* =========================================================
-   MAGNETIC BUTTONS
-========================================================= */
-
-if (window.innerWidth > 850) {
-
-    $$(".magnetic").forEach(
-        button => {
-
-            button.addEventListener(
-                "mousemove",
-                event => {
-
-                    const rect =
-                        button.getBoundingClientRect();
-
-                    const x =
-                        event.clientX -
-                        rect.left -
-                        rect.width / 2;
-
-                    const y =
-                        event.clientY -
-                        rect.top -
-                        rect.height / 2;
-
-                    button.style.transform =
-                        `translate(
-                            ${x * .08}px,
-                            ${y * .08}px
-                        )`;
-
-                }
-            );
-
-
-            button.addEventListener(
-                "mouseleave",
-                () => {
-
-                    button.style.transform =
-                        "";
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PROJECT FILTERS
-========================================================= */
-
-const projectFilters =
-    $$(".project-filter");
-
-const projectCards =
-    $$(".project-card");
-
-
-projectFilters.forEach(
-    filter => {
-
-        filter.addEventListener(
-            "click",
-            () => {
-
-                const value =
-                    filter.dataset.filter;
-
-
-                projectFilters.forEach(
-                    item =>
-                        item.classList.remove(
-                            "active"
-                        )
-                );
-
-                filter.classList.add(
-                    "active"
-                );
-
-
-                projectCards.forEach(
-                    card => {
-
-                        const category =
-                            card.dataset.category;
-
-                        const show =
-                            value === "all" ||
-                            category === value;
-
-                        card.style.display =
-                            show
-                                ? ""
-                                : "none";
-
-                    }
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-
-function showToast(message) {
-
-    if (!toast || !toastMessage) return;
-
-    toastMessage.textContent =
-        message;
-
-    toast.classList.add(
-        "show"
-    );
-
-    clearTimeout(
-        toastTimer
-    );
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2800
-        );
-
-}
-
-
-/* =========================================================
-   CONTACT FORM
-========================================================= */
-
-const contactForm =
-    $("#contactForm");
-
-const contactStatus =
-    $("#contactStatus");
-
-
-if (contactForm) {
-
-    contactForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const name =
-                $("#contactName")?.value.trim();
-
-            const email =
-                $("#contactEmail")?.value.trim();
-
-            const subject =
-                $("#contactSubject")?.value.trim();
-
-            const message =
-                $("#contactMessage")?.value.trim();
-
-
-            if (
-                !name ||
-                !email ||
-                !subject ||
-                !message
-            ) {
-
-                showToast(
-                    "Please complete all fields."
-                );
-
-                return;
-
-            }
-
-
-            const mailto =
-                `mailto:?subject=${
-                    encodeURIComponent(
-                        subject
-                    )
-                }&body=${
-                    encodeURIComponent(
-                        `Name: ${name}\nEmail: ${email}\n\n${message}`
-                    )
-                }`;
-
-
-            if (contactStatus) {
-
-                contactStatus.textContent =
-                    "TRANSMISSION READY — OPENING MAIL CLIENT...";
-
-            }
-
-
-            showToast(
-                "Opening your mail client..."
-            );
-
-
+        buildingResizeTimer =
             setTimeout(
-                () => {
-
-                    window.location.href =
-                        mailto;
-
-                },
-                400
+                generateBuildings,
+                250
             );
 
+    }
+);
+
+
+/* =========================================================
+   NEON SIGNS
+========================================================= */
+
+const neonSigns = $("#neonSigns");
+
+const signWords = [
+    "CODE",
+    "DATA",
+    "AI",
+    "DEV",
+    "BUILD",
+    "SQL",
+    "WEB",
+    "NEXUS",
+    "DIGITAL",
+    "SYSTEM",
+    "TECH",
+    "01",
+    "1010",
+    "∞"
+];
+
+function generateNeonSigns() {
+
+    if (!neonSigns) {
+        return;
+    }
+
+    neonSigns.innerHTML = "";
+
+    const total =
+        Math.max(
+            7,
+            Math.floor(window.innerWidth / 170)
+        );
+
+    for (let i = 0; i < total; i++) {
+
+        const sign =
+            document.createElement("div");
+
+        sign.className =
+            "neon-sign";
+
+        const type =
+            randomInt(0, 2);
+
+        if (type === 1) {
+            sign.classList.add("pink");
         }
-    );
+
+        if (type === 2) {
+            sign.classList.add("purple");
+        }
+
+        sign.textContent =
+            signWords[
+                randomInt(
+                    0,
+                    signWords.length - 1
+                )
+            ];
+
+        sign.style.left =
+            `${random(4, 96)}%`;
+
+        sign.style.top =
+            `${random(28, 67)}%`;
+
+        sign.style.animationDelay =
+            `${random(0, 4)}s`;
+
+        neonSigns.appendChild(sign);
+
+    }
 
 }
+
+generateNeonSigns();
+
+
+/* =========================================================
+   MOVING VEHICLES
+========================================================= */
+
+const movingVehicles =
+    $("#movingVehicles");
+
+function generateVehicles() {
+
+    if (!movingVehicles) {
+        return;
+    }
+
+    movingVehicles.innerHTML = "";
+
+    for (let i = 0; i < 7; i++) {
+
+        const vehicle =
+            document.createElement("div");
+
+        vehicle.className =
+            "vehicle";
+
+        if (i % 2 === 1) {
+            vehicle.classList.add("reverse");
+        }
+
+        vehicle.style.left =
+            `${random(-20, 90)}%`;
+
+        vehicle.style.top =
+            `${random(72, 91)}%`;
+
+        vehicle.style.animationDuration =
+            `${random(6, 13)}s`;
+
+        vehicle.style.animationDelay =
+            `${random(-12, 0)}s`;
+
+        movingVehicles.appendChild(vehicle);
+
+    }
+
+}
+
+generateVehicles();
+
+
+/* =========================================================
+   RAIN GENERATOR
+========================================================= */
+
+const rainLayer = $("#rainLayer");
+
+function generateRain() {
+
+    if (!rainLayer) {
+        return;
+    }
+
+    rainLayer.innerHTML = "";
+
+    const mobile =
+        window.innerWidth < 700;
+
+    const amount =
+        mobile ? 95 : 180;
+
+    const fragment =
+        document.createDocumentFragment();
+
+    for (let i = 0; i < amount; i++) {
+
+        const drop =
+            document.createElement("span");
+
+        drop.className =
+            "rain-drop";
+
+        drop.style.left =
+            `${random(0, 100)}%`;
+
+        drop.style.top =
+            `${random(-20, 100)}%`;
+
+        drop.style.height =
+            `${random(35, 90)}px`;
+
+        drop.style.opacity =
+            random(0.12, 0.6);
+
+        drop.style.animationDuration =
+            `${random(0.45, 1.25)}s`;
+
+        drop.style.animationDelay =
+            `${random(-2, 0)}s`;
+
+        fragment.appendChild(drop);
+
+    }
+
+    rainLayer.appendChild(fragment);
+
+}
+
+generateRain();
+
+
+/* =========================================================
+   CITY PARTICLES
+========================================================= */
+
+const particlesLayer =
+    $("#particlesLayer");
+
+function generateParticles() {
+
+    if (!particlesLayer) {
+        return;
+    }
+
+    particlesLayer.innerHTML = "";
+
+    const amount =
+        window.innerWidth < 700
+            ? 25
+            : 55;
+
+    const fragment =
+        document.createDocumentFragment();
+
+    for (let i = 0; i < amount; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.className =
+            "city-particle";
+
+        particle.style.left =
+            `${random(0, 100)}%`;
+
+        particle.style.top =
+            `${random(40, 100)}%`;
+
+        particle.style.animationDuration =
+            `${random(7, 18)}s`;
+
+        particle.style.animationDelay =
+            `${random(-15, 0)}s`;
+
+        particle.style.opacity =
+            random(0.1, 0.6);
+
+        fragment.appendChild(particle);
+
+    }
+
+    particlesLayer.appendChild(fragment);
+
+}
+
+generateParticles();
+
+
+/* =========================================================
+   PARALLAX CITY
+========================================================= */
+
+const cityBackground =
+    $("#city-background");
+
+let parallaxX = 0;
+let parallaxY = 0;
+
+window.addEventListener(
+    "pointermove",
+    event => {
+
+        const x =
+            event.clientX /
+            window.innerWidth;
+
+        const y =
+            event.clientY /
+            window.innerHeight;
+
+        parallaxX =
+            (x - 0.5) * 2;
+
+        parallaxY =
+            (y - 0.5) * 2;
+
+        if (cityBackground) {
+
+            cityBackground.style.transform =
+                `translate3d(
+                    ${parallaxX * -5}px,
+                    ${parallaxY * -3}px,
+                    0
+                )`;
+
+        }
+
+    },
+    {
+        passive: true
+    }
+);
 
 
 /* =========================================================
    RESUME DATA
 ========================================================= */
 
-const RESUME_STORAGE_KEY =
-    "siddharth_resume_data_v1";
-
-
-const defaultResumeData = {
+const resumeData = {
 
     name:
         "Siddharth Mishra",
@@ -1524,639 +643,327 @@ const defaultResumeData = {
     location:
         "Lucknow, Uttar Pradesh, India",
 
-    linkedin:
-        "linkedin.com/in/siddharthmishra8",
+    about:
+        "BBA student, problem solver and digital builder interested in programming, analytics, business and practical technology.",
 
-    github:
-        "github.com/7522007702",
+    technicalSkills:
+        "HTML5, CSS3, JavaScript, Python, SQL, Power BI, Git, GitHub",
 
-    summary:
-        "BBA student and technology-focused developer interested in programming, digital products, data and practical problem solving. I enjoy learning new technologies and turning ideas into useful digital experiences."
+    softSkills:
+        "Problem Solving, Communication, Teamwork, Continuous Learning, Adaptability",
+
+    experience:
+        "4 Years — Retail Sales & Operations Executive",
+
+    education:
+        "BBA — Ambalika Management and Technology Institute",
+
+    photo:
+        "assets/profile.jpg"
 
 };
 
 
-let resumeData =
-    loadResumeData();
+/* =========================================================
+   RESUME DOM
+========================================================= */
 
+const resumePreview =
+    $("#resumePreview");
 
-function loadResumeData() {
+const resumeName =
+    $("#resumeName");
 
-    try {
+const resumeTitle =
+    $("#resumeTitle");
 
-        const saved =
-            localStorage.getItem(
-                RESUME_STORAGE_KEY
-            );
+const resumeEmail =
+    $("#resumeEmail");
 
-        if (!saved) {
+const resumePhone =
+    $("#resumePhone");
 
-            return {
-                ...defaultResumeData
-            };
+const resumeLocation =
+    $("#resumeLocation");
 
-        }
+const resumeAbout =
+    $("#resumeAbout");
 
+const resumeTechnicalSkills =
+    $("#resumeTechnicalSkills");
 
-        return {
-            ...defaultResumeData,
-            ...JSON.parse(saved)
-        };
+const resumeSoftSkills =
+    $("#resumeSoftSkills");
 
-    } catch (error) {
+const resumeExperience =
+    $("#resumeExperience");
 
-        return {
-            ...defaultResumeData
-        };
+const resumeEducation =
+    $("#resumeEducation");
 
-    }
+const resumePhoto =
+    $("#resumePhoto");
 
-}
-
-
-function saveResumeData() {
-
-    try {
-
-        localStorage.setItem(
-            RESUME_STORAGE_KEY,
-            JSON.stringify(
-                resumeData
-            )
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Could not save resume data.",
-            error
-        );
-
-    }
-
-}
+const resumePreviewPhoto =
+    $("#resumePreviewPhoto");
 
 
 /* =========================================================
-   RESUME FIELD BINDING
+   UPDATE RESUME PREVIEW
 ========================================================= */
 
-const resumeInputs =
-    $$(
-        "[data-resume-field]"
-    );
+function updateResumePreview() {
 
-
-function loadResumeInputs() {
-
-    resumeInputs.forEach(
-        input => {
-
-            const field =
-                input.dataset.resumeField;
-
-            input.value =
-                resumeData[field] || "";
-
-        }
-    );
-
-}
-
-
-function updateResumePreview(
-    field,
-    value
-) {
-
-    $$(
-        `[data-preview="${field}"]`
-    ).forEach(
-        element => {
-
-            element.textContent =
-                value ||
-                defaultResumeData[field] ||
-                "";
-
-        }
-    );
-
-}
-
-
-function refreshResumePreview() {
-
-    Object.keys(
-        resumeData
-    ).forEach(
-        field => {
-
-            updateResumePreview(
-                field,
-                resumeData[field]
-            );
-
-        }
-    );
-
-}
-
-
-resumeInputs.forEach(
-    input => {
-
-        input.addEventListener(
-            "input",
-            () => {
-
-                const field =
-                    input.dataset.resumeField;
-
-                resumeData[field] =
-                    input.value;
-
-                updateResumePreview(
-                    field,
-                    input.value
-                );
-
-                saveResumeData();
-
-            }
-        );
-
+    if (!resumePreview) {
+        return;
     }
-);
+
+    const setText =
+        (selector, value) => {
+
+            const element =
+                $(selector);
+
+            if (element) {
+                element.textContent =
+                    value || "";
+            }
+
+        };
+
+    setText(
+        "[data-resume-name]",
+        resumeName?.value
+    );
+
+    setText(
+        "[data-resume-title]",
+        resumeTitle?.value
+    );
+
+    setText(
+        "[data-resume-email]",
+        resumeEmail?.value || "Email"
+    );
+
+    setText(
+        "[data-resume-phone]",
+        resumePhone?.value || "Phone"
+    );
+
+    setText(
+        "[data-resume-location]",
+        resumeLocation?.value
+    );
+
+    setText(
+        "[data-resume-about]",
+        resumeAbout?.value
+    );
+
+    setText(
+        "[data-resume-technical-skills]",
+        resumeTechnicalSkills?.value
+    );
+
+    setText(
+        "[data-resume-soft-skills]",
+        resumeSoftSkills?.value
+    );
+
+    setText(
+        "[data-resume-experience]",
+        resumeExperience?.value
+    );
+
+    setText(
+        "[data-resume-education]",
+        resumeEducation?.value
+    );
+
+}
 
 
-loadResumeInputs();
+[
+    resumeName,
+    resumeTitle,
+    resumeEmail,
+    resumePhone,
+    resumeLocation,
+    resumeAbout,
+    resumeTechnicalSkills,
+    resumeSoftSkills,
+    resumeExperience,
+    resumeEducation
+].forEach(input => {
 
-refreshResumePreview();
+    input?.addEventListener(
+        "input",
+        updateResumePreview
+    );
+
+});
+
+
+updateResumePreview();
 
 
 /* =========================================================
    RESUME PHOTO
 ========================================================= */
 
-const resumePhotoInput =
-    $("#resumePhotoInput");
+resumePhoto?.addEventListener(
+    "change",
+    event => {
 
-const resumePhotoOne =
-    $("#resumePhotoOne");
+        const file =
+            event.target.files?.[0];
 
-const resumePhotoThree =
-    $("#resumePhotoThree");
-
-
-const RESUME_PHOTO_KEY =
-    "siddharth_resume_photo_v1";
-
-
-function loadSavedPhoto() {
-
-    try {
-
-        const photo =
-            localStorage.getItem(
-                RESUME_PHOTO_KEY
-            );
-
-        if (
-            photo &&
-            resumePhotoOne &&
-            resumePhotoThree
-        ) {
-
-            resumePhotoOne.src =
-                photo;
-
-            resumePhotoThree.src =
-                photo;
-
+        if (!file) {
+            return;
         }
 
-    } catch (error) {
+        if (!file.type.startsWith("image/")) {
+            showToast(
+                "Please select an image file."
+            );
 
-        console.warn(
-            "Photo could not be loaded."
-        );
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            () => {
+
+                resumePreviewPhoto.src =
+                    reader.result;
+
+                resumeData.photo =
+                    reader.result;
+
+            };
+
+        reader.readAsDataURL(file);
 
     }
-
-}
-
-
-loadSavedPhoto();
-
-
-if (resumePhotoInput) {
-
-    resumePhotoInput.addEventListener(
-        "change",
-        event => {
-
-            const file =
-                event.target.files?.[0];
-
-            if (!file) return;
-
-
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                showToast(
-                    "Please select an image."
-                );
-
-                return;
-
-            }
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                () => {
-
-                    const result =
-                        reader.result;
-
-                    if (
-                        resumePhotoOne
-                    ) {
-
-                        resumePhotoOne.src =
-                            result;
-
-                    }
-
-                    if (
-                        resumePhotoThree
-                    ) {
-
-                        resumePhotoThree.src =
-                            result;
-
-                    }
-
-
-                    try {
-
-                        localStorage.setItem(
-                            RESUME_PHOTO_KEY,
-                            result
-                        );
-
-                    } catch (error) {
-
-                        showToast(
-                            "Photo applied for this session."
-                        );
-
-                    }
-
-                    showToast(
-                        "Resume photo updated."
-                    );
-
-                };
-
-
-            reader.readAsDataURL(
-                file
-            );
-
-        }
-    );
-
-}
+);
 
 
 /* =========================================================
-   RESUME TEMPLATE SYSTEM
+   RESUME TEMPLATES
 ========================================================= */
 
 const templateOptions =
     $$(".template-option");
 
+templateOptions.forEach(button => {
 
-const templateNames = {
+    button.addEventListener(
+        "click",
+        () => {
 
-    template1:
-        "TEMPLATE 01 — ORIGINAL / PHOTO",
+            const template =
+                button.dataset.template;
 
-    template2:
-        "TEMPLATE 02 — ORIGINAL / NO PHOTO",
+            templateOptions.forEach(
+                item =>
+                    item.classList.remove("active")
+            );
 
-    template3:
-        "TEMPLATE 03 — DEVELOPER / PHOTO",
+            button.classList.add("active");
 
-    template4:
-        "TEMPLATE 04 — DEVELOPER / NO PHOTO"
+            resumePreview.className =
+                `resume-paper template-${template}`;
 
-};
-
-
-function setResumeTemplate(
-    template
-) {
-
-    if (!resumePaper) return;
-
-
-    resumePaper.classList.remove(
-        "resume-template-1",
-        "resume-template-2",
-        "resume-template-3",
-        "resume-template-4"
-    );
-
-
-    const number =
-        template.replace(
-            "template",
-            ""
-        );
-
-
-    resumePaper.classList.add(
-        `resume-template-${number}`
-    );
-
-
-    templateOptions.forEach(
-        option => {
-
-            option.classList.toggle(
-                "active",
-                option.dataset.template ===
-                template
+            showToast(
+                `Resume template ${template} selected.`
             );
 
         }
     );
 
-
-    const activeName =
-        $("#activeTemplateName");
+});
 
 
-    if (activeName) {
+/* =========================================================
+   RESUME TOAST
+========================================================= */
 
-        activeName.textContent =
-            templateNames[template] ||
-            "RESUME TEMPLATE";
+const resumeToast =
+    $("#resumeToast");
 
+let toastTimer;
+
+function showToast(message) {
+
+    if (!resumeToast) {
+        return;
     }
 
+    resumeToast.textContent =
+        message;
 
-    try {
+    resumeToast.classList.add("show");
 
-        localStorage.setItem(
-            "siddharth_resume_template_v1",
-            template
-        );
+    clearTimeout(toastTimer);
 
-    } catch (error) {}
-
-}
-
-
-templateOptions.forEach(
-    option => {
-
-        option.addEventListener(
-            "click",
+    toastTimer =
+        setTimeout(
             () => {
-
-                setResumeTemplate(
-                    option.dataset.template
-                );
-
-            }
+                resumeToast.classList.remove("show");
+            },
+            2600
         );
 
-    }
-);
-
-
-function loadSavedTemplate() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                "siddharth_resume_template_v1"
-            );
-
-        setResumeTemplate(
-            saved || "template1"
-        );
-
-    } catch (error) {
-
-        setResumeTemplate(
-            "template1"
-        );
-
-    }
-
 }
-
-
-loadSavedTemplate();
 
 
 /* =========================================================
-   RESUME STUDIO OPEN/CLOSE
+   DOWNLOAD ORIGINAL PDF
 ========================================================= */
 
-function openStudio() {
+const downloadOriginalResume =
+    $("#downloadOriginalResume");
 
-    if (!resumeStudio) return;
-
-    resumeStudio.classList.add(
-        "open"
-    );
-
-    resumeStudio.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    body.classList.add(
-        "studio-open"
-    );
-
-    loadResumeInputs();
-
-    refreshResumePreview();
-
-    loadSavedTemplate();
-
-}
-
-
-function closeStudio() {
-
-    if (!resumeStudio) return;
-
-    resumeStudio.classList.remove(
-        "open"
-    );
-
-    resumeStudio.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    body.classList.remove(
-        "studio-open"
-    );
-
-}
-
-
-openResumeStudio?.addEventListener(
-    "click",
-    openStudio
-);
-
-
-closeResumeStudio?.addEventListener(
-    "click",
-    closeStudio
-);
-
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            resumeStudio?.classList.contains(
-                "open"
-            )
-        ) {
-
-            closeStudio();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   ORIGINAL PDF DOWNLOAD
-========================================================= */
-
-function downloadOriginalResume() {
-
-    const link =
-        document.createElement("a");
-
-    link.href =
-        "assets/resume.pdf";
-
-    link.download =
-        "Siddharth-Mishra-Resume.pdf";
-
-    link.rel =
-        "noopener";
-
-    document.body.appendChild(
-        link
-    );
-
-    link.click();
-
-    link.remove();
-
-    showToast(
-        "Original resume PDF download started."
-    );
-
-}
-
-
-downloadResume?.addEventListener(
-    "click",
-    downloadOriginalResume
-);
-
-
-studioDownloadPdf?.addEventListener(
-    "click",
-    downloadOriginalResume
-);
-
-
-/* =========================================================
-   PRINT A4
-========================================================= */
-
-function printResume() {
-
-    /*
-       The Resume Studio paper is a real HTML document.
-       This means the selected template + edited fields
-       can be printed directly as A4.
-    */
-
-    refreshResumePreview();
-
-    window.print();
-
-}
-
-
-studioPrint?.addEventListener(
-    "click",
-    printResume
-);
-
-
-/* =========================================================
-   RESET RESUME
-========================================================= */
-
-const resetResumeData =
-    $("#resetResumeData");
-
-
-resetResumeData?.addEventListener(
+downloadOriginalResume?.addEventListener(
     "click",
     () => {
 
-        const confirmed =
-            window.confirm(
-                "Reset all edited resume information?"
-            );
+        const link =
+            document.createElement("a");
 
-        if (!confirmed) return;
+        link.href =
+            "assets/resume.pdf";
 
+        link.download =
+            "Siddharth-Mishra-Resume.pdf";
 
-        resumeData = {
-            ...defaultResumeData
-        };
+        document.body.appendChild(link);
 
+        link.click();
 
-        saveResumeData();
+        link.remove();
 
-        loadResumeInputs();
+        /*
+         * Also open the original PDF after the download starts.
+         * This gives the user the exact PDF available in assets.
+         */
 
-        refreshResumePreview();
+        setTimeout(
+            () => {
+                window.open(
+                    "assets/resume.pdf",
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+            },
+            350
+        );
 
         showToast(
-            "Resume editor reset."
+            "Original resume PDF download started."
         );
 
     }
@@ -2164,336 +971,590 @@ resetResumeData?.addEventListener(
 
 
 /* =========================================================
-   CERTIFICATE UPLOAD SYSTEM
+   OPEN ORIGINAL RESUME
 ========================================================= */
 
-const certificateInput =
-    $("#certificateInput");
+const printResumeButton =
+    $("#printResumeButton");
 
-const certificateUploadButton =
-    $("#certificateUploadButton");
+printResumeButton?.addEventListener(
+    "click",
+    () => {
+
+        const popup =
+            window.open(
+                "assets/resume.pdf",
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        if (!popup) {
+
+            showToast(
+                "Please allow pop-ups to open the resume."
+            );
+
+            return;
+        }
+
+        showToast(
+            "Original resume opened. Edit/print it from the PDF viewer."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   BUILD EDITABLE RESUME HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function getCurrentTemplate() {
+
+    const active =
+        $(".template-option.active");
+
+    return active?.dataset.template || "1";
+
+}
+
+
+function getResumeHTML() {
+
+    const template =
+        getCurrentTemplate();
+
+    const name =
+        escapeHTML(resumeName?.value);
+
+    const title =
+        escapeHTML(resumeTitle?.value);
+
+    const email =
+        escapeHTML(resumeEmail?.value || "Email");
+
+    const phone =
+        escapeHTML(resumePhone?.value || "Phone");
+
+    const location =
+        escapeHTML(resumeLocation?.value);
+
+    const about =
+        escapeHTML(resumeAbout?.value);
+
+    const technical =
+        escapeHTML(
+            resumeTechnicalSkills?.value
+        );
+
+    const soft =
+        escapeHTML(
+            resumeSoftSkills?.value
+        );
+
+    const experience =
+        escapeHTML(
+            resumeExperience?.value
+        );
+
+    const education =
+        escapeHTML(
+            resumeEducation?.value
+        );
+
+    const photo =
+        resumePreviewPhoto?.src ||
+        "assets/profile.jpg";
+
+    const photoAllowed =
+        template !== "2" &&
+        template !== "4";
+
+    const photoHTML =
+        photoAllowed
+            ? `<img class="resume-photo" src="${photo}" alt="Resume Photo">`
+            : "";
+
+    const skillHeading =
+        template === "1" || template === "2"
+            ? "HARD SKILLS"
+            : "TECHNICAL SKILLS";
+
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>${name} — Resume</title>
+
+<style>
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #e9edf2;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.resume {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 0 auto;
+
+    padding: 17mm;
+
+    background: #fff;
+
+    color: #172033;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.18);
+}
+
+.resume.template-1 {
+    border-top: 6px solid #111827;
+}
+
+.resume.template-2 {
+    border-top: 8px solid #172033;
+}
+
+.resume.template-3 {
+    border-left: 8px solid #00a9b5;
+}
+
+.resume.template-4 {
+    border-left: 8px solid #172033;
+}
+
+.header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    padding-bottom: 7mm;
+
+    border-bottom: 2px solid #172033;
+}
+
+.header h1 {
+    margin: 0 0 5px;
+
+    font-size: 29px;
+}
+
+.header h2 {
+    margin: 0;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    color: #536078;
+}
+
+.resume-photo {
+    width: 32mm;
+    height: 38mm;
+
+    object-fit: cover;
+
+    border: 1px solid #ccd2dc;
+}
+
+.contact {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    padding: 4mm 0;
+
+    border-bottom: 1px solid #dce1e8;
+
+    color: #526078;
+
+    font-size: 9px;
+}
+
+.section {
+    margin-top: 6mm;
+}
+
+.section h3 {
+    margin: 0 0 2.5mm;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    color: #111a2c;
+}
+
+.section p {
+    margin: 0;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    color: #4b5568;
+}
+
+.footer {
+    position: absolute;
+
+    left: 17mm;
+    right: 17mm;
+    bottom: 8mm;
+
+    padding-top: 3mm;
+
+    border-top: 1px solid #dce1e8;
+
+    text-align: center;
+
+    font-family: monospace;
+
+    font-size: 7px;
+
+    color: #9ba5b6;
+}
+
+.toolbar {
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+    right: 15px;
+
+    display: flex;
+
+    gap: 10px;
+
+    justify-content: center;
+
+    z-index: 20;
+}
+
+.toolbar button {
+    border: 0;
+
+    padding: 10px 16px;
+
+    cursor: pointer;
+
+    background: #111827;
+
+    color: white;
+
+    border-radius: 6px;
+}
+
+@media print {
+
+    html,
+    body {
+        background: #fff;
+    }
+
+    .toolbar {
+        display: none;
+    }
+
+    .resume {
+        margin: 0;
+
+        box-shadow: none;
+
+        width: 210mm;
+        min-height: 297mm;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="toolbar">
+
+    <button onclick="window.print()">
+        Print A4
+    </button>
+
+    <button onclick="window.close()">
+        Close
+    </button>
+
+</div>
+
+<div class="resume template-${template}">
+
+    <div class="header">
+
+        <div>
+
+            <h1>${name}</h1>
+
+            <h2>${title}</h2>
+
+        </div>
+
+        ${photoHTML}
+
+    </div>
+
+    <div class="contact">
+
+        <span>${email}</span>
+        <span>${phone}</span>
+        <span>${location}</span>
+
+    </div>
+
+    <div class="section">
+
+        <h3>PROFILE</h3>
+
+        <p>${about}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>EXPERIENCE</h3>
+
+        <p>${experience}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>EDUCATION</h3>
+
+        <p>${education}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>${skillHeading}</h3>
+
+        <p>${technical}</p>
+
+    </div>
+
+    <div class="section">
+
+        <h3>SOFT SKILLS</h3>
+
+        <p>${soft}</p>
+
+    </div>
+
+    <div class="footer">
+        &lt;/siddharth.resume&gt;
+    </div>
+
+</div>
+
+</body>
+</html>
+`;
+
+}
+
+
+/* =========================================================
+   OPEN EDITABLE RESUME
+========================================================= */
+
+function openEditableResume(
+    autoPrint = false
+) {
+
+    updateResumePreview();
+
+    const resumeWindow =
+        window.open(
+            "",
+            "_blank",
+            "width=1100,height=900"
+        );
+
+    if (!resumeWindow) {
+
+        showToast(
+            "Please allow pop-ups to open the editable resume."
+        );
+
+        return;
+
+    }
+
+    resumeWindow.document.open();
+
+    resumeWindow.document.write(
+        getResumeHTML()
+    );
+
+    resumeWindow.document.close();
+
+    showToast(
+        autoPrint
+            ? "Editable A4 resume opened."
+            : "Editable resume opened."
+    );
+
+    if (autoPrint) {
+
+        setTimeout(
+            () => {
+
+                try {
+                    resumeWindow.focus();
+                    resumeWindow.print();
+                } catch (error) {
+                    console.warn(
+                        "Print could not start automatically.",
+                        error
+                    );
+                }
+
+            },
+            900
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EDITED RESUME BUTTONS
+========================================================= */
+
+const downloadEditedResume =
+    $("#downloadEditedResume");
+
+downloadEditedResume?.addEventListener(
+    "click",
+    () => {
+
+        openEditableResume(false);
+
+    }
+);
+
+
+const printEditedResume =
+    $("#printEditedResume");
+
+printEditedResume?.addEventListener(
+    "click",
+    () => {
+
+        openEditableResume(true);
+
+    }
+);
+
+
+/* =========================================================
+   CERTIFICATE UPLOAD
+========================================================= */
+
+const certificateUpload =
+    $("#certificateUpload");
 
 const certificateGallery =
     $("#certificateGallery");
 
-const certificateModal =
-    $("#certificateModal");
-
-const certificateModalContent =
-    $("#certificateModalContent");
-
-const closeCertificateModal =
-    $("#closeCertificateModal");
-
-
-let certificates = [];
-
-
-function renderCertificates() {
-
-    if (!certificateGallery) return;
-
-    certificateGallery.innerHTML = "";
-
-    certificates.forEach(
-        (certificate, index) => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-            card.className =
-                "certificate-card";
-
-
-            if (
-                certificate.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                const image =
-                    document.createElement(
-                        "img"
-                    );
-
-                image.src =
-                    certificate.url;
-
-                image.alt =
-                    `Certificate ${index + 1}`;
-
-                card.appendChild(
-                    image
-                );
-
-            } else {
-
-                const pdfPlaceholder =
-                    document.createElement(
-                        "div"
-                    );
-
-                pdfPlaceholder.style.cssText = `
-                    min-height:220px;
-                    display:grid;
-                    place-items:center;
-                    color:#00f5ff;
-                    font-family:var(--mono);
-                    font-size:12px;
-                `;
-
-                pdfPlaceholder.textContent =
-                    "PDF CERTIFICATE";
-
-                card.appendChild(
-                    pdfPlaceholder
-                );
-
-            }
-
-
-            const info =
-                document.createElement(
-                    "div"
-                );
-
-            info.className =
-                "certificate-card-info";
-
-            const span =
-                document.createElement(
-                    "span"
-                );
-
-            span.textContent =
-                "CERTIFICATE / CLICK TO VIEW";
-
-            info.appendChild(
-                span
-            );
-
-            card.appendChild(
-                info
-            );
-
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    openCertificate(
-                        certificate
-                    );
-
-                }
-            );
-
-
-            certificateGallery.appendChild(
-                card
-            );
-
-        }
-    );
-
-}
-
-
-function openCertificate(
-    certificate
-) {
-
-    if (
-        !certificateModal ||
-        !certificateModalContent
-    ) return;
-
-
-    certificateModalContent.innerHTML =
-        "";
-
-
-    if (
-        certificate.type.startsWith(
-            "image/"
-        )
-    ) {
-
-        const image =
-            document.createElement(
-                "img"
-            );
-
-        image.src =
-            certificate.url;
-
-        image.alt =
-            "Certificate";
-
-        certificateModalContent.appendChild(
-            image
-        );
-
-    } else {
-
-        const iframe =
-            document.createElement(
-                "iframe"
-            );
-
-        iframe.src =
-            certificate.url;
-
-        iframe.style.cssText = `
-            width:90vw;
-            height:85vh;
-            border:0;
-            background:#fff;
-        `;
-
-        certificateModalContent.appendChild(
-            iframe
-        );
-
-    }
-
-
-    certificateModal.classList.add(
-        "open"
-    );
-
-    certificateModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    body.classList.add(
-        "modal-open"
-    );
-
-}
-
-
-function closeCertificate() {
-
-    certificateModal?.classList.remove(
-        "open"
-    );
-
-    certificateModal?.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    body.classList.remove(
-        "modal-open"
-    );
-
-}
-
-
-certificateUploadButton?.addEventListener(
-    "click",
-    () => {
-
-        certificateInput?.click();
-
-    }
-);
-
-
-certificateInput?.addEventListener(
+certificateUpload?.addEventListener(
     "change",
     event => {
 
         const files =
-            [...(
-                event.target.files || []
-            )];
+            [...event.target.files];
 
-
-        files.forEach(
-            file => {
-
-                const reader =
-                    new FileReader();
-
-
-                reader.onload =
-                    () => {
-
-                        certificates.push(
-                            {
-                                name:
-                                    file.name,
-
-                                type:
-                                    file.type,
-
-                                url:
-                                    reader.result
-                            }
-                        );
-
-                        renderCertificates();
-
-                    };
-
-
-                reader.readAsDataURL(
-                    file
-                );
-
-            }
-        );
-
-
-        event.target.value =
-            "";
-
-    }
-);
-
-
-closeCertificateModal?.addEventListener(
-    "click",
-    closeCertificate
-);
-
-
-certificateModal?.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            certificateModal
-        ) {
-
-            closeCertificate();
-
+        if (!files.length) {
+            return;
         }
 
-    }
-);
+        files.forEach(file => {
 
+            if (!file.type.startsWith("image/")) {
+                return;
+            }
 
-/* =========================================================
-   SYSTEM STATUS
-========================================================= */
+            const reader =
+                new FileReader();
 
-const systemStatus =
-    $("#systemStatus");
+            reader.onload =
+                () => {
 
+                    const image =
+                        document.createElement("img");
 
-systemStatus?.addEventListener(
-    "click",
-    () => {
+                    image.src =
+                        reader.result;
+
+                    image.alt =
+                        "Certificate";
+
+                    certificateGallery.appendChild(
+                        image
+                    );
+
+                };
+
+            reader.readAsDataURL(file);
+
+        });
 
         showToast(
-            "All portfolio systems operational."
+            `${files.length} certificate image(s) added.`
         );
 
     }
@@ -2501,98 +1562,122 @@ systemStatus?.addEventListener(
 
 
 /* =========================================================
-   RANDOM MICRO ANIMATION
+   CONTACT EMAIL
 ========================================================= */
 
-const heroTerminal =
-    $(".hero-terminal");
+function updateContactEmail() {
 
+    const email =
+        resumeEmail?.value?.trim();
 
-if (heroTerminal && window.innerWidth > 850) {
+    const emailContact =
+        $("#emailContact");
 
-    heroTerminal.addEventListener(
-        "mousemove",
-        event => {
+    const emailText =
+        $("#contactEmailText");
 
-            const rect =
-                heroTerminal.getBoundingClientRect();
+    if (!email) {
 
-            const x =
-                event.clientX -
-                rect.left;
+        emailContact?.setAttribute(
+            "href",
+            "mailto:"
+        );
 
-            const y =
-                event.clientY -
-                rect.top;
-
-            const rotateY =
-                (x / rect.width - .5) * 5;
-
-            const rotateX =
-                (y / rect.height - .5) * -4;
-
-            heroTerminal.style.transform =
-                `perspective(1000px)
-                 rotateY(${rotateY}deg)
-                 rotateX(${rotateX}deg)`;
-
+        if (emailText) {
+            emailText.textContent =
+                "Send an email";
         }
+
+        return;
+    }
+
+    emailContact?.setAttribute(
+        "href",
+        `mailto:${email}`
     );
 
-
-    heroTerminal.addEventListener(
-        "mouseleave",
-        () => {
-
-            heroTerminal.style.transform =
-                "perspective(1000px) rotateY(-4deg) rotateX(2deg)";
-
-        }
-    );
+    if (emailText) {
+        emailText.textContent =
+            email;
+    }
 
 }
 
+resumeEmail?.addEventListener(
+    "input",
+    updateContactEmail
+);
 
-/* =========================================================
-   FOOTER YEAR
-========================================================= */
-
-const currentYear =
-    $("#currentYear");
-
-
-if (currentYear) {
-
-    currentYear.textContent =
-        new Date().getFullYear();
-
-}
+updateContactEmail();
 
 
 /* =========================================================
-   PRINT STYLE HELP
+   CONTACT FORM
 ========================================================= */
 
-window.addEventListener(
-    "beforeprint",
-    () => {
+const contactForm =
+    $("#contactForm");
 
-        if (
-            resumeStudio &&
-            !resumeStudio.classList.contains(
-                "open"
-            )
-        ) {
+const contactFormStatus =
+    $("#contactFormStatus");
 
-            /*
-               If somebody invokes browser print while
-               studio is closed, temporarily expose the
-               resume paper.
-            */
+contactForm?.addEventListener(
+    "submit",
+    event => {
 
-            resumeStudio.classList.add(
-                "open"
+        event.preventDefault();
+
+        const formData =
+            new FormData(contactForm);
+
+        const name =
+            formData.get("name");
+
+        const email =
+            formData.get("email");
+
+        const message =
+            formData.get("message");
+
+        const subject =
+            encodeURIComponent(
+                `Portfolio Contact — ${name}`
             );
+
+        const body =
+            encodeURIComponent(
+                `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`
+            );
+
+        /*
+         * Static GitHub Pages sites do not have a server-side
+         * mail endpoint. Therefore the form safely prepares
+         * a mailto message using the user's email client.
+         */
+
+        const destination =
+            resumeEmail?.value?.trim();
+
+        if (!destination) {
+
+            if (contactFormStatus) {
+
+                contactFormStatus.textContent =
+                    "Add your email in Resume Studio first, or configure a mail address in the HTML.";
+
+            }
+
+            return;
+
+        }
+
+        window.location.href =
+            `mailto:${destination}?subject=${subject}&body=${body}`;
+
+        if (contactFormStatus) {
+
+            contactFormStatus.textContent =
+                "Opening your email application...";
 
         }
 
@@ -2601,51 +1686,66 @@ window.addEventListener(
 
 
 /* =========================================================
-   PAGE VISIBILITY
+   SMOOTH ANCHOR FALLBACK
+========================================================= */
+
+$$('a[href^="#"]').forEach(anchor => {
+
+    anchor.addEventListener(
+        "click",
+        event => {
+
+            const targetID =
+                anchor.getAttribute("href");
+
+            if (
+                !targetID ||
+                targetID === "#"
+            ) {
+                return;
+            }
+
+            const target =
+                $(targetID);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   INITIALIZATION
 ========================================================= */
 
 document.addEventListener(
-    "visibilitychange",
+    "DOMContentLoaded",
     () => {
 
-        if (
-            document.hidden
-        ) {
+        updateResumePreview();
 
-            document.documentElement
-                .style
-                .setProperty(
-                    "--city-animation-speed",
-                    "0"
-                );
+        updateContactEmail();
 
-        }
+        console.log(
+            "%cSIDDHARTH.DEV",
+            "color:#00f5ff;font-size:20px;font-weight:bold;"
+        );
+
+        console.log(
+            "%cSystem initialized successfully.",
+            "color:#70e6a4;font-size:12px;"
+        );
 
     }
 );
-
-
-/* =========================================================
-   INITIAL SYSTEM MESSAGE
-========================================================= */
-
-setTimeout(
-    () => {
-
-        showToast(
-            "SIDDHARTH.DEV online."
-        );
-
-    },
-    1800
-);
-
-
-/* =========================================================
-   FINAL INITIALIZATION
-========================================================= */
-
-document.documentElement
-    .classList.add(
-        "portfolio-ready"
-    );
