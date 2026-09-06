@@ -994,14 +994,14 @@ body.cursor-hover .cursor-ring {
 
 .brand-text strong {
     font:
-        700 12px var(--mono);
+        800 16px var(--mono);
     letter-spacing: .1em;
 }
 
 .brand-text small {
     color: var(--cyan);
     font:
-        500 8px var(--mono);
+        800 12px var(--mono);
     letter-spacing: .2em;
     margin-top: 4px;
 }
@@ -1019,7 +1019,7 @@ body.cursor-hover .cursor-ring {
     color: #8994a9;
 
     font:
-        500 10px var(--mono);
+        600 12px var(--mono);
 
     letter-spacing: .04em;
 
@@ -1027,7 +1027,6 @@ body.cursor-hover .cursor-ring {
 }
 
 .nav-link::before {
-    content: "0";
     margin-right: 3px;
     color: rgba(0,234,255,.45);
 }
@@ -1056,7 +1055,7 @@ body.cursor-hover .cursor-ring {
     color: var(--green);
 
     font:
-        600 9px var(--mono);
+        800 12px var(--mono);
 
     letter-spacing: .12em;
 }
@@ -1121,7 +1120,7 @@ body.cursor-hover .cursor-ring {
     color: var(--cyan);
 
     font:
-        600 10px var(--mono);
+        800 12px var(--mono);
 
     letter-spacing: .18em;
 
@@ -1144,14 +1143,14 @@ body.cursor-hover .cursor-ring {
 .section-heading > p {
     max-width: 370px;
     color: var(--muted);
-    font-size: 13px;
+    font-size: 14px;
     text-align: right;
 }
 
 .code-comment {
     color: var(--muted-2);
     font:
-        11px var(--mono);
+        12px var(--mono);
     margin-bottom: 20px;
 }
 
@@ -1221,7 +1220,7 @@ body.cursor-hover .cursor-ring {
     color: var(--green);
 
     font:
-        500 10px var(--mono);
+        800 14px var(--mono);
 
     margin-bottom: 28px;
 
@@ -1245,7 +1244,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        10px var(--mono);
+        12px var(--mono);
 
     margin-bottom: 12px;
 }
@@ -1266,7 +1265,7 @@ body.cursor-hover .cursor-ring {
 .hero-small {
     color: #aab3c3;
     font:
-        600 clamp(17px, 2vw, 25px) var(--mono);
+        600 clamp(34px, 2vw, 50px) var(--mono);
 
     letter-spacing: .03em;
     margin-bottom: 14px;
@@ -1430,7 +1429,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted);
 
     font:
-        9px var(--mono);
+        12px var(--mono);
 }
 
 .terminal-dots {
@@ -1449,7 +1448,7 @@ body.cursor-hover .cursor-ring {
     padding: 18px 17px;
 
     font:
-        11px/1.9 var(--mono);
+        12px/1.9 var(--mono);
 }
 
 .terminal-green,
@@ -1503,7 +1502,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        8px var(--mono);
+        12px var(--mono);
 
     letter-spacing: .16em;
 }
@@ -1698,13 +1697,13 @@ body.cursor-hover .cursor-ring {
     display: block;
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        10px var(--mono);
     margin-bottom: 4px;
 }
 
 .profile-meta strong {
     display: block;
-    font-size: 9px;
+    font-size: 11px;
     color: #d8e1ef;
 }
 
@@ -1743,7 +1742,7 @@ body.cursor-hover .cursor-ring {
         rgba(3,7,13,.68);
 
     font:
-        11px/1.9 var(--mono);
+        14px/1.9 var(--mono);
 }
 
 .about-terminal-line {
@@ -1814,7 +1813,7 @@ body.cursor-hover .cursor-ring {
     color: var(--cyan);
 
     font:
-        9px var(--mono);
+        12px var(--mono);
 
     margin-bottom: 13px;
 }
@@ -1837,7 +1836,7 @@ body.cursor-hover .cursor-ring {
 
     color: #c5cfdf;
 
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .stat-card small {
@@ -1845,7 +1844,7 @@ body.cursor-hover .cursor-ring {
     margin-top: 7px;
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        12px var(--mono);
 }
 
 
@@ -1927,7 +1926,7 @@ body.cursor-hover .cursor-ring {
     margin-top: 2px;
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 .skill-top b {
@@ -1993,7 +1992,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted);
 
     font:
-        9px var(--mono);
+        10px var(--mono);
 }
 
 .console-header span:last-child {
@@ -2044,7 +2043,7 @@ body.cursor-hover .cursor-ring {
     display: block;
     color: var(--purple);
     font:
-        9px var(--mono);
+        10px var(--mono);
     margin-bottom: 15px;
 }
 
@@ -2063,7 +2062,7 @@ body.cursor-hover .cursor-ring {
     color: #bda6e9;
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 
     background:
         rgba(155,92,255,.04);
@@ -2171,18 +2170,18 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        9px var(--mono);
+        12px var(--mono);
 }
 
 .timeline-card h3 {
     margin: 9px 0 9px;
 
-    font-size: 21px;
+    font-size: 22px;
 }
 
 .timeline-card p {
     color: var(--muted);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .timeline-tags {
@@ -2201,7 +2200,7 @@ body.cursor-hover .cursor-ring {
         1px solid rgba(0,234,255,.16);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 
@@ -2233,7 +2232,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted);
 
     font:
-        9px var(--mono);
+        10px var(--mono);
 
     transition: var(--transition);
 }
@@ -2337,7 +2336,7 @@ body.cursor-hover .cursor-ring {
 .project-type,
 .project-status {
     font:
-        8px var(--mono);
+        10px var(--mono);
     letter-spacing: .12em;
 }
 
@@ -2378,7 +2377,7 @@ body.cursor-hover .cursor-ring {
 .project-card > p {
     max-width: 500px;
     color: var(--muted);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .project-stack {
@@ -2400,7 +2399,7 @@ body.cursor-hover .cursor-ring {
         1px solid rgba(255,255,255,.07);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 .project-bottom {
@@ -2416,7 +2415,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 
     border-top:
         1px solid rgba(255,255,255,.06);
@@ -2429,7 +2428,7 @@ body.cursor-hover .cursor-ring {
     background: transparent;
     color: var(--cyan);
     font:
-        700 9px var(--mono);
+        800 10px var(--mono);
 }
 
 
@@ -2554,7 +2553,7 @@ body.cursor-hover .cursor-ring {
 .certificate-empty small {
     color: var(--muted-2);
     font:
-        9px var(--mono);
+        10px var(--mono);
 }
 
 .certificate-item {
@@ -2628,7 +2627,7 @@ body.cursor-hover .cursor-ring {
         1px solid var(--border);
 
     font:
-        9px var(--mono);
+        10px var(--mono);
 
     color: var(--muted);
 }
@@ -2733,7 +2732,7 @@ body.cursor-hover .cursor-ring {
     display: block;
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        10px var(--mono);
     margin-bottom: 4px;
 }
 
@@ -2750,7 +2749,7 @@ body.cursor-hover .cursor-ring {
 .console-label {
     color: var(--cyan);
     font:
-        9px var(--mono);
+        12px var(--mono);
 }
 
 .resume-console h3 {
@@ -2764,7 +2763,7 @@ body.cursor-hover .cursor-ring {
 
 .resume-console > p {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 14px;
     max-width: 600px;
 }
 
@@ -2803,13 +2802,13 @@ body.cursor-hover .cursor-ring {
 }
 
 .template-select strong {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .template-select small {
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        10px var(--mono);
     margin-top: 3px;
 }
 
@@ -2857,7 +2856,7 @@ body.cursor-hover .cursor-ring {
     padding: 25px;
 
     font:
-        11px/2 var(--mono);
+        12px/2 var(--mono);
 }
 
 .contact-links {
@@ -2900,7 +2899,7 @@ body.cursor-hover .cursor-ring {
 .contact-index {
     color: var(--muted-2);
     font:
-        9px var(--mono);
+        12px var(--mono);
 }
 
 .contact-icon {
@@ -2913,13 +2912,13 @@ body.cursor-hover .cursor-ring {
     display: block;
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 .contact-main strong {
     display: block;
     margin-top: 3px;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .contact-arrow {
@@ -2967,13 +2966,13 @@ body.cursor-hover .cursor-ring {
 
 .footer-brand strong {
     font:
-        700 10px var(--mono);
+        800 12px var(--mono);
 }
 
 .footer-brand span {
     color: var(--muted-2);
     font:
-        8px var(--mono);
+        10px var(--mono);
     margin-top: 4px;
 }
 
@@ -2982,7 +2981,7 @@ body.cursor-hover .cursor-ring {
     gap: 12px;
     color: var(--muted-2);
     font:
-        9px var(--mono);
+        10px var(--mono);
 }
 
 .footer-code span:nth-child(1),
@@ -3013,7 +3012,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 
@@ -3099,7 +3098,7 @@ body.cursor-hover .cursor-ring {
 .modal-label {
     color: var(--cyan);
     font:
-        9px var(--mono);
+        10px var(--mono);
 }
 
 .modal-window h2 {
@@ -3109,7 +3108,7 @@ body.cursor-hover .cursor-ring {
 
 .modal-window > p {
     color: var(--muted);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .modal-stack {
@@ -3128,7 +3127,7 @@ body.cursor-hover .cursor-ring {
     color: var(--cyan);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 .modal-code {
@@ -3153,7 +3152,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 .modal-code-header span:last-child {
@@ -3255,7 +3254,7 @@ body.cursor-hover .cursor-ring {
     color: var(--cyan);
 
     font:
-        700 10px var(--mono);
+        800 12px var(--mono);
 }
 
 .editor-brand div {
@@ -3265,7 +3264,7 @@ body.cursor-hover .cursor-ring {
 
 .editor-brand strong {
     font:
-        700 10px var(--mono);
+        800 12px var(--mono);
 }
 
 .editor-brand small {
@@ -3293,7 +3292,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted);
 
     font:
-        600 8px var(--mono);
+        700 10px var(--mono);
 
     transition: var(--transition);
 }
@@ -3338,7 +3337,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        700 8px var(--mono);
+        800 10px var(--mono);
 
     letter-spacing: .14em;
 
@@ -3375,7 +3374,7 @@ body.cursor-hover .cursor-ring {
     text-align: left;
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 
     transition: var(--transition);
 }
@@ -3408,7 +3407,7 @@ body.cursor-hover .cursor-ring {
     color: var(--cyan);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 
     cursor: pointer;
 
@@ -3428,7 +3427,7 @@ body.cursor-hover .cursor-ring {
 .editor-tip span {
     color: var(--purple);
     font:
-        700 8px var(--mono);
+        800 10px var(--mono);
 }
 
 .editor-tip p {
@@ -3458,7 +3457,7 @@ body.cursor-hover .cursor-ring {
     color: var(--muted-2);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 }
 
 .a4-stage {
@@ -3534,7 +3533,7 @@ body.cursor-hover .cursor-ring {
 }
 
 .resume-identity > p {
-    font-size: 11pt;
+    font-size: 12pt;
     color: #465466;
     margin-bottom: 11px;
 }
@@ -3618,12 +3617,12 @@ body.cursor-hover .cursor-ring {
 }
 
 .entry-heading strong {
-    font-size: 9pt;
+    font-size: 10pt;
 }
 
 .entry-heading span {
     color: #607086;
-    font-size: 8pt;
+    font-size: 10pt;
 }
 
 .resume-entry ul {
@@ -3671,7 +3670,7 @@ body.cursor-hover .cursor-ring {
 }
 
 .resume-project strong {
-    font-size: 9pt;
+    font-size: 10pt;
 }
 
 .resume-project p {
@@ -3694,7 +3693,7 @@ body.cursor-hover .cursor-ring {
 
     color: #7b8796;
 
-    font-size: 7pt;
+    font-size: 10pt;
 }
 
 
@@ -4107,7 +4106,7 @@ body.cursor-hover .cursor-ring {
     }
 
     .hero-description {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .hero-terminal {
@@ -4191,7 +4190,7 @@ body.cursor-hover .cursor-ring {
     }
 
     .contact-main strong {
-        font-size: 9px;
+        font-size: 10px;
         overflow-wrap: anywhere;
     }
 
@@ -4237,7 +4236,7 @@ body.cursor-hover .cursor-ring {
     }
 
     .workspace-topbar {
-        font-size: 7px;
+        font-size: 10px;
     }
 
 }

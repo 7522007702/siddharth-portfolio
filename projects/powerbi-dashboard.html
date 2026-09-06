@@ -12,388 +12,465 @@
 
     <meta
         name="description"
-        content="Siddharth.dev — Power BI Dashboard project."
+        content="Power BI Dashboard — Siddharth Mishra project."
     >
 
-    <title>Power BI Dashboard | Siddharth.dev</title>
+    <title>Power BI Dashboard — Siddharth Mishra</title>
 
     <link
         rel="stylesheet"
         href="../css/style.css"
     >
 
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
 
-        .project-page {
-            min-height: 100vh;
-            padding: 140px 0 100px;
-        }
+html {
+    width: 100%;
+    min-height: 100%;
+}
 
-        .project-header {
-            max-width: 900px;
-            margin-bottom: 55px;
-        }
+body {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
 
-        .project-header h1 {
-            margin: 10px 0 20px;
-            font-size: clamp(48px,7vw,90px);
-            line-height: .95;
-            letter-spacing: -.07em;
-        }
+.project-detail-main {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+    padding: 32px 0 80px;
+}
 
-        .project-header h1 span {
-            color: var(--accent-2);
-        }
+.project-detail-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
 
-        .project-header p {
-            color: var(--text-soft);
-        }
+.project-detail-card {
+    width: 100%;
+    min-width: 0;
+}
 
-        .bi-dashboard {
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            background: rgba(5,10,17,.9);
-            box-shadow: var(--shadow);
-        }
+.project-detail-code {
+    width: 100%;
+    max-width: 100%;
+}
 
-        .bi-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 17px 22px;
-            border-bottom: 1px solid var(--border);
-        }
+.project-detail-code pre {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
 
-        .bi-top strong {
-            font-family: var(--font-code);
-            font-size: 11px;
-        }
+@media (max-width: 768px) {
 
-        .bi-top span {
-            color: var(--accent-2);
-            font-family: var(--font-code);
-            font-size: 9px;
-        }
+    .project-detail-main {
+        width: 92%;
+        padding-top: 25px;
+        padding-bottom: 60px;
+    }
 
-        .bi-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 14px;
-            padding: 20px;
-        }
+    .project-detail-grid {
+        grid-template-columns: 1fr;
+    }
 
-        .bi-card {
-            padding: 20px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: rgba(255,255,255,.025);
-        }
+}
 
-        .bi-card.large {
-            grid-column: span 2;
-        }
+@media (max-width: 480px) {
 
-        .bi-card h3 {
-            margin: 0 0 15px;
-            font-size: 13px;
-        }
+    .project-detail-main {
+        width: 94%;
+        padding-top: 20px;
+    }
 
-        .bi-number {
-            font-size: 30px;
-            font-weight: 800;
-        }
+}
 
-        .bi-label {
-            color: var(--text-muted);
-            font-family: var(--font-code);
-            font-size: 8px;
-        }
-
-        .line-chart {
-            position: relative;
-            height: 180px;
-            overflow: hidden;
-            background:
-                repeating-linear-gradient(
-                    to bottom,
-                    rgba(255,255,255,.025) 0 1px,
-                    transparent 1px 45px
-                );
-        }
-
-        .line-chart svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        .donut {
-            width: 135px;
-            aspect-ratio: 1;
-            margin: 10px auto;
-            border-radius: 50%;
-            background:
-                conic-gradient(
-                    var(--accent-2) 0 42%,
-                    var(--accent) 42% 73%,
-                    var(--accent-3) 73% 100%
-                );
-            display: grid;
-            place-items: center;
-        }
-
-        .donut::after {
-            content: "100%";
-            width: 80px;
-            aspect-ratio: 1;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            background: #080d15;
-            color: #fff;
-            font-family: var(--font-code);
-            font-size: 11px;
-        }
-
-        .project-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .info {
-            padding: 25px;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: rgba(255,255,255,.02);
-        }
-
-        .info p,
-        .info li {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        @media (max-width: 750px) {
-
-            .bi-content {
-                grid-template-columns: 1fr;
-            }
-
-            .bi-card.large {
-                grid-column: span 1;
-            }
-
-            .project-info {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
-<body>
+<body class="project-detail-page">
 
-<div class="programming-background">
-    <canvas id="background-canvas"></canvas>
-    <div class="bg-vignette"></div>
-    <div class="bg-scanlines"></div>
-</div>
+    <div class="city-background">
+
+        <div class="city-sky"></div>
+
+        <div class="moon-glow"></div>
+
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="cloud cloud-three"></div>
+
+        <div class="distant-city">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="city-layer city-layer-back">
+            <div class="building b1"><i></i></div>
+            <div class="building b2"><i></i></div>
+            <div class="building b3"><i></i></div>
+            <div class="building b4"><i></i></div>
+            <div class="building b5"><i></i></div>
+            <div class="building b6"><i></i></div>
+            <div class="building b7"><i></i></div>
+            <div class="building b8"><i></i></div>
+            <div class="building b9"><i></i></div>
+            <div class="building b10"><i></i></div>
+        </div>
+
+        <div class="city-layer city-layer-front">
+
+            <div class="tower tower-a">
+                <div class="tower-light"></div>
+                <div class="tower-windows"></div>
+            </div>
+
+            <div class="tower tower-b">
+                <div class="tower-light"></div>
+                <div class="tower-windows"></div>
+            </div>
+
+            <div class="tower tower-c">
+                <div class="tower-light"></div>
+                <div class="tower-windows"></div>
+            </div>
+
+            <div class="tower tower-d">
+                <div class="tower-light"></div>
+                <div class="tower-windows"></div>
+            </div>
+
+        </div>
+
+        <div class="neon-sign sign-one">
+            <span>CODE</span>
+        </div>
+
+        <div class="neon-sign sign-two">
+            <span>DEV</span>
+        </div>
+
+        <div class="neon-sign sign-three">
+            <span>AI</span>
+        </div>
+
+        <div class="neon-sign sign-four">
+            <span>DATA</span>
+        </div>
+
+        <div class="hologram h-one">
+            <span>&lt;/&gt;</span>
+        </div>
+
+        <div class="hologram h-two">
+            <span>{ }</span>
+        </div>
+
+        <div class="hologram h-three">
+            <span>SQL</span>
+        </div>
+
+        <div class="rain"></div>
+
+        <div class="atmosphere"></div>
+
+        <div class="road">
+
+            <div class="road-glow"></div>
+
+            <div class="road-line line-one"></div>
+            <div class="road-line line-two"></div>
+            <div class="road-line line-three"></div>
+            <div class="road-line line-four"></div>
+
+        </div>
+
+        <div class="city-vignette"></div>
+
+    </div>
 
 
-<header class="site-header">
-
-    <div class="container header-inner">
-
-        <a
-            class="brand"
-            href="../index.html"
-        >
-            <span class="brand-symbol">&lt;/&gt;</span>
-            <span class="brand-text">
-                siddharth<span>.dev</span>
-            </span>
-        </a>
+    <header class="site-header">
 
         <a
             href="../index.html#projects"
-            class="button button-secondary"
+            class="brand"
         >
-            ← Back to Projects
+
+            <div class="brand-mark">
+                <b>S</b>
+            </div>
+
+            <div class="brand-text">
+
+                <strong>Siddharth</strong>
+
+                <small>
+                    Mishra.Portfolio
+                </small>
+
+            </div>
+
         </a>
 
-    </div>
+        <div class="header-status">
 
-</header>
+            <span class="status-dot"></span>
 
+            <span>
+                PROJECT
+            </span>
 
-<main class="project-page">
+        </div>
 
-    <div class="container">
-
-        <header class="project-header">
-
-            <p class="section-label">
-                PROJECT / 02
-            </p>
-
-            <h1>
-                Power BI
-                <span>Dashboard.</span>
-            </h1>
-
-            <p>
-                An analytics-focused dashboard concept designed to
-                transform business data into visual KPIs, trends and
-                decision-support information.
-            </p>
-
-        </header>
+    </header>
 
 
-        <section class="bi-dashboard">
+    <main class="project-detail-main">
 
-            <div class="bi-top">
-                <strong>BUSINESS_INTELLIGENCE / EXECUTIVE_VIEW</strong>
-                <span>● ANALYTICS ONLINE</span>
-            </div>
-
-
-            <div class="bi-content">
-
-                <article class="bi-card">
-
-                    <span class="bi-label">
-                        REVENUE
-                    </span>
-
-                    <div class="bi-number">
-                        ₹12.8L
-                    </div>
-
-                    <span class="bi-label">
-                        +14.2% VS PREVIOUS PERIOD
-                    </span>
-
-                </article>
+        <a
+            href="../index.html#projects"
+            class="project-detail-back"
+        >
+            ← BACK TO PROJECTS
+        </a>
 
 
-                <article class="bi-card">
-
-                    <span class="bi-label">
-                        CUSTOMERS
-                    </span>
-
-                    <div class="bi-number">
-                        4,832
-                    </div>
-
-                    <span class="bi-label">
-                        ACTIVE DATASET
-                    </span>
-
-                </article>
+        <span class="project-detail-label">
+            02 / ANALYTICS / BUSINESS INTELLIGENCE
+        </span>
 
 
-                <article class="bi-card">
+        <h1 class="project-detail-title">
 
-                    <span class="bi-label">
-                        CONVERSION
-                    </span>
+            Power BI
+            <span>Dashboard.</span>
 
-                    <div class="bi-number">
-                        8.7%
-                    </div>
-
-                    <span class="bi-label">
-                        TARGET 10%
-                    </span>
-
-                </article>
+        </h1>
 
 
-                <article class="bi-card large">
+        <p class="project-detail-intro">
 
-                    <h3>Revenue Trend</h3>
+            An interactive business dashboard concept focused on
+            transforming raw information into understandable visual
+            insights and decision-ready reporting.
 
-                    <div class="line-chart">
-
-                        <svg
-                            viewBox="0 0 600 180"
-                            preserveAspectRatio="none"
-                        >
-
-                            <polyline
-                                points="0,150 80,135 150,142 220,110 300,120 370,75 450,90 520,45 600,25"
-                                fill="none"
-                                stroke="rgba(102,247,212,.85)"
-                                stroke-width="4"
-                            />
-
-                        </svg>
-
-                    </div>
-
-                </article>
+        </p>
 
 
-                <article class="bi-card">
-
-                    <h3>Category Mix</h3>
-
-                    <div class="donut"></div>
-
-                    <span class="bi-label">
-                        PRODUCT DISTRIBUTION
-                    </span>
-
-                </article>
-
-            </div>
-
-        </section>
+        <div class="project-detail-status">
+            BUILT PROJECT
+        </div>
 
 
-        <section class="project-info">
-
-            <article class="info">
-
-                <h2>Technology</h2>
-
-                <ul>
-                    <li>Microsoft Power BI</li>
-                    <li>Data modelling</li>
-                    <li>DAX concepts</li>
-                    <li>SQL</li>
-                    <li>Business analytics</li>
-                </ul>
-
-            </article>
+        <div class="project-detail-grid">
 
 
-            <article class="info">
+            <section class="project-detail-card">
 
-                <h2>Objective</h2>
+                <h2>
+                    Project Overview
+                </h2>
 
                 <p>
-                    Present complex business information in a visual,
-                    understandable and decision-oriented format.
+                    The Power BI Dashboard project demonstrates the
+                    process of taking business-oriented information
+                    and converting it into meaningful visual reports.
                 </p>
 
-            </article>
+                <p style="margin-top:15px;">
+                    The focus is on making trends, performance and
+                    important business metrics easier to understand.
+                </p>
 
-        </section>
-
-    </div>
-
-</main>
+            </section>
 
 
-<script src="../js/background.js"></script>
+            <section class="project-detail-card">
+
+                <h2>
+                    Technology Stack
+                </h2>
+
+                <div class="project-detail-stack">
+
+                    <span>Power BI</span>
+                    <span>Excel</span>
+                    <span>Data Analysis</span>
+                    <span>Business Intelligence</span>
+
+                </div>
+
+            </section>
+
+
+            <section class="project-detail-card">
+
+                <h2>
+                    Analysis Workflow
+                </h2>
+
+                <ul>
+
+                    <li>
+                        Collect business data
+                    </li>
+
+                    <li>
+                        Clean and prepare data
+                    </li>
+
+                    <li>
+                        Build useful data models
+                    </li>
+
+                    <li>
+                        Create visual reports
+                    </li>
+
+                    <li>
+                        Identify trends and patterns
+                    </li>
+
+                    <li>
+                        Convert findings into insights
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+            <section class="project-detail-card">
+
+                <h2>
+                    Implementation Concept
+                </h2>
+
+                <div class="project-detail-code">
+
+                    <div class="project-detail-code-header">
+
+                        <span>
+                            dashboard.js
+                        </span>
+
+                        <span>
+                            ●
+                        </span>
+
+                    </div>
+
+                    <pre>const dashboard = {
+  source: "business_data",
+
+  process: [
+    "clean",
+    "model",
+    "visualize",
+    "analyze"
+  ],
+
+  output: "actionable_insights"
+};</pre>
+
+                </div>
+
+            </section>
+
+
+            <section class="project-detail-card">
+
+                <h2>
+                    Project Goal
+                </h2>
+
+                <p>
+                    The main goal is to present information in a way
+                    that allows users to understand performance quickly
+                    and use data for better business decisions.
+                </p>
+
+            </section>
+
+
+            <section class="project-detail-card">
+
+                <h2>
+                    Project Type
+                </h2>
+
+                <p>
+                    Analytics • Business Intelligence •
+                    Data Visualization • Reporting
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const rain =
+            document.querySelector(".rain");
+
+        if (rain) {
+
+            for (
+                let i = 0;
+                i < 80;
+                i++
+            ) {
+
+                const drop =
+                    document.createElement("span");
+
+                drop.className =
+                    "raindrop";
+
+                drop.style.left =
+                    `${Math.random() * 100}%`;
+
+                drop.style.height =
+                    `${35 + Math.random() * 80}px`;
+
+                drop.style.opacity =
+                    `${0.15 + Math.random() * 0.55}`;
+
+                drop.style.animationDuration =
+                    `${0.65 + Math.random() * 1.15}s`;
+
+                drop.style.animationDelay =
+                    `${Math.random() * -3}s`;
+
+                rain.appendChild(drop);
+
+            }
+
+        }
+
+    </script>
 
 </body>
+
 </html>

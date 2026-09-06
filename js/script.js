@@ -24,11 +24,16 @@ const $$ = (selector, parent = document) =>
 const state = {
 
     typingWords: [
+        "Retail Operations",
+        "Sales Professional",
+        "Management Information System",
+        "Aspiring Business Analyst",
+        "Future Entrepreneur",
         "Developer",
         "Digital Builder",
         "Problem Solver",
-        "Continuous Learner",
-        "Technology Explorer"
+        "Technology Explorer",
+        "Continuous Learner"
     ],
 
     typingIndex: 0,
@@ -828,301 +833,175 @@ projectFilters.forEach(filter => {
 
 
 /* =========================================================
-   PROJECT MODAL
+   PROJECT PAGE NAVIGATION
 ========================================================= */
 
-const projectModal =
-    $("#projectModal");
-
-const modalTitle =
-    $("#modalTitle");
-
-const modalLabel =
-    $("#modalLabel");
-
-const modalDescription =
-    $("#modalDescription");
-
-const modalStack =
-    $("#modalStack");
-
-const modalCode =
-    $("#modalCode");
-
-const projectData = {
-
-    univichar: {
-
-        label:
-            "01 / DEVELOPMENT",
-
-        title:
-            "Univichar AI",
-
-        description:
-            "An education-focused AI teacher concept built around conversational learning, AI-assisted explanations, notes, quizzes, courses, voice interaction and a structured learning experience.",
-
-        stack: [
-            "Flutter",
-            "Dart",
-            "Gemini",
-            "Firebase",
-            "Firestore",
-            "TTS",
-            "Speech Recognition"
-        ],
-
-        code:
-`class UnivicharAI {
-  final String purpose = "education";
-
-  void learn() {
-    chat();
-    explain();
-    quiz();
-    createNotes();
-    speak();
-  }
-}`
-    },
-
-    powerbi: {
-
-        label:
-            "02 / ANALYTICS",
-
-        title:
-            "Power BI Dashboard",
-
-        description:
-            "A business-oriented dashboard concept designed to convert operational data into visual insights, helping users understand trends, performance and decision-making metrics.",
-
-        stack: [
-            "Power BI",
-            "Data Analysis",
-            "Excel",
-            "Business Intelligence"
-        ],
-
-        code:
-`const dashboard = {
-  source: "business_data",
-  process: [
-    "clean",
-    "model",
-    "visualize",
-    "analyze"
-  ],
-  output: "actionable_insights"
-};`
-    },
-
-    sql: {
-
-        label:
-            "03 / DATA",
-
-        title:
-            "SQL Analysis",
-
-        description:
-            "A practical SQL analysis project focused on extracting useful information from structured data using filtering, joins, grouping, aggregation and business-oriented queries.",
-
-        stack: [
-            "SQL",
-            "Queries",
-            "Joins",
-            "Aggregation",
-            "Data Analysis"
-        ],
-
-        code:
-`SELECT
-    category,
-    COUNT(*) AS records,
-    SUM(value) AS total_value
-FROM dataset
-GROUP BY category
-ORDER BY total_value DESC;`
-    },
-
-    portfolio: {
-
-        label:
-            "04 / DEVELOPMENT",
-
-        title:
-            "Digital Portfolio System",
-
-        description:
-            "A complete responsive developer portfolio with a generated cyberpunk city environment, interactive UI, project system, certificate upload, animated skills and an editable A4 resume studio.",
-
-        stack: [
-            "HTML5",
-            "CSS3",
-            "JavaScript",
-            "Responsive Design",
-            "A4 Resume Engine"
-        ],
-
-        code:
-`const portfolio = {
-  background: "generated_city",
-  interface: "interactive",
-  resume: "editable_a4",
-  responsive: true,
-  systems: [
-    "projects",
-    "skills",
-    "certificates",
-    "contact"
-  ]
-};`
-    }
-
+const projectPages = {
+    univichar: "projects/univichar.html",
+    powerbi: "projects/powerbi-dashboard.html",
+    sql: "projects/sql-analysis.html",
+    portfolio: "projects/portfolio-system.html"
 };
 
 
-function openProjectModal(key) {
+/* ---------------------------------------------------------
+   PROJECT CARD CLICK
+--------------------------------------------------------- */
 
-    const project =
-        projectData[key];
+$$(".project-card").forEach(card => {
 
-    if (!project || !projectModal) {
+    const button = $(".project-open", card);
+
+    const projectKey =
+        card.dataset.project ||
+        button?.dataset.project;
+
+    if (!projectKey || !projectPages[projectKey]) {
         return;
     }
 
-    modalLabel.textContent =
-        project.label;
 
-    modalTitle.textContent =
-        project.title;
+    card.dataset.project = projectKey;
 
-    modalDescription.textContent =
-        project.description;
+    card.setAttribute("tabindex", "0");
 
-    modalStack.innerHTML = "";
+    card.setAttribute("role", "link");
 
-    project.stack.forEach(
-        item => {
 
-            const tag =
-                document.createElement(
-                    "span"
-                );
+    const openProjectPage = () => {
 
-            tag.textContent =
-                item;
+        const page = projectPages[projectKey];
 
-            modalStack.appendChild(
-                tag
-            );
-
+        if (page) {
+            window.location.href = page;
         }
-    );
 
-    modalCode.textContent =
-        project.code;
+    };
 
-    projectModal.classList.add(
-        "open"
-    );
 
-    projectModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
+    /* Whole card click */
 
-    document.body.classList.add(
-        "modal-open"
-    );
+    card.addEventListener("click", event => {
 
-}
+        /*
+         * If the VIEW button itself was clicked,
+         * its own listener handles navigation.
+         */
 
-function closeProjectModal() {
+        if (event.target.closest(".project-open")) {
+            return;
+        }
 
-    if (!projectModal) return;
 
-    projectModal.classList.remove(
-        "open"
-    );
+        /*
+         * Ignore other links if any are added later.
+         */
 
-    projectModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
+        if (event.target.closest("a")) {
+            return;
+        }
 
-    document.body.classList.remove(
-        "modal-open"
-    );
 
-}
+        openProjectPage();
 
-$$(".project-open").forEach(
-    button => {
+    });
 
-        button.addEventListener(
-            "click",
-            () => {
 
-                openProjectModal(
-                    button.dataset.project
-                );
+    /* Keyboard accessibility */
 
-            }
-        );
-
-    }
-);
-
-$$("[data-close-modal]").forEach(
-    element => {
-
-        element.addEventListener(
-            "click",
-            closeProjectModal
-        );
-
-    }
-);
-
-document.addEventListener(
-    "keydown",
-    event => {
+    card.addEventListener("keydown", event => {
 
         if (
-            event.key === "Escape"
+            event.key === "Enter" ||
+            event.key === " "
         ) {
 
-            closeProjectModal();
+            event.preventDefault();
 
-            if (
-                $("#resumeEditor")
-                    ?.classList.contains(
-                        "open"
-                    )
-            ) {
-                closeResumeEditor();
-            }
+            openProjectPage();
 
         }
 
+    });
+
+
+    /* VIEW button */
+
+    if (button) {
+
+        button.addEventListener("click", event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            openProjectPage();
+
+        });
+
     }
-);
+
+});
 
 
 /* =========================================================
-   CERTIFICATE SYSTEM
+   OWNER MANAGED CERTIFICATES
 ========================================================= */
 
-const certificateInput =
-    $("#certificateInput");
+
+/*
+ * =========================================================
+ * OWNER ONLY CONFIGURATION
+ * =========================================================
+ *
+ * Certificates are NOT uploaded by website visitors.
+ *
+ * To add a certificate:
+ *
+ * 1. Create:
+ *
+ *    assets/certificates/
+ *
+ * 2. Put your certificate image inside that folder.
+ *
+ * 3. Add the certificate below.
+ *
+ * 4. Commit and push the website.
+ *
+ * Example:
+ *
+ * {
+ *     src: "assets/certificates/certificate-1.jpg",
+ *     title: "Certificate Name"
+ * }
+ *
+ * =========================================================
+ */
+
+const ownerCertificates = [
+
+    
+    {
+        src: "assets/certificates/certificate-1.jpg",
+        title: "Certificate Name"
+    },
+
+    {
+        src: "assets/certificates/certificate-2.jpg",
+        title: "Another Certificate"
+    }
+    
+
+];
+
 
 const certificateGrid =
     $("#certificateGrid");
 
-const certificateEmpty =
-    $("#certificateEmpty");
+
+/* ---------------------------------------------------------
+   RENDER CERTIFICATES
+--------------------------------------------------------- */
 
 function renderCertificates() {
 
@@ -1130,140 +1009,93 @@ function renderCertificates() {
         return;
     }
 
-    $$(".certificate-item")
-        .forEach(item => item.remove());
 
-    if (
-        state.uploadedCertificates.length === 0
-    ) {
+    certificateGrid.innerHTML = "";
 
-        if (certificateEmpty) {
-            certificateEmpty.style.display =
-                "grid";
-        }
+
+    /* No certificates */
+
+    if (ownerCertificates.length === 0) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "certificate-empty";
+
+
+        const tag = document.createElement("span");
+
+        tag.textContent = "<certificate />";
+
+
+        const title = document.createElement("p");
+
+        title.textContent =
+            "No certificates published yet.";
+
+
+        const description = document.createElement("small");
+
+        description.textContent =
+            "Owner-managed certificates will appear here.";
+
+
+        empty.appendChild(tag);
+
+        empty.appendChild(title);
+
+        empty.appendChild(description);
+
+
+        certificateGrid.appendChild(empty);
 
         return;
+
     }
 
-    if (certificateEmpty) {
-        certificateEmpty.style.display =
-            "none";
-    }
 
-    state.uploadedCertificates.forEach(
+    /* Render owner certificates */
+
+    ownerCertificates.forEach(
         (certificate, index) => {
 
             const item =
-                document.createElement(
-                    "article"
-                );
+                document.createElement("article");
 
             item.className =
                 "certificate-item";
 
-            item.innerHTML = `
-                <img
-                    src="${certificate}"
-                    alt="Uploaded certificate ${index + 1}"
-                >
 
-                <button
-                    class="certificate-remove"
-                    type="button"
-                    data-index="${index}"
-                    aria-label="Remove certificate"
-                >
-                    ×
-                </button>
-            `;
+            const image =
+                document.createElement("img");
 
-            certificateGrid.appendChild(
-                item
-            );
 
-        }
-    );
+            image.src =
+                certificate.src;
 
-}
 
-if (certificateInput) {
+            image.alt =
+                certificate.title
+                    ? certificate.title
+                    : `Certificate ${index + 1}`;
 
-    certificateInput.addEventListener(
-        "change",
-        event => {
 
-            const files =
-                [...event.target.files];
+            image.loading = "lazy";
 
-            files.forEach(file => {
 
-                if (
-                    !file.type.startsWith(
-                        "image/"
-                    )
-                ) {
-                    return;
-                }
+            item.appendChild(image);
 
-                const reader =
-                    new FileReader();
 
-                reader.onload =
-                    loadEvent => {
-
-                        state.uploadedCertificates.push(
-                            loadEvent.target.result
-                        );
-
-                        renderCertificates();
-
-                    };
-
-                reader.readAsDataURL(
-                    file
-                );
-
-            });
-
-            certificateInput.value = "";
+            certificateGrid.appendChild(item);
 
         }
     );
 
 }
 
-if (certificateGrid) {
 
-    certificateGrid.addEventListener(
-        "click",
-        event => {
-
-            const button =
-                event.target.closest(
-                    ".certificate-remove"
-                );
-
-            if (!button) return;
-
-            const index =
-                Number(
-                    button.dataset.index
-                );
-
-            state.uploadedCertificates.splice(
-                index,
-                1
-            );
-
-            renderCertificates();
-
-        }
-    );
-
-}
+/* Initial render */
 
 renderCertificates();
-
 
 /* =========================================================
    RESUME TEMPLATE SYSTEM
