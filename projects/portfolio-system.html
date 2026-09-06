@@ -607,61 +607,57 @@
         }
 
         .brand-mark {
+            width: 48px;
+            height: 48px;
 
-            width: 38px;
-            height: 38px;
-
-            display:
-                grid;
-
-            place-items:
-                center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
 
             border:
-                1px solid rgba(103,232,249,.45);
+            1px solid rgba(0,234,255,.4);
 
-            background:
-                rgba(103,232,249,.08);
+            color: var(--cyan);
 
-            color:
-                var(--primary);
-
-            font-weight:
-                800;
-
-            border-radius:
-                10px;
+            font:
+            700 11px var(--mono);
 
             box-shadow:
-                0 0 25px rgba(103,232,249,.08);
+            inset 0 0 14px rgba(0,234,255,.07);
+        }
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .brand-text {
-
-            display:
-                flex;
-
-            flex-direction:
-                column;
-
-            line-height:
-                1.1;
+        .brand-name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1;
         }
 
-        .brand-text strong {
-            font-size: 14px;
+        .brand-siddharth {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.3px;
         }
 
-        .brand-text span {
+        .brand-portfolio {
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            
 
-            font-size:
-                10px;
-
-            color:
-                var(--muted);
-
-            letter-spacing:
-                .08em;
+            background: linear-gradient(90deg, #00e5ff, #7c4dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-status {
@@ -2952,7 +2948,7 @@
                 var(--mono);
 
             font-size:
-                10px;
+                12px;
         }
 
 
@@ -3222,19 +3218,12 @@
             >
 
                 <div class="brand-mark">
-                    S
+                    <img src="../assets/Siddharth.jpg">
                 </div>
 
-                <div class="brand-text">
-
-                    <strong>
-                        Siddharth
-                    </strong>
-
-                    <span>
-                        Mishra.Portfolio
-                    </span>
-
+                <div class="brand-name">
+                <div class="brand-siddharth">Siddharth</div>
+                <div class="brand-portfolio">Mishra.Portfolio</div>
                 </div>
 
             </a>
@@ -7174,10 +7163,7 @@ AI / IoT / MODERN SERVICES
 
             FUNDAMENTALS.SYSTEM //
 
-            Interactive Computer Education Module //
-
-            Built with
-            HTML5 + CSS3 + JavaScript
+            Interactive Computer Education Module
 
             <br><br>
 
