@@ -26,6 +26,7 @@ const state = {
     typingWords: [
         "Retail Operations",
         "Sales Professional",
+        "Sales & Marketing",
         "Management Information System",
         "Aspiring Business Analyst",
         "Future Entrepreneur",

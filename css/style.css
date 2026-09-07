@@ -1663,7 +1663,7 @@ body.cursor-hover .cursor-ring {
         1px solid rgba(0,234,255,.12);
 
     font:
-        8px var(--mono);
+        10px var(--mono);
 
     color: var(--muted);
 }
