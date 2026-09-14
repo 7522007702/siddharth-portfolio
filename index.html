@@ -21,6 +21,9 @@
     <meta name="author" content="Siddharth Mishra">
 
     <meta name="theme-color" content="#05070d">
+    <!-- Real-time weather is loaded by js/background.js using Open-Meteo. -->
+    <meta name="weather-location" content="Lucknow, Uttar Pradesh, India">
+
 
     <meta
         property="og:title"
@@ -46,7 +49,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body data-weather-state="unknown" data-day-period="unknown">
 
 <!-- =========================================================
      GLOBAL UI
@@ -204,7 +207,40 @@
     </div>
 
     <div class="city-vignette"></div>
+
+    <!-- =========================================================
+         REAL-TIME WEATHER STATUS
+         Weather data and behavior are controlled by background.js
+    ========================================================= -->
+    <aside
+        class="real-weather-panel"
+        id="realWeatherPanel"
+        aria-label="Real-time weather information"
+        data-weather-panel
+    >
+        <div class="real-weather-panel-top">
+            <span class="real-weather-live-dot" aria-hidden="true"></span>
+            <span class="real-weather-label">LIVE WEATHER</span>
+            <span class="real-weather-location" data-weather-location>Lucknow</span>
+        </div>
+
+        <div class="real-weather-main">
+            <span class="real-weather-icon" data-weather-icon aria-hidden="true">◌</span>
+            <div class="real-weather-reading">
+                <strong data-weather-temperature>--°C</strong>
+                <span data-weather-description>Loading weather...</span>
+            </div>
+        </div>
+
+        <div class="real-weather-meta" aria-live="polite">
+            <span>Humidity <b data-weather-humidity>--%</b></span>
+            <span>Wind <b data-weather-wind>-- km/h</b></span>
+        </div>
+
+        <div class="real-weather-updated" data-weather-updated>Connecting to weather service...</div>
+    </aside>
 </div>
+
 
 
 <!-- =========================================================
@@ -756,6 +792,8 @@
                 <div class="skill-bar">
                     <span data-width="86%"></span>
                 </div>
+
+                
 
             </div>
 
