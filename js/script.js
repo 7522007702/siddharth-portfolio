@@ -55,6 +55,11 @@ const state = {
         description: "Loading weather...",
         icon: "◌",
         isDay: true,
+        period: "unknown",
+        location: null,
+        latitude: null,
+        longitude: null,
+        timezone: null,
         lastUpdated: null
     }
 };
@@ -374,84 +379,44 @@ typingLoop();
 })();
 
 /* =========================================================
-   REAL-TIME WEATHER + DAY PERIOD SYSTEM
-   Morning / Day / Afternoon / Evening / Night
+   REAL-TIME WEATHER + VISITOR LOCATION SYSTEM
+   Browser Geolocation + Open-Meteo
 ========================================================= */
 
 (function initRealTimeWeather() {
     "use strict";
 
-    const weatherPanel = document.querySelector("[data-weather-panel]");
+    /*
+     * Support multiple weather panels.
+     *
+     * querySelector() was previously used here, which meant
+     * only the first weather panel could be updated.
+     */
+    const weatherPanels = $$("[data-weather-panel]");
 
-    if (!weatherPanel) {
+    if (!weatherPanels.length) {
         return;
     }
 
-    const weatherLocation = weatherPanel.querySelector(
-        "[data-weather-location]"
-    );
-
-    const weatherIcon = weatherPanel.querySelector(
-        "[data-weather-icon]"
-    );
-
-    const weatherTemperature = weatherPanel.querySelector(
-        "[data-weather-temperature]"
-    );
-
-    const weatherDescription = weatherPanel.querySelector(
-        "[data-weather-description]"
-    );
-
-    const weatherHumidity = weatherPanel.querySelector(
-        "[data-weather-humidity]"
-    );
-
-    const weatherWind = weatherPanel.querySelector(
-        "[data-weather-wind]"
-    );
-
-    const weatherUpdated = weatherPanel.querySelector(
-        "[data-weather-updated]"
-    );
-
-    const weatherPeriod = weatherPanel.querySelector(
-        "[data-weather-period]"
-    );
-
-    const weatherStatus = weatherPanel.querySelector(
-        "[data-weather-status]"
-    );
-
-    const cityBackground = document.querySelector(
-        "#cityBackground"
-    );
-
+    const cityBackground = $("#cityBackground");
     const body = document.body;
 
     /*
-     * Lucknow coordinates.
+     * Visitor coordinates are requested from the browser once.
      *
-     * You can change these coordinates later
-     * if you want weather for another city.
+     * Weather refreshes reuse these coordinates instead of
+     * asking for location permission every minute.
      */
-    const WEATHER_API_URL =
-        "https://api.open-meteo.com/v1/forecast" +
-        "?latitude=26.8467" +
-        "&longitude=80.9462" +
-        "&current=" +
-        "temperature_2m," +
-        "relative_humidity_2m," +
-        "precipitation," +
-        "rain," +
-        "showers," +
-        "weather_code," +
-        "cloud_cover," +
-        "wind_speed_10m," +
-        "is_day" +
-        "&daily=sunrise,sunset" +
-        "&forecast_days=1" +
-        "&timezone=Asia%2FKolkata";
+    let visitorLocation = null;
+
+    let locationRequestInProgress = false;
+
+    let locationLabel =
+        "Detecting your location...";
+
+    /* =====================================================
+       WEATHER CODE MAP
+    ===================================================== */
 
     const weatherCodeMap = {
         0: {
@@ -651,6 +616,10 @@ typingLoop();
         }
     };
 
+    /* =====================================================
+       DAY PERIOD LABELS
+    ===================================================== */
+
     const periodLabels = {
         morning: "Morning",
         day: "Day",
@@ -660,41 +629,128 @@ typingLoop();
         unknown: "Detecting..."
     };
 
-    /*
-     * Extract HH:mm from Open-Meteo local ISO string.
-     *
-     * Example:
-     * 2026-09-14T06:00
-     * becomes 360 minutes.
-     *
-     * This avoids timezone conversion problems.
-     */
+    /* =====================================================
+       PANEL ELEMENTS
+    ===================================================== */
+
+    function getPanelElements(panel) {
+        return {
+            location: panel.querySelector(
+                "[data-weather-location]"
+            ),
+
+            icon: panel.querySelector(
+                "[data-weather-icon]"
+            ),
+
+            temperature: panel.querySelector(
+                "[data-weather-temperature]"
+            ),
+
+            description: panel.querySelector(
+                "[data-weather-description]"
+            ),
+
+            humidity: panel.querySelector(
+                "[data-weather-humidity]"
+            ),
+
+            wind: panel.querySelector(
+                "[data-weather-wind]"
+            ),
+
+            updated: panel.querySelector(
+                "[data-weather-updated]"
+            ),
+
+            period: panel.querySelector(
+                "[data-weather-period]"
+            ),
+
+            status: panel.querySelector(
+                "[data-weather-status]"
+            )
+        };
+    }
+
+    const panelElements =
+        weatherPanels.map(
+            getPanelElements
+        );
+
+    function updatePanels(callback) {
+        panelElements.forEach(callback);
+    }
+
+    /* =====================================================
+       WEATHER STATUS
+    ===================================================== */
+
+    function setPanelStatus(
+        text,
+        isError = false
+    ) {
+        updatePanels(elements => {
+            if (!elements.status) {
+                return;
+            }
+
+            elements.status.textContent = text;
+
+            elements.status.classList.toggle(
+                "error",
+                isError
+            );
+        });
+    }
+
+    /* =====================================================
+       LOCATION TEXT
+    ===================================================== */
+
+    function setLocationText(text) {
+        updatePanels(elements => {
+            if (elements.location) {
+                elements.location.textContent =
+                    text;
+            }
+        });
+    }
+
+    /* =====================================================
+       TIME PARSER
+    ===================================================== */
+
     function getMinutesFromIso(value) {
         if (!value) {
             return null;
         }
 
-        const match = String(value).match(
-            /T(\d{2}):(\d{2})/
-        );
+        const match =
+            String(value).match(
+                /T(\d{2}):(\d{2})/
+            );
 
         if (!match) {
             return null;
         }
 
-        const hours = Number(match[1]);
-        const minutes = Number(match[2]);
-
-        return (hours * 60) + minutes;
+        return (
+            Number(match[1]) * 60 +
+            Number(match[2])
+        );
     }
 
-    function getCurrentMinutes(currentTime) {
-        if (currentTime) {
-            const apiMinutes = getMinutesFromIso(currentTime);
+    function getCurrentMinutes(
+        currentTime
+    ) {
+        const apiMinutes =
+            getMinutesFromIso(
+                currentTime
+            );
 
-            if (apiMinutes !== null) {
-                return apiMinutes;
-            }
+        if (apiMinutes !== null) {
+            return apiMinutes;
         }
 
         const now = new Date();
@@ -705,99 +761,159 @@ typingLoop();
         );
     }
 
-    /*
-     * Time periods:
-     *
-     * Before sunrise       = Night
-     * Sunrise to 10:00     = Morning
-     * 10:00 to 12:00       = Day
-     * 12:00 to 16:00       = Afternoon
-     * 16:00 to sunset      = Evening
-     * After sunset         = Night
-     */
+    /* =====================================================
+       DAY PERIOD
+    ===================================================== */
+
     function getDayPeriod(
         currentTime,
         sunriseTime,
         sunsetTime
     ) {
         const currentMinutes =
-            getCurrentMinutes(currentTime);
+            getCurrentMinutes(
+                currentTime
+            );
 
         const sunriseMinutes =
-            getMinutesFromIso(sunriseTime);
+            getMinutesFromIso(
+                sunriseTime
+            );
 
         const sunsetMinutes =
-            getMinutesFromIso(sunsetTime);
+            getMinutesFromIso(
+                sunsetTime
+            );
 
+        /*
+         * Fallback if sunrise/sunset are unavailable.
+         */
         if (
             sunriseMinutes === null ||
             sunsetMinutes === null
         ) {
-            const fallbackHour =
-                Math.floor(currentMinutes / 60);
+            const hour =
+                Math.floor(
+                    currentMinutes / 60
+                );
 
-            if (fallbackHour >= 5 && fallbackHour < 10) {
+            if (
+                hour >= 5 &&
+                hour < 10
+            ) {
                 return "morning";
             }
 
-            if (fallbackHour >= 10 && fallbackHour < 12) {
+            if (
+                hour >= 10 &&
+                hour < 12
+            ) {
                 return "day";
             }
 
-            if (fallbackHour >= 12 && fallbackHour < 16) {
+            if (
+                hour >= 12 &&
+                hour < 16
+            ) {
                 return "afternoon";
             }
 
-            if (fallbackHour >= 16 && fallbackHour < 19) {
+            if (
+                hour >= 16 &&
+                hour < 19
+            ) {
                 return "evening";
             }
 
             return "night";
         }
 
+        /*
+         * Before sunrise or after sunset.
+         */
         if (
-            currentMinutes < sunriseMinutes ||
-            currentMinutes >= sunsetMinutes
+            currentMinutes <
+                sunriseMinutes ||
+            currentMinutes >=
+                sunsetMinutes
         ) {
             return "night";
         }
 
-        if (currentMinutes < 10 * 60) {
+        /*
+         * Morning.
+         */
+        if (
+            currentMinutes <
+            10 * 60
+        ) {
             return "morning";
         }
 
-        if (currentMinutes < 12 * 60) {
+        /*
+         * Day.
+         */
+        if (
+            currentMinutes <
+            12 * 60
+        ) {
             return "day";
         }
 
-        if (currentMinutes < 16 * 60) {
+        /*
+         * Afternoon.
+         */
+        if (
+            currentMinutes <
+            16 * 60
+        ) {
             return "afternoon";
         }
 
+        /*
+         * Evening.
+         */
         return "evening";
     }
 
-    function setWeatherState(weatherState) {
-        body.dataset.weatherState = weatherState;
+    /* =====================================================
+       WEATHER STATE
+    ===================================================== */
 
-        if (cityBackground) {
-            cityBackground.classList.remove(
-                "weather-clear",
-                "weather-cloudy",
-                "weather-fog",
-                "weather-rain",
-                "weather-storm",
-                "weather-snow"
-            );
+    function setWeatherState(
+        weatherState
+    ) {
+        state.weather.state =
+            weatherState;
 
-            cityBackground.classList.add(
-                `weather-${weatherState}`
-            );
+        body.dataset.weatherState =
+            weatherState;
+
+        if (!cityBackground) {
+            return;
         }
+
+        cityBackground.classList.remove(
+            "weather-clear",
+            "weather-cloudy",
+            "weather-fog",
+            "weather-rain",
+            "weather-storm",
+            "weather-snow"
+        );
+
+        cityBackground.classList.add(
+            `weather-${weatherState}`
+        );
     }
 
+    /* =====================================================
+       DAY PERIOD STATE
+    ===================================================== */
+
     function setDayPeriod(period) {
-        body.dataset.dayPeriod = period;
+        body.dataset.dayPeriod =
+            period;
 
         if (cityBackground) {
             cityBackground.classList.remove(
@@ -814,206 +930,656 @@ typingLoop();
             );
         }
 
-        if (weatherPeriod) {
-            weatherPeriod.textContent =
-                periodLabels[period] ||
-                periodLabels.unknown;
-        }
+        state.weather.period =
+            period;
+
+        updatePanels(elements => {
+            if (elements.period) {
+                elements.period.textContent =
+                    periodLabels[period] ||
+                    periodLabels.unknown;
+            }
+        });
     }
 
-    function formatUpdatedTime() {
-        const now = new Date();
+    /* =====================================================
+       UPDATED TIME
+    ===================================================== */
 
-        return now.toLocaleTimeString(
-            "en-IN",
+    function formatUpdatedTime() {
+        return new Intl.DateTimeFormat(
+            undefined,
             {
                 hour: "2-digit",
                 minute: "2-digit",
                 hour12: true
             }
+        ).format(
+            new Date()
         );
     }
 
-    function setStatus(text, isError = false) {
-        if (!weatherStatus) {
-            return;
-        }
+    /* =====================================================
+       WEATHER ERROR
+    ===================================================== */
 
-        weatherStatus.textContent = text;
-        weatherStatus.classList.toggle(
-            "error",
-            isError
+    function showWeatherError(
+        message = "Weather unavailable"
+    ) {
+        state.weather.state =
+            "unknown";
+
+        body.dataset.weatherState =
+            "unknown";
+
+        setPanelStatus(
+            "OFFLINE",
+            true
+        );
+
+        setDayPeriod(
+            "unknown"
+        );
+
+        updatePanels(elements => {
+            if (elements.temperature) {
+                elements.temperature.textContent =
+                    "--°";
+            }
+
+            if (elements.description) {
+                elements.description.textContent =
+                    message;
+            }
+
+            if (elements.humidity) {
+                elements.humidity.textContent =
+                    "--%";
+            }
+
+            if (elements.wind) {
+                elements.wind.textContent =
+                    "-- km/h";
+            }
+
+            if (elements.updated) {
+                elements.updated.textContent =
+                    "Connection unavailable";
+            }
+
+            if (elements.icon) {
+                elements.icon.textContent =
+                    "◌";
+            }
+        });
+    }
+
+    /* =====================================================
+       BUILD DYNAMIC WEATHER URL
+    ===================================================== */
+
+    function buildWeatherUrl(
+        latitude,
+        longitude
+    ) {
+        const params =
+            new URLSearchParams({
+                latitude:
+                    String(latitude),
+
+                longitude:
+                    String(longitude),
+
+                current: [
+                    "temperature_2m",
+                    "relative_humidity_2m",
+                    "precipitation",
+                    "rain",
+                    "showers",
+                    "weather_code",
+                    "cloud_cover",
+                    "wind_speed_10m",
+                    "is_day"
+                ].join(","),
+
+                daily:
+                    "sunrise,sunset",
+
+                forecast_days:
+                    "1",
+
+                /*
+                 * IMPORTANT:
+                 * Do not use Asia/Kolkata.
+                 *
+                 * Open-Meteo will return local
+                 * sunrise/sunset/time for the
+                 * visitor's coordinates.
+                 */
+                timezone:
+                    "auto"
+            });
+
+        return (
+            "https://api.open-meteo.com/v1/forecast?" +
+            params.toString()
         );
     }
 
-    function showWeatherError() {
-        setStatus("OFFLINE", true);
+    /* =====================================================
+       REVERSE LOCATION
+       Coordinates -> City / Country
+    ===================================================== */
 
-        if (weatherTemperature) {
-            weatherTemperature.textContent = "--°";
-        }
-
-        if (weatherDescription) {
-            weatherDescription.textContent =
-                "Weather unavailable";
-        }
-
-        if (weatherHumidity) {
-            weatherHumidity.textContent = "--%";
-        }
-
-        if (weatherWind) {
-            weatherWind.textContent = "-- km/h";
-        }
-
-        if (weatherUpdated) {
-            weatherUpdated.textContent =
-                "Connection unavailable";
-        }
-
-        if (weatherIcon) {
-            weatherIcon.textContent = "◌";
-        }
-
-        setDayPeriod("unknown");
-    }
-
-    function updateWeatherInterface(data) {
-        if (!data || !data.current) {
-            showWeatherError();
-            return;
-        }
-
-        const current = data.current;
-        const daily = data.daily || {};
-
-        const weatherCode =
-            Number(current.weather_code);
-
-        const weatherInfo =
-            weatherCodeMap[weatherCode] ||
-            {
-                state: "cloudy",
-                icon: "☁",
-                nightIcon: "☁",
-                description: "Variable conditions"
-            };
-
-        const period = getDayPeriod(
-            current.time,
-            daily.sunrise?.[0],
-            daily.sunset?.[0]
-        );
-
-        const isNight = period === "night";
-
-        setWeatherState(weatherInfo.state);
-        setDayPeriod(period);
-        setStatus("LIVE");
-
-        if (weatherLocation) {
-            weatherLocation.textContent =
-                "Lucknow, India";
-        }
-
-        if (weatherIcon) {
-            weatherIcon.textContent =
-                isNight
-                    ? weatherInfo.nightIcon
-                    : weatherInfo.icon;
-        }
-
-        if (weatherTemperature) {
-            const temperature =
-                Math.round(
-                    Number(current.temperature_2m)
-                );
-
-            weatherTemperature.textContent =
-                `${temperature}°C`;
-        }
-
-        if (weatherDescription) {
-            weatherDescription.textContent =
-                weatherInfo.description;
-        }
-
-        if (weatherHumidity) {
-            weatherHumidity.textContent =
-                `${Math.round(
-                    Number(current.relative_humidity_2m)
-                )}%`;
-        }
-
-        if (weatherWind) {
-            weatherWind.textContent =
-                `${Math.round(
-                    Number(current.wind_speed_10m)
-                )} km/h`;
-        }
-
-        if (weatherUpdated) {
-            weatherUpdated.textContent =
-                formatUpdatedTime();
-        }
-    }
-
-    async function loadRealWeather() {
-        setStatus("SYNCING");
+    async function resolveVisitorLocation(
+        latitude,
+        longitude
+    ) {
+        const fallback =
+            Intl.DateTimeFormat()
+                .resolvedOptions()
+                .timeZone ||
+            "Your location";
 
         try {
-            const response = await fetch(
-                WEATHER_API_URL,
+            const params =
+                new URLSearchParams({
+                    latitude:
+                        String(latitude),
+
+                    longitude:
+                        String(longitude),
+
+                    localityLanguage:
+                        "en"
+                });
+
+            const response =
+                await fetch(
+                    "https://api.bigdatacloud.net/data/" +
+                    "reverse-geocode-client?" +
+                    params.toString(),
+                    {
+                        method: "GET",
+                        cache: "no-store"
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    `Reverse geocoding error: ${response.status}`
+                );
+            }
+
+            const data =
+                await response.json();
+
+            const city =
+                data.city ||
+                data.locality ||
+                data.principalSubdivision ||
+                "Your location";
+
+            const country =
+                data.countryName ||
+                "";
+
+            const label =
+                country
+                    ? `${city}, ${country}`
+                    : city;
+
+            locationLabel =
+                label;
+
+            setLocationText(
+                locationLabel
+            );
+
+            return label;
+        } catch (error) {
+            console.warn(
+                "Visitor city could not be resolved:",
+                error
+            );
+
+            locationLabel =
+                fallback;
+
+            setLocationText(
+                locationLabel
+            );
+
+            return locationLabel;
+        }
+    }
+
+    /* =====================================================
+       WEATHER FETCH
+    ===================================================== */
+
+    async function fetchWeather(
+        latitude,
+        longitude
+    ) {
+        const response =
+            await fetch(
+                buildWeatherUrl(
+                    latitude,
+                    longitude
+                ),
                 {
                     method: "GET",
                     cache: "no-store"
                 }
             );
 
-            if (!response.ok) {
-                throw new Error(
-                    `Weather API error: ${response.status}`
-                );
+        if (!response.ok) {
+            throw new Error(
+                `Weather API error: ${response.status}`
+            );
+        }
+
+        return response.json();
+    }
+
+    /* =====================================================
+       UPDATE WEATHER INTERFACE
+    ===================================================== */
+
+    function updateWeatherInterface(
+        data
+    ) {
+        if (
+            !data ||
+            !data.current
+        ) {
+            showWeatherError();
+            return;
+        }
+
+        const current =
+            data.current;
+
+        const daily =
+            data.daily || {};
+
+        const weatherCode =
+            Number(
+                current.weather_code
+            );
+
+        const weatherInfo =
+            weatherCodeMap[
+                weatherCode
+            ] || {
+                state: "cloudy",
+                icon: "☁",
+                nightIcon: "☁",
+                description:
+                    "Variable conditions"
+            };
+
+        const period =
+            getDayPeriod(
+                current.time,
+                daily.sunrise?.[0],
+                daily.sunset?.[0]
+            );
+
+        const isNight =
+            period === "night";
+
+        const temperature =
+            Number(
+                current.temperature_2m
+            );
+
+        const humidity =
+            Number(
+                current.relative_humidity_2m
+            );
+
+        const windSpeed =
+            Number(
+                current.wind_speed_10m
+            );
+
+        setWeatherState(
+            weatherInfo.state
+        );
+
+        setDayPeriod(
+            period
+        );
+
+        setPanelStatus(
+            "LIVE"
+        );
+
+        state.weather.temperature =
+            Number.isFinite(
+                temperature
+            )
+                ? temperature
+                : null;
+
+        state.weather.humidity =
+            Number.isFinite(
+                humidity
+            )
+                ? humidity
+                : null;
+
+        state.weather.windSpeed =
+            Number.isFinite(
+                windSpeed
+            )
+                ? windSpeed
+                : null;
+
+        state.weather.description =
+            weatherInfo.description;
+
+        state.weather.icon =
+            isNight
+                ? weatherInfo.nightIcon
+                : weatherInfo.icon;
+
+        state.weather.isDay =
+            !isNight;
+
+        state.weather.lastUpdated =
+            new Date().toISOString();
+
+        state.weather.location =
+            locationLabel;
+
+        state.weather.latitude =
+            visitorLocation?.latitude ??
+            null;
+
+        state.weather.longitude =
+            visitorLocation?.longitude ??
+            null;
+
+        state.weather.timezone =
+            data.timezone ||
+            null;
+
+        updatePanels(elements => {
+            if (elements.location) {
+                elements.location.textContent =
+                    locationLabel;
             }
 
-            const data = await response.json();
+            if (elements.icon) {
+                elements.icon.textContent =
+                    state.weather.icon;
+            }
 
-            updateWeatherInterface(data);
+            if (
+                elements.temperature
+            ) {
+                elements.temperature.textContent =
+                    Number.isFinite(
+                        temperature
+                    )
+                        ? `${Math.round(
+                            temperature
+                        )}°C`
+                        : "--°";
+            }
+
+            if (
+                elements.description
+            ) {
+                elements.description.textContent =
+                    weatherInfo.description;
+            }
+
+            if (elements.humidity) {
+                elements.humidity.textContent =
+                    Number.isFinite(
+                        humidity
+                    )
+                        ? `${Math.round(
+                            humidity
+                        )}%`
+                        : "--%";
+            }
+
+            if (elements.wind) {
+                elements.wind.textContent =
+                    Number.isFinite(
+                        windSpeed
+                    )
+                        ? `${Math.round(
+                            windSpeed
+                        )} km/h`
+                        : "-- km/h";
+            }
+
+            if (elements.updated) {
+                elements.updated.textContent =
+                    formatUpdatedTime();
+            }
+        });
+    }
+
+    /* =====================================================
+       LOCATION ERROR HANDLER
+    ===================================================== */
+
+    function handleLocationError(
+        error
+    ) {
+        locationRequestInProgress =
+            false;
+
+        body.dataset.locationState =
+            "unavailable";
+
+        let message =
+            "Location permission required";
+
+        if (
+            error?.code === 1
+        ) {
+            message =
+                "Allow location to show local weather";
+        } else if (
+            error?.code === 2
+        ) {
+            message =
+                "Location could not be detected";
+        } else if (
+            error?.code === 3
+        ) {
+            message =
+                "Location detection timed out";
+        }
+
+        setLocationText(
+            message
+        );
+
+        showWeatherError(
+            message
+        );
+
+        console.warn(
+            "Visitor location was not available:",
+            error
+        );
+    }
+
+    /* =====================================================
+       REQUEST VISITOR LOCATION
+    ===================================================== */
+
+    function requestVisitorLocation() {
+        if (
+            locationRequestInProgress
+        ) {
+            return;
+        }
+
+        if (
+            !navigator.geolocation
+        ) {
+            handleLocationError({
+                code: 2
+            });
+
+            return;
+        }
+
+        locationRequestInProgress =
+            true;
+
+        body.dataset.locationState =
+            "requesting";
+
+        setPanelStatus(
+            "LOCATING"
+        );
+
+        setLocationText(
+            "Detecting your location..."
+        );
+
+        navigator.geolocation.getCurrentPosition(
+            async position => {
+                visitorLocation = {
+                    latitude:
+                        position.coords.latitude,
+
+                    longitude:
+                        position.coords.longitude,
+
+                    accuracy:
+                        position.coords.accuracy
+                };
+
+                locationRequestInProgress =
+                    false;
+
+                body.dataset.locationState =
+                    "ready";
+
+                setPanelStatus(
+                    "SYNCING"
+                );
+
+                await resolveVisitorLocation(
+                    visitorLocation.latitude,
+                    visitorLocation.longitude
+                );
+
+                await loadRealWeather();
+            },
+
+            handleLocationError,
+
+            {
+                /*
+                 * High accuracy is not necessary
+                 * for city-level weather.
+                 *
+                 * This also saves battery on mobile.
+                 */
+                enableHighAccuracy:
+                    false,
+
+                /*
+                 * Do not wait forever.
+                 */
+                timeout:
+                    10000,
+
+                /*
+                 * Browser may reuse a recent
+                 * location for up to 5 minutes.
+                 */
+                maximumAge:
+                    5 * 60 * 1000
+            }
+        );
+    }
+
+    /* =====================================================
+       LOAD WEATHER
+    ===================================================== */
+
+    async function loadRealWeather() {
+        /*
+         * If visitor coordinates are not available,
+         * request them first.
+         */
+        if (!visitorLocation) {
+            requestVisitorLocation();
+            return;
+        }
+
+        setPanelStatus(
+            "SYNCING"
+        );
+
+        try {
+            const data =
+                await fetchWeather(
+                    visitorLocation.latitude,
+                    visitorLocation.longitude
+                );
+
+            updateWeatherInterface(
+                data
+            );
         } catch (error) {
             console.warn(
                 "Real-time weather could not be loaded:",
                 error
             );
 
-            showWeatherError();
+            showWeatherError(
+                "Weather service unavailable"
+            );
         }
     }
 
-    /*
-     * Initial weather load.
-     */
-    loadRealWeather();
+    /* =====================================================
+       INITIAL LOCATION REQUEST
+    ===================================================== */
 
-    /*
-     * Refresh weather every 10 minutes.
-     */
-    const weatherRefreshTimer = setInterval(
-        loadRealWeather,
-        10 * 60 * 1000
-    );
+    requestVisitorLocation();
 
-    /*
-     * Update day period every minute so the background
-     * changes even without waiting for the API refresh.
-     */
-    const periodRefreshTimer = setInterval(
-        loadRealWeather,
-        60 * 1000
-    );
+    /* =====================================================
+       WEATHER REFRESH
+       Every 10 minutes
+    ===================================================== */
 
-    /*
-     * Refresh when user returns to the tab.
-     */
+    const weatherRefreshTimer =
+        setInterval(
+            loadRealWeather,
+            10 * 60 * 1000
+        );
+
+    /* =====================================================
+       PERIOD REFRESH
+       Every 1 minute
+    ===================================================== */
+
+    const periodRefreshTimer =
+        setInterval(
+            loadRealWeather,
+            60 * 1000
+        );
+
+    /* =====================================================
+       TAB VISIBILITY
+    ===================================================== */
+
     document.addEventListener(
         "visibilitychange",
         () => {
@@ -1023,14 +1589,28 @@ typingLoop();
         }
     );
 
-    /*
-     * Expose controls for debugging.
-     */
+    /* =====================================================
+       PUBLIC WEATHER API
+    ===================================================== */
+
     window.SiddharthWeather = {
-        reload: loadRealWeather,
+        reload:
+            loadRealWeather,
+
+        locate:
+            requestVisitorLocation,
+
+        getLocation:
+            () => visitorLocation,
+
         destroy: () => {
-            clearInterval(weatherRefreshTimer);
-            clearInterval(periodRefreshTimer);
+            clearInterval(
+                weatherRefreshTimer
+            );
+
+            clearInterval(
+                periodRefreshTimer
+            );
         }
     };
 })();
@@ -1045,7 +1625,9 @@ typingLoop();
     if (!city) return;
 
     const finePointer =
-        window.matchMedia("(pointer:fine)").matches;
+        window.matchMedia(
+            "(pointer:fine)"
+        ).matches;
 
     if (!finePointer) return;
 
@@ -1055,26 +1637,41 @@ typingLoop();
     let currentX = 0;
     let currentY = 0;
 
-    document.addEventListener("mousemove", event => {
-        targetX =
-            (event.clientX / window.innerWidth - 0.5) * 10;
+    document.addEventListener(
+        "mousemove",
+        event => {
+            targetX =
+                (
+                    event.clientX /
+                    window.innerWidth -
+                    0.5
+                ) * 10;
 
-        targetY =
-            (event.clientY / window.innerHeight - 0.5) * 7;
-    });
+            targetY =
+                (
+                    event.clientY /
+                    window.innerHeight -
+                    0.5
+                ) * 7;
+        }
+    );
 
     function animate() {
         currentX +=
-            (targetX - currentX) * 0.025;
+            (targetX - currentX) *
+            0.025;
 
         currentY +=
-            (targetY - currentY) * 0.025;
+            (targetY - currentY) *
+            0.025;
 
         city.style.transform =
             `scale(1.025) translate3d(` +
             `${currentX}px, ${currentY}px, 0)`;
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(
+            animate
+        );
     }
 
     animate();
@@ -1084,279 +1681,446 @@ typingLoop();
    REVEAL ON SCROLL
 ========================================================= */
 
-const revealElements = $$(".reveal");
+const revealElements =
+    $$(".reveal");
 
-if ("IntersectionObserver" in window) {
+if (
+    "IntersectionObserver" in
+    window
+) {
     const revealObserver =
         new IntersectionObserver(
             entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
+                entries.forEach(
+                    entry => {
+                        if (
+                            entry.isIntersecting
+                        ) {
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
-                        revealObserver.unobserve(
-                            entry.target
-                        );
+                            revealObserver.unobserve(
+                                entry.target
+                            );
+                        }
                     }
-                });
+                );
             },
             {
                 threshold: 0.12
             }
         );
 
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
+    revealElements.forEach(
+        element => {
+            revealObserver.observe(
+                element
+            );
+        }
+    );
 } else {
-    revealElements.forEach(element => {
-        element.classList.add("visible");
-    });
+    revealElements.forEach(
+        element => {
+            element.classList.add(
+                "visible"
+            );
+        }
+    );
 }
 
 /* =========================================================
    ACTIVE NAVIGATION
 ========================================================= */
 
-const sections = $$("main section[id]");
-const navLinks = $$(".nav-link");
+const sections =
+    $$("main section[id]");
 
-if ("IntersectionObserver" in window) {
+const navLinks =
+    $$(".nav-link");
+
+if (
+    "IntersectionObserver" in
+    window
+) {
     const sectionObserver =
         new IntersectionObserver(
             entries => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
+                entries.forEach(
+                    entry => {
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
 
-                    navLinks.forEach(link => {
-                        link.classList.remove("active");
-                    });
+                        navLinks.forEach(
+                            link => {
+                                link.classList.remove(
+                                    "active"
+                                );
+                            }
+                        );
 
-                    const activeLink = $(
-                        `.nav-link[href="#${entry.target.id}"]`
-                    );
+                        const activeLink =
+                            $(
+                                `.nav-link[href="#${entry.target.id}"]`
+                            );
 
-                    if (activeLink) {
-                        activeLink.classList.add("active");
+                        if (activeLink) {
+                            activeLink.classList.add(
+                                "active"
+                            );
+                        }
                     }
-                });
+                );
             },
             {
-                rootMargin: "-30% 0px -55% 0px"
+                rootMargin:
+                    "-30% 0px -55% 0px"
             }
         );
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+    sections.forEach(
+        section => {
+            sectionObserver.observe(
+                section
+            );
+        }
+    );
 }
 
 /* =========================================================
    COUNTER ANIMATION
 ========================================================= */
 
-function animateCounter(element) {
-    const target = Number(
-        element.dataset.target
-    );
-
-    if (!Number.isFinite(target)) return;
-
-    const duration = 1200;
-    const start = performance.now();
-
-    function update(time) {
-        const progress = Math.min(
-            (time - start) / duration,
-            1
+function animateCounter(
+    element
+) {
+    const target =
+        Number(
+            element.dataset.target
         );
 
+    if (
+        !Number.isFinite(
+            target
+        )
+    ) {
+        return;
+    }
+
+    const duration = 1200;
+
+    const start =
+        performance.now();
+
+    function update(time) {
+        const progress =
+            Math.min(
+                (time - start) /
+                duration,
+                1
+            );
+
         const eased =
-            1 - Math.pow(1 - progress, 3);
+            1 -
+            Math.pow(
+                1 - progress,
+                3
+            );
 
         element.textContent =
-            Math.floor(target * eased);
+            Math.floor(
+                target * eased
+            );
 
-        if (progress < 1) {
-            requestAnimationFrame(update);
+        if (
+            progress < 1
+        ) {
+            requestAnimationFrame(
+                update
+            );
         } else {
-            element.textContent = target;
+            element.textContent =
+                target;
         }
     }
 
-    requestAnimationFrame(update);
+    requestAnimationFrame(
+        update
+    );
 }
 
-if ("IntersectionObserver" in window) {
+if (
+    "IntersectionObserver" in
+    window
+) {
     const counterObserver =
         new IntersectionObserver(
             entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounter(entry.target);
+                entries.forEach(
+                    entry => {
+                        if (
+                            entry.isIntersecting
+                        ) {
+                            animateCounter(
+                                entry.target
+                            );
 
-                        counterObserver.unobserve(
-                            entry.target
-                        );
+                            counterObserver.unobserve(
+                                entry.target
+                            );
+                        }
                     }
-                });
+                );
             },
             {
                 threshold: 0.6
             }
         );
 
-    $$(".counter").forEach(counter => {
-        counterObserver.observe(counter);
-    });
+    $$(".counter").forEach(
+        counter => {
+            counterObserver.observe(
+                counter
+            );
+        }
+    );
 } else {
-    $$(".counter").forEach(counter => {
-        counter.textContent =
-            counter.dataset.target || "0";
-    });
+    $$(".counter").forEach(
+        counter => {
+            counter.textContent =
+                counter.dataset.target ||
+                "0";
+        }
+    );
 }
 
 /* =========================================================
    SKILL BARS
 ========================================================= */
 
-if ("IntersectionObserver" in window) {
+if (
+    "IntersectionObserver" in
+    window
+) {
     const skillObserver =
         new IntersectionObserver(
             entries => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
+                entries.forEach(
+                    entry => {
+                        if (
+                            !entry.isIntersecting
+                        ) {
+                            return;
+                        }
 
-                    $$(".skill-bar span", entry.target)
-                        .forEach(bar => {
-                            setTimeout(() => {
-                                bar.style.width =
-                                    bar.dataset.width;
-                            }, 150);
-                        });
+                        $$(".skill-bar span", entry.target)
+                            .forEach(
+                                bar => {
+                                    setTimeout(
+                                        () => {
+                                            bar.style.width =
+                                                bar.dataset.width;
+                                        },
+                                        150
+                                    );
+                                }
+                            );
 
-                    skillObserver.unobserve(
-                        entry.target
-                    );
-                });
+                        skillObserver.unobserve(
+                            entry.target
+                        );
+                    }
+                );
             },
             {
                 threshold: 0.25
             }
         );
 
-    $$(".skill-card").forEach(card => {
-        skillObserver.observe(card);
-    });
+    $$(".skill-card").forEach(
+        card => {
+            skillObserver.observe(
+                card
+            );
+        }
+    );
 } else {
-    $$(".skill-bar span").forEach(bar => {
-        bar.style.width = bar.dataset.width;
-    });
+    $$(".skill-bar span").forEach(
+        bar => {
+            bar.style.width =
+                bar.dataset.width;
+        }
+    );
 }
 
 /* =========================================================
    PROJECT FILTERS
 ========================================================= */
 
-const projectFilters = $$(".project-filter");
-const projectCards = $$(".project-card");
+const projectFilters =
+    $$(".project-filter");
 
-projectFilters.forEach(filter => {
-    filter.addEventListener("click", () => {
-        projectFilters.forEach(item => {
-            item.classList.remove("active");
-        });
+const projectCards =
+    $$(".project-card");
 
-        filter.classList.add("active");
+projectFilters.forEach(
+    filter => {
+        filter.addEventListener(
+            "click",
+            () => {
+                projectFilters.forEach(
+                    item => {
+                        item.classList.remove(
+                            "active"
+                        );
+                    }
+                );
 
-        const selected =
-            filter.dataset.filter;
+                filter.classList.add(
+                    "active"
+                );
 
-        projectCards.forEach(card => {
-            const category =
-                card.dataset.category;
+                const selected =
+                    filter.dataset.filter;
 
-            const shouldShow =
-                selected === "all" ||
-                category === selected;
+                projectCards.forEach(
+                    card => {
+                        const category =
+                            card.dataset.category;
 
-            card.classList.toggle(
-                "hidden",
-                !shouldShow
-            );
-        });
-    });
-});
+                        const shouldShow =
+                            selected === "all" ||
+                            category === selected;
+
+                        card.classList.toggle(
+                            "hidden",
+                            !shouldShow
+                        );
+                    }
+                );
+            }
+        );
+    }
+);
 
 /* =========================================================
    PROJECT PAGE NAVIGATION
 ========================================================= */
 
 const projectPages = {
-    univichar: "projects/univichar.html",
-    powerbi: "projects/powerbi-dashboard.html",
-    sql: "projects/sql-analysis.html",
-    portfolio: "projects/portfolio-system.html",
-    computer: "projects/fundamental-of-computer.html"
+    univichar:
+        "projects/univichar.html",
+
+    powerbi:
+        "projects/powerbi-dashboard.html",
+
+    sql:
+        "projects/sql-analysis.html",
+
+    portfolio:
+        "projects/portfolio-system.html",
+
+    computer:
+        "projects/fundamental-of-computer.html"
 };
 
-$$(".project-card").forEach(card => {
-    const button = $(".project-open", card);
+$$(".project-card").forEach(
+    card => {
+        const button =
+            $(".project-open", card);
 
-    const projectKey =
-        card.dataset.project ||
-        button?.dataset.project;
+        const projectKey =
+            card.dataset.project ||
+            button?.dataset.project;
 
-    if (
-        !projectKey ||
-        !projectPages[projectKey]
-    ) {
-        return;
-    }
-
-    card.dataset.project = projectKey;
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("role", "link");
-
-    const openProjectPage = () => {
-        const page = projectPages[projectKey];
-
-        if (page) {
-            window.location.href = page;
-        }
-    };
-
-    card.addEventListener("click", event => {
-        if (event.target.closest(".project-open")) {
-            return;
-        }
-
-        if (event.target.closest("a")) {
-            return;
-        }
-
-        openProjectPage();
-    });
-
-    card.addEventListener("keydown", event => {
         if (
-            event.key === "Enter" ||
-            event.key === " "
+            !projectKey ||
+            !projectPages[projectKey]
         ) {
-            event.preventDefault();
-            openProjectPage();
+            return;
         }
-    });
 
-    if (button) {
-        button.addEventListener("click", event => {
-            event.preventDefault();
-            event.stopPropagation();
+        card.dataset.project =
+            projectKey;
 
-            openProjectPage();
-        });
+        card.setAttribute(
+            "tabindex",
+            "0"
+        );
+
+        card.setAttribute(
+            "role",
+            "link"
+        );
+
+        const openProjectPage =
+            () => {
+                const page =
+                    projectPages[
+                        projectKey
+                    ];
+
+                if (page) {
+                    window.location.href =
+                        page;
+                }
+            };
+
+        card.addEventListener(
+            "click",
+            event => {
+                if (
+                    event.target.closest(
+                        ".project-open"
+                    )
+                ) {
+                    return;
+                }
+
+                if (
+                    event.target.closest(
+                        "a"
+                    )
+                ) {
+                    return;
+                }
+
+                openProjectPage();
+            }
+        );
+
+        card.addEventListener(
+            "keydown",
+            event => {
+                if (
+                    event.key ===
+                        "Enter" ||
+                    event.key ===
+                        " "
+                ) {
+                    event.preventDefault();
+
+                    openProjectPage();
+                }
+            }
+        );
+
+        if (button) {
+            button.addEventListener(
+                "click",
+                event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    openProjectPage();
+                }
+            );
+        }
     }
-});
+);
 
 /* =========================================================
    OWNER-MANAGED CERTIFICATES
@@ -1364,61 +2128,116 @@ $$(".project-card").forEach(card => {
 
 const ownerCertificates = [
     {
-        src: "assets/certificates/certificate-.jpg",
-        title: "Certificate Name"
+        src:
+            "assets/certificates/certificate-.jpg",
+
+        title:
+            "Certificate Name"
     },
+
     {
-        src: "assets/certificates/certificate-1.jpg",
-        title: "Another Certificate"
+        src:
+            "assets/certificates/certificate-1.jpg",
+
+        title:
+            "Another Certificate"
     },
+
     {
-        src: "assets/certificates/certificate-2.jpg",
-        title: "Another Certificate"
+        src:
+            "assets/certificates/certificate-2.jpg",
+
+        title:
+            "Another Certificate"
     },
+
     {
-        src: "assets/certificates/certificate-3.jpg",
-        title: "Another Certificate"
+        src:
+            "assets/certificates/certificate-3.jpg",
+
+        title:
+            "Another Certificate"
     },
+
     {
-        src: "assets/certificates/certificate-4.jpg",
-        title: "Another Certificate"
+        src:
+            "assets/certificates/certificate-4.jpg",
+
+        title:
+            "Another Certificate"
     },
+
     {
-        src: "assets/certificates/certificate-5.jpg",
-        title: "Another Certificate"
+        src:
+            "assets/certificates/certificate-5.jpg",
+
+        title:
+            "Another Certificate"
     }
 ];
 
-const certificateGrid = $("#certificateGrid");
+const certificateGrid =
+    $("#certificateGrid");
 
 function renderCertificates() {
-    if (!certificateGrid) return;
+    if (!certificateGrid) {
+        return;
+    }
 
-    certificateGrid.innerHTML = "";
+    certificateGrid.innerHTML =
+        "";
 
-    if (ownerCertificates.length === 0) {
-        const empty = document.createElement("div");
+    if (
+        ownerCertificates.length ===
+        0
+    ) {
+        const empty =
+            document.createElement(
+                "div"
+            );
 
-        empty.className = "certificate-empty";
+        empty.className =
+            "certificate-empty";
 
-        const tag = document.createElement("span");
-        tag.textContent = "<certificate />";
+        const tag =
+            document.createElement(
+                "span"
+            );
 
-        const title = document.createElement("p");
+        tag.textContent =
+            "<certificate />";
+
+        const title =
+            document.createElement(
+                "p"
+            );
+
         title.textContent =
             "No certificates published yet.";
 
         const description =
-            document.createElement("small");
+            document.createElement(
+                "small"
+            );
 
         description.textContent =
             "Owner-managed certificates will appear here.";
 
-        empty.appendChild(tag);
-        empty.appendChild(title);
-        empty.appendChild(description);
+        empty.appendChild(
+            tag
+        );
 
-        certificateGrid.appendChild(empty);
+        empty.appendChild(
+            title
+        );
+
+        empty.appendChild(
+            description
+        );
+
+        certificateGrid.appendChild(
+            empty
+        );
 
         return;
     }
@@ -1426,23 +2245,37 @@ function renderCertificates() {
     ownerCertificates.forEach(
         (certificate, index) => {
             const item =
-                document.createElement("article");
+                document.createElement(
+                    "article"
+                );
 
-            item.className = "certificate-item";
+            item.className =
+                "certificate-item";
 
             const image =
-                document.createElement("img");
+                document.createElement(
+                    "img"
+                );
 
-            image.src = certificate.src;
+            image.src =
+                certificate.src;
 
             image.alt =
                 certificate.title ||
-                `Certificate ${index + 1}`;
+                `Certificate ${
+                    index + 1
+                }`;
 
-            image.loading = "lazy";
+            image.loading =
+                "lazy";
 
-            item.appendChild(image);
-            certificateGrid.appendChild(item);
+            item.appendChild(
+                image
+            );
+
+            certificateGrid.appendChild(
+                item
+            );
         }
     );
 }
@@ -1453,15 +2286,26 @@ renderCertificates();
    RESUME TEMPLATE SYSTEM
 ========================================================= */
 
-const resumePaper = $("#resumePaper");
-const templateButtons = $$(".template-select");
-const editorTemplateButtons = $$(".editor-template");
+const resumePaper =
+    $("#resumePaper");
 
-function applyResumeTemplate(templateNumber) {
-    if (!resumePaper) return;
+const templateButtons =
+    $$(".template-select");
+
+const editorTemplateButtons =
+    $$(".editor-template");
+
+function applyResumeTemplate(
+    templateNumber
+) {
+    if (!resumePaper) {
+        return;
+    }
 
     state.selectedResumeTemplate =
-        Number(templateNumber);
+        Number(
+            templateNumber
+        );
 
     resumePaper.classList.remove(
         "template-1",
@@ -1474,38 +2318,56 @@ function applyResumeTemplate(templateNumber) {
         `template-${templateNumber}`
     );
 
-    templateButtons.forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.template ===
-            String(templateNumber)
-        );
-    });
+    templateButtons.forEach(
+        button => {
+            button.classList.toggle(
+                "active",
+                button.dataset.template ===
+                String(
+                    templateNumber
+                )
+            );
+        }
+    );
 
-    editorTemplateButtons.forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.editorTemplate ===
-            String(templateNumber)
-        );
-    });
+    editorTemplateButtons.forEach(
+        button => {
+            button.classList.toggle(
+                "active",
+                button.dataset.editorTemplate ===
+                String(
+                    templateNumber
+                )
+            );
+        }
+    );
 }
 
-templateButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        applyResumeTemplate(
-            button.dataset.template
+templateButtons.forEach(
+    button => {
+        button.addEventListener(
+            "click",
+            () => {
+                applyResumeTemplate(
+                    button.dataset.template
+                );
+            }
         );
-    });
-});
+    }
+);
 
-editorTemplateButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        applyResumeTemplate(
-            button.dataset.editorTemplate
+editorTemplateButtons.forEach(
+    button => {
+        button.addEventListener(
+            "click",
+            () => {
+                applyResumeTemplate(
+                    button.dataset.editorTemplate
+                );
+            }
         );
-    });
-});
+    }
+);
 
 applyResumeTemplate(1);
 
@@ -1513,38 +2375,63 @@ applyResumeTemplate(1);
    RESUME EDITOR
 ========================================================= */
 
-const resumeEditor = $("#resumeEditor");
-const printResumeButton = $("#printResume");
-const closeResumeEditorButton = $("#closeResumeEditor");
-const editorPrint = $("#editorPrint");
-const editorDownloadPdf = $("#editorDownloadPdf");
+const resumeEditor =
+    $("#resumeEditor");
+
+const printResumeButton =
+    $("#printResume");
+
+const closeResumeEditorButton =
+    $("#closeResumeEditor");
+
+const editorPrint =
+    $("#editorPrint");
+
+const editorDownloadPdf =
+    $("#editorDownloadPdf");
 
 function openResumeEditor() {
-    if (!resumeEditor) return;
+    if (!resumeEditor) {
+        return;
+    }
 
-    resumeEditor.classList.add("open");
+    resumeEditor.classList.add(
+        "open"
+    );
 
     resumeEditor.setAttribute(
         "aria-hidden",
         "false"
     );
 
-    document.body.classList.add("modal-open");
-    document.body.dataset.resumeEditorOpen = "true";
+    document.body.classList.add(
+        "modal-open"
+    );
+
+    document.body.dataset.resumeEditorOpen =
+        "true";
 }
 
 function closeResumeEditor() {
-    if (!resumeEditor) return;
+    if (!resumeEditor) {
+        return;
+    }
 
-    resumeEditor.classList.remove("open");
+    resumeEditor.classList.remove(
+        "open"
+    );
 
     resumeEditor.setAttribute(
         "aria-hidden",
         "true"
     );
 
-    document.body.classList.remove("modal-open");
-    document.body.dataset.resumeEditorOpen = "false";
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+    document.body.dataset.resumeEditorOpen =
+        "false";
 }
 
 if (printResumeButton) {
@@ -1565,51 +2452,69 @@ if (closeResumeEditorButton) {
    RESUME PHOTO UPLOAD
 ========================================================= */
 
-const resumePhotoInput = $("#resumePhotoInput");
-const resumePhoto = $("#resumePhoto");
+const resumePhotoInput =
+    $("#resumePhotoInput");
+
+const resumePhoto =
+    $("#resumePhoto");
 
 if (resumePhoto) {
-    resumePhoto.src = state.resumePhoto;
+    resumePhoto.src =
+        state.resumePhoto;
 }
 
 if (resumePhotoInput) {
     resumePhotoInput.addEventListener(
         "change",
         event => {
-            const file = event.target.files[0];
+            const file =
+                event.target.files[0];
 
-            if (!file) return;
-
-            if (!file.type.startsWith("image/")) {
+            if (!file) {
                 return;
             }
 
-            const reader = new FileReader();
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+                return;
+            }
 
-            reader.onload = loadEvent => {
-                const source =
-                    loadEvent.target.result;
+            const reader =
+                new FileReader();
 
-                state.resumePhoto = source;
+            reader.onload =
+                loadEvent => {
+                    const source =
+                        loadEvent.target.result;
 
-                localStorage.setItem(
-                    "siddharthResumePhoto",
-                    source
-                );
+                    state.resumePhoto =
+                        source;
 
-                if (resumePhoto) {
-                    resumePhoto.src = source;
-                }
+                    localStorage.setItem(
+                        "siddharthResumePhoto",
+                        source
+                    );
 
-                const miniPhoto =
-                    $(".mini-photo img");
+                    if (resumePhoto) {
+                        resumePhoto.src =
+                            source;
+                    }
 
-                if (miniPhoto) {
-                    miniPhoto.src = source;
-                }
-            };
+                    const miniPhoto =
+                        $(".mini-photo img");
 
-            reader.readAsDataURL(file);
+                    if (miniPhoto) {
+                        miniPhoto.src =
+                            source;
+                    }
+                };
+
+            reader.readAsDataURL(
+                file
+            );
         }
     );
 }
@@ -1619,44 +2524,69 @@ if (resumePhotoInput) {
 ========================================================= */
 
 const editableResumeFields =
-    $$('#resumePaper [contenteditable="true"]');
+    $$(
+        '#resumePaper [contenteditable="true"]'
+    );
 
-editableResumeFields.forEach(field => {
-    field.addEventListener("focus", () => {
-        field.dataset.original = field.innerHTML;
-    });
-
-    field.addEventListener("keydown", event => {
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey
-        ) {
-            event.preventDefault();
-
-            if (field.tagName !== "LI") {
-                document.execCommand(
-                    "insertLineBreak"
-                );
+editableResumeFields.forEach(
+    field => {
+        field.addEventListener(
+            "focus",
+            () => {
+                field.dataset.original =
+                    field.innerHTML;
             }
-        }
-    });
-});
+        );
+
+        field.addEventListener(
+            "keydown",
+            event => {
+                if (
+                    event.key ===
+                        "Enter" &&
+                    !event.shiftKey
+                ) {
+                    event.preventDefault();
+
+                    if (
+                        field.tagName !==
+                        "LI"
+                    ) {
+                        document.execCommand(
+                            "insertLineBreak"
+                        );
+                    }
+                }
+            }
+        );
+    }
+);
 
 /* =========================================================
    DOWNLOAD ORIGINAL RESUME PDF
 ========================================================= */
 
-const downloadResume = $("#downloadResume");
+const downloadResume =
+    $("#downloadResume");
 
 function downloadOriginalResume() {
     const anchor =
-        document.createElement("a");
+        document.createElement(
+            "a"
+        );
 
-    anchor.href = "assets/resume.pdf";
-    anchor.download = "Siddharth-Mishra-Resume.pdf";
+    anchor.href =
+        "assets/resume.pdf";
 
-    document.body.appendChild(anchor);
+    anchor.download =
+        "Siddharth-Mishra-Resume.pdf";
+
+    document.body.appendChild(
+        anchor
+    );
+
     anchor.click();
+
     anchor.remove();
 }
 
@@ -1666,9 +2596,12 @@ if (downloadResume) {
         () => {
             downloadOriginalResume();
 
-            setTimeout(() => {
-                openResumeEditor();
-            }, 450);
+            setTimeout(
+                () => {
+                    openResumeEditor();
+                },
+                450
+            );
         }
     );
 }
@@ -1680,9 +2613,12 @@ if (downloadResume) {
 function printA4Resume() {
     openResumeEditor();
 
-    setTimeout(() => {
-        window.print();
-    }, 250);
+    setTimeout(
+        () => {
+            window.print();
+        },
+        250
+    );
 }
 
 if (editorPrint) {
@@ -1702,9 +2638,12 @@ if (editorDownloadPdf) {
         () => {
             openResumeEditor();
 
-            setTimeout(() => {
-                window.print();
-            }, 250);
+            setTimeout(
+                () => {
+                    window.print();
+                },
+                250
+            );
         }
     );
 }
@@ -1713,56 +2652,82 @@ if (editorDownloadPdf) {
    CONTACT INTERACTION
 ========================================================= */
 
-$$(".contact-link").forEach(link => {
-    link.addEventListener("mouseenter", () => {
-        link.style.setProperty(
-            "--contact-glow",
-            "1"
+$$(".contact-link").forEach(
+    link => {
+        link.addEventListener(
+            "mouseenter",
+            () => {
+                link.style.setProperty(
+                    "--contact-glow",
+                    "1"
+                );
+            }
         );
-    });
 
-    link.addEventListener("mouseleave", () => {
-        link.style.setProperty(
-            "--contact-glow",
-            "0"
+        link.addEventListener(
+            "mouseleave",
+            () => {
+                link.style.setProperty(
+                    "--contact-glow",
+                    "0"
+                );
+            }
         );
-    });
-});
+    }
+);
 
 /* =========================================================
    HASH NAVIGATION
 ========================================================= */
 
-window.addEventListener("load", () => {
-    if (!window.location.hash) return;
-
-    setTimeout(() => {
-        const target =
-            document.querySelector(
-                window.location.hash
-            );
-
-        if (target) {
-            target.scrollIntoView({
-                behavior: "smooth"
-            });
+window.addEventListener(
+    "load",
+    () => {
+        if (
+            !window.location.hash
+        ) {
+            return;
         }
-    }, 100);
-});
+
+        setTimeout(
+            () => {
+                const target =
+                    document.querySelector(
+                        window.location.hash
+                    );
+
+                if (target) {
+                    target.scrollIntoView(
+                        {
+                            behavior:
+                                "smooth"
+                        }
+                    );
+                }
+            },
+            100
+        );
+    }
+);
 
 /* =========================================================
    RESUME EDITOR CLOSE WITH ESCAPE
 ========================================================= */
 
-document.addEventListener("keydown", event => {
-    if (
-        event.key === "Escape" &&
-        resumeEditor &&
-        resumeEditor.classList.contains("open")
-    ) {
-        closeResumeEditor();
+document.addEventListener(
+    "keydown",
+    event => {
+        if (
+            event.key === "Escape" &&
+            resumeEditor &&
+            resumeEditor.classList.contains(
+                "open"
+            )
+        ) {
+            closeResumeEditor();
+        }
     }
-});
+);
 
 /* =========================================================
    MOBILE CITY OPTIMIZATION
@@ -1772,16 +2737,25 @@ function optimizeCityForDevice() {
     const isSmall =
         window.innerWidth < 600;
 
-    const rain = $("#rain");
+    const rain =
+        $("#rain");
 
-    if (isSmall && rain) {
-        const drops = $$(".raindrop", rain);
+    if (
+        isSmall &&
+        rain
+    ) {
+        const drops =
+            $$(".raindrop", rain);
 
-        drops.forEach((drop, index) => {
-            if (index > 58) {
-                drop.remove();
+        drops.forEach(
+            (drop, index) => {
+                if (
+                    index > 58
+                ) {
+                    drop.remove();
+                }
             }
-        });
+        );
     }
 }
 
@@ -1799,15 +2773,27 @@ optimizeCityForDevice();
 document.addEventListener(
     "visibilitychange",
     () => {
-        const city = $("#cityBackground");
+        const city =
+            $("#cityBackground");
 
-        if (!city) return;
+        if (!city) {
+            return;
+        }
 
         if (document.hidden) {
-            city.style.animationPlayState = "paused";
+            city.style.animationPlayState =
+                "paused";
         } else {
-            city.style.animationPlayState = "running";
-            loadRealTimeWeather();
+            city.style.animationPlayState =
+                "running";
+
+            /*
+             * Fixed:
+             * loadRealTimeWeather() was not
+             * available in this scope.
+             */
+            window.SiddharthWeather
+                ?.reload?.();
         }
     }
 );
@@ -1820,7 +2806,7 @@ console.log(
     `%c SIDDHARTH MISHRA
 %c Developer • Builder • Learner
 %c Real-time portfolio system initialized.
-%c Weather system connected through Open-Meteo.
+%c Visitor-location weather system connected through Open-Meteo.
 `,
     "color:#00eaff;font-size:20px;font-weight:bold;",
     "color:#9b5cff;font-size:12px;",
@@ -1833,7 +2819,8 @@ console.log(
 ========================================================= */
 
 window.SiddharthPortfolio = {
-    version: "FINAL-WEATHER",
+    version:
+        "FINAL-WEATHER-VISITOR-LOCATION",
 
     technologies: [
         "HTML5",
@@ -1844,26 +2831,62 @@ window.SiddharthPortfolio = {
         "Power BI",
         "Git",
         "GitHub",
-        "Open-Meteo API"
+        "Open-Meteo API",
+        "Browser Geolocation API"
     ],
 
     weather: {
-        refresh: loadRealTimeWeather,
-        current: () => state.weather
+        /*
+         * Fixed:
+         * Direct reference to the old
+         * loadRealTimeWeather function
+         * has been removed.
+         */
+        refresh:
+            () =>
+                window
+                    .SiddharthWeather
+                    ?.reload?.(),
+
+        locate:
+            () =>
+                window
+                    .SiddharthWeather
+                    ?.locate?.(),
+
+        location:
+            () =>
+                window
+                    .SiddharthWeather
+                    ?.getLocation?.(),
+
+        current:
+            () =>
+                state.weather
     },
 
     resume: {
         templates: 4,
 
-        currentTemplate: () =>
-            state.selectedResumeTemplate,
+        currentTemplate:
+            () =>
+                state.selectedResumeTemplate,
 
-        open: openResumeEditor,
-        close: closeResumeEditor,
-        print: printA4Resume
+        open:
+            openResumeEditor,
+
+        close:
+            closeResumeEditor,
+
+        print:
+            printA4Resume
     },
 
-    projects: Object.keys(projectPages),
+    projects:
+        Object.keys(
+            projectPages
+        ),
 
-    status: "ONLINE"
+    status:
+        "ONLINE"
 };
