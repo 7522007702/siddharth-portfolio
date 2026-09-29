@@ -3,7 +3,7 @@
 A modern developer portfolio showcasing my projects, skills, certifications, and resume.
 
 ## Live Website
-https://7522007702.github.io/siddharth-portfolio/
+https://github.com/customstudy8/siddharth-portfolio.git
 
 ## Features
 - Responsive Design
