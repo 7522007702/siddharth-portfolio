@@ -663,6 +663,18 @@ typingLoop();
                 "[data-weather-updated]"
             ),
 
+            feels: panel.querySelector(
+                "[data-weather-feels]"
+            ),
+
+            visibility: panel.querySelector(
+                "[data-weather-visibility]"
+            ),
+
+            pressure: panel.querySelector(
+                "[data-weather-pressure]"
+            ),
+
             period: panel.querySelector(
                 "[data-weather-period]"
             ),
@@ -1005,12 +1017,22 @@ typingLoop();
             if (elements.updated) {
                 elements.updated.textContent =
                     "Connection unavailable";
+                elements.updated.title =
+                    "Last updated";
             }
 
-            if (elements.icon) {
-                elements.icon.textContent =
-                    "◌";
-            }
+            if (elements.feels) 
+                elements.feels.textContent = 
+                    "--°C";
+
+            if (elements.visibility) 
+                elements.visibility.textContent = 
+                    "-- km";
+
+            if (elements.pressure) 
+                elements.pressure.textContent = 
+                    "---- hPa";
+
         });
     }
 
@@ -1038,6 +1060,8 @@ typingLoop();
                   "weather_code",
                   "wind_speed_10m",
                   "wind_direction_10m",
+                  "surface_pressure",
+                  "visibility",
                   "is_day"
                 ].join(","),
 
@@ -1070,44 +1094,27 @@ typingLoop();
 ===================================================== */
 
 async function resolveVisitorLocation(latitude, longitude) {
-
     try {
-
-        const url =
-`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
-
-        const response = await fetch(url, {
-            cache: "no-store"
-        });
+        const response = await fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+            { cache: "no-store" }
+        );
 
         const data = await response.json();
 
-        const area =
-            data.locality ||
-            data.localityName ||
-            data.city;
+        const area = data.locality || data.localityName;
+        const city = data.city || data.principalSubdivision || "Unknown";
 
-        const city =
-            data.city || data.principalSubdivision;
-
-        locationLabel =
-            area && area !== city
-                ? `${area}, ${city}`
-                : city;
-
-        console.log("Reverse API:", data);
+        locationLabel = area && area !== city
+            ? `${area}, ${city}`
+            : city;
 
         setLocationText(locationLabel);
         return locationLabel;
 
-
     } catch (error) {
-
-        console.warn(error);
-
         locationLabel = "Location unavailable";
         setLocationText(locationLabel);
-
         return locationLabel;
     }
 }
@@ -1116,30 +1123,21 @@ async function resolveVisitorLocation(latitude, longitude) {
        WEATHER FETCH
     ===================================================== */
 
-    async function fetchWeather(
-        latitude,
-        longitude
-    ) {
-        const response =
-            await fetch(
-                buildWeatherUrl(
-                    latitude,
-                    longitude
-                ),
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
-            );
-
-        if (!response.ok) {
-            throw new Error(
-                `Weather API error: ${response.status}`
-            );
+    async function fetchWeather(latitude, longitude) {
+    const response = await fetch(
+        buildWeatherUrl(latitude, longitude),
+        {
+            method: "GET",
+            cache: "no-store",
         }
+    );
 
-        return response.json();
+    if (!response.ok) {
+        throw new Error(`Weather API: ${response.status}`);
     }
+
+    return await response.json();
+}
 
     /* =====================================================
        UPDATE WEATHER INTERFACE
@@ -1202,6 +1200,19 @@ async function resolveVisitorLocation(latitude, longitude) {
             Number(
                 current.wind_speed_10m
             );
+
+        const feelsLike =
+            Number(
+                current.apparent_temperature
+            );
+
+        const visibility =
+            Number(
+                current.visibility) / 1000;
+
+        const pressure =
+            Number(
+                current.surface_pressure);    
 
         setWeatherState(
             weatherInfo.state
@@ -1318,6 +1329,18 @@ async function resolveVisitorLocation(latitude, longitude) {
                         : "-- km/h";
             }
 
+            if (elements.feels) {
+                elements.feels.textContent = `${Math.round(feelsLike)}°C`;
+            }
+
+            if (elements.visibility) {
+                elements.visibility.textContent = `${visibility.toFixed(1)} km`;
+            }
+
+            if (elements.pressure) {
+                elements.pressure.textContent = `${Math.round(pressure)} hPa`;
+            }
+
             if (elements.updated) {
                 elements.updated.textContent =
                     formatUpdatedTime();
@@ -1369,9 +1392,12 @@ async function resolveVisitorLocation(latitude, longitude) {
             message
         );
 
-        showWeatherError(
-            message
-        );
+        if (visitorLocation) {
+            loadRealWeather();
+            return;
+        }
+
+        showWeatherError(message);
 
         console.warn(
             "Visitor location was not available:",
@@ -1426,6 +1452,8 @@ async function resolveVisitorLocation(latitude, longitude) {
                     accuracy:
                         position.coords.accuracy
                 };
+
+                
 
                 locationRequestInProgress =
                     false;
@@ -1504,7 +1532,7 @@ async function loadRealWeather() {
         updateWeatherInterface(data);
 
     } catch (error) {
-        console.warn(error);
+        console.error("Weather Fetch Error:", error);
         showWeatherError("Weather unavailable");
     }
 }

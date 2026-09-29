@@ -227,7 +227,7 @@
         <div class="real-weather-panel-top">
             <span class="real-weather-live-dot" aria-hidden="true"></span>
             <span class="real-weather-label">LIVE WEATHER</span>
-            <span class="real-weather-location" data-weather-location>Lucknow</span>
+            <span class="real-weather-location" data-weather-location>Detecting...</span>
         </div>
 
         <div class="real-weather-main">
@@ -243,7 +243,15 @@
             <span>Wind <b data-weather-wind>-- km/h</b></span>
         </div>
 
-        <div class="real-weather-updated" data-weather-updated>Connecting to weather service...</div>
+        <div class="real-weather-extra" aria-live="polite">
+            <span>Feels Like <b data-weather-feels>--°C</b></span>
+            <span>Visibility <b data-weather-visibility>-- km</b></span>
+            <span>Pressure <b data-weather-pressure>---- hPa</b></span>
+        </div>
+
+        <div class="real-weather-updated" data-weather-updated>
+            Connecting to weather service...
+        </div>
     </aside>
 </div>
 
