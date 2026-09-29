@@ -1415,7 +1415,7 @@ async function resolveVisitorLocation(latitude, longitude) {
             "Detecting your location..."
         );
 
-        navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.watchPosition(
             async position => {
                 visitorLocation = {
                     latitude:
