@@ -21,5 +21,5 @@ https://github.com/customstudy8/siddharth-portfolio.git
 
 **Siddharth Mishra**
 
-- GitHub: https://github.com/7522007702
+- https://github.com/customstudy8/siddharth-portfolio.git
 - LinkedIn: siddharth-mishra8
