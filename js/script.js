@@ -1100,7 +1100,6 @@ async function resolveVisitorLocation(latitude, longitude) {
         setLocationText(locationLabel);
         return locationLabel;
 
-        console.log(data);
 
     } catch (error) {
 
@@ -1516,18 +1515,16 @@ async function loadRealWeather() {
 
     requestVisitorLocation();
 
-    /* =====================================================
-       WEATHER REFRESH
-       Every 10 minutes
-    ===================================================== */
-
-    const weatherRefreshTimer =
-    setInterval(loadRealWeather, 30000);
 
     /* =====================================================
-       PERIOD REFRESH
-       Every 1 minute
-    ===================================================== */
+   WEATHER AUTO REFRESH
+===================================================== */
+
+const weatherRefreshTimer = setInterval(() => {
+    loadRealWeather();
+}, 300000); // 5 minutes
+
+    
 
     
 
@@ -1559,13 +1556,7 @@ async function loadRealWeather() {
             () => visitorLocation,
 
         destroy: () => {
-            clearInterval(
-                weatherRefreshTimer
-            );
-
-            clearInterval(
-                periodRefreshTimer
-            );
+            clearInterval(weatherRefreshTimer);
         }
     };
 })();
