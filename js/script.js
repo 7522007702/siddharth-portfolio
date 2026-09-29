@@ -1031,15 +1031,14 @@ typingLoop();
                     String(longitude),
 
                 current: [
-                    "temperature_2m",
-                    "relative_humidity_2m",
-                    "precipitation",
-                    "rain",
-                    "showers",
-                    "weather_code",
-                    "cloud_cover",
-                    "wind_speed_10m",
-                    "is_day"
+                  "temperature_2m",
+                  "relative_humidity_2m",
+                  "apparent_temperature",
+                  "precipitation",
+                  "weather_code",
+                  "wind_speed_10m",
+                  "wind_direction_10m",
+                  "is_day"
                 ].join(","),
 
                 daily:
@@ -1067,92 +1066,52 @@ typingLoop();
     }
 
     /* =====================================================
-       REVERSE LOCATION
-       Coordinates -> City / Country
-    ===================================================== */
+   RESOLVE CURRENT CITY (Google-style)
+===================================================== */
 
-    async function resolveVisitorLocation(
-        latitude,
-        longitude
-    ) {
-        const fallback =
-            Intl.DateTimeFormat()
-                .resolvedOptions()
-                .timeZone ||
-            "Your location";
+async function resolveVisitorLocation(latitude, longitude) {
 
-        try {
-            const params =
-                new URLSearchParams({
-                    latitude:
-                        String(latitude),
+    try {
 
-                    longitude:
-                        String(longitude),
+        const url =
+`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
 
-                    localityLanguage:
-                        "en"
-                });
+        const response = await fetch(url, {
+            cache: "no-store"
+        });
 
-            const response =
-                await fetch(
-                    "https://api.bigdatacloud.net/data/" +
-                    "reverse-geocode-client?" +
-                    params.toString(),
-                    {
-                        method: "GET",
-                        cache: "no-store"
-                    }
-                );
+        const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error(
-                    `Reverse geocoding error: ${response.status}`
-                );
-            }
+        const area =
+            data.locality ||
+            data.localityName ||
+            data.city;
 
-            const data =
-                await response.json();
+        const city =
+            data.city || data.principalSubdivision;
 
-            const city =
-                data.city ||
-                data.locality ||
-                data.principalSubdivision ||
-                "Your location";
+        locationLabel =
+            area && area !== city
+                ? `${area}, ${city}`
+                : city;
 
-            const country =
-                data.countryName ||
-                "";
+        console.log("Reverse API:", data);
 
-            const label =
-                country
-                    ? `${city}, ${country}`
-                    : city;
+        setLocationText(locationLabel);
+        return locationLabel;
 
-            locationLabel =
-                label;
+        console.log(data);
 
-            setLocationText(
-                locationLabel
-            );
+    } catch (error) {
 
-            return label;
-        } catch (error) {
-            console.warn(
-                "Visitor city could not be resolved:",
-                error
-            );
+        console.warn(error);
 
-            locationLabel =
-                fallback;
+        locationLabel = "Location unavailable";
+        setLocationText(locationLabel);
 
-            setLocationText(
-                locationLabel
-            );
-
-            return locationLabel;
-        }
+        return locationLabel;
     }
+}
 
     /* =====================================================
        WEATHER FETCH
@@ -1374,6 +1333,13 @@ typingLoop();
     function handleLocationError(
         error
     ) {
+
+        console.error("GPS Error:", error.code, error.message);
+
+        locationRequestInProgress = false;
+
+        body.dataset.locationState = "unavailable";
+
         locationRequestInProgress =
             false;
 
@@ -1477,7 +1443,7 @@ typingLoop();
                     visitorLocation.longitude
                 );
 
-                await loadRealWeather();
+                loadRealWeather();
             },
 
             handleLocationError,
@@ -1490,63 +1456,59 @@ typingLoop();
                  * This also saves battery on mobile.
                  */
                 enableHighAccuracy:
-                    false,
+                    true,
 
                 /*
                  * Do not wait forever.
                  */
                 timeout:
-                    10000,
+                    15000,
 
                 /*
                  * Browser may reuse a recent
                  * location for up to 5 minutes.
                  */
                 maximumAge:
-                    5 * 60 * 1000
+                    0
             }
         );
     }
 
     /* =====================================================
-       LOAD WEATHER
-    ===================================================== */
+   LOAD REAL-TIME WEATHER
+   - Gets fresh GPS location every refresh
+   - No cached coordinates (maximumAge: 0)
+   - Resolves current city name
+   - Loads latest weather from Open-Meteo
+===================================================== */
 
-    async function loadRealWeather() {
-        /*
-         * If visitor coordinates are not available,
-         * request them first.
-         */
-        if (!visitorLocation) {
-            requestVisitorLocation();
-            return;
-        }
+/* =====================================================
+   LOAD REAL-TIME WEATHER
+   Google-style live refresh
+===================================================== */
 
-        setPanelStatus(
-            "SYNCING"
+async function loadRealWeather() {
+
+    if (!visitorLocation) {
+        requestVisitorLocation();
+        return;
+    }
+
+    setPanelStatus("SYNCING");
+
+    try {
+        const data = await fetchWeather(
+            visitorLocation.latitude,
+            visitorLocation.longitude
         );
 
-        try {
-            const data =
-                await fetchWeather(
-                    visitorLocation.latitude,
-                    visitorLocation.longitude
-                );
+        updateWeatherInterface(data);
 
-            updateWeatherInterface(
-                data
-            );
-        } catch (error) {
-            console.warn(
-                "Real-time weather could not be loaded:",
-                error
-            );
-
-            showWeatherError(
-                "Weather service unavailable"
-            );
-        }
+    } catch (error) {
+        console.warn(error);
+        showWeatherError("Weather unavailable");
     }
+}
 
     /* =====================================================
        INITIAL LOCATION REQUEST
@@ -1560,21 +1522,14 @@ typingLoop();
     ===================================================== */
 
     const weatherRefreshTimer =
-        setInterval(
-            loadRealWeather,
-            10 * 60 * 1000
-        );
+    setInterval(loadRealWeather, 30000);
 
     /* =====================================================
        PERIOD REFRESH
        Every 1 minute
     ===================================================== */
 
-    const periodRefreshTimer =
-        setInterval(
-            loadRealWeather,
-            60 * 1000
-        );
+    
 
     /* =====================================================
        TAB VISIBILITY
